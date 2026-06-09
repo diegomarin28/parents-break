@@ -28,12 +28,13 @@ export default function HeroSection() {
               </h1>
 
               <p className="hero-subtitle">
-                Niñeras profesionales y seleccionadas para babysitting, traslados y eventos.
-                Coordinás todo por WhatsApp, sin complicaciones.
+                Conectamos familias con niñeras especializadas para brindar un cuidado seguro, cálido y
+personalizado.
+Coordinás todo fácil y rápido por WhatsApp.
               </p>
 
               <div className="hero-cities">
-                {["Montevideo", "Ciudad de la Costa", "Punta del Este"].map((city) => (
+                {["Montevideo", "Canelones", "Punta del Este"].map((city) => (
                   <span key={city} className="hero-city-badge">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px' }}>
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
@@ -83,13 +84,18 @@ export default function HeroSection() {
                   ))}
                 </div>
                 <div className="hero-proof-stat">
-                  <div className="hero-proof-num">+70 niñeras activas</div>
-                  <div className="hero-proof-label">Seleccionadas y validadas</div>
+                  <div className="hero-proof-num">+80 niñeras activas</div>
+                  <div className="hero-proof-label">
+                    Seleccionadas y validadas<br />
+                    por nuestro equipo<br />
+                    de psicólogas
+                  </div>
                 </div>
                 <div className="hero-proof-divider" />
                 <div className="hero-proof-stat">
-                  <div className="hero-proof-num">3 años</div>
-                  <div className="hero-proof-label">de experiencia</div>
+                  <div className="hero-proof-num">+3 años de experiencia</div>
+                  <div className="hero-proof-label">Acompañando a familias<br />
+                   en Uruguay</div>
                 </div>
               </div>
             </div>
@@ -257,8 +263,9 @@ export default function HeroSection() {
           border-color: var(--blue);
         }
         .hero-proof {
-          display: inline-flex;
-          align-items: center;
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
           gap: 14px;
           margin-top: 36px;
           padding: 14px 20px;
@@ -267,6 +274,15 @@ export default function HeroSection() {
           border-radius: 16px;
           box-shadow: var(--shadow);
           flex-wrap: wrap;
+        }
+        .hero-proof-stat {
+          flex: 1 1 220px;
+          min-width: 180px;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          min-height: 56px;
+          min-width: 0;
         }
         .hero-avatars { display: flex; }
         .hero-avatar {
@@ -285,14 +301,18 @@ export default function HeroSection() {
           font-weight: 700;
           font-size: 14px;
           color: var(--text);
+          white-space: nowrap;
         }
         .hero-proof-label {
           font-size: 12px;
+          line-height: 1.5;
           color: var(--text-soft);
+          min-width: 0;
         }
         .hero-proof-divider {
-          width: 1px; height: 36px;
+          width: 1px; height: auto;
           background: var(--gray);
+          align-self: stretch;
           flex-shrink: 0;
         }
 
@@ -331,6 +351,15 @@ export default function HeroSection() {
           width: 100%;
           border-radius: 18px;
           display: block;
+        }
+
+        @media (min-width: 901px) {
+          .hero-proof {
+            flex-wrap: nowrap;
+          }
+          .hero-proof-stat {
+            flex: 1 1 40%;
+          }
         }
 
         /* ── TABLET ── */

@@ -4,7 +4,7 @@ export default function AboutSection() {
   const values = [
     {
       title: "Selección rigurosa",
-      desc: "Cada niñera pasa por entrevista personal, validación de referencias y evaluación de perfil antes de ser parte del equipo.",
+      desc: "Cada niñera atraviesa un riguroso proceso de selección acompañado por psicólogas y profesionales especializadas en infancia, para así seleccionar a las babysitters más preparadas para acompañar a cada familia. Evaluamos experiencia previa, realizamos entrevistas personales y validamos referencias.",
       color: "var(--pink)",
       bg: "var(--pink-light)",
       icon: (
@@ -14,8 +14,8 @@ export default function AboutSection() {
       )
     },
     {
-      title: "Trato cercano",
-      desc: "No somos una app. Somos personas coordinando con personas. Cada servicio tiene seguimiento real y atención personalizada.",
+      title: "Atención personalizada",
+      desc: "Acompañamos cada servicio de principio a fin. Queremos que las familias se sientan seguras, cómodas y realmente acompañadas.",
       color: "var(--blue)",
       bg: "var(--blue-light)",
       icon: (
@@ -46,28 +46,41 @@ export default function AboutSection() {
         <div className="about-header">
           <span className="about-badge">Quiénes somos</span>
           <h2 className="about-title">
-            Un servicio construido sobre confianza
+            Un servicio construido desde la confianza
           </h2>
           <p className="about-lead">
-            Parents&apos; Break nació de una necesidad real: que los padres puedan tomarse un respiro
-            sabiendo que sus hijos están en las mejores manos. Operamos en Montevideo y Punta del Este
-            conectando familias con niñeras cuidadosamente seleccionadas.
+            Somos Paulina y Delfina, babysitters con más de seis años de experiencia en el cuidado
+infantil. A lo largo de nuestro camino, acompañando a distintas familias, entendimos lo
+importante que es poder contar con alguien realmente confiable para el cuidado de los niños.
+Así nació Parents’ Break. Hace más de tres años acompañamos a familias brindando un
+servicio profesional, responsable y de confianza, pensado para que los padres puedan disfrutar
+con tranquilidad, sabiendo que sus hijos están en las mejores manos.
+Hoy contamos con un equipo de más de 80 babysitters capacitadas, con vocación y
+compromiso, ofreciendo servicios en Montevideo, Canelones y Punta del Este.
+Conectamos familias con niñeras seleccionadas cuidadosamente por nuestro equipo,
+priorizando siempre la confianza, la cercanía y la calidad humana.
           </p>
         </div>
 
         {/* Texto central */}
         <div className="about-body-wrap">
           <h3 className="about-subtitle">
-            No somos una plataforma. Somos un equipo.
+            No somos una app. Somos personas.
           </h3>
           <p className="about-body">
-            A diferencia de las apps automáticas, en Parents&apos; Break cada solicitud pasa por
-            personas reales. Revisamos tu pedido, buscamos la niñera ideal en nuestra base y
-            coordinamos todo el proceso de principio a fin.
+            Detrás de cada servicio hay un equipo real acompañando el proceso. Escuchamos las
+necesidades de cada familia, buscamos la niñera más adecuada y coordinamos cada detalle de
+forma personalizada para que la experiencia sea simple, cercana y confiable.
+Nuestro proceso de selección es acompañado por psicólogas y profesionales especializadas en
+infancia, priorizando no solo la experiencia, sino también la responsabilidad, la calidez y la
+calidad humana de cada perfil. Todas las niñeras de Parents’ Break cuentan con experiencia
+previa en cuidado infantil y atraviesan entrevistas, validación de referencias y evaluaciones
+antes de incorporarse al equipo.
+
           </p>
           <p className="about-body">
-            Llevamos más de 3 años operando en Uruguay, con más de 70 niñeras activas y cientos
-            de familias que vuelven a elegirnos cada vez que necesitan un break.
+            Hace más de 3 años que trabajamos con familias en Uruguay y hoy contamos con una
+comunidad de más de 80 niñeras activas que forman parte de Parents’ Break.
           </p>
 
         

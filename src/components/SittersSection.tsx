@@ -4,19 +4,19 @@ import Image from "next/image";
 
 export default function SittersSection() {
   const process = [
-    {title: "Formulario de registro", desc: "Cada candidata completa un formulario detallado con su experiencia, formación y disponibilidad." },
-    {title: "Entrevista personal", desc: "Realizamos una entrevista para evaluar perfil, vocación y compatibilidad con nuestros estándares." },
-    {title: "Validación y aprobación", desc: "Solo las niñeras que cumplen todos los criterios se incorporan a nuestra base activa." },
-    {title: "Validación para traslados", desc: "Para traslados: verificamos licencia, seguro vehicular y experiencia específica en conducción con menores." },
+    {title: "Formulario y experiencia", desc: "Analizamos experiencia previa, formación, disponibilidad y perfil personal." },
+    {title: "Entrevista personal", desc: "Conocemos a cada candidata para evaluar vocación, responsabilidad y compatibilidad con nuestros estándares." },
+    {title: "Evaluación profesional", desc: "Psicólogas y profesionales especializadas en infancia acompañan el proceso de selección para garantizar perfiles confiables y adecuados para el cuidado infantil." },
+    {title: "Validación de referencias", desc: "Verificamos referencias y antecedentes" },
   ];
 
   const qualities = [
-    {label: "Formación", detail: "Educación, psicología y áreas afines" },
-    {label: "Experiencia", detail: "En hogares, hoteles y eventos" },
-    {label: "Idiomas", detail: "Español e inglés disponibles" },
-    {label: "Disponibilidad", detail: "Días, noches y fines de semana" },
-    {label: "Edades", detail: "Bebés, niños y adolescentes" },
-    {label: "Zonas", detail: "Montevideo y Punta del Este" },
+    {label: "Formación", detail: "Estudiantes y perfiles vinculados a Medicina, Educación Inicial, Psicología y áreas afines." },
+    {label: "Experiencia", detail: "Experiencia en hogares, hoteles, eventos y cuidado infantil." },
+    {label: "Idiomas", detail: "Disponibilidad de niñeras bilingües o trilingües." },
+    {label: "Disponibilidad", detail: "Servicios las 24 horas los 7 días de la semana" },
+    {label: "Edades", detail: "Experiencia con bebés, niños y/o adolescentes." },
+    {label: "Zonas", detail: "Cobertura en Montevideo, Canelones y Punta del Este." },
   ];
 
   return (
@@ -38,7 +38,7 @@ export default function SittersSection() {
             Niñeras que elegimos con cuidado
           </h2>
           <p style={{ fontSize: 17, color: "var(--text-soft)", maxWidth: 520, margin: "0 auto" }}>
-            No aceptamos a cualquiera. Cada niñera pasa por un proceso riguroso antes de ser parte de Parents&apos; Break.
+          Cada persona que forma parte de Parents&apos; Break atraviesa un proceso de selección pensado para garantizar seguridad, confianza y calidad humana.
           </p>
         </div>
 
@@ -118,13 +118,15 @@ export default function SittersSection() {
                         <polyline points="20 6 9 17 4 12"/>
                       </svg>
                     )}
+                    
+
                     {i === 3 && (
-         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-  <rect x="4" y="10" width="16" height="6" rx="2"/>
-  <path d="M6 10l2-4h8l2 4"/>
-  <circle cx="8" cy="17" r="1.5"/>
-  <circle cx="16" cy="17" r="1.5"/>
-</svg>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <path d="M14 2v6h6" />
+                        <path d="M8 12h8" />
+                        <path d="M8 16h8" />
+                      </svg>
                     )}
                   </div>
                   <div>
@@ -145,7 +147,7 @@ export default function SittersSection() {
           padding: "36px",
         }}>
           <h4 style={{ textAlign: "center", fontSize: 18, fontWeight: 700, marginBottom: 28 }}>
-            Podés filtrar por
+            Podés elegir según
           </h4>
           <div className="qualities-grid" style={{
             display: "grid",

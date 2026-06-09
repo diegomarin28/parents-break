@@ -3,8 +3,8 @@ export default function HowItWorks() {
   const steps = [
     {
       num: "1",
-      title: "Nos escribís",
-      desc: "Contactanos por WhatsApp o usá el simulador. Nos contás qué necesitás: fecha, horario, cantidad de niños y zona.",
+      title: " Empieza tu solicitud",
+      desc: "Te consultamos fecha, horario, zona, cantidad de niños y tipo de servicio.",
       color: "var(--pink)",
       bg: "var(--pink-light)",
       icon: (
@@ -15,8 +15,8 @@ export default function HowItWorks() {
     },
     {
       num: "2",
-      title: "Hacemos el matching",
-      desc: "Buscamos en nuestra base la niñera ideal según tu solicitud. Te enviamos perfiles seleccionados para que elijas.",
+      title: "Buscamos la niñera que más se ajusta a tus necesidades",
+      desc: "Seleccionamos las niñeras más adecuadas según tu solicitud y te enviamos los distintos para elegir.",
       color: "var(--blue)",
       bg: "var(--blue-light)",
       icon: (
@@ -27,8 +27,8 @@ export default function HowItWorks() {
     },
     {
       num: "3",
-      title: "Confirmás el servicio",
-      desc: "Elegís la niñera que más te convence. Coordinamos todo el detalle y te comunicamos el precio final.",
+      title: "Confirmamos el servicio",
+      desc: "Coordinamos los detalles finales y te compartimos toda la información necesaria.",
       color: "var(--yellow-dark)",
       bg: "#fffae8",
       icon: (
@@ -39,8 +39,8 @@ export default function HowItWorks() {
     },
     {
       num: "4",
-      title: "Disfrutás tu break",
-      desc: "La niñera llega, cuida a tus hijos con profesionalismo y vos podés descansar o disfrutar con tranquilidad.",
+      title: "Disfrutás tu momento",
+      desc: "Mientras tus hijos están acompañados y cuidados, vos podés salir, descansar o disfrutar con tranquilidad.",
       color: "var(--pink)",
       bg: "var(--pink-light)",
       icon: (
@@ -57,10 +57,10 @@ export default function HowItWorks() {
 
         {/* Header */}
         <div className="hiw-header">
-          <span className="hiw-badge">Sin complicaciones</span>
-          <h2 className="hiw-title">Cómo funciona</h2>
+          <span className="hiw-badge">Cómo funciona</span>
+          <h2 className="hiw-title">Coordinar un servicio es muy fácil</h2>
           <p className="hiw-subtitle">
-            En pocos minutos coordinás todo por WhatsApp. Sin apps, sin logins, sin vueltas.
+            Todo se organiza por WhatsApp, de forma rápida, simple y personalizada.
           </p>
         </div>
 

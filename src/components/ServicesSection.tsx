@@ -2,15 +2,16 @@
 export default function ServicesSection() {
   const services = [
     {
-      title: "Babysitting",
+      title: "Babysittings, fijos o esporádicos",
       subtitle: "Cuidado en casa",
-      desc: "Niñeras que no solo supervisan: organizan actividades recreativas, juegos adaptados a cada edad y acompañamiento activo en tu hogar.",
+      desc: "Niñeras que generan un vínculo real con los chicos a través del juego, la atención y el acompañamiento activo. Nos adaptamos a la rutina de cada familia para que los niños se sientan cómodos, entretenidos y cuidados en todo momento.",
       items: [
-        "Hogares y departamentos",
-        "Hoteles y alquileres temporarios",
-        "Servicios puntuales o fijos",
-        "Actividades y juegos por edad",
+        "Cuidado en hogares y hoteles",
+        "Servicios puntuales o esporádicos",
+        "Juegos y actividades adaptadas por edad",
+        "Acompañamiento activo y responsable",
         "Comunicación constante con los padres",
+        "Juegos de industria nacional para fomentar el desarrollo lúdico",
       ],
       color: "var(--pink)",
       bg: "var(--pink-light)",
@@ -25,13 +26,11 @@ export default function ServicesSection() {
     {
       title: "Traslados",
       subtitle: "Transporte seguro",
-      desc: "Servicio responsable para llevar y traer a tus hijos a sus actividades. Conductoras validadas con licencia, auto y seguro al día.",
+      desc: "Un servicio pensado para que tus hijos lleguen seguros y acompañados a cada actividad. Niñeras con experiencia previa realizando traslados. Coordinamos idas, vueltao o traslados completos, manteniendo la puntualidad y seguimiento en cada traslado.",
       items: [
         "Cumpleaños y matinés",
         "Actividades extracurriculares",
         "Eventos sociales y deportivos",
-        "Solo ida, solo vuelta, o ambas",
-        "Puntualidad garantizada",
       ],
       color: "var(--blue)",
       bg: "var(--blue-light)",
@@ -41,13 +40,13 @@ export default function ServicesSection() {
     {
       title: "Eventos",
       subtitle: "Animación infantil",
-      desc: "Creamos espacios dinámicos para que los niños disfruten mientras los adultos celebran. Cumpleaños, eventos familiares y empresariales.",
+      desc: "Creamos espacios divertidos y dinámicos para que los niños disfruten mientras los adultos pueden relajarse. Organizamos propuestas adaptadas según la edad, cantidad de chicos y tipo de evento.",
       items: [
-        "Cumpleaños temáticos",
+        "Cumpleaños y eventos familiares",
         "Eventos empresariales y corporativos",
-        "Día de Spa, TikTok Party, Fútbol",
-        "Dinámicas grupales por edad",
-        "Coordinación profesional del espacio",
+        "Actividades temáticas y recreativas",
+        "Juegos grupales adaptados por edad",
+        "Coordinación profesional del espacio infantil",
       ],
       color: "var(--yellow-dark)",
       bg: "#fffae8",
@@ -75,7 +74,8 @@ export default function ServicesSection() {
             Nuestros servicios
           </h2>
           <p style={{ fontSize: 17, color: "var(--text-soft)", maxWidth: 520, margin: "0 auto" }}>
-            Babysitting, traslados y eventos — todo con niñeras seleccionadas y validadas por nuestro equipo.
+            Acompañamos a familias en distintos momentos del día a día con niñeras seleccionadas,
+responsables y preparadas para cada situación.
           </p>
         </div>
 
@@ -141,7 +141,7 @@ export default function ServicesSection() {
                 display: "flex", alignItems: "center", justifyContent: "center",
                 marginBottom: 20,
               }}>
-                {s.title === "Babysitting" && (
+                {s.title === "Babysittings, fijos o esporádicos" && (
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={s.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                     <circle cx="12" cy="7" r="4"/>

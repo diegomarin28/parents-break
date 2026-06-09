@@ -21,7 +21,7 @@ export default function Footer() {
               <span className="footer-logo-text">Parents&apos; Break</span>
             </div>
             <p className="footer-desc">
-              Red profesional de niñeras seleccionadas para babysitting, traslados y eventos en Uruguay.
+              Red profesional de niñeras seleccionadas para babysittings, traslados y eventos en Uruguay.
             </p>
             <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="footer-wa-btn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ flexShrink: 0 }}>
@@ -35,7 +35,7 @@ export default function Footer() {
           <div className="footer-col">
             <h6 className="footer-col-title">Servicios</h6>
             <ul className="footer-list">
-              {["Babysitting", "Traslados", "Eventos", "Empresas"].map((item) => (
+              {["Babysittings", "Traslados", "Eventos", "Servicios para empresas"].map((item) => (
                 <li key={item}>
                   <a href="#servicios" className="footer-link">{item}</a>
                 </li>

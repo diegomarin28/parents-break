@@ -151,9 +151,34 @@ export default function SimulatorSection() {
   const DIAS_SEMANA = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
 
   const zonasPorDepartamento: Record<string, string[]> = {
-    Montevideo: ["Centro / Ciudad Vieja", "Pocitos / Punta Carretas", "Carrasco / Barra", "Buceo / Malvín", "Parque Batlle / Villa Dolores", "Otro (Montevideo)"],
-    Canelones: ["Ciudad de la Costa", "Las Piedras", "Canelones ciudad", "La Paz / Progreso", "Otro (Canelones)"],
-    Maldonado: ["Punta del Este", "Maldonado ciudad", "San Carlos", "La Barra / José Ignacio", "Otro (Maldonado)"],
+    Montevideo: [
+      "Ciudad Vieja / Centro",
+      "Pocitos / Punta Carretas",
+      "Parque Rodó / Parque Batlle",
+      "Buceo / Malvín / Punta Gorda",
+      "Carrasco / Carrasco Norte",
+      "San Nicolás / Los Olivos",
+      "Prado / Aires Puros",
+      "Otro",
+    ],
+    Canelones: [
+      "Ciudad de la Costa / Solymar",
+      "Lomas de la Tahona",
+      "Altos de la Tahona",
+      "Viñedos de la Tahona",
+      "Carmel",
+      "Canelones ciudad",
+      "Otro",
+    ],
+    Maldonado: [
+      "Punta del Este",
+      "Maldonado ciudad",
+      "San Carlos",
+      "La Barra / Manantiales",
+      "José Ignacio",
+      "Punta Ballena / Portezuelo",
+      "Otro",
+    ],
   };
 
   const [form, setForm] = useState({
@@ -169,7 +194,7 @@ export default function SimulatorSection() {
     horaInicioH: "", horaInicioM: "",
     horaFinH: "", horaFinM: "",
     cantNinos: "", edades: "",
-    departamento: "", zona: "",
+    departamento: "", zona: "", zonaOtro: "",
     tipoEvento: "", cantNinosEvento: "",
     tipoTraslado: "",
     horaIdaH: "", horaIdaM: "",
@@ -285,12 +310,19 @@ export default function SimulatorSection() {
     return null;
   };
 
+  // Devuelve la zona final a usar en el mensaje (texto libre si es "Otro")
+  const zonaFinal = () => {
+    if (form.zona === "Otro") return form.zonaOtro.trim() || "Otro";
+    return form.zona;
+  };
+
   const validate = (): Record<string, string> => {
     const e: Record<string, string> = {};
     if (!form.nombre.trim()) e["nombre"] = "Ingresá tu nombre";
     if (!form.servicio) e["servicio"] = "Seleccioná un servicio";
     if (!form.departamento) e["departamento"] = "Seleccioná un departamento";
     if (!form.zona) e["zona"] = "Seleccioná una zona";
+    if (form.zona === "Otro" && !form.zonaOtro.trim()) e["zonaOtro"] = "Ingresá tu zona";
     if (!form.edades.trim()) e["edades"] = "Ingresá las edades";
 
     if (form.servicio === "Babysitting") {
@@ -360,7 +392,7 @@ export default function SimulatorSection() {
       msg += `*Cantidad aproximada de niños:* ${form.cantNinosEvento}\n`;
     }
     if (form.servicio !== "Evento") msg += `\n*Cantidad de niños:* ${form.cantNinos}\n`;
-    msg += `*Edades:* ${form.edades}\n*Departamento:* ${form.departamento}\n*Zona:* ${form.zona}\n`;
+    msg += `*Edades:* ${form.edades}\n*Departamento:* ${form.departamento}\n*Zona:* ${zonaFinal()}\n`;
     if (form.comentarios) msg += `*Comentarios:* ${form.comentarios}\n`;
     return encodeURIComponent(msg);
   };
@@ -369,7 +401,6 @@ export default function SimulatorSection() {
     const e = validate();
     if (Object.keys(e).length > 0) {
       setErrors(e);
-      // Scroll al primer error
       const firstKey = Object.keys(e)[0];
       const el = document.getElementById(`field-${firstKey}`);
       if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -432,7 +463,7 @@ export default function SimulatorSection() {
           }}>Rápido y fácil</span>
           <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 800, marginBottom: 12 }}>Simulá tu servicio</h2>
           <p style={{ fontSize: 16, color: "var(--text-soft)" }}>
-            Completá el formulario y te generamos el mensaje listo para enviar por WhatsApp.
+            Completá el formulario y te preparamos automáticamente un mensaje listo para enviar por WhatsApp.
           </p>
         </div>
 
@@ -743,11 +774,11 @@ export default function SimulatorSection() {
               </>
             )}
 
-            {/* Departamento */}
+            {/* ── DEPARTAMENTO ── */}
             <div id="field-departamento">
               <label style={labelStyle}>Departamento *</label>
               <select style={{ ...inputErr("departamento"), cursor: "pointer" }} value={form.departamento}
-                onChange={(e) => { update("departamento", e.target.value); update("zona", ""); }}>
+                onChange={(e) => { update("departamento", e.target.value); update("zona", ""); update("zonaOtro", ""); }}>
                 <option value="">Seleccioná</option>
                 <option>Montevideo</option>
                 <option>Canelones</option>
@@ -756,18 +787,41 @@ export default function SimulatorSection() {
               {errMsg("departamento")}
             </div>
 
+            {/* ── ZONA ── */}
             {form.departamento && (
               <div id="field-zona">
                 <label style={labelStyle}>Zona *</label>
-                <select style={{ ...inputErr("zona"), cursor: "pointer" }} value={form.zona}
-                  onChange={(e) => update("zona", e.target.value)}>
+                <select
+                  style={{ ...inputErr("zona"), cursor: "pointer" }}
+                  value={form.zona}
+                  onChange={(e) => { update("zona", e.target.value); update("zonaOtro", ""); }}
+                >
                   <option value="">Seleccioná tu zona</option>
-                  {zonasPorDepartamento[form.departamento]?.map((z) => <option key={z}>{z}</option>)}
+                  {zonasPorDepartamento[form.departamento]?.map((z) => (
+                    <option key={z}>{z}</option>
+                  ))}
                 </select>
                 {errMsg("zona")}
               </div>
             )}
 
+            {/* ── ZONA OTRO (texto libre) ── */}
+            {form.zona === "Otro" && (
+              <div className="full-col" id="field-zonaOtro">
+                <label style={labelStyle}>¿En qué zona? *</label>
+                <input
+                  style={inputErr("zonaOtro")}
+                  placeholder="Ej: Colón, Cerro, La Unión..."
+                  value={form.zonaOtro}
+                  onChange={(e) => update("zonaOtro", e.target.value)}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = errors["zonaOtro"] ? "#dc2626" : "var(--gray)"; }}
+                />
+                {errMsg("zonaOtro")}
+              </div>
+            )}
+
+            {/* ── CANTIDAD DE NIÑOS ── */}
             {form.servicio !== "Evento" && (
               <div id="field-cantNinos">
                 <label style={labelStyle}>Cantidad de niños</label>
@@ -826,7 +880,7 @@ export default function SimulatorSection() {
           </button>
 
           <p style={{ textAlign: "center", fontSize: 12, color: "var(--text-muted)", marginTop: 14 }}>
-            No guardamos ningún dato. El mensaje se abre directamente en WhatsApp.
+            No guardamos tus datos. El mensaje se genera directamente en WhatsApp.
           </p>
         </div>
       </div>
