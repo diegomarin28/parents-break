@@ -19,7 +19,7 @@ export default function WhatsAppCTA() {
           marginBottom: 16,
           color: "var(--text)",
         }}>
-          ¿Coordinamos un servicio?
+          Estamos para ayudarte
         </h2>
 
         <p style={{
@@ -29,7 +29,7 @@ export default function WhatsAppCTA() {
           maxWidth: 480,
           margin: "0 auto 36px",
         }}>
-          Escribinos y en minutos organizamos todo. Sin formularios complicados, sin esperas. Todo por WhatsApp.
+          Escribinos por WhatsApp y contanos qué necesitás. Juntas encontraremos la babysitter que mejor se adapte a tu familia.
         </p>
 
         <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>

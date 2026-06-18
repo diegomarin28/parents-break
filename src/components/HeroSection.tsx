@@ -17,9 +17,9 @@ export default function HeroSection() {
             <div className="hero-top">
 
               <h1 className="hero-title">
-                Tus hijos en{" "}
+                Tus hijos en las{" "}
                 <span className="hero-highlight">
-                  las mejores
+                  mejores
                   <svg viewBox="0 0 200 12" className="hero-underline" preserveAspectRatio="none">
                     <path d="M2 8 Q50 2 100 8 Q150 14 198 6" stroke="#ffde86" strokeWidth="3" fill="none" strokeLinecap="round"/>
                   </svg>
@@ -30,7 +30,6 @@ export default function HeroSection() {
               <p className="hero-subtitle">
                 Conectamos familias con niñeras especializadas para brindar un cuidado seguro, cálido y
 personalizado.
-Coordinás todo fácil y rápido por WhatsApp.
               </p>
 
               <div className="hero-cities">

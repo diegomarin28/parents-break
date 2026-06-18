@@ -51,12 +51,10 @@ export default function SittersSection() {
         }}>
 
 {/* Fotos */}
-<div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, height: "100%" }}>
+<div style={{ display: "grid", gridTemplateRows: "1fr 1fr", gap: 10, height: "73.5%" }}>
   {[
-    { src: "/FedeDeFrente.jpg", alt: "Niñera de espaldas",     span: false },
-    { src: "/auto.jpg",          alt: "Niñera en auto",         span: false  },
-    { src: "/Llenito.jpg",       alt: "Niñera con niños",       span: false },
     { src: "/PauDeEspaldas.jpg", alt: "Niñera de espaldas",     span: false },
+    { src: "/Lleno.jpeg", alt: "Niñera de espaldas",     span: false },
   ].map((photo, i) => (
     <div key={i} style={{
       borderRadius: 18,
@@ -71,6 +69,7 @@ export default function SittersSection() {
           width: "100%",
           height: "100%",
           objectFit: "cover",
+          objectPosition: "top",
           display: "block",
         }}
       />

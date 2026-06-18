@@ -4,7 +4,7 @@ export default function HowItWorks() {
     {
       num: "1",
       title: " Empieza tu solicitud",
-      desc: "Te consultamos fecha, horario, zona, cantidad de niños y tipo de servicio.",
+      desc: "Te consultamos fecha, horario, zona, cantidad de niños y tipo de servicio",
       color: "var(--pink)",
       bg: "var(--pink-light)",
       icon: (
@@ -16,7 +16,7 @@ export default function HowItWorks() {
     {
       num: "2",
       title: "Buscamos la niñera que más se ajusta a tus necesidades",
-      desc: "Seleccionamos las niñeras más adecuadas según tu solicitud y te enviamos los distintos para elegir.",
+      desc: "Seleccionamos las niñeras más adecuadas según tu solicitud y te enviamos los distintos para elegir",
       color: "var(--blue)",
       bg: "var(--blue-light)",
       icon: (
@@ -25,12 +25,27 @@ export default function HowItWorks() {
         </svg>
       ),
     },
-    {
+
+        {
       num: "3",
-      title: "Confirmamos el servicio",
-      desc: "Coordinamos los detalles finales y te compartimos toda la información necesaria.",
+      title: "Conoce a la niñera por videollamada",
+      desc: "Despejá dudas y asegurate de que es la persona adecuada para tu familia",
       color: "var(--yellow-dark)",
       bg: "#fffae8",
+      icon: (
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="6" width="14" height="12" rx="2" />
+          <path d="M21 8l-4 4 4 4" />
+        </svg>
+      ),
+    },
+
+    {
+      num: "4",
+      title: "Confirmamos el servicio",
+      desc: "Coordinamos los detalles finales y te compartimos toda la información necesaria",
+      color: "var(--blue)",
+      bg: "var(--blue-light)",
       icon: (
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="20 6 9 17 4 12"/>
@@ -38,9 +53,9 @@ export default function HowItWorks() {
       ),
     },
     {
-      num: "4",
+      num: "5",
       title: "Disfrutás tu momento",
-      desc: "Mientras tus hijos están acompañados y cuidados, vos podés salir, descansar o disfrutar con tranquilidad.",
+      desc: "Mientras tus hijos están acompañados y cuidados, vos podés disfrutar con tranquilidad",
       color: "var(--pink)",
       bg: "var(--pink-light)",
       icon: (
@@ -137,15 +152,15 @@ export default function HowItWorks() {
         /* Grid */
         .steps-grid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 24px;
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+          gap: 22px;
           position: relative;
         }
         .connector-line {
           position: absolute;
-            top: 26px; /* mitad del step-num de 52px */
-  left: calc(12.5%);
-  right: calc(12.5%);
+          top: 26px; /* mitad del step-num de 52px */
+          left: calc(8%);
+          right: calc(8%);
           height: 2px;
           background: linear-gradient(90deg, var(--pink-mid), var(--blue-mid), var(--pink-mid));
           z-index: 0;
@@ -156,7 +171,7 @@ export default function HowItWorks() {
         .step-card {
           background: var(--white);
           border-radius: 20px;
-          padding: 28px 20px;
+          padding: 22px 20px;
           text-align: center;
           border: 1.5px solid var(--gray);
           position: relative;
@@ -165,8 +180,8 @@ export default function HowItWorks() {
           cursor: default;
         }
         .step-num {
-          width: 52px;
-          height: 52px;
+          width: 50px;
+          height: 50px;
           border-radius: 50%;
           color: white;
           font-family: 'Baloo 2', cursive;
@@ -175,27 +190,27 @@ export default function HowItWorks() {
           display: flex;
           align-items: center;
           justify-content: center;
-          margin: 0 auto 14px;
+          margin: 0 auto 12px;
         }
         .step-icon {
-          width: 56px;
-          height: 56px;
+          width: 54px;
+          height: 54px;
           border-radius: 14px;
           display: flex;
           align-items: center;
           justify-content: center;
-          margin: 0 auto 16px;
+          margin: 0 auto 14px;
         }
         .step-title {
           font-size: 16px;
           font-weight: 700;
-          margin-bottom: 10px;
+          margin-bottom: 8px;
           color: var(--text);
         }
         .step-desc {
           font-size: 13.5px;
           color: var(--text-soft);
-          line-height: 1.65;
+          line-height: 1.6;
         }
 
         /* ── TABLET ── */

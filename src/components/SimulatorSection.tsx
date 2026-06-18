@@ -461,7 +461,7 @@ export default function SimulatorSection() {
             fontWeight: 700, fontSize: 12, letterSpacing: ".1em", textTransform: "uppercase",
             padding: "6px 16px", borderRadius: 99, marginBottom: 16,
           }}>Rápido y fácil</span>
-          <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 800, marginBottom: 12 }}>Simulá tu servicio</h2>
+          <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 800, marginBottom: 12 }}>Coordina tu servicio</h2>
           <p style={{ fontSize: 16, color: "var(--text-soft)" }}>
             Completá el formulario y te preparamos automáticamente un mensaje listo para enviar por WhatsApp.
           </p>

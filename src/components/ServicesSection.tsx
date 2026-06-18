@@ -11,7 +11,7 @@ export default function ServicesSection() {
         "Juegos y actividades adaptadas por edad",
         "Acompañamiento activo y responsable",
         "Comunicación constante con los padres",
-        "Juegos de industria nacional para fomentar el desarrollo lúdico",
+        "Juguetes de industria nacional para fomentar el desarrollo lúdico",
       ],
       color: "var(--pink)",
       bg: "var(--pink-light)",
@@ -26,7 +26,7 @@ export default function ServicesSection() {
     {
       title: "Traslados",
       subtitle: "Transporte seguro",
-      desc: "Un servicio pensado para que tus hijos lleguen seguros y acompañados a cada actividad. Niñeras con experiencia previa realizando traslados. Coordinamos idas, vueltao o traslados completos, manteniendo la puntualidad y seguimiento en cada traslado.",
+      desc: "Un servicio diseñado para que tus hijos lleguen de forma segura y acompañada a cada actividad. Contamos con babysitters con experiencia en traslados, garantizando puntualidad, responsabilidad y seguimiento durante todo el recorrido. Coordinamos idas, vueltas o traslados completos, adaptándonos a las necesidades de cada familia.",
       items: [
         "Cumpleaños y matinés",
         "Actividades extracurriculares",

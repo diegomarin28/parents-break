@@ -27,7 +27,7 @@ export default function AboutSection() {
     },
     {
       title: "Confianza ante todo",
-      desc: "Trabajamos solo con niñeras que nosotros mismos recomendaríamos para nuestros propios hijos. Ese es nuestro estándar.",
+      desc: "Trabajamos solo con niñeras que nosotras mismas recomendaríamos a nuestras familias. Ese es nuestro estándar.",
       color: "var(--yellow-dark)",
       bg: "#fffae8",
       icon: (
@@ -49,25 +49,23 @@ export default function AboutSection() {
             Un servicio construido desde la confianza
           </h2>
           <p className="about-lead">
-            Somos Paulina y Delfina, babysitters con más de seis años de experiencia en el cuidado
-infantil. A lo largo de nuestro camino, acompañando a distintas familias, entendimos lo
-importante que es poder contar con alguien realmente confiable para el cuidado de los niños.
-Así nació Parents’ Break. Hace más de tres años acompañamos a familias brindando un
-servicio profesional, responsable y de confianza, pensado para que los padres puedan disfrutar
-con tranquilidad, sabiendo que sus hijos están en las mejores manos.
-Hoy contamos con un equipo de más de 80 babysitters capacitadas, con vocación y
-compromiso, ofreciendo servicios en Montevideo, Canelones y Punta del Este.
-Conectamos familias con niñeras seleccionadas cuidadosamente por nuestro equipo,
-priorizando siempre la confianza, la cercanía y la calidad humana.
+Somos Paulina y Delfina, babysitters con más de seis años de experiencia en el cuidado infantil. Después de acompañar a numerosas familias, entendimos lo importante que es poder contar con alguien realmente confiable para el cuidado de los niños. Así nació Parents’ Break. 
+Desde hace más de tres años ayudamos a familias a encontrar babysitters capacitadas, responsables y de confianza, para que puedan disfrutar de su tiempo con la tranquilidad de saber que sus hijos están en las mejores manos. Hoy contamos con una red de más de 80 sitters seleccionadas cuidadosamente por nuestro equipo, brindando servicios en Montevideo, Canelones y Punta del Este.
+Nuestro compromiso es ofrecer mucho más que una niñera: es ofrecer confianza, seguridad y tranquilidad para cada familia.
           </p>
         </div>
 
         {/* Texto central */}
         <div className="about-body-wrap">
-          <h3 className="about-subtitle">
-            No somos una app. Somos personas.
-          </h3>
-          <p className="about-body">
+          <div className="about-body-row">
+            <div className="about-image-wrap">
+              <img src="/FotoAboutSection.jpeg" alt="Equipo de Parents’ Break" />
+            </div>
+            <div className="about-body-content">
+              <h3 className="about-subtitle">
+                No somos una app. Somos personas.
+              </h3>
+              <p className="about-body">
             Detrás de cada servicio hay un equipo real acompañando el proceso. Escuchamos las
 necesidades de cada familia, buscamos la niñera más adecuada y coordinamos cada detalle de
 forma personalizada para que la experiencia sea simple, cercana y confiable.
@@ -78,12 +76,9 @@ previa en cuidado infantil y atraviesan entrevistas, validación de referencias 
 antes de incorporarse al equipo.
 
           </p>
-          <p className="about-body">
-            Hace más de 3 años que trabajamos con familias en Uruguay y hoy contamos con una
-comunidad de más de 80 niñeras activas que forman parte de Parents’ Break.
-          </p>
+            </div>
+          </div>
 
-        
         </div>
 
         {/* Valores */}
@@ -157,13 +152,35 @@ comunidad de más de 80 niñeras activas que forman parte de Parents’ Break.
 
         /* Texto central */
         .about-body-wrap {
-          max-width: 720px;
+          max-width: 1040px;
           margin: 0 auto 64px;
           background: var(--white);
           border-radius: 24px;
-          padding: 48px 52px;
+          padding: 40px;
           box-shadow: 0 2px 24px rgba(117,124,187,.08);
           border: 1px solid var(--gray);
+        }
+        .about-body-row {
+          display: grid;
+          grid-template-columns: 340px 1fr;
+          gap: 32px;
+          align-items: center;
+        }
+        .about-image-wrap {
+          width: 100%;
+          border-radius: 24px;
+          overflow: hidden;
+          min-height: 360px;
+          box-shadow: 0 20px 60px rgba(0,0,0,.08);
+        }
+        .about-image-wrap img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+        .about-body-content {
+          min-width: 0;
         }
         .about-subtitle {
           font-size: clamp(18px, 2.5vw, 24px);
@@ -239,6 +256,12 @@ comunidad de más de 80 niñeras activas que forman parte de Parents’ Break.
 
         /* ── TABLET ── */
         @media (max-width: 900px) {
+          .about-body-row {
+            grid-template-columns: 1fr;
+          }
+          .about-image-wrap {
+            min-height: 280px;
+          }
           .values-grid {
             grid-template-columns: 1fr;
             gap: 16px;
