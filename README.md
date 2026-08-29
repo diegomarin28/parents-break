@@ -65,7 +65,7 @@ Parents Break is part of my journey as a developer, combining:
 
 It reflects how I approach building digital products from scratch.
 
-## ▶️ Run Locally
+## Run Locally
 
 ```bash
 npm install
