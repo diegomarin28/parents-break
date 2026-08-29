@@ -4,7 +4,7 @@
 
 It focuses on simplifying daily life by offering tools, ideas, and solutions that make it easier to balance responsibilities with personal time.
 
-## 🚀 The Vision
+## The Vision
 
 Modern parenting is demanding. Parents Break aims to become a go-to platform where users can:
 
@@ -15,7 +15,7 @@ Modern parenting is demanding. Parents Break aims to become a go-to platform whe
 
 The long-term goal is to evolve into a scalable digital product that improves quality of life for parents.
 
-## 🧠 Product Mindset
+## Product Mindset
 
 This project is being built with a strong focus on:
 
@@ -24,7 +24,7 @@ This project is being built with a strong focus on:
 - Real-world usefulness
 - Iterative development (MVP → feedback → scale)
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Next.js** (App Router)
 - **React**
@@ -32,7 +32,7 @@ This project is being built with a strong focus on:
 - **Tailwind CSS**
 - Component-driven architecture
 
-## ⚙️ Current Development
+## Current Development
 
 The project is currently in its early stage, focusing on:
 
@@ -41,21 +41,21 @@ The project is currently in its early stage, focusing on:
 - Design system foundation
 - Initial user flows
 
-## 🧩 What I'm Building
+## What I'm Building
 
 - Clean and scalable frontend architecture
 - Modern UI with accessible components
 - A base ready to integrate APIs and backend services
 - A product-oriented codebase (not just a demo)
 
-## 📈 Future Scope
+## Future Scope
 
 - Personalized recommendations
 - Scheduling and planning tools
 - Mobile-first experience
 - Potential monetization strategies
 
-## 💼 About This Project
+## About This Project
 
 Parents Break is part of my journey as a developer, combining:
 
