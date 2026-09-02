@@ -51,13 +51,14 @@ export default function SittersSection() {
         }}>
 
 {/* Fotos */}
-<div style={{ display: "grid", gridTemplateRows: "1fr 1fr", gap: 10, height: "73.5%" }}>
+<div style={{ display: "grid", gridTemplateRows: "1fr 1fr", gap: 10 }}>
   {[
     { src: "/PauDeEspaldas.jpg", alt: "Niñera de espaldas",     span: false },
     { src: "/Lleno.jpg", alt: "Niñera de espaldas",     span: false },
   ].map((photo, i) => (
     <div key={i} style={{
       position: "relative",
+      aspectRatio: "4 / 3",
       borderRadius: 18,
       overflow: "hidden",
       boxShadow: "var(--shadow)",
