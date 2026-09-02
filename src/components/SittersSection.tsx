@@ -207,10 +207,10 @@ export default function SittersSection() {
       </div>
 
       <style>{`
-        .sitters-photos { height: 600px; }
+        .sitters-photos { height: 520px; }
         @media (max-width: 900px) {
           .sitters-grid { grid-template-columns: 1fr !important; }
-          .sitters-photos { height: 420px; }
+          .sitters-photos { height: 380px; }
         }
         @media (max-width: 640px) {
           .qualities-grid { grid-template-columns: repeat(3, 1fr) !important; }
@@ -223,7 +223,7 @@ export default function SittersSection() {
           .sitters-section { padding: 64px 0; }
           .sitters-container { padding: 0 16px; }
           .sitters-grid { gap: 32px; }
-          .sitters-photos { height: 340px; }
+          .sitters-photos { height: 300px; }
           .qualities-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; }
         }
       `}</style>
