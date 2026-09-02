@@ -24,20 +24,6 @@ export default function ServicesSection() {
       featuredBadgeColor: "white",
     },
     {
-      title: "Traslados",
-      subtitle: "Transporte seguro",
-      desc: "Un servicio diseñado para que tus hijos lleguen de forma segura y acompañada a cada actividad. Contamos con babysitters con experiencia en traslados, garantizando puntualidad, responsabilidad y seguimiento durante todo el recorrido. Coordinamos idas, vueltas o traslados completos, adaptándonos a las necesidades de cada familia.",
-      items: [
-        "Cumpleaños y matinés",
-        "Actividades extracurriculares",
-        "Eventos sociales y deportivos",
-      ],
-      color: "var(--blue)",
-      bg: "var(--blue-light)",
-      border: "var(--blue-mid)",
-      cta: "Solicitar traslado",
-    },
-    {
       title: "Eventos",
       subtitle: "Animación infantil",
       desc: "Creamos espacios divertidos y dinámicos para que los niños disfruten mientras los adultos pueden relajarse. Organizamos propuestas adaptadas según la edad, cantidad de chicos y tipo de evento.",
@@ -82,8 +68,10 @@ responsables y preparadas para cada situación.
         {/* Cards */}
         <div className="services-grid" style={{
           display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
+          gridTemplateColumns: "repeat(2, 1fr)",
           gap: 24,
+          maxWidth: 840,
+          margin: "0 auto",
             alignItems: "stretch",
         }}>
           {services.map((s, i) => (
@@ -147,14 +135,6 @@ responsables y preparadas para cada situación.
                     <circle cx="12" cy="7" r="4"/>
                   </svg>
                 )}
-                {s.title === "Traslados" && (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-  <rect x="4" y="10" width="16" height="6" rx="2"/>
-  <path d="M6 10l2-4h8l2 4"/>
-  <circle cx="8" cy="17" r="1.5"/>
-  <circle cx="16" cy="17" r="1.5"/>
-</svg>
-                )}
                 {s.title === "Eventos" && (
  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={s.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
   <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
@@ -199,7 +179,6 @@ responsables y preparadas para cada situación.
                   e.preventDefault();
                   const map: Record<string, string> = {
                     "Babysitting": "Babysitting",
-                    "Traslados": "Traslado",
                     "Eventos": "Evento",
                   };
                   const servicio = map[s.title] || s.title;
