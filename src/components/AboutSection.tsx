@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export default function AboutSection() {
   const values = [
     {
@@ -59,7 +61,13 @@ Nuestro compromiso es ofrecer mucho más que una niñera: es ofrecer confianza, 
         <div className="about-body-wrap">
           <div className="about-body-row">
             <div className="about-image-wrap">
-              <img src="/FotoAboutSection.jpeg" alt="Equipo de Parents’ Break" />
+              <Image
+                src="/FotoAboutSection.jpeg"
+                alt="Equipo de Parents’ Break"
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="(max-width: 900px) 100vw, 340px"
+              />
             </div>
             <div className="about-body-content">
               <h3 className="about-subtitle">
@@ -167,17 +175,12 @@ antes de incorporarse al equipo.
           align-items: center;
         }
         .about-image-wrap {
+          position: relative;
           width: 100%;
           border-radius: 24px;
           overflow: hidden;
           min-height: 360px;
           box-shadow: 0 20px 60px rgba(0,0,0,.08);
-        }
-        .about-image-wrap img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
         }
         .about-body-content {
           min-width: 0;
