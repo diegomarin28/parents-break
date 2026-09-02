@@ -57,21 +57,18 @@ export default function SittersSection() {
     { src: "/Lleno.jpeg", alt: "Niñera de espaldas",     span: false },
   ].map((photo, i) => (
     <div key={i} style={{
+      position: "relative",
       borderRadius: 18,
       overflow: "hidden",
       boxShadow: "var(--shadow)",
       ...(photo.span ? { gridColumn: "1 / 2", gridRow: "1 / 3" } : {}),
     }}>
-      <img
+      <Image
         src={photo.src}
         alt={photo.alt}
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "top",
-          display: "block",
-        }}
+        fill
+        style={{ objectFit: "cover", objectPosition: "top" }}
+        sizes="(max-width: 900px) 50vw, 25vw"
       />
     </div>
   ))}
