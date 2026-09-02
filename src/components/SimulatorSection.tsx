@@ -196,11 +196,7 @@ export default function SimulatorSection() {
     cantNinos: "", edades: "",
     departamento: "", zona: "", zonaOtro: "",
     tipoEvento: "", cantNinosEvento: "",
-    tipoTraslado: "",
-    horaIdaH: "", horaIdaM: "",
-    horaVueltaH: "", horaVueltaM: "",
-    fechaTraslado: today,
-    cantAutos: "", comentarios: "",
+    comentarios: "",
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -210,7 +206,7 @@ export default function SimulatorSection() {
     const leerServicio = () => {
       const params = new URLSearchParams(window.location.search);
       const servicio = params.get("servicio");
-      if (servicio && ["Babysitting", "Traslado", "Evento"].includes(servicio)) {
+      if (servicio && ["Babysitting", "Evento"].includes(servicio)) {
         setForm((prev) => ({ ...prev, servicio }));
       }
     };
@@ -266,28 +262,7 @@ export default function SimulatorSection() {
     setErrors((prev) => { const n = { ...prev }; delete n["diasSemana"]; return n; });
   };
 
-  const autosNum = () => {
-    if (!form.cantAutos) return 0;
-    if (form.cantAutos === "5+") return 5;
-    return parseInt(form.cantAutos);
-  };
-
   const cantNinosOptions = () => ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10 o más"];
-
-  const ninosIrracional = () => {
-    if (!form.cantAutos || !form.cantNinos) return false;
-    if (form.cantAutos === "5+") return false;
-    const autos = autosNum();
-    const ninos = form.cantNinos === "10 o más" ? 10 : parseInt(form.cantNinos);
-    return ninos < autos;
-  };
-
-  const ninosBajoParaMuchos = () => {
-    if (form.cantAutos !== "5+") return false;
-    if (!form.cantNinos) return false;
-    const ninos = form.cantNinos === "10 o más" ? 10 : parseInt(form.cantNinos);
-    return ninos < 5;
-  };
 
   const duracionMinutos = (h1: string, m1: string, h2: string, m2: string): number => {
     if (!h1 || !h2) return 0;
@@ -343,17 +318,6 @@ export default function SimulatorSection() {
       if (!form.cantNinos) e["cantNinos"] = "Seleccioná cantidad de niños";
     }
 
-    if (form.servicio === "Traslado") {
-      if (!form.fechaTraslado) e["fechaTraslado"] = "Ingresá la fecha";
-      if (!form.cantAutos) e["cantAutos"] = "Seleccioná cantidad de autos";
-      if (!form.tipoTraslado) e["tipoTraslado"] = "Seleccioná el tipo de traslado";
-      if ((form.tipoTraslado === "Ida" || form.tipoTraslado === "Ambas") && !form.horaIdaH)
-        e["horaIda"] = "Ingresá la hora de ida";
-      if ((form.tipoTraslado === "Vuelta" || form.tipoTraslado === "Ambas") && !form.horaVueltaH)
-        e["horaVuelta"] = "Ingresá la hora de vuelta";
-      if (!form.cantNinos) e["cantNinos"] = "Seleccioná cantidad de niños";
-    }
-
     if (form.servicio === "Evento") {
       if (!form.tipoEvento) e["tipoEvento"] = "Seleccioná el tipo de evento";
       if (!form.cantNinosEvento.trim()) e["cantNinosEvento"] = "Ingresá la cantidad aproximada";
@@ -379,13 +343,6 @@ export default function SimulatorSection() {
         msg += `*Desde:* ${form.dias[0]?.fecha || ""}\n`;
         msg += `*Hasta:* ${form.hastaCuando === "Indefinido" ? "Indefinido" : form.hastaFecha}\n`;
       }
-    } else if (form.servicio === "Traslado") {
-      msg += `*Fecha:* ${form.fechaTraslado}\n*Tipo de traslado:* ${form.tipoTraslado}\n`;
-      if (form.tipoTraslado === "Ida" || form.tipoTraslado === "Ambas")
-        msg += `*Hora de ida:* ${form.horaIdaH}:${form.horaIdaM || "00"}\n`;
-      if (form.tipoTraslado === "Vuelta" || form.tipoTraslado === "Ambas")
-        msg += `*Hora de vuelta:* ${form.horaVueltaH}:${form.horaVueltaM || "00"}\n`;
-      msg += `*Cantidad de autos:* ${form.cantAutos}\n`;
     } else if (form.servicio === "Evento") {
       msg += `*Tipo de evento:* ${form.tipoEvento}\n`;
       msg += `*Horario:* ${form.horaInicioH}:${form.horaInicioM || "00"} - ${form.horaFinH}:${form.horaFinM || "00"}\n`;
@@ -513,7 +470,6 @@ export default function SimulatorSection() {
                 onChange={(e) => update("servicio", e.target.value)}>
                 <option value="">Seleccioná un servicio</option>
                 <option>Babysitting</option>
-                <option>Traslado</option>
                 <option>Evento</option>
               </select>
               {errMsg("servicio")}
@@ -668,62 +624,6 @@ export default function SimulatorSection() {
               </>
             )}
 
-            {/* ── TRASLADO ── */}
-            {form.servicio === "Traslado" && (
-              <>
-                <div id="field-fechaTraslado">
-                  <label style={labelStyle}>Fecha *</label>
-                  <input type="date" style={inputErr("fechaTraslado")} value={form.fechaTraslado} min={today} max={maxDateStr}
-                    onChange={(e) => update("fechaTraslado", e.target.value)} />
-                  {validarFecha(form.fechaTraslado) && <div style={alertStyle}>{validarFecha(form.fechaTraslado)}</div>}
-                  {errMsg("fechaTraslado")}
-                </div>
-                <div id="field-cantAutos">
-                  <label style={labelStyle}>Cantidad de autos</label>
-                  <select style={{ ...inputErr("cantAutos"), cursor: "pointer" }} value={form.cantAutos}
-                    onChange={(e) => { update("cantAutos", e.target.value); update("cantNinos", ""); }}>
-                    <option value="">Seleccioná</option>
-                    {["1", "2", "3", "4", "5+"].map((n) => <option key={n}>{n}</option>)}
-                  </select>
-                  {errMsg("cantAutos")}
-                </div>
-                <div className="full-col" id="field-tipoTraslado">
-                  <label style={labelStyle}>Tipo de traslado</label>
-                  <div style={{ display: "flex", gap: 10 }}>
-                    {["Ida", "Vuelta", "Ambas"].map((opt) => (
-                      <button key={opt} onClick={() => update("tipoTraslado", opt)} style={btnToggle(form.tipoTraslado === opt)}>{opt}</button>
-                    ))}
-                  </div>
-                  {errMsg("tipoTraslado")}
-                </div>
-                {(form.tipoTraslado === "Ida" || form.tipoTraslado === "Ambas") && (
-                  <div id="field-horaIda">
-                    <TimeSelector
-                      label="Hora de ida" hora={form.horaIdaH} min={form.horaIdaM}
-                      onHora={(v) => update("horaIdaH", v)} onMin={(v) => update("horaIdaM", v)}
-                      labelStyle={labelStyle} inputStyle={inputStyle}
-                      isLast={form.tipoTraslado === "Ida"}
-                      onComplete={() => focusRef("traslado-vuelta")}
-                      hasError={!!errors["horaIda"]}
-                    />
-                    {errMsg("horaIda")}
-                  </div>
-                )}
-                {(form.tipoTraslado === "Vuelta" || form.tipoTraslado === "Ambas") && (
-                  <div id="field-horaVuelta">
-                    <FinSelector
-                      label="Hora de vuelta" horaVal={form.horaVueltaH} minVal={form.horaVueltaM}
-                      onHora={(v) => update("horaVueltaH", v)} onMin={(v) => update("horaVueltaM", v)}
-                      labelStyle={labelStyle} inputStyle={inputStyle}
-                      refKey="traslado-vuelta" finRefs={finRefs}
-                      hasError={!!errors["horaVuelta"]}
-                    />
-                    {errMsg("horaVuelta")}
-                  </div>
-                )}
-              </>
-            )}
-
             {/* ── EVENTO ── */}
             {form.servicio === "Evento" && (
               <>
@@ -831,16 +731,6 @@ export default function SimulatorSection() {
                   {cantNinosOptions().map((n) => <option key={n}>{n}</option>)}
                 </select>
                 {errMsg("cantNinos")}
-                {ninosIrracional() && (
-                  <div style={warnStyle}>
-                    Esa cantidad de niños parece baja para {form.cantAutos} autos. ¿Es correcto?
-                  </div>
-                )}
-                {ninosBajoParaMuchos() && (
-                  <div style={warnStyle}>
-                    Con 5 o más autos se esperan al menos 5 niños. ¿Es correcto?
-                  </div>
-                )}
               </div>
             )}
 
