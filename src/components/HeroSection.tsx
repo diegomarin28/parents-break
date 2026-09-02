@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export default function HeroSection() {
   const WA_URL = "https://wa.me/59896127376";
 
@@ -46,10 +48,14 @@ personalizado.
 
             {/* Foto — solo visible en mobile, insertada en el medio */}
             <div className="hero-visual-mobile">
-              <img
+              <Image
                 src="/hero.jpg"
                 alt="Niñera cuidando niños felices"
+                width={1536}
+                height={1024}
                 className="hero-photo-img-mobile"
+                priority
+                sizes="100vw"
               />
             </div>
 
@@ -104,10 +110,14 @@ personalizado.
           <div className="hero-visual">
             <div className="hero-photo-wrap">
               <div className="hero-photo-glow" />
-              <img
+              <Image
                 src="/hero.jpg"
                 alt="Niñera cuidando niños felices"
+                width={1536}
+                height={1024}
                 className="hero-photo-img"
+                priority
+                sizes="(max-width: 900px) 100vw, 600px"
               />
             </div>
           </div>
@@ -335,6 +345,7 @@ personalizado.
           position: relative;
           z-index: 1;
           width: 100%;
+          height: auto;
           max-width: 600px;
           border-radius: 24px;
           animation: heroFloat 4s ease-in-out infinite;
@@ -348,6 +359,7 @@ personalizado.
         .hero-visual-mobile { display: none; }
         .hero-photo-img-mobile {
           width: 100%;
+          height: auto;
           border-radius: 18px;
           display: block;
         }
