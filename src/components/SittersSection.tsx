@@ -51,14 +51,13 @@ export default function SittersSection() {
         }}>
 
 {/* Fotos */}
-<div style={{ display: "grid", gridTemplateRows: "1fr 1fr", gap: 10 }}>
+<div className="sitters-photos" style={{ display: "grid", gridTemplateRows: "1fr 1fr", gap: 10 }}>
   {[
     { src: "/PauDeEspaldas.jpg", alt: "Niñera de espaldas",     span: false },
     { src: "/Lleno.jpg", alt: "Niñera de espaldas",     span: false },
   ].map((photo, i) => (
     <div key={i} style={{
       position: "relative",
-      aspectRatio: "4 / 3",
       borderRadius: 18,
       overflow: "hidden",
       boxShadow: "var(--shadow)",
@@ -208,8 +207,10 @@ export default function SittersSection() {
       </div>
 
       <style>{`
+        .sitters-photos { height: 600px; }
         @media (max-width: 900px) {
           .sitters-grid { grid-template-columns: 1fr !important; }
+          .sitters-photos { height: 420px; }
         }
         @media (max-width: 640px) {
           .qualities-grid { grid-template-columns: repeat(3, 1fr) !important; }
@@ -222,6 +223,7 @@ export default function SittersSection() {
           .sitters-section { padding: 64px 0; }
           .sitters-container { padding: 0 16px; }
           .sitters-grid { gap: 32px; }
+          .sitters-photos { height: 340px; }
           .qualities-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; }
         }
       `}</style>
