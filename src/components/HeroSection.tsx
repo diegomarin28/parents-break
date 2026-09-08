@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 export default function HeroSection() {
-  const WA_URL = "https://wa.me/59896127376";
+  const WA_URL = "https://wa.me/59897442696";
 
   return (
     <section className="hero-section">
