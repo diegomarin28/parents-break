@@ -143,7 +143,7 @@ const FinSelector = ({ label, horaVal, minVal, onHora, onMin, labelStyle, inputS
 };
 
 export default function SimulatorSection() {
-  const WA_NUMBER = "59896127376";
+  const WA_NUMBER = "59897442696";
   const today = new Date().toISOString().split("T")[0];
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
