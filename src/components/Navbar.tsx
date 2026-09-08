@@ -75,7 +75,7 @@ useEffect(() => {
     { label: "Solicitar servicio", href: "#simulador" },
   ];
 
-  const WA_URL = "https://wa.me/59896127376";
+  const WA_URL = "https://wa.me/59897442696";
 
   return (
     <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
