@@ -1,6 +1,6 @@
 "use client";
 export default function WhatsAppCTA() {
-  const WA_URL = "https://wa.me/59896127376";
+  const WA_URL = "https://wa.me/59897442696";
 
   return (
     <section className="cta-section" style={{
