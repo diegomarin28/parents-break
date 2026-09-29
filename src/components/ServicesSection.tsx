@@ -43,7 +43,7 @@ export default function ServicesSection() {
       subtitle: "Animación infantil",
       desc: "Creamos espacios divertidos y dinámicos para que los niños disfruten mientras los adultos pueden relajarse. Organizamos propuestas adaptadas según la edad, cantidad de chicos y tipo de evento.",
       items: [
-        "Casamientos"
+        "Casamientos",
         "Cumpleaños y eventos familiares",
         "Eventos empresariales y corporativos",
         "Actividades temáticas y recreativas",
@@ -203,6 +203,7 @@ responsables y preparadas para cada situación.
                   const map: Record<string, string> = {
                     "Babysitting": "Babysitting",
                     "Eventos": "Evento",
+                    "Petsitting": "Petsitting",
                   };
                   const servicio = map[s.title] || s.title;
                   window.history.pushState(null, "", `?servicio=${servicio}#simulador`);
