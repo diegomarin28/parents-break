@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export default function AboutSection() {
   const values = [
     {
@@ -57,12 +59,22 @@ Nuestro compromiso es ofrecer mucho más que una niñera: es ofrecer confianza, 
 
         {/* Texto central */}
         <div className="about-body-wrap">
-          <div className="about-body-content">
-            <h3 className="about-subtitle">
-              No somos una app. Somos personas.
-            </h3>
-            <p className="about-body">
-          Detrás de cada servicio hay un equipo real acompañando el proceso. Escuchamos las
+          <div className="about-body-row">
+            <div className="about-image-wrap">
+              <Image
+                src="/FotoAboutSection.jpeg"
+                alt="Equipo de Parents’ Break"
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="(max-width: 900px) 100vw, 340px"
+              />
+            </div>
+            <div className="about-body-content">
+              <h3 className="about-subtitle">
+                No somos una app. Somos personas.
+              </h3>
+              <p className="about-body">
+            Detrás de cada servicio hay un equipo real acompañando el proceso. Escuchamos las
 necesidades de cada familia, buscamos la niñera más adecuada y coordinamos cada detalle de
 forma personalizada para que la experiencia sea simple, cercana y confiable.
 Nuestro proceso de selección es acompañado por psicólogas y profesionales especializadas en
@@ -71,7 +83,8 @@ calidad humana de cada perfil. Todas las niñeras de Parents’ Break cuentan co
 previa en cuidado infantil y atraviesan entrevistas, validación de referencias y evaluaciones
 antes de incorporarse al equipo.
 
-        </p>
+          </p>
+            </div>
           </div>
 
         </div>
@@ -155,6 +168,20 @@ antes de incorporarse al equipo.
           box-shadow: 0 2px 24px rgba(117,124,187,.08);
           border: 1px solid var(--gray);
         }
+        .about-body-row {
+          display: grid;
+          grid-template-columns: 340px 1fr;
+          gap: 32px;
+          align-items: center;
+        }
+        .about-image-wrap {
+          position: relative;
+          width: 100%;
+          border-radius: 24px;
+          overflow: hidden;
+          min-height: 360px;
+          box-shadow: 0 20px 60px rgba(0,0,0,.08);
+        }
         .about-body-content {
           min-width: 0;
         }
@@ -232,6 +259,12 @@ antes de incorporarse al equipo.
 
         /* ── TABLET ── */
         @media (max-width: 900px) {
+          .about-body-row {
+            grid-template-columns: 1fr;
+          }
+          .about-image-wrap {
+            min-height: 280px;
+          }
           .values-grid {
             grid-template-columns: 1fr;
             gap: 16px;
