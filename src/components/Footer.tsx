@@ -35,7 +35,7 @@ export default function Footer() {
           <div className="footer-col">
             <h6 className="footer-col-title">Servicios</h6>
             <ul className="footer-list">
-              {["Babysittings", "Petsitting", "Eventos", "Servicios para empresas"].map((item) => (
+              {["Babysittings", "Petsittings", "Eventos", "Servicios para empresas"].map((item) => (
                 <li key={item}>
                   <a href="#servicios" className="footer-link">{item}</a>
                 </li>
