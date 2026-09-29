@@ -196,6 +196,9 @@ export default function SimulatorSection() {
     cantNinos: "", edades: "",
     departamento: "", zona: "", zonaOtro: "",
     tipoEvento: "", cantNinosEvento: "",
+    tipoPetsitting: "", cantPerros: "", razaPerros: "",
+    petNecesita: [] as string[],
+    petFechaDesde: today, petFechaHasta: "",
     comentarios: "",
   });
 
@@ -206,7 +209,7 @@ export default function SimulatorSection() {
     const leerServicio = () => {
       const params = new URLSearchParams(window.location.search);
       const servicio = params.get("servicio");
-      if (servicio && ["Babysitting", "Evento"].includes(servicio)) {
+      if (servicio && ["Babysitting", "Evento", "Petsitting"].includes(servicio)) {
         setForm((prev) => ({ ...prev, servicio }));
       }
     };
@@ -262,7 +265,18 @@ export default function SimulatorSection() {
     setErrors((prev) => { const n = { ...prev }; delete n["diasSemana"]; return n; });
   };
 
+  const togglePetNecesita = (item: string) => {
+    setForm((prev) => {
+      const updated = prev.petNecesita.includes(item)
+        ? prev.petNecesita.filter((d) => d !== item)
+        : [...prev.petNecesita, item];
+      return { ...prev, petNecesita: updated };
+    });
+    setErrors((prev) => { const n = { ...prev }; delete n["petNecesita"]; return n; });
+  };
+
   const cantNinosOptions = () => ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10 o más"];
+  const cantPerrosOptions = () => ["1", "2", "3", "4+"];
 
   const duracionMinutos = (h1: string, m1: string, h2: string, m2: string): number => {
     if (!h1 || !h2) return 0;
@@ -298,7 +312,7 @@ export default function SimulatorSection() {
     if (!form.departamento) e["departamento"] = "Seleccioná un departamento";
     if (!form.zona) e["zona"] = "Seleccioná una zona";
     if (form.zona === "Otro" && !form.zonaOtro.trim()) e["zonaOtro"] = "Ingresá tu zona";
-    if (!form.edades.trim()) e["edades"] = "Ingresá las edades";
+    if (form.servicio !== "Petsitting" && !form.edades.trim()) e["edades"] = "Ingresá las edades";
 
     if (form.servicio === "Babysitting") {
       if (!form.tipoBabysitting) e["tipoBabysitting"] = "Seleccioná puntual o fijo";
@@ -325,6 +339,23 @@ export default function SimulatorSection() {
       if (!form.horaFinH) e["horaFin"] = "Ingresá hora de fin";
     }
 
+    if (form.servicio === "Petsitting") {
+      if (!form.tipoPetsitting) e["tipoPetsitting"] = "Seleccioná el tipo de servicio";
+      if (!form.cantPerros) e["cantPerros"] = "Seleccioná la cantidad de perros";
+      if (form.tipoPetsitting === "Visita a domicilio") {
+        if (!form.cantDias) e["cantDias"] = "Seleccioná la cantidad de días";
+        form.dias.forEach((d, i) => {
+          if (!d.fecha) e[`dia-${i}-fecha`] = "Ingresá la fecha";
+          if (!d.horaInicio) e[`dia-${i}-horaInicio`] = "Ingresá hora de inicio";
+          if (!d.horaFin) e[`dia-${i}-horaFin`] = "Ingresá hora de fin";
+        });
+      }
+      if (form.tipoPetsitting === "Hospedaje") {
+        if (!form.petFechaDesde) e["petFechaDesde"] = "Ingresá la fecha de inicio";
+        if (!form.petFechaHasta) e["petFechaHasta"] = "Ingresá la fecha de fin";
+      }
+    }
+
     return e;
   };
 
@@ -347,9 +378,22 @@ export default function SimulatorSection() {
       msg += `*Tipo de evento:* ${form.tipoEvento}\n`;
       msg += `*Horario:* ${form.horaInicioH}:${form.horaInicioM || "00"} - ${form.horaFinH}:${form.horaFinM || "00"}\n`;
       msg += `*Cantidad aproximada de niños:* ${form.cantNinosEvento}\n`;
+    } else if (form.servicio === "Petsitting") {
+      msg += `*Tipo de servicio:* ${form.tipoPetsitting}\n`;
+      msg += `*Cantidad de perros:* ${form.cantPerros}\n`;
+      if (form.razaPerros.trim()) msg += `*Raza/s:* ${form.razaPerros}\n`;
+      if (form.petNecesita.length) msg += `*Necesita:* ${form.petNecesita.join(", ")}\n`;
+      if (form.tipoPetsitting === "Visita a domicilio") {
+        form.dias.forEach((d, i) => {
+          msg += `\n*Día ${i + 1}:*\n  Fecha: ${d.fecha}\n  Horario: ${d.horaInicio}:${d.minInicio || "00"} - ${d.horaFin}:${d.minFin || "00"}\n`;
+        });
+      } else if (form.tipoPetsitting === "Hospedaje") {
+        msg += `*Desde:* ${form.petFechaDesde}\n*Hasta:* ${form.petFechaHasta}\n`;
+      }
     }
-    if (form.servicio !== "Evento") msg += `\n*Cantidad de niños:* ${form.cantNinos}\n`;
-    msg += `*Edades:* ${form.edades}\n*Departamento:* ${form.departamento}\n*Zona:* ${zonaFinal()}\n`;
+    if (form.servicio === "Babysitting") msg += `\n*Cantidad de niños:* ${form.cantNinos}\n`;
+    if (form.servicio !== "Petsitting") msg += `*Edades:* ${form.edades}\n`;
+    msg += `*Departamento:* ${form.departamento}\n*Zona:* ${zonaFinal()}\n`;
     if (form.comentarios) msg += `*Comentarios:* ${form.comentarios}\n`;
     return encodeURIComponent(msg);
   };
@@ -470,6 +514,7 @@ export default function SimulatorSection() {
                 onChange={(e) => update("servicio", e.target.value)}>
                 <option value="">Seleccioná un servicio</option>
                 <option>Babysitting</option>
+                <option>Petsitting</option>
                 <option>Evento</option>
               </select>
               {errMsg("servicio")}
@@ -624,6 +669,135 @@ export default function SimulatorSection() {
               </>
             )}
 
+            {/* ── PETSITTING ── */}
+            {form.servicio === "Petsitting" && (
+              <>
+                <div className="full-col" id="field-tipoPetsitting">
+                  <label style={labelStyle}>Tipo de servicio</label>
+                  <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                    {["Visita a domicilio", "Hospedaje"].map((opt) => (
+                      <button key={opt} onClick={() => update("tipoPetsitting", opt)} style={{ ...btnToggle(form.tipoPetsitting === opt), flex: "1 1 140px" }}>{opt}</button>
+                    ))}
+                  </div>
+                  {errMsg("tipoPetsitting")}
+                </div>
+
+                <div id="field-cantPerros">
+                  <label style={labelStyle}>Cantidad de perros</label>
+                  <select style={{ ...inputErr("cantPerros"), cursor: "pointer" }} value={form.cantPerros}
+                    onChange={(e) => update("cantPerros", e.target.value)}>
+                    <option value="">Seleccioná</option>
+                    {cantPerrosOptions().map((n) => <option key={n}>{n}</option>)}
+                  </select>
+                  {errMsg("cantPerros")}
+                </div>
+
+                <div id="field-razaPerros">
+                  <label style={labelStyle}>Raza/s</label>
+                  <input style={inputStyle} placeholder="Ej: Golden Retriever y Caniche" value={form.razaPerros}
+                    onChange={(e) => update("razaPerros", e.target.value)}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = "var(--gray)"; }} />
+                </div>
+
+                <div className="full-col" id="field-petNecesita">
+                  <label style={labelStyle}>¿Qué necesita?</label>
+                  <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                    {["Darle de comer", "Pasearlo", "Compañía / cuidado general"].map((item) => (
+                      <button key={item} onClick={() => togglePetNecesita(item)}
+                        style={{ ...btnToggle(form.petNecesita.includes(item)), flex: "none", padding: "8px 14px" }}>
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {form.tipoPetsitting === "Visita a domicilio" && (
+                  <>
+                    <div className="full-col" id="field-cantDias">
+                      <label style={labelStyle}>¿Cuántos días?</label>
+                      <div style={{ display: "flex", gap: 10 }}>
+                        {["1", "2", "3", "4"].map((n) => (
+                          <button key={n} onClick={() => handleCantDias(n)} style={btnToggle(form.cantDias === n)}>{n}</button>
+                        ))}
+                      </div>
+                      {errMsg("cantDias")}
+                    </div>
+
+                    {form.dias.map((dia, i) => (
+                      <div key={i} className="full-col" style={{
+                        background: "var(--off)", borderRadius: 14, padding: "20px", border: "1.5px solid var(--gray)",
+                      }}>
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+                          <span style={{ fontWeight: 700, fontSize: 15, color: "var(--blue)" }}>Día {i + 1}</span>
+                          {i > 0 && (
+                            <button onClick={() => copiarDia1(i)} style={{
+                              fontSize: 12, fontWeight: 700, color: "var(--blue)",
+                              background: "var(--blue-light)", border: "1.5px solid var(--blue-mid)",
+                              borderRadius: 99, padding: "5px 14px", cursor: "pointer",
+                              fontFamily: "'Source Sans 3', sans-serif",
+                            }}>Copiar horario del Día 1</button>
+                          )}
+                        </div>
+                        <div className="dia-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
+                          <div id={`field-dia-${i}-fecha`}>
+                            <label style={labelStyle}>Fecha</label>
+                            <input type="date" style={inputErr(`dia-${i}-fecha`)} value={dia.fecha} min={today} max={maxDateStr}
+                              onChange={(e) => updateDia(i, "fecha", e.target.value)} />
+                            {validarFecha(dia.fecha) && <div style={alertStyle}>{validarFecha(dia.fecha)}</div>}
+                            {errMsg(`dia-${i}-fecha`)}
+                          </div>
+                          <div id={`field-dia-${i}-horaInicio`}>
+                            <TimeSelector
+                              label="Hora inicio" hora={dia.horaInicio} min={dia.minInicio}
+                              onHora={(v) => updateDia(i, "horaInicio", v)}
+                              onMin={(v) => updateDia(i, "minInicio", v)}
+                              labelStyle={labelStyle} inputStyle={inputStyle}
+                              isLast={false} onComplete={() => focusRef(`dia-fin-${i}`)}
+                              hasError={!!errors[`dia-${i}-horaInicio`]}
+                            />
+                            {errMsg(`dia-${i}-horaInicio`)}
+                          </div>
+                          <div id={`field-dia-${i}-horaFin`}>
+                            <FinSelector
+                              label="Hora fin" horaVal={dia.horaFin} minVal={dia.minFin}
+                              onHora={(v) => updateDia(i, "horaFin", v)}
+                              onMin={(v) => updateDia(i, "minFin", v)}
+                              labelStyle={labelStyle} inputStyle={inputStyle}
+                              refKey={`dia-fin-${i}`} finRefs={finRefs}
+                              hasError={!!errors[`dia-${i}-horaFin`]}
+                            />
+                            {errMsg(`dia-${i}-horaFin`)}
+                          </div>
+                        </div>
+                        {horasDeAlerta(dia.horaInicio, dia.minInicio, dia.horaFin, dia.minFin) && (
+                          <div style={warnStyle}>El horario supera las 13 horas. Verificá que sea correcto.</div>
+                        )}
+                      </div>
+                    ))}
+                  </>
+                )}
+
+                {form.tipoPetsitting === "Hospedaje" && (
+                  <>
+                    <div id="field-petFechaDesde">
+                      <label style={labelStyle}>Desde</label>
+                      <input type="date" style={inputErr("petFechaDesde")} value={form.petFechaDesde} min={today} max={maxDateStr}
+                        onChange={(e) => update("petFechaDesde", e.target.value)} />
+                      {validarFecha(form.petFechaDesde) && <div style={alertStyle}>{validarFecha(form.petFechaDesde)}</div>}
+                      {errMsg("petFechaDesde")}
+                    </div>
+                    <div id="field-petFechaHasta">
+                      <label style={labelStyle}>Hasta</label>
+                      <input type="date" style={inputErr("petFechaHasta")} value={form.petFechaHasta} min={form.petFechaDesde || today} max={maxDateStr}
+                        onChange={(e) => update("petFechaHasta", e.target.value)} />
+                      {errMsg("petFechaHasta")}
+                    </div>
+                  </>
+                )}
+              </>
+            )}
+
             {/* ── EVENTO ── */}
             {form.servicio === "Evento" && (
               <>
@@ -722,7 +896,7 @@ export default function SimulatorSection() {
             )}
 
             {/* ── CANTIDAD DE NIÑOS ── */}
-            {form.servicio !== "Evento" && (
+            {form.servicio === "Babysitting" && (
               <div id="field-cantNinos">
                 <label style={labelStyle}>Cantidad de niños</label>
                 <select style={{ ...inputErr("cantNinos"), cursor: "pointer" }} value={form.cantNinos}
@@ -734,14 +908,16 @@ export default function SimulatorSection() {
               </div>
             )}
 
-            <div id="field-edades">
-              <label style={labelStyle}>Edades *</label>
-              <input style={inputErr("edades")} placeholder="Ej: 2 y 5 años" value={form.edades}
-                onChange={(e) => update("edades", e.target.value)}
-                onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-                onBlur={(e) => { e.currentTarget.style.borderColor = errors["edades"] ? "#dc2626" : "var(--gray)"; }} />
-              {errMsg("edades")}
-            </div>
+            {form.servicio !== "Petsitting" && (
+              <div id="field-edades">
+                <label style={labelStyle}>Edades *</label>
+                <input style={inputErr("edades")} placeholder="Ej: 2 y 5 años" value={form.edades}
+                  onChange={(e) => update("edades", e.target.value)}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = errors["edades"] ? "#dc2626" : "var(--gray)"; }} />
+                {errMsg("edades")}
+              </div>
+            )}
 
             <div className="full-col">
               <label style={labelStyle}>Comentarios adicionales</label>
