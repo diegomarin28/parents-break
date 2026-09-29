@@ -24,6 +24,21 @@ export default function ServicesSection() {
       featuredBadgeColor: "white",
     },
     {
+      title: "Petsitting",
+      subtitle: "Cuidado de mascotas",
+      desc: "Cuidamos a tu mascota y nos ocupamos de que se sienta acompañada y segura cuando vos no podés estar.",
+      items: [
+        "Visitas a domicilio para darle de comer y pasearla",
+        "Cuidado de tu mascota y casa durante viajes (pernocte)",
+        "Hospedaje de tu perro en la casa de nuestras cuidadoras",
+        "Atención personalizada y comunicación constante",
+      ],
+      color: "var(--blue)",
+      bg: "var(--blue-light)",
+      border: "var(--blue-mid)",
+      cta: "Consultar petsitting",
+    },
+    {
       title: "Eventos",
       subtitle: "Animación infantil",
       desc: "Creamos espacios divertidos y dinámicos para que los niños disfruten mientras los adultos pueden relajarse. Organizamos propuestas adaptadas según la edad, cantidad de chicos y tipo de evento.",
@@ -68,10 +83,8 @@ responsables y preparadas para cada situación.
         {/* Cards */}
         <div className="services-grid" style={{
           display: "grid",
-          gridTemplateColumns: "repeat(2, 1fr)",
+          gridTemplateColumns: "repeat(3, 1fr)",
           gap: 24,
-          maxWidth: 840,
-          margin: "0 auto",
             alignItems: "stretch",
         }}>
           {services.map((s, i) => (
@@ -133,6 +146,15 @@ responsables y preparadas para cada situación.
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={s.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                     <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                )}
+                {s.title === "Petsitting" && (
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill={s.color} stroke="none">
+                    <circle cx="4.5" cy="9.5" r="2"/>
+                    <circle cx="9" cy="5.5" r="2"/>
+                    <circle cx="15" cy="5.5" r="2"/>
+                    <circle cx="19.5" cy="9.5" r="2"/>
+                    <path d="M17.34 14.86c-.83-1.6-1.95-2.86-4.3-3.1-.34-.03-.68-.03-1.02 0-2.35.24-3.47 1.5-4.3 3.1-.83 1.6-2.55 2.3-2.7 4.02-.15 1.65 1.1 2.87 2.66 2.6.98-.17 1.9-.77 3.02-.9.5-.06 1.02-.06 1.52 0 1.12.13 2.04.73 3.02.9 1.56.27 2.81-.95 2.66-2.6-.15-1.72-1.87-2.42-2.7-4.02z"/>
                   </svg>
                 )}
                 {s.title === "Eventos" && (
