@@ -30,13 +30,13 @@ export default function ServicesSection() {
       items: [
         "Visitas a domicilio para darle de comer y pasearla",
         "Cuidado de tu mascota y casa durante viajes (pernocte)",
-        "Hospedaje de tu perro en la casa de nuestras cuidadoras",
+        "Hospedaje de tu mascota en la casa de nuestras cuidadoras",
         "Atención personalizada y comunicación constante",
       ],
       color: "var(--blue)",
       bg: "var(--blue-light)",
       border: "var(--blue-mid)",
-      cta: "Consultar Petsittings",
+      cta: "Consultar petsittings",
     },
     {
       title: "Eventos",
