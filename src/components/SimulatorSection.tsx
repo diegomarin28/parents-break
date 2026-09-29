@@ -196,7 +196,7 @@ export default function SimulatorSection() {
     cantNinos: "", edades: "",
     departamento: "", zona: "", zonaOtro: "",
     tipoEvento: "", cantNinosEvento: "",
-    tipoPetsitting: "", cantPerros: "", razaPerros: "",
+    tipoPetsittings: "", cantPerros: "", razaPerros: "",
     petNecesita: [] as string[],
     petFechaDesde: today, petFechaHasta: "",
     comentarios: "",
@@ -209,7 +209,7 @@ export default function SimulatorSection() {
     const leerServicio = () => {
       const params = new URLSearchParams(window.location.search);
       const servicio = params.get("servicio");
-      if (servicio && ["Babysitting", "Evento", "Petsitting"].includes(servicio)) {
+      if (servicio && ["Babysitting", "Evento", "Petsittings"].includes(servicio)) {
         setForm((prev) => ({ ...prev, servicio }));
       }
     };
@@ -315,7 +315,7 @@ export default function SimulatorSection() {
     if (!form.departamento) e["departamento"] = "Seleccioná un departamento";
     if (!form.zona) e["zona"] = "Seleccioná una zona";
     if (form.zona === "Otro" && !form.zonaOtro.trim()) e["zonaOtro"] = "Ingresá tu zona";
-    if (form.servicio !== "Petsitting" && !form.edades.trim()) e["edades"] = "Ingresá las edades";
+    if (form.servicio !== "Petsittings" && !form.edades.trim()) e["edades"] = "Ingresá las edades";
 
     if (form.servicio === "Babysitting") {
       if (!form.tipoBabysitting) e["tipoBabysitting"] = "Seleccioná puntual o fijo";
@@ -342,10 +342,10 @@ export default function SimulatorSection() {
       if (!form.horaFinH) e["horaFin"] = "Ingresá hora de fin";
     }
 
-    if (form.servicio === "Petsitting") {
-      if (!form.tipoPetsitting) e["tipoPetsitting"] = "Seleccioná el tipo de servicio";
+    if (form.servicio === "Petsittings") {
+      if (!form.tipoPetsittings) e["tipoPetsittings"] = "Seleccioná el tipo de servicio";
       if (!form.cantPerros) e["cantPerros"] = "Seleccioná la cantidad de perros";
-      if (form.tipoPetsitting === "Visita a domicilio") {
+      if (form.tipoPetsittings === "Visita a domicilio") {
         if (!form.cantDias) e["cantDias"] = "Seleccioná la cantidad de días";
         form.dias.forEach((d, i) => {
           if (!d.fecha) e[`dia-${i}-fecha`] = "Ingresá la fecha";
@@ -353,7 +353,7 @@ export default function SimulatorSection() {
           if (!d.horaFin) e[`dia-${i}-horaFin`] = "Ingresá hora de fin";
         });
       }
-      if (form.tipoPetsitting === "Hospedaje") {
+      if (form.tipoPetsittings === "Hospedaje") {
         if (!form.petFechaDesde) e["petFechaDesde"] = "Ingresá la fecha de inicio";
         if (!form.petFechaHasta) e["petFechaHasta"] = "Ingresá la fecha de fin";
       }
@@ -381,21 +381,21 @@ export default function SimulatorSection() {
       msg += `*Tipo de evento:* ${form.tipoEvento}\n`;
       msg += `*Horario:* ${form.horaInicioH}:${form.horaInicioM || "00"} - ${form.horaFinH}:${form.horaFinM || "00"}\n`;
       msg += `*Cantidad aproximada de niños:* ${form.cantNinosEvento}\n`;
-    } else if (form.servicio === "Petsitting") {
-      msg += `*Tipo de servicio:* ${form.tipoPetsitting}\n`;
+    } else if (form.servicio === "Petsittings") {
+      msg += `*Tipo de servicio:* ${form.tipoPetsittings}\n`;
       msg += `*Cantidad de perros:* ${form.cantPerros}\n`;
       if (form.razaPerros.trim()) msg += `*Raza/s:* ${form.razaPerros}\n`;
       if (form.petNecesita.length) msg += `*Necesita:* ${form.petNecesita.join(", ")}\n`;
-      if (form.tipoPetsitting === "Visita a domicilio") {
+      if (form.tipoPetsittings === "Visita a domicilio") {
         form.dias.forEach((d, i) => {
           msg += `\n*Día ${i + 1}:*\n  Fecha: ${d.fecha}\n  Horario: ${d.horaInicio}:${d.minInicio || "00"} - ${d.horaFin}:${d.minFin || "00"}\n`;
         });
-      } else if (form.tipoPetsitting === "Hospedaje") {
+      } else if (form.tipoPetsittings === "Hospedaje") {
         msg += `*Desde:* ${form.petFechaDesde}\n*Hasta:* ${form.petFechaHasta}\n`;
       }
     }
     if (form.servicio === "Babysitting") msg += `\n*Cantidad de niños:* ${form.cantNinos}\n`;
-    if (form.servicio !== "Petsitting") msg += `*Edades:* ${form.edades}\n`;
+    if (form.servicio !== "Petsittings") msg += `*Edades:* ${form.edades}\n`;
     msg += `*Departamento:* ${form.departamento}\n*Zona:* ${zonaFinal()}\n`;
     if (form.comentarios) msg += `*Comentarios:* ${form.comentarios}\n`;
     return encodeURIComponent(msg);
@@ -517,7 +517,7 @@ export default function SimulatorSection() {
                 onChange={(e) => update("servicio", e.target.value)}>
                 <option value="">Seleccioná un servicio</option>
                 <option>Babysitting</option>
-                <option>Petsitting</option>
+                <option>Petsittings</option>
                 <option>Evento</option>
               </select>
               {errMsg("servicio")}
@@ -672,17 +672,17 @@ export default function SimulatorSection() {
               </>
             )}
 
-            {/* ── PETSITTING ── */}
-            {form.servicio === "Petsitting" && (
+            {/* ── Petsittings ── */}
+            {form.servicio === "Petsittings" && (
               <>
-                <div className="full-col" id="field-tipoPetsitting">
+                <div className="full-col" id="field-tipoPetsittings">
                   <label style={labelStyle}>Tipo de servicio</label>
                   <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                     {["Visita a domicilio", "Hospedaje"].map((opt) => (
-                      <button key={opt} onClick={() => update("tipoPetsitting", opt)} style={{ ...btnToggle(form.tipoPetsitting === opt), flex: "1 1 140px" }}>{opt}</button>
+                      <button key={opt} onClick={() => update("tipoPetsittings", opt)} style={{ ...btnToggle(form.tipoPetsittings === opt), flex: "1 1 140px" }}>{opt}</button>
                     ))}
                   </div>
-                  {errMsg("tipoPetsitting")}
+                  {errMsg("tipoPetsittings")}
                 </div>
 
                 <div id="field-cantPerros">
@@ -715,7 +715,7 @@ export default function SimulatorSection() {
                   </div>
                 </div>
 
-                {form.tipoPetsitting === "Visita a domicilio" && (
+                {form.tipoPetsittings === "Visita a domicilio" && (
                   <>
                     <div className="full-col" id="field-cantDias">
                       <label style={labelStyle}>¿Cuántos días?</label>
@@ -781,7 +781,7 @@ export default function SimulatorSection() {
                   </>
                 )}
 
-                {form.tipoPetsitting === "Hospedaje" && (
+                {form.tipoPetsittings === "Hospedaje" && (
                   <>
                     <div id="field-petFechaDesde">
                       <label style={labelStyle}>Desde</label>
@@ -911,7 +911,7 @@ export default function SimulatorSection() {
               </div>
             )}
 
-            {form.servicio !== "Petsitting" && (
+            {form.servicio !== "Petsittings" && (
               <div id="field-edades">
                 <label style={labelStyle}>Edades *</label>
                 <input style={inputErr("edades")} placeholder="Ej: 2 y 5 años" value={form.edades}
