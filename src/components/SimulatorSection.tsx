@@ -213,7 +213,10 @@ export default function SimulatorSection() {
         setForm((prev) => ({ ...prev, servicio }));
       }
     };
-    leerServicio();
+    // No se lee el query param al cargar/recargar la página: el select
+    // de servicio arranca siempre en "Seleccioná un servicio". Solo se
+    // completa cuando el usuario hace clic en el CTA de una tarjeta de
+    // servicio, que dispara "popstate" manualmente.
     window.addEventListener("popstate", leerServicio);
     return () => window.removeEventListener("popstate", leerServicio);
   }, []);
