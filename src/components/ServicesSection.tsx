@@ -24,7 +24,7 @@ export default function ServicesSection() {
       featuredBadgeColor: "white",
     },
     {
-      title: "Petsitting",
+      title: "Petsittings",
       subtitle: "Cuidado de mascotas",
       desc: "Cuidamos a tu mascota y nos ocupamos de que se sienta acompañada y segura cuando vos no podés estar.",
       items: [
@@ -36,7 +36,7 @@ export default function ServicesSection() {
       color: "var(--blue)",
       bg: "var(--blue-light)",
       border: "var(--blue-mid)",
-      cta: "Consultar petsitting",
+      cta: "Consultar Petsittings",
     },
     {
       title: "Eventos",
@@ -149,7 +149,7 @@ responsables y preparadas para cada situación.
                     <circle cx="12" cy="7" r="4"/>
                   </svg>
                 )}
-                {s.title === "Petsitting" && (
+                {s.title === "Petsittings" && (
                   <svg width="26" height="26" viewBox="0 0 24 24" fill={s.color} stroke="none">
                     <circle cx="4.5" cy="9.5" r="2"/>
                     <circle cx="9" cy="5.5" r="2"/>
@@ -203,7 +203,7 @@ responsables y preparadas para cada situación.
                   const map: Record<string, string> = {
                     "Babysitting": "Babysitting",
                     "Eventos": "Evento",
-                    "Petsitting": "Petsitting",
+                    "Petsittings": "Petsittings",
                   };
                   const servicio = map[s.title] || s.title;
                   window.history.pushState(null, "", `?servicio=${servicio}#simulador`);
