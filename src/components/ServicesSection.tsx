@@ -43,6 +43,7 @@ export default function ServicesSection() {
       subtitle: "Animación infantil",
       desc: "Creamos espacios divertidos y dinámicos para que los niños disfruten mientras los adultos pueden relajarse. Organizamos propuestas adaptadas según la edad, cantidad de chicos y tipo de evento.",
       items: [
+        "Casamientos"
         "Cumpleaños y eventos familiares",
         "Eventos empresariales y corporativos",
         "Actividades temáticas y recreativas",
