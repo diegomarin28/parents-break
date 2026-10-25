@@ -428,6 +428,24 @@ personalizado.
             margin-bottom: 20px;
           }
         }
+
+        /* ── CELULARES CHICOS (iPhone SE y similares) ──
+           Compacta la foto y los espacios para que el botón principal
+           entre completo en la primera pantalla. */
+        @media (max-width: 380px) {
+          .hero-subtitle {
+            margin-bottom: 20px;
+          }
+          .hero-cities {
+            margin-bottom: 16px;
+          }
+          .hero-visual-mobile {
+            margin-bottom: 16px;
+          }
+          .hero-photo-img-mobile {
+            aspect-ratio: 5 / 2;
+          }
+        }
       `}</style>
     </section>
   );
