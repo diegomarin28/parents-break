@@ -1074,6 +1074,9 @@ export default function SimulatorSection() {
         .sim-container { padding: 0 24px; }
         .sim-form { padding: 40px; }
         .sim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        /* Los campos que aparecen al elegir algo entran con un fundido corto en vez de saltar */
+        .sim-grid > div { animation: simAparecer .18s ease-out both; }
+        @keyframes simAparecer { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
         .full-col { grid-column: 1 / -1; }
         .dia-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
         /* Desplegables con flecha propia, a 16px del borde y en el violeta de la marca */
