@@ -3,7 +3,7 @@ export default function HowItWorks() {
   const steps = [
     {
       num: "1",
-      title: " Empieza tu solicitud",
+      title: "Empieza tu solicitud",
       desc: "Te consultamos fecha, horario, zona, cantidad de niños y tipo de servicio",
       color: "var(--pink)",
       bg: "var(--pink-light)",
@@ -16,7 +16,7 @@ export default function HowItWorks() {
     {
       num: "2",
       title: "Buscamos la niñera que más se ajusta a tus necesidades",
-      desc: "Seleccionamos las niñeras más adecuadas según tu solicitud y te enviamos los distintos para elegir",
+      desc: "Seleccionamos las niñeras más adecuadas según tu solicitud y te enviamos los distintos perfiles para elegir",
       color: "var(--blue)",
       bg: "var(--blue-light)",
       icon: (

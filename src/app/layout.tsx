@@ -4,19 +4,19 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Parents' Break – Cuidado infantil profesional en Uruguay",
   description:
-    "Red de más de 70 niñeras seleccionadas para babysitting, traslados y eventos en Montevideo y Punta del Este. Confianza y calidad en cada servicio.",
+    "Red de más de 80 niñeras seleccionadas para babysitting, petsitting y eventos en Montevideo, Canelones y Punta del Este. Confianza y calidad en cada servicio.",
   keywords: [
     "niñeras Uruguay",
     "babysitting Montevideo",
     "cuidado infantil Punta del Este",
     "niñeras profesionales",
-    "traslados niños",
+    "petsitting Montevideo",
     "animación eventos infantiles",
   ],
   openGraph: {
     title: "Parents' Break – Cuidado infantil profesional",
     description:
-      "Niñeras seleccionadas para babysitting, traslados y eventos en Montevideo y Punta del Este.",
+      "Niñeras seleccionadas para babysitting, petsitting y eventos en Montevideo, Canelones y Punta del Este.",
     locale: "es_UY",
     type: "website",
   },
