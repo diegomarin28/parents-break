@@ -143,11 +143,22 @@ const FinSelector = ({ label, horaVal, minVal, onHora, onMin, labelStyle, inputS
   );
 };
 
+// Fecha local en formato "aaaa-mm-dd". toISOString() usa UTC: en Uruguay,
+// después de las 21:00 devolvía la fecha de mañana.
+const fechaLocalISO = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+// "2026-10-25" -> "25/10/2026" para el mensaje de WhatsApp
+const formatFecha = (iso: string) => {
+  const [y, m, d] = iso.split("-");
+  return y && m && d ? `${d}/${m}/${y}` : iso;
+};
+
 export default function SimulatorSection() {
-  const today = new Date().toISOString().split("T")[0];
+  const today = fechaLocalISO(new Date());
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
-  const maxDateStr = maxDate.toISOString().split("T")[0];
+  const maxDateStr = fechaLocalISO(maxDate);
   const DIAS_SEMANA = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
 
   const zonasPorDepartamento: Record<string, string[]> = {
@@ -195,7 +206,7 @@ export default function SimulatorSection() {
     horaFinH: "", horaFinM: "",
     cantNinos: "", edades: "",
     departamento: "", zona: "", zonaOtro: "",
-    tipoEvento: "", cantNinosEvento: "",
+    tipoEvento: "", cantNinosEvento: "", fechaEvento: today,
     tipoPetsitting: "", cantMascotas: "",
     petNecesita: [] as string[],
     petFechaDesde: today, petFechaHasta: "",
@@ -308,6 +319,10 @@ export default function SimulatorSection() {
     return null;
   };
 
+  // En modo Fijo el "Desde" se guarda en dias[0]; si no se tocó, vale hoy
+  // (es lo que muestra el campo).
+  const fijoDesde = form.dias[0]?.fecha || today;
+
   // Devuelve la zona final a usar en el mensaje (texto libre si es "Otro")
   const zonaFinal = () => {
     if (form.zona === "Otro") return form.zonaOtro.trim() || "Otro";
@@ -316,6 +331,12 @@ export default function SimulatorSection() {
 
   const validate = (): Record<string, string> => {
     const e: Record<string, string> = {};
+    // Fecha obligatoria y dentro del rango permitido (no anterior a hoy, no más de un año)
+    const checkFecha = (key: string, valor: string, faltante: string) => {
+      const invalida = validarFecha(valor);
+      if (!valor) e[key] = faltante;
+      else if (invalida) e[key] = invalida;
+    };
     if (!form.nombre.trim()) e["nombre"] = "Ingresá tu nombre";
     if (!form.servicio) e["servicio"] = "Seleccioná un servicio";
     if (!form.departamento) e["departamento"] = "Seleccioná un departamento";
@@ -328,7 +349,7 @@ export default function SimulatorSection() {
       if (form.tipoBabysitting === "Puntual") {
         if (!form.cantDias) e["cantDias"] = "Seleccioná la cantidad de días";
         form.dias.forEach((d, i) => {
-          if (!d.fecha) e[`dia-${i}-fecha`] = "Ingresá la fecha";
+          checkFecha(`dia-${i}-fecha`, d.fecha, "Ingresá la fecha");
           if (!d.horaInicio) e[`dia-${i}-horaInicio`] = "Ingresá hora de inicio";
           if (!d.horaFin) e[`dia-${i}-horaFin`] = "Ingresá hora de fin";
         });
@@ -337,15 +358,21 @@ export default function SimulatorSection() {
         if (form.diasSemana.length === 0) e["diasSemana"] = "Seleccioná al menos un día";
         if (!form.horarioFijoInicioH) e["horarioFijoInicio"] = "Ingresá hora de inicio";
         if (!form.horarioFijoFinH) e["horarioFijoFin"] = "Ingresá hora de fin";
+        checkFecha("fijoDesde", fijoDesde, "Ingresá desde cuándo");
+        if (form.hastaCuando === "Fecha") {
+          checkFecha("hastaFecha", form.hastaFecha, "Ingresá hasta qué fecha");
+          if (!e["hastaFecha"] && form.hastaFecha < fijoDesde) e["hastaFecha"] = "La fecha de fin no puede ser anterior a la de inicio";
+        }
       }
       if (!form.cantNinos) e["cantNinos"] = "Seleccioná cantidad de niños";
     }
 
     if (form.servicio === "Evento") {
       if (!form.tipoEvento) e["tipoEvento"] = "Seleccioná el tipo de evento";
-      if (!form.cantNinosEvento.trim()) e["cantNinosEvento"] = "Ingresá la cantidad aproximada";
+      checkFecha("fechaEvento", form.fechaEvento, "Ingresá la fecha del evento");
       if (!form.horaInicioH) e["horaInicio"] = "Ingresá hora de inicio";
       if (!form.horaFinH) e["horaFin"] = "Ingresá hora de fin";
+      if (!form.cantNinosEvento.trim()) e["cantNinosEvento"] = "Ingresá la cantidad aproximada";
     }
 
     if (form.servicio === "Petsittings") {
@@ -354,14 +381,15 @@ export default function SimulatorSection() {
       if (form.tipoPetsitting === "Visita a domicilio") {
         if (!form.cantDias) e["cantDias"] = "Seleccioná la cantidad de días";
         form.dias.forEach((d, i) => {
-          if (!d.fecha) e[`dia-${i}-fecha`] = "Ingresá la fecha";
+          checkFecha(`dia-${i}-fecha`, d.fecha, "Ingresá la fecha");
           if (!d.horaInicio) e[`dia-${i}-horaInicio`] = "Ingresá hora de inicio";
           if (!d.horaFin) e[`dia-${i}-horaFin`] = "Ingresá hora de fin";
         });
       }
       if (form.tipoPetsitting === "Pernocte" || form.tipoPetsitting === "Hospedaje") {
-        if (!form.petFechaDesde) e["petFechaDesde"] = "Ingresá la fecha de inicio";
-        if (!form.petFechaHasta) e["petFechaHasta"] = "Ingresá la fecha de fin";
+        checkFecha("petFechaDesde", form.petFechaDesde, "Ingresá la fecha de inicio");
+        checkFecha("petFechaHasta", form.petFechaHasta, "Ingresá la fecha de fin");
+        if (!e["petFechaHasta"] && form.petFechaDesde && form.petFechaHasta < form.petFechaDesde) e["petFechaHasta"] = "La fecha de fin no puede ser anterior a la de inicio";
       }
     }
 
@@ -375,16 +403,17 @@ export default function SimulatorSection() {
       msg += `*Modalidad:* ${form.tipoBabysitting}\n`;
       if (form.tipoBabysitting === "Puntual") {
         form.dias.forEach((d, i) => {
-          msg += `\n*Día ${i + 1}:*\n  Fecha: ${d.fecha}\n  Horario: ${d.horaInicio}:${d.minInicio || "00"} - ${d.horaFin}:${d.minFin || "00"}\n`;
+          msg += `\n*Día ${i + 1}:*\n  Fecha: ${formatFecha(d.fecha)}\n  Horario: ${d.horaInicio}:${d.minInicio || "00"} - ${d.horaFin}:${d.minFin || "00"}\n`;
         });
       } else if (form.tipoBabysitting === "Fijo") {
         msg += `*Días:* ${form.diasSemana.join(", ")}\n`;
         msg += `*Horario:* ${form.horarioFijoInicioH}:${form.horarioFijoInicioM || "00"} - ${form.horarioFijoFinH}:${form.horarioFijoFinM || "00"}\n`;
-        msg += `*Desde:* ${form.dias[0]?.fecha || ""}\n`;
-        msg += `*Hasta:* ${form.hastaCuando === "Indefinido" ? "Indefinido" : form.hastaFecha}\n`;
+        msg += `*Desde:* ${formatFecha(fijoDesde)}\n`;
+        msg += `*Hasta:* ${form.hastaCuando === "Indefinido" ? "Indefinido" : formatFecha(form.hastaFecha)}\n`;
       }
     } else if (form.servicio === "Evento") {
       msg += `*Tipo de evento:* ${form.tipoEvento}\n`;
+      msg += `*Fecha:* ${formatFecha(form.fechaEvento)}\n`;
       msg += `*Horario:* ${form.horaInicioH}:${form.horaInicioM || "00"} - ${form.horaFinH}:${form.horaFinM || "00"}\n`;
       msg += `*Cantidad aproximada de niños:* ${form.cantNinosEvento}\n`;
     } else if (form.servicio === "Petsittings") {
@@ -393,10 +422,10 @@ export default function SimulatorSection() {
       if (form.petNecesita.length) msg += `*Necesita:* ${form.petNecesita.join(", ")}\n`;
       if (form.tipoPetsitting === "Visita a domicilio") {
         form.dias.forEach((d, i) => {
-          msg += `\n*Día ${i + 1}:*\n  Fecha: ${d.fecha}\n  Horario: ${d.horaInicio}:${d.minInicio || "00"} - ${d.horaFin}:${d.minFin || "00"}\n`;
+          msg += `\n*Día ${i + 1}:*\n  Fecha: ${formatFecha(d.fecha)}\n  Horario: ${d.horaInicio}:${d.minInicio || "00"} - ${d.horaFin}:${d.minFin || "00"}\n`;
         });
       } else if (form.tipoPetsitting === "Pernocte" || form.tipoPetsitting === "Hospedaje") {
-        msg += `*Desde:* ${form.petFechaDesde}\n*Hasta:* ${form.petFechaHasta}\n`;
+        msg += `*Desde:* ${formatFecha(form.petFechaDesde)}\n*Hasta:* ${formatFecha(form.petFechaHasta)}\n`;
       }
     }
     if (form.servicio === "Babysitting") msg += `\n*Cantidad de niños:* ${form.cantNinos}\n`;
@@ -519,7 +548,7 @@ export default function SimulatorSection() {
             <div id="field-servicio">
               <label style={labelStyle}>Tipo de servicio *</label>
               <select style={{ ...inputErr("servicio"), cursor: "pointer" }} value={form.servicio}
-                onChange={(e) => update("servicio", e.target.value)}>
+                onChange={(e) => { update("servicio", e.target.value); setErrors({}); }}>
                 <option value="">Seleccioná un servicio</option>
                 <option>Babysitting</option>
                 <option>Petsittings</option>
@@ -573,7 +602,7 @@ export default function SimulatorSection() {
                             <label style={labelStyle}>Fecha</label>
                             <input type="date" style={inputErr(`dia-${i}-fecha`)} value={dia.fecha} min={today} max={maxDateStr}
                               onChange={(e) => updateDia(i, "fecha", e.target.value)} />
-                            {validarFecha(dia.fecha) && <div style={alertStyle}>{validarFecha(dia.fecha)}</div>}
+                            {validarFecha(dia.fecha) && !errors[`dia-${i}-fecha`] && <div style={alertStyle}>{validarFecha(dia.fecha)}</div>}
                             {errMsg(`dia-${i}-fecha`)}
                           </div>
                           <div id={`field-dia-${i}-horaInicio`}>
@@ -646,31 +675,37 @@ export default function SimulatorSection() {
                     {horasDeAlerta(form.horarioFijoInicioH, form.horarioFijoInicioM, form.horarioFijoFinH, form.horarioFijoFinM) && (
                       <div className="full-col" style={warnStyle}>El horario supera las 13 horas. Verificá que sea correcto.</div>
                     )}
-                    <div>
+                    <div id="field-fijoDesde">
                       <label style={labelStyle}>Desde cuándo</label>
-                      <input type="date" style={inputStyle}
-                        value={form.dias[0]?.fecha || today} min={today} max={maxDateStr}
+                      <input type="date" style={inputErr("fijoDesde")}
+                        value={fijoDesde} min={today} max={maxDateStr}
                         onChange={(e) => {
                           setForm((prev) => {
                             const newDias = [...prev.dias];
                             newDias[0] = { ...(newDias[0] || { horaInicio: "", minInicio: "", horaFin: "", minFin: "" }), fecha: e.target.value };
                             return { ...prev, dias: newDias };
                           });
+                          setErrors((prev) => { const n = { ...prev }; delete n["fijoDesde"]; return n; });
                         }} />
+                      {errMsg("fijoDesde")}
                     </div>
-                    <div>
+                    <div id="field-hastaFecha">
                       <label style={labelStyle}>Hasta cuándo</label>
                       <div style={{ display: "flex", gap: 10, marginBottom: form.hastaCuando === "Fecha" ? 10 : 0 }}>
                         {["Indefinido", "Fecha"].map((opt) => (
-                          <button key={opt} onClick={() => update("hastaCuando", opt)} style={btnToggle(form.hastaCuando === opt)}>
+                          <button key={opt} onClick={() => {
+                            update("hastaCuando", opt);
+                            setErrors((prev) => { const n = { ...prev }; delete n["hastaFecha"]; return n; });
+                          }} style={btnToggle(form.hastaCuando === opt)}>
                             {opt === "Fecha" ? "Hasta una fecha" : "Indefinido"}
                           </button>
                         ))}
                       </div>
                       {form.hastaCuando === "Fecha" && (
-                        <input type="date" style={{ ...inputStyle, marginTop: 10 }} value={form.hastaFecha}
-                          min={today} max={maxDateStr} onChange={(e) => update("hastaFecha", e.target.value)} />
+                        <input type="date" style={{ ...inputErr("hastaFecha"), marginTop: 10 }} value={form.hastaFecha}
+                          min={fijoDesde} max={maxDateStr} onChange={(e) => update("hastaFecha", e.target.value)} />
                       )}
+                      {errMsg("hastaFecha")}
                     </div>
                   </>
                 )}
@@ -744,7 +779,7 @@ export default function SimulatorSection() {
                             <label style={labelStyle}>Fecha</label>
                             <input type="date" style={inputErr(`dia-${i}-fecha`)} value={dia.fecha} min={today} max={maxDateStr}
                               onChange={(e) => updateDia(i, "fecha", e.target.value)} />
-                            {validarFecha(dia.fecha) && <div style={alertStyle}>{validarFecha(dia.fecha)}</div>}
+                            {validarFecha(dia.fecha) && !errors[`dia-${i}-fecha`] && <div style={alertStyle}>{validarFecha(dia.fecha)}</div>}
                             {errMsg(`dia-${i}-fecha`)}
                           </div>
                           <div id={`field-dia-${i}-horaInicio`}>
@@ -784,7 +819,7 @@ export default function SimulatorSection() {
                       <label style={labelStyle}>Desde</label>
                       <input type="date" style={inputErr("petFechaDesde")} value={form.petFechaDesde} min={today} max={maxDateStr}
                         onChange={(e) => update("petFechaDesde", e.target.value)} />
-                      {validarFecha(form.petFechaDesde) && <div style={alertStyle}>{validarFecha(form.petFechaDesde)}</div>}
+                      {validarFecha(form.petFechaDesde) && !errors["petFechaDesde"] && <div style={alertStyle}>{validarFecha(form.petFechaDesde)}</div>}
                       {errMsg("petFechaDesde")}
                     </div>
                     <div id="field-petFechaHasta">
@@ -814,13 +849,12 @@ export default function SimulatorSection() {
                   </select>
                   {errMsg("tipoEvento")}
                 </div>
-                <div id="field-cantNinosEvento">
-                  <label style={labelStyle}>Cantidad aprox. de niños</label>
-                  <input style={inputErr("cantNinosEvento")} placeholder="Ej: 10-15 niños" value={form.cantNinosEvento}
-                    onChange={(e) => update("cantNinosEvento", e.target.value)}
-                    onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-                    onBlur={(e) => { e.currentTarget.style.borderColor = errors["cantNinosEvento"] ? "#dc2626" : "var(--gray)"; }} />
-                  {errMsg("cantNinosEvento")}
+                <div id="field-fechaEvento">
+                  <label style={labelStyle}>Fecha</label>
+                  <input type="date" style={inputErr("fechaEvento")} value={form.fechaEvento} min={today} max={maxDateStr}
+                    onChange={(e) => update("fechaEvento", e.target.value)} />
+                  {validarFecha(form.fechaEvento) && !errors["fechaEvento"] && <div style={alertStyle}>{validarFecha(form.fechaEvento)}</div>}
+                  {errMsg("fechaEvento")}
                 </div>
                 <div id="field-horaInicio">
                   <TimeSelector
@@ -845,6 +879,14 @@ export default function SimulatorSection() {
                 {horasDeAlerta(form.horaInicioH, form.horaInicioM, form.horaFinH, form.horaFinM) && (
                   <div className="full-col" style={warnStyle}>El horario supera las 13 horas. Verificá que sea correcto.</div>
                 )}
+                <div id="field-cantNinosEvento">
+                  <label style={labelStyle}>Cantidad aprox. de niños</label>
+                  <input style={inputErr("cantNinosEvento")} placeholder="Ej: 10-15 niños" value={form.cantNinosEvento}
+                    onChange={(e) => update("cantNinosEvento", e.target.value)}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = errors["cantNinosEvento"] ? "#dc2626" : "var(--gray)"; }} />
+                  {errMsg("cantNinosEvento")}
+                </div>
               </>
             )}
 
