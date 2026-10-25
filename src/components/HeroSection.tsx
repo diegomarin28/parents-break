@@ -69,8 +69,8 @@ personalizado.
                   </svg>
                   Coordinar servicio
                 </a>
-                <a href="#como-funciona" className="hero-btn-secondary">
-                  Cómo funciona →
+                <a href="#simulador" className="hero-btn-secondary">
+                  Usar el simulador →
                 </a>
               </div>
 
