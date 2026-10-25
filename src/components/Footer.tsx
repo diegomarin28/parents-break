@@ -173,7 +173,7 @@ export default function Footer() {
           flex-wrap: wrap;
           gap: 8px;
           font-size: 13px;
-          color: rgba(255,255,255,.45);
+          color: rgba(255,255,255,.55); /* contraste 4,7:1 sobre el violeta del footer */
         }
 
         /* ── TABLET ── */
