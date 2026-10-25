@@ -22,7 +22,7 @@ export default function Footer() {
               <span className="footer-logo-text">Parents&apos; Break</span>
             </div>
             <p className="footer-desc">
-              Red profesional de niñeras seleccionadas para babysittings y eventos en Uruguay.
+              Red profesional de niñeras seleccionadas para babysittings, petsittings y eventos en Uruguay.
             </p>
             <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="footer-wa-btn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ flexShrink: 0 }}>
