@@ -495,7 +495,7 @@ export default function SimulatorSection() {
     // borraba el color al montar los campos que aparecen después (quedaban gris oscuro).
     borderWidth: 1.5, borderStyle: "solid", borderColor: "var(--gray)",
     backgroundColor: "var(--off)", color: "var(--text)",
-    fontFamily: "'Source Sans 3', sans-serif", outline: "none", transition: "border-color .15s, background-color .15s",
+    fontFamily: "var(--font-source), sans-serif", outline: "none", transition: "border-color .15s, background-color .15s",
   };
 
   const inputErr = (key: string): React.CSSProperties => ({
@@ -514,7 +514,7 @@ export default function SimulatorSection() {
     background: active ? "var(--blue-light)" : "var(--white)",
     color: active ? "var(--blue)" : "var(--text-soft)",
     fontWeight: 700, fontSize: 14, cursor: "pointer",
-    fontFamily: "'Source Sans 3', sans-serif", transition: "all .15s",
+    fontFamily: "var(--font-source), sans-serif", transition: "all .15s",
   });
 
   const errMsg = (key: string) => errors[key] ? (
@@ -657,7 +657,7 @@ export default function SimulatorSection() {
                               fontSize: 12, fontWeight: 700, color: "var(--blue)",
                               background: "var(--blue-light)", border: "1.5px solid var(--blue-mid)",
                               borderRadius: 99, padding: "5px 14px", cursor: "pointer",
-                              fontFamily: "'Source Sans 3', sans-serif",
+                              fontFamily: "var(--font-source), sans-serif",
                             }}>Copiar horario del Día 1</button>
                           )}
                         </div>
@@ -834,7 +834,7 @@ export default function SimulatorSection() {
                               fontSize: 12, fontWeight: 700, color: "var(--blue)",
                               background: "var(--blue-light)", border: "1.5px solid var(--blue-mid)",
                               borderRadius: 99, padding: "5px 14px", cursor: "pointer",
-                              fontFamily: "'Source Sans 3', sans-serif",
+                              fontFamily: "var(--font-source), sans-serif",
                             }}>Copiar horario del Día 1</button>
                           )}
                         </div>
@@ -1039,7 +1039,7 @@ export default function SimulatorSection() {
             marginTop: 28, width: "100%",
             display: "flex", alignItems: "center", justifyContent: "center", gap: 12,
             background: "var(--whatsapp)", color: "white", padding: "17px", borderRadius: 99,
-            fontWeight: 800, fontSize: 17, fontFamily: "'Source Sans 3', sans-serif",
+            fontWeight: 800, fontSize: 17, fontFamily: "var(--font-source), sans-serif",
             boxShadow: "0 4px 24px rgba(37,211,102,.35)", transition: "transform .18s, box-shadow .18s", border: "none",
           }}
             onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 8px 32px rgba(37,211,102,.45)"; }}

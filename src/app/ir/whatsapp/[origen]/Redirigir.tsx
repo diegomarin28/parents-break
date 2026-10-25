@@ -68,7 +68,7 @@ export default function Redirigir() {
           width: 100%;
         }
         .ir-wa-titulo {
-          font-family: 'Baloo 2', cursive;
+          font-family: var(--font-baloo), cursive;
           font-weight: 800;
           font-size: 24px;
           color: var(--text);

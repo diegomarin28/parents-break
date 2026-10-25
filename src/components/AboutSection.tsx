@@ -217,7 +217,7 @@ antes de incorporarse al equipo.
           border-right: none;
         }
         .about-stat-num {
-          font-family: 'Baloo 2', cursive;
+          font-family: var(--font-baloo), cursive;
           font-size: 36px;
           font-weight: 800;
           color: var(--blue);

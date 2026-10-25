@@ -106,13 +106,13 @@ export default function Footer() {
           align-items: center;
           justify-content: center;
           color: white;
-          font-family: 'Baloo 2', cursive;
+          font-family: var(--font-baloo), cursive;
           font-weight: 800;
           font-size: 18px;
           flex-shrink: 0;
         }
         .footer-logo-text {
-          font-family: 'Baloo 2', cursive;
+          font-family: var(--font-baloo), cursive;
           font-weight: 800;
           font-size: 18px;
           color: white;

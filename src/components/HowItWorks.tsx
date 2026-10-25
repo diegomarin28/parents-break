@@ -184,7 +184,7 @@ export default function HowItWorks() {
           height: 50px;
           border-radius: 50%;
           color: white;
-          font-family: 'Baloo 2', cursive;
+          font-family: var(--font-baloo), cursive;
           font-size: 22px;
           font-weight: 800;
           display: flex;

@@ -44,7 +44,7 @@ section[id] {
 }
 
 body {
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: var(--font-source), sans-serif;
   font-size: 16px;
   color: var(--text);
   background: var(--white);
@@ -53,13 +53,13 @@ body {
 }
 
 h1, h2, h3 {
-  font-family: 'Baloo 2', cursive;
+  font-family: var(--font-baloo), cursive;
   line-height: 1.15;
 }
 h1, h2 { letter-spacing: -0.02em; }
 
 h4, h5, h6 {
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: var(--font-source), sans-serif;
   font-weight: 700;
 }
 

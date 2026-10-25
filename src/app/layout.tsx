@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { Baloo_2, Source_Sans_3 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+
+// Fuentes servidas por Next (se descargan en el build y se sirven desde el mismo dominio):
+// sin pedidos a Google Fonts, sin CSS que bloquee el render y con una fuente de
+// respaldo ajustada para que el texto no salte al cargar. Las dos son variables, así
+// que no hace falta listar pesos. Sin itálica: solo la usa ReviewsSection, que está oculta.
+const baloo = Baloo_2({ subsets: ["latin"], display: "swap", variable: "--font-baloo" });
+const sourceSans = Source_Sans_3({ subsets: ["latin"], display: "swap", variable: "--font-source" });
 
 export const metadata: Metadata = {
   // Base para las URL absolutas de la vista previa (og:image). Si el sitio pasa a un dominio propio, cambiar acá.
@@ -31,20 +39,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es">
-      <head>
-        {/* Las fuentes se cargan acá y no con @import en globals.css: el build
-            descartaba el @import de Source Sans 3 y el texto salía en la fuente
-            del sistema. */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* La regla apunta a pages/_document; este es el layout raíz y aplica a todas las páginas. */}
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
-        />
-      </head>
+    <html lang="es" className={`${baloo.variable} ${sourceSans.variable}`}>
       <body className="min-h-full flex flex-col">
         {children}
         {/* Estadísticas anónimas de visitas de Vercel: sin cookies. Solo envía datos en producción. */}

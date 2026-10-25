@@ -46,7 +46,7 @@ function StatItem({ stat, started, isLast }: { stat: Stat; started: boolean; isL
         {stat.icon}
       </div>
       <div style={{
-        fontFamily: "'Baloo 2', cursive",
+        fontFamily: "var(--font-baloo), cursive",
         fontSize: 48, fontWeight: 800,
         color: "var(--yellow)",
         lineHeight: 1,
