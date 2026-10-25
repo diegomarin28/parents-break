@@ -145,3 +145,15 @@ button:active {
 @media (max-width: 600px) {
   body { font-size: 15px; }
 }
+/* ── Movimiento reducido ──
+   Si la persona pidió menos movimiento en su sistema, las animaciones y
+   transiciones quedan casi instantáneas y las secciones aparecen sin desplazarse. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  .fade-in { opacity: 1; transform: none; }
+}

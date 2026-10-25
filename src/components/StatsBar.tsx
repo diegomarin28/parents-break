@@ -19,6 +19,8 @@ function useCountUp(target: number, duration = 1800, started: boolean) {
 
   useEffect(() => {
     if (!started) return;
+    // Con movimiento reducido, el número aparece directamente en su valor final.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { requestAnimationFrame(() => setCount(target)); return; }
     let startTime: number | null = null;
     const step = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
