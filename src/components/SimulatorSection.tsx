@@ -69,7 +69,7 @@ const TimeSelector = ({ label, hora, min, onHora, onMin, labelStyle, inputStyle,
       <label style={labelStyle}>{label}</label>
       <input
         ref={inputRef}
-        style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError ? "#dc2626" : undefined }}
+        style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError ? "#dc2626" : inputStyle.borderColor }}
         placeholder="08:30" value={localVal} maxLength={5}
         onChange={(e) => handleChange(e.target.value)}
         onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
@@ -141,7 +141,7 @@ const FinSelector = ({ label, horaVal, minVal, onHora, onMin, labelStyle, inputS
       <label style={labelStyle}>{label}</label>
       <input
         ref={(el) => { inputRef.current = el; registrarRef(refKey, el); }}
-        style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError ? "#dc2626" : undefined }}
+        style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError ? "#dc2626" : inputStyle.borderColor }}
         placeholder="08:30" value={localVal} maxLength={5}
         onChange={(e) => handleChange(e.target.value)}
         onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
@@ -491,13 +491,16 @@ export default function SimulatorSection() {
 
   const inputStyle: React.CSSProperties = {
     width: "100%", minHeight: 50, padding: "12px 16px", borderRadius: 12, fontSize: 15,
-    border: "1.5px solid var(--gray)", backgroundColor: "var(--off)", color: "var(--text)",
+    // Borde en propiedades separadas: con el atajo "border" + borderColor undefined, React
+    // borraba el color al montar los campos que aparecen después (quedaban gris oscuro).
+    borderWidth: 1.5, borderStyle: "solid", borderColor: "var(--gray)",
+    backgroundColor: "var(--off)", color: "var(--text)",
     fontFamily: "'Source Sans 3', sans-serif", outline: "none", transition: "border-color .15s, background-color .15s",
   };
 
   const inputErr = (key: string): React.CSSProperties => ({
     ...inputStyle,
-    borderColor: errors[key] ? "#dc2626" : undefined,
+    borderColor: errors[key] ? "#dc2626" : "var(--gray)",
   });
 
   const labelStyle: React.CSSProperties = {
