@@ -163,6 +163,39 @@ const formatFecha = (iso: string) => {
   return y && m && d ? `${d}/${m}/${y}` : iso;
 };
 
+// Opciones de servicio del simulador. "valor" es lo que va en el mensaje de WhatsApp
+// y en ?servicio= (lo usan los botones de la sección Servicios).
+const SERVICIOS = [
+  {
+    valor: "Babysitting", titulo: "Babysitting", sub: "Cuidado en casa",
+    color: "var(--pink)", bg: "var(--pink-light)",
+    icono: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+      </svg>
+    ),
+  },
+  {
+    valor: "Petsittings", titulo: "Petsitting", sub: "Cuidado de mascotas",
+    color: "var(--blue)", bg: "var(--blue-light)",
+    icono: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+        <circle cx="4.5" cy="9.5" r="2"/><circle cx="9" cy="5.5" r="2"/><circle cx="15" cy="5.5" r="2"/><circle cx="19.5" cy="9.5" r="2"/>
+        <path d="M17.34 14.86c-.83-1.6-1.95-2.86-4.3-3.1-.34-.03-.68-.03-1.02 0-2.35.24-3.47 1.5-4.3 3.1-.83 1.6-2.55 2.3-2.7 4.02-.15 1.65 1.1 2.87 2.66 2.6.98-.17 1.9-.77 3.02-.9.5-.06 1.02-.06 1.52 0 1.12.13 2.04.73 3.02.9 1.56.27 2.81-.95 2.66-2.6-.15-1.72-1.87-2.42-2.7-4.02z"/>
+      </svg>
+    ),
+  },
+  {
+    valor: "Evento", titulo: "Eventos", sub: "Animación infantil",
+    color: "var(--yellow-dark)", bg: "#fffae8",
+    icono: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+    ),
+  },
+];
+
 export default function SimulatorSection() {
   const today = fechaLocalISO(new Date());
   const maxDate = new Date();
@@ -545,7 +578,7 @@ export default function SimulatorSection() {
 
           <div className="sim-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
 
-            <div id="field-nombre">
+            <div id="field-nombre" className="full-col">
               <label style={labelStyle}>Tu nombre *</label>
               <input
                 style={inputErr("nombre")} placeholder="Ej: María González" value={form.nombre}
@@ -556,15 +589,32 @@ export default function SimulatorSection() {
               {errMsg("nombre")}
             </div>
 
-            <div id="field-servicio">
-              <label style={labelStyle}>Tipo de servicio *</label>
-              <select style={{ ...inputErr("servicio"), cursor: "pointer" }} value={form.servicio}
-                onChange={(e) => { update("servicio", e.target.value); setErrors({}); }}>
-                <option value="">Seleccioná un servicio</option>
-                <option>Babysitting</option>
-                <option>Petsittings</option>
-                <option>Evento</option>
-              </select>
+            {/* Tarjetas de servicio: son radios reales (teclado y lector de pantalla) con el input oculto a la vista */}
+            <div id="field-servicio" className="full-col">
+              <div id="label-servicio" style={labelStyle}>Tipo de servicio *</div>
+              <div role="radiogroup" aria-labelledby="label-servicio" className="serv-grid">
+                {SERVICIOS.map((s) => {
+                  const activo = form.servicio === s.valor;
+                  return (
+                    <label key={s.valor} className="serv-card" style={{
+                      borderColor: activo ? s.color : errors["servicio"] ? "#dc2626" : "var(--gray)",
+                      background: activo ? s.bg : "var(--off)",
+                    }}>
+                      <input
+                        type="radio" name="servicio" value={s.valor} checked={activo} className="serv-radio"
+                        onChange={() => { update("servicio", s.valor); setErrors({}); }}
+                      />
+                      <span className="serv-icon" aria-hidden="true" style={{ background: activo ? "var(--white)" : s.bg, color: s.color }}>
+                        {s.icono}
+                      </span>
+                      <span>
+                        <span className="serv-titulo">{s.titulo}</span>
+                        <span className="serv-sub">{s.sub}</span>
+                      </span>
+                    </label>
+                  );
+                })}
+              </div>
               {errMsg("servicio")}
             </div>
 
@@ -1023,6 +1073,21 @@ export default function SimulatorSection() {
         #simulador input:focus, #simulador select:focus, #simulador textarea:focus {
           background-color: var(--white) !important;
         }
+        .serv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .serv-card {
+          position: relative; display: flex; align-items: center; gap: 12px;
+          padding: 14px 16px; border-radius: 16px; border: 2px solid; cursor: pointer;
+          transition: border-color .15s, background .15s;
+        }
+        /* El radio queda invisible pero sigue en el orden del teclado y para lectores de pantalla */
+        .serv-radio { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+        .serv-card:has(.serv-radio:focus-visible) { outline: 3px solid rgba(117,124,187,.5); outline-offset: 2px; }
+        .serv-icon {
+          width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+          display: flex; align-items: center; justify-content: center;
+        }
+        .serv-titulo { display: block; font-weight: 700; font-size: 15px; color: var(--text); }
+        .serv-sub { display: block; font-size: 12.5px; color: var(--text-soft); }
         @media (max-width: 768px) { .sim-section { padding: 72px 0; } }
         @media (max-width: 600px) {
           .sim-section { padding: 64px 0; }
@@ -1030,6 +1095,7 @@ export default function SimulatorSection() {
           .sim-form { padding: 24px; }
           .sim-grid { grid-template-columns: 1fr !important; gap: 16px; }
           .dia-grid { grid-template-columns: 1fr !important; gap: 10px; }
+          .serv-grid { grid-template-columns: 1fr; }
         }
       `}</style>
     </section>
