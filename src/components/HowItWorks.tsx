@@ -103,7 +103,7 @@ export default function HowItWorks() {
               <div className="step-icon" style={{ background: s.bg, color: s.color }}>
                 {s.icon}
               </div>
-              <h4 className="step-title">{s.title}</h4>
+              <h3 className="step-title">{s.title}</h3>
               <p className="step-desc">{s.desc}</p>
             </div>
           ))}
@@ -202,6 +202,8 @@ export default function HowItWorks() {
           margin: 0 auto 14px;
         }
         .step-title {
+          font-family: var(--font-source), sans-serif;
+          line-height: 1.3;
           font-size: 16px;
           font-weight: 700;
           margin-bottom: 8px;

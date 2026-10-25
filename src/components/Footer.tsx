@@ -34,7 +34,7 @@ export default function Footer() {
 
           {/* Servicios */}
           <div className="footer-col">
-            <h6 className="footer-col-title">Servicios</h6>
+            <h3 className="footer-col-title">Servicios</h3>
             <ul className="footer-list">
               {["Babysittings", "Petsittings", "Eventos", "Servicios para empresas"].map((item) => (
                 <li key={item}>
@@ -46,7 +46,7 @@ export default function Footer() {
 
           {/* Zonas */}
           <div className="footer-col">
-            <h6 className="footer-col-title">Zonas</h6>
+            <h3 className="footer-col-title">Zonas</h3>
             <ul className="footer-list">
               {["Montevideo", "Canelones", "Punta del Este"].map((item) => (
                 <li key={item}>
@@ -58,7 +58,7 @@ export default function Footer() {
 
           {/* Contacto */}
           <div className="footer-col">
-            <h6 className="footer-col-title">Contacto</h6>
+            <h3 className="footer-col-title">Contacto</h3>
             <ul className="footer-list">
               <li className="footer-text">Atención 24/7 por WhatsApp</li>
             </ul>
@@ -140,6 +140,8 @@ export default function Footer() {
         }
         .footer-wa-btn:hover { background: var(--whatsapp-d, #1da851); }
         .footer-col-title {
+          font-family: var(--font-source), sans-serif;
+          line-height: 1.3;
           color: white;
           font-size: 13px;
           letter-spacing: .08em;

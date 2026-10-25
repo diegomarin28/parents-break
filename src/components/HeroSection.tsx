@@ -226,7 +226,7 @@ personalizado.
           align-items: center;
           font-size: 13px;
           font-weight: 600;
-          color: var(--blue);
+          color: #5a60a0; /* más oscuro que --blue para 5:1 de contraste sobre --blue-light */
           background: var(--blue-light);
           padding: 4px 12px;
           border-radius: 99px;
