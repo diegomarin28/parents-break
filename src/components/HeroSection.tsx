@@ -361,6 +361,9 @@ personalizado.
         .hero-photo-img-mobile {
           width: 100%;
           height: auto;
+          aspect-ratio: 2 / 1;
+          object-fit: cover;
+          object-position: center 40%;
           border-radius: 18px;
           display: block;
         }
@@ -383,7 +386,7 @@ personalizado.
           .hero-visual { display: none; }
           .hero-visual-mobile {
             display: block;
-            margin: 0 0 28px;
+            margin: 0 0 20px;
           }
           .hero-cities {
             margin-bottom: 0;
