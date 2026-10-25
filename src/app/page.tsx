@@ -9,6 +9,7 @@ import SimulatorSection from "../components/SimulatorSection";
 import WhatsAppCTA from "../components/WhatsAppCTA";
 import Footer from "../components/Footer";
 import FadeIn from "../components/FadeIn";
+import WhatsAppFloat from "../components/WhatsAppFloat";
 
 export default function Home() {
   return (
@@ -35,6 +36,7 @@ export default function Home() {
         <WhatsAppCTA />
       </FadeIn>
       <Footer />
+      <WhatsAppFloat />
     </main>
   );
 }
