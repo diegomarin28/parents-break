@@ -42,7 +42,7 @@ El flujo esperado: el usuario entra, entiende el servicio, usa el simulador o el
 
 Orden actual en `src/app/page.tsx`:
 
-1. Navbar (links a cada sección + botón "Coordinar servicio" a WhatsApp)
+1. Navbar (links a cada sección + botón "Coordinar servicio" a WhatsApp; en celular solo logo y menú, porque está el botón flotante)
 2. Hero: título, subtítulo, zonas, botón principal (WhatsApp con mensaje inicial) y botón secundario (lleva al simulador)
 3. Barra de números (+80 niñeras, +3 años)
 4. Quiénes somos
