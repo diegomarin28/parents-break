@@ -53,7 +53,7 @@ Orden actual en `src/app/page.tsx`:
 9. CTA final (WhatsApp)
 10. Footer
 
-Además hay un botón flotante de WhatsApp que solo aparece en celular (`WhatsAppFloat.tsx`), oculto mientras se ve el Hero o el simulador.
+Además hay un botón flotante de WhatsApp que solo aparece en celular (`WhatsAppFloat.tsx`), oculto mientras se ve el Hero, el simulador o el Footer.
 
 El simulador queda en esa posición por decisión del negocio.
 

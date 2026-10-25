@@ -3,15 +3,18 @@ import { useEffect, useState } from "react";
 import { WA_MENSAJE_INICIAL, waLink } from "../lib/contact";
 
 export default function WhatsAppFloat() {
-  const [oculto, setOculto] = useState(false);
+  // Arranca oculto: la página abre en el Hero
+  const [oculto, setOculto] = useState(true);
 
   // Se oculta mientras el Hero está en pantalla (ya tiene sus botones y
-  // los taparía) y mientras se ve el simulador, para no competir con su
-  // botón "Enviar por WhatsApp".
+  // los taparía), mientras se ve el simulador, para no competir con su
+  // botón "Enviar por WhatsApp", y sobre el Footer, que tiene su propio
+  // botón y donde tapaba la línea de copyright.
   useEffect(() => {
     const secciones = [
       document.querySelector(".hero-section"),
       document.getElementById("simulador"),
+      document.querySelector("footer"),
     ].filter((el): el is Element => el !== null);
     if (secciones.length === 0) return;
     const visibles = new Set<Element>();
