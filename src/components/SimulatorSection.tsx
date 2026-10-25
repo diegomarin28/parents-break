@@ -774,7 +774,7 @@ export default function SimulatorSection() {
                         ))}
                       </div>
                       {form.hastaCuando === "Fecha" && (
-                        <input type="date" style={{ ...inputErr("hastaFecha"), marginTop: 10 }} value={form.hastaFecha}
+                        <input type="date" style={{ ...inputErr("hastaFecha"), marginTop: 10 }} value={form.hastaFecha} aria-label="Hasta qué fecha"
                           min={fijoDesde} max={maxDateStr} onChange={(e) => update("hastaFecha", e.target.value)} />
                       )}
                       {errMsg("hastaFecha")}
