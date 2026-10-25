@@ -44,9 +44,6 @@ export default function SittersSection() {
 
         <div className="sitters-grid" style={{
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 60,
-          alignItems: "stretch",
           marginBottom: 64,
         }}>
 
@@ -61,8 +58,9 @@ export default function SittersSection() {
     src="/PauDeEspaldas.jpg"
     alt="Niñera de espaldas"
     fill
-    style={{ objectFit: "cover", objectPosition: "center top" }}
-    sizes="(max-width: 900px) 100vw, 540px"
+    style={{ objectFit: "cover" }}
+    sizes="(max-width: 900px) 100vw, 460px"
+    quality={90}
   />
 </div>
 
@@ -201,7 +199,9 @@ export default function SittersSection() {
       <style>{`
         .sitters-section { padding: 96px 0; }
         .sitters-container { padding: 0 24px; }
-        .sitters-photos { min-height: 420px; }
+        /* Foto más chica que la lista y en su proporción real (3:2), sin estirarla */
+        .sitters-grid { grid-template-columns: 5fr 7fr; gap: 48px; align-items: center; }
+        .sitters-photos { aspect-ratio: 3 / 2; }
         @media (max-width: 900px) {
           .sitters-grid { grid-template-columns: 1fr !important; }
           .sitters-photos { min-height: 0; aspect-ratio: 3 / 2; max-height: 460px; }
