@@ -48,7 +48,7 @@ export default function Footer() {
           <div className="footer-col">
             <h6 className="footer-col-title">Zonas</h6>
             <ul className="footer-list">
-              {["Montevideo", "Ciudad de la Costa", "Punta del Este", "Maldonado"].map((item) => (
+              {["Montevideo", "Canelones", "Punta del Este"].map((item) => (
                 <li key={item}>
                   <span className="footer-text">{item}</span>
                 </li>
@@ -60,9 +60,7 @@ export default function Footer() {
           <div className="footer-col">
             <h6 className="footer-col-title">Contacto</h6>
             <ul className="footer-list">
-              <li className="footer-text">WhatsApp disponible</li>
-              <li className="footer-text">Uruguay</li>
-              <li className="footer-text">Todos los días</li>
+              <li className="footer-text">Atención 24/7 por WhatsApp</li>
             </ul>
           </div>
         </div>
