@@ -70,6 +70,7 @@ export default function Footer() {
           <span>© {new Date().getFullYear()} Parents&apos; Break. Todos los derechos reservados.</span>
           <span>Diseñado y desarrollado en Uruguay</span>
         </div>
+        <p className="footer-aviso">Usamos estadísticas anónimas de visitas, sin cookies.</p>
       </div>
 
       <style>{`
@@ -172,6 +173,12 @@ export default function Footer() {
           gap: 8px;
           font-size: 13px;
           color: rgba(255,255,255,.55); /* contraste 4,7:1 sobre el violeta del footer */
+        }
+
+        .footer-aviso {
+          margin-top: 10px;
+          font-size: 12px;
+          color: rgba(255,255,255,.55);
         }
 
         /* ── TABLET ── */
