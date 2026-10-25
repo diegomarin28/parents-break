@@ -37,6 +37,12 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Los links a #seccion dejan lugar para la Navbar fija (64px + 8px de aire),
+   igual que el scroll del menú en Navbar.tsx. */
+section[id] {
+  scroll-margin-top: 72px;
+}
+
 body {
   font-family: 'Source Sans 3', sans-serif;
   font-size: 16px;
