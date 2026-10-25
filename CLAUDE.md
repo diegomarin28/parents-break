@@ -62,7 +62,7 @@ Fotos (en `public/`):
 
 - `hero.jpg`: Hero. En celular se muestra más baja (2:1, y 5:2 en pantallas de hasta 380px) para que los botones entren en la primera pantalla.
 - `Lleno.jpg`: Quiénes somos, debajo del texto, entera y sin recortar. Muestra caras de chicos: hay permiso de los padres y Diego la aprobó.
-- `PauDeEspaldas.jpg`: Niñeras, al costado del proceso de selección, en su proporción real (3:2) y sin estirarla.
+- `ninera-de-espaldas.jpg`: Niñeras, al costado del proceso de selección, en su proporción real (3:2) y sin estirarla.
 - Las fotos de Quiénes somos y Niñeras se sirven con calidad 90; Next 16 exige declarar esa calidad en `images.qualities` de `next.config.ts`.
 - `Lleno.jpg` es de solo 800px de ancho y se ve algo blanda en pantallas retina. Si llegan los originales en mayor resolución, reemplazarla.
 - `public/` se publica entero: cualquiera puede abrir un archivo con el link directo. No dejar fotos que la página no use, sobre todo si muestran caras.

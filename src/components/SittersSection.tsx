@@ -55,7 +55,7 @@ export default function SittersSection() {
   boxShadow: "var(--shadow)",
 }}>
   <Image
-    src="/PauDeEspaldas.jpg"
+    src="/ninera-de-espaldas.jpg"
     alt="Niñera de espaldas"
     fill
     style={{ objectFit: "cover" }}
