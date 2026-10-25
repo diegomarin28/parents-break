@@ -35,6 +35,7 @@ El flujo esperado: el usuario entra, entiende el servicio, usa el simulador o el
 - Next.js + React + Tailwind CSS
 - Tailwind se usa muy poco. Está instalado en su versión 4 (vía `postcss.config.mjs` y `@tailwindcss/postcss`), pero casi todo el estilo vive en las variables CSS de `src/app/globals.css` y en bloques `<style>` o estilos inline de cada componente. Al tocar un componente, seguir el estilo que ya usa.
 - Hosting: Vercel (plan gratis)
+- Node.js 24, fijado con `engines` en `package.json`. Vercel dejó de aceptar Node 20 (con esa versión el deploy falla antes de instalar): no bajarlo.
 - Editor: VS Code
 - No cambiar de stack ni agregar dependencias pesadas sin que Diego lo pida.
 
@@ -56,6 +57,15 @@ Orden actual en `src/app/page.tsx`:
 Además hay un botón flotante de WhatsApp que solo aparece en celular (`WhatsAppFloat.tsx`), oculto mientras se ve el Hero, el simulador o el Footer.
 
 El simulador queda en esa posición por decisión del negocio.
+
+Fotos (en `public/`):
+
+- `hero.jpg`: Hero. En celular se muestra más baja (2:1, y 5:2 en pantallas de hasta 380px) para que los botones entren en la primera pantalla.
+- `Lleno.jpg`: Quiénes somos, debajo del texto, entera y sin recortar. Muestra caras de chicos: hay permiso de los padres y Diego la aprobó.
+- `PauDeEspaldas.jpg`: Niñeras, al costado del proceso de selección, en su proporción real (3:2) y sin estirarla.
+- Las fotos de Quiénes somos y Niñeras se sirven con calidad 90; Next 16 exige declarar esa calidad en `images.qualities` de `next.config.ts`.
+- `Lleno.jpg` es de solo 800px de ancho y se ve algo blanda en pantallas retina. Si llegan los originales en mayor resolución, reemplazarla.
+- `public/` se publica entero: cualquiera puede abrir un archivo con el link directo. No dejar fotos que la página no use, sobre todo si muestran caras.
 
 `ReviewsSection.tsx` (testimonios) existe pero está oculta a propósito: no se importa en `page.tsx`. Se va a activar cuando haya reseñas reales. No activarla ni borrarla sin que Diego lo pida.
 
