@@ -62,10 +62,10 @@ Nuestro compromiso es ofrecer mucho más que una niñera: es ofrecer confianza, 
           <div className="about-body-row">
             <div className="about-image-wrap">
               <Image
-                src="/FotoAboutSection.jpeg"
-                alt="Equipo de Parents’ Break"
+                src="/Lleno.jpg"
+                alt="Niñera de Parents’ Break jugando con niños"
                 fill
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: "cover", objectPosition: "30% center" }}
                 sizes="(max-width: 900px) 100vw, 340px"
               />
             </div>
@@ -263,7 +263,8 @@ antes de incorporarse al equipo.
             grid-template-columns: 1fr;
           }
           .about-image-wrap {
-            min-height: 280px;
+            min-height: 0;
+            aspect-ratio: 3 / 2;
           }
           .values-grid {
             grid-template-columns: 1fr;

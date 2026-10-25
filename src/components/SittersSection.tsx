@@ -50,28 +50,20 @@ export default function SittersSection() {
           marginBottom: 64,
         }}>
 
-{/* Fotos */}
-<div className="sitters-photos" style={{ display: "grid", gridTemplateRows: "1fr 1fr", gap: 10 }}>
-  {[
-    { src: "/PauDeEspaldas.jpg", alt: "Niñera de espaldas",     span: false },
-    { src: "/Lleno.jpg", alt: "Niñera de espaldas",     span: false },
-  ].map((photo, i) => (
-    <div key={i} style={{
-      position: "relative",
-      borderRadius: 18,
-      overflow: "hidden",
-      boxShadow: "var(--shadow)",
-      ...(photo.span ? { gridColumn: "1 / 2", gridRow: "1 / 3" } : {}),
-    }}>
-      <Image
-        src={photo.src}
-        alt={photo.alt}
-        fill
-        style={{ objectFit: "cover", objectPosition: "top" }}
-        sizes="(max-width: 900px) 50vw, 25vw"
-      />
-    </div>
-  ))}
+{/* Foto */}
+<div className="sitters-photos" style={{
+  position: "relative",
+  borderRadius: 18,
+  overflow: "hidden",
+  boxShadow: "var(--shadow)",
+}}>
+  <Image
+    src="/PauDeEspaldas.jpg"
+    alt="Niñera de espaldas"
+    fill
+    style={{ objectFit: "cover", objectPosition: "center top" }}
+    sizes="(max-width: 900px) 100vw, 540px"
+  />
 </div>
 
           {/* Proceso */}
@@ -207,10 +199,10 @@ export default function SittersSection() {
       </div>
 
       <style>{`
-        .sitters-photos { height: 520px; }
+        .sitters-photos { min-height: 420px; }
         @media (max-width: 900px) {
           .sitters-grid { grid-template-columns: 1fr !important; }
-          .sitters-photos { height: 380px; }
+          .sitters-photos { min-height: 0; aspect-ratio: 3 / 2; max-height: 460px; }
         }
         @media (max-width: 640px) {
           .qualities-grid { grid-template-columns: repeat(3, 1fr) !important; }
@@ -223,7 +215,6 @@ export default function SittersSection() {
           .sitters-section { padding: 64px 0; }
           .sitters-container { padding: 0 16px; }
           .sitters-grid { gap: 32px; }
-          .sitters-photos { height: 300px; }
           .qualities-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; }
         }
       `}</style>
