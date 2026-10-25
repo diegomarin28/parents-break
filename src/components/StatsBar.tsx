@@ -75,8 +75,8 @@ export default function StatsBar() {
   }, []);
 
   return (
-    <section ref={ref} className="stats-section" style={{ background: "var(--blue)", padding: "48px 0" }}>
-      <div className="stats-container" style={{ maxWidth: 700, margin: "0 auto", padding: "0 24px" }}>
+    <section ref={ref} className="stats-section" style={{ background: "var(--blue)" }}>
+      <div className="stats-container" style={{ maxWidth: 700, margin: "0 auto" }}>
         <div className="stats-grid" style={{
           display: "grid",
           gridTemplateColumns: "repeat(2, 1fr)",
@@ -88,6 +88,8 @@ export default function StatsBar() {
         </div>
       </div>
       <style>{`
+        .stats-section { padding: 48px 0; }
+        .stats-container { padding: 0 24px; }
         @media (max-width: 768px) {
           .stats-section { padding: 36px 0; }
         }

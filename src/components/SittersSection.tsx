@@ -20,8 +20,8 @@ export default function SittersSection() {
   ];
 
   return (
-    <section id="nineras" className="sitters-section" style={{ padding: "96px 0", background: "var(--off)" }}>
-      <div className="sitters-container" style={{ maxWidth: 1140, margin: "0 auto", padding: "0 24px" }}>
+    <section id="nineras" className="sitters-section" style={{ background: "var(--off)" }}>
+      <div className="sitters-container" style={{ maxWidth: 1140, margin: "0 auto" }}>
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 64 }}>
@@ -199,6 +199,8 @@ export default function SittersSection() {
       </div>
 
       <style>{`
+        .sitters-section { padding: 96px 0; }
+        .sitters-container { padding: 0 24px; }
         .sitters-photos { min-height: 420px; }
         @media (max-width: 900px) {
           .sitters-grid { grid-template-columns: 1fr !important; }

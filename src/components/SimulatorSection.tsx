@@ -502,8 +502,8 @@ export default function SimulatorSection() {
   const registrarFin = (key: string, el: HTMLInputElement | null) => { finRefs.current[key] = el; };
 
   return (
-    <section id="simulador" className="sim-section" style={{ padding: "96px 0", background: "var(--white)" }}>
-      <div className="sim-container" style={{ maxWidth: 820, margin: "0 auto", padding: "0 24px" }}>
+    <section id="simulador" className="sim-section" style={{ background: "var(--white)" }}>
+      <div className="sim-container" style={{ maxWidth: 820, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <span style={{
             display: "inline-block", background: "rgba(37,211,102,.12)", color: "var(--whatsapp)",
@@ -518,7 +518,7 @@ export default function SimulatorSection() {
 
         <div className="sim-form" style={{
           background: "var(--white)", borderRadius: 24,
-          border: "1.5px solid var(--gray)", padding: "40px", boxShadow: "var(--shadow-lg)",
+          border: "1.5px solid var(--gray)", boxShadow: "var(--shadow-lg)",
         }}>
           {/* Error banner */}
           {Object.keys(errors).length > 0 && (
@@ -1005,6 +1005,9 @@ export default function SimulatorSection() {
       </div>
 
       <style>{`
+        .sim-section { padding: 96px 0; }
+        .sim-container { padding: 0 24px; }
+        .sim-form { padding: 40px; }
         .sim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .full-col { grid-column: 1 / -1; }
         .dia-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }

@@ -61,7 +61,7 @@ export default function ServicesSection() {
   ];
 
   return (
-    <section id="servicios" style={{ padding: "96px 0", background: "var(--white)" }}>
+    <section id="servicios" className="services-section" style={{ background: "var(--white)" }}>
       <div style={{ maxWidth: 1140, margin: "0 auto", padding: "0 24px" }}>
 
         {/* Header */}
@@ -232,14 +232,15 @@ responsables y preparadas para cada situación.
       </div>
 
       <style>{`
+        .services-section { padding: 96px 0; }
         @media (max-width: 600px) {
           .services-grid { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 768px) {
-          section { padding: 72px 0; }
+          .services-section { padding: 72px 0; }
         }
         @media (max-width: 600px) {
-          section { padding: 64px 0; }
+          .services-section { padding: 64px 0; }
           .services-grid { gap: 16px; }
           .service-card { padding: 28px 20px !important; }
           .service-title { font-size: 22px !important; }

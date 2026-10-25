@@ -6,7 +6,6 @@ export default function WhatsAppCTA() {
 
   return (
     <section className="cta-section" style={{
-      padding: "96px 24px",
       background: `
         radial-gradient(ellipse 80% 80% at 50% 50%, #fdeef1 0%, transparent 70%),
         var(--off)
@@ -119,6 +118,7 @@ export default function WhatsAppCTA() {
       </div>
 
       <style>{`
+        .cta-section { padding: 96px 24px; }
         @media (max-width: 768px) {
           .cta-section { padding: 72px 20px; }
         }
