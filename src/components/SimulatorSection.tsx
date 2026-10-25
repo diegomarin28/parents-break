@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { WA_MENSAJE_INICIAL, waLink } from "../lib/contact";
 
 type Dia = { fecha: string; horaInicio: string; minInicio: string; horaFin: string; minFin: string };
 
@@ -143,7 +144,6 @@ const FinSelector = ({ label, horaVal, minVal, onHora, onMin, labelStyle, inputS
 };
 
 export default function SimulatorSection() {
-  const WA_NUMBER = "59897442696";
   const today = new Date().toISOString().split("T")[0];
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
@@ -369,7 +369,7 @@ export default function SimulatorSection() {
   };
 
   const generateMessage = () => {
-    let msg = `Hola! Quiero coordinar un servicio de Parents' Break\n\n`;
+    let msg = `${WA_MENSAJE_INICIAL}\n\n`;
     msg += `*Nombre:* ${form.nombre}\n*Servicio:* ${form.servicio}\n`;
     if (form.servicio === "Babysitting") {
       msg += `*Modalidad:* ${form.tipoBabysitting}\n`;
@@ -403,7 +403,7 @@ export default function SimulatorSection() {
     if (form.servicio !== "Petsittings") msg += `*Edades:* ${form.edades}\n`;
     msg += `*Departamento:* ${form.departamento}\n*Zona:* ${zonaFinal()}\n`;
     if (form.comentarios) msg += `*Comentarios:* ${form.comentarios}\n`;
-    return encodeURIComponent(msg);
+    return msg;
   };
 
   const handleSend = () => {
@@ -415,7 +415,7 @@ export default function SimulatorSection() {
       if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
-    window.open(`https://wa.me/${WA_NUMBER}?text=${generateMessage()}`, "_blank");
+    window.open(waLink(generateMessage()), "_blank");
   };
 
   const inputStyle: React.CSSProperties = {

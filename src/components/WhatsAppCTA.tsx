@@ -1,6 +1,8 @@
 "use client";
+import { waLink } from "../lib/contact";
+
 export default function WhatsAppCTA() {
-  const WA_URL = "https://wa.me/59897442696";
+  const WA_URL = waLink();
 
   return (
     <section className="cta-section" style={{
