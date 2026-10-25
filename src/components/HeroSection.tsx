@@ -70,7 +70,7 @@ personalizado.
                   Coordinar servicio
                 </a>
                 <a href="#simulador" className="hero-btn-secondary">
-                  Usar el simulador →
+                  Completar formulario →
                 </a>
               </div>
 
