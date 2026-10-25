@@ -56,6 +56,7 @@ personalizado.
                 height={1024}
                 className="hero-photo-img-mobile"
                 priority
+                fetchPriority="high"
                 sizes="100vw"
               />
             </div>
@@ -119,6 +120,7 @@ personalizado.
                 height={1024}
                 className="hero-photo-img"
                 priority
+                fetchPriority="high"
                 sizes="(max-width: 900px) 100vw, 600px"
               />
             </div>
