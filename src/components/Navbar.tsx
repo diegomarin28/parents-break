@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { waLink } from "../lib/contact";
+import { WA_MENSAJE_INICIAL, waLink } from "../lib/contact";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -76,7 +76,7 @@ useEffect(() => {
     { label: "Solicitar servicio", href: "#simulador" },
   ];
 
-  const WA_URL = waLink();
+  const WA_URL = waLink(WA_MENSAJE_INICIAL);
 
   return (
     <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
