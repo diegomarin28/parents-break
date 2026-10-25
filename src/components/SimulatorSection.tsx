@@ -457,9 +457,9 @@ export default function SimulatorSection() {
   };
 
   const inputStyle: React.CSSProperties = {
-    width: "100%", padding: "12px 16px", borderRadius: 10, fontSize: 15,
-    border: "1.5px solid var(--gray)", background: "var(--white)", color: "var(--text)",
-    fontFamily: "'Source Sans 3', sans-serif", outline: "none", transition: "border-color .15s",
+    width: "100%", minHeight: 50, padding: "12px 16px", borderRadius: 12, fontSize: 15,
+    border: "1.5px solid var(--gray)", backgroundColor: "var(--off)", color: "var(--text)",
+    fontFamily: "'Source Sans 3', sans-serif", outline: "none", transition: "border-color .15s, background-color .15s",
   };
 
   const inputErr = (key: string): React.CSSProperties => ({
@@ -468,8 +468,8 @@ export default function SimulatorSection() {
   });
 
   const labelStyle: React.CSSProperties = {
-    display: "block", fontSize: 13, fontWeight: 700,
-    color: "var(--text)", marginBottom: 6, letterSpacing: ".02em",
+    display: "block", fontSize: 13.5, fontWeight: 700,
+    color: "var(--text)", marginBottom: 8, letterSpacing: ".02em",
   };
 
   const btnToggle = (active: boolean): React.CSSProperties => ({
@@ -517,8 +517,8 @@ export default function SimulatorSection() {
         </div>
 
         <div className="sim-form" style={{
-          background: "var(--white)", borderRadius: 24,
-          border: "1.5px solid var(--gray)", boxShadow: "var(--shadow-lg)",
+          background: "var(--white)", borderRadius: 28,
+          border: "1.5px solid #ecece6", boxShadow: "var(--shadow-lg)",
         }}>
           {/* Error banner */}
           {Object.keys(errors).length > 0 && (
@@ -974,7 +974,7 @@ export default function SimulatorSection() {
 
             <div className="full-col">
               <label style={labelStyle}>Comentarios adicionales</label>
-              <textarea style={{ ...inputStyle, minHeight: 90, resize: "vertical" }}
+              <textarea style={{ ...inputStyle, minHeight: 110, resize: "vertical" }}
                 placeholder="Alguna preferencia o necesidad especial..."
                 value={form.comentarios} onChange={(e) => update("comentarios", e.target.value)}
                 onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
@@ -1011,6 +1011,18 @@ export default function SimulatorSection() {
         .sim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .full-col { grid-column: 1 / -1; }
         .dia-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+        /* Desplegables con flecha propia, a 16px del borde y en el violeta de la marca */
+        #simulador select {
+          -webkit-appearance: none;
+          appearance: none;
+          padding-right: 44px !important;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23757cbb' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 16px center;
+        }
+        #simulador input:focus, #simulador select:focus, #simulador textarea:focus {
+          background-color: var(--white) !important;
+        }
         @media (max-width: 768px) { .sim-section { padding: 72px 0; } }
         @media (max-width: 600px) {
           .sim-section { padding: 64px 0; }
