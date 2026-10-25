@@ -73,6 +73,7 @@ personalizado.
                   Completar formulario →
                 </a>
               </div>
+              <p className="hero-nota">Sin compromiso. Te respondemos por WhatsApp</p>
 
               <div className="hero-proof">
                 <div className="hero-avatars">
@@ -271,6 +272,11 @@ personalizado.
         .hero-btn-secondary:hover {
           background: var(--blue-light);
           border-color: var(--blue);
+        }
+        .hero-nota {
+          margin-top: 12px;
+          font-size: 13px;
+          color: var(--text-soft);
         }
         .hero-proof {
           display: flex;

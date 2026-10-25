@@ -89,6 +89,7 @@ export default function WhatsAppCTA() {
             Completar formulario →
           </a>
         </div>
+        <p style={{ marginTop: 14, fontSize: 13, color: "var(--text-soft)" }}>Sin compromiso. Te respondemos por WhatsApp</p>
 
         <div style={{
           marginTop: 40, display: "flex", justifyContent: "center",
