@@ -51,7 +51,7 @@ export default function AboutSection() {
             Un servicio construido desde la confianza
           </h2>
           <p className="about-lead">
-Somos Paulina y Delfina, babysitters con más de seis años de experiencia en el cuidado infantil. Después de acompañar a numerosas familias, entendimos lo importante que es poder contar con alguien realmente confiable para el cuidado de los niños. Así nació Parents’ Break. 
+Somos Delfina y Federica, babysitters con más de seis años de experiencia en el cuidado infantil. Después de acompañar a numerosas familias, entendimos lo importante que es poder contar con alguien realmente confiable para el cuidado de los niños. Así nació Parents’ Break. 
 Desde hace más de tres años ayudamos a familias a encontrar babysitters capacitadas, responsables y de confianza, para que puedan disfrutar de su tiempo con la tranquilidad de saber que sus hijos están en las mejores manos. Hoy contamos con una red de más de 80 sitters seleccionadas cuidadosamente por nuestro equipo, brindando servicios en Montevideo, Canelones y Punta del Este.
 Nuestro compromiso es ofrecer mucho más que una niñera: es ofrecer confianza, seguridad y tranquilidad para cada familia.
           </p>

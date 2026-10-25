@@ -4,7 +4,7 @@
 
 Landing page de Parents' Break, un servicio premium de cuidado infantil en Uruguay (Montevideo, Canelones y Punta del Este). El negocio conecta familias con niñeras previamente seleccionadas y validadas.
 
-Las dueñas son Paulina (Pau) y Delfina (Delfi). Diego es el developer que construye y mantiene la web y responde a ellas. Si hay una decisión de negocio o de contenido que no está acá, se consulta con Diego antes de inventarla.
+Las dueñas son Paulina (Pau) y Delfina (Delfi); Federica (Fede) se sumó como socia. Públicamente el negocio se presenta como Delfi y Fede: en los textos de la web van esos nombres, no Pau. Diego es el developer que construye y mantiene la web y responde a ellas. Si hay una decisión de negocio o de contenido que no está acá, se consulta con Diego antes de inventarla.
 
 **No es una plataforma automática.** Es un servicio operado manualmente. La coordinación final ocurre por WhatsApp. La tecnología acompaña, no lidera: el valor está en la selección de niñeras, la confianza y la experiencia del cliente, no en la complejidad técnica.
 
