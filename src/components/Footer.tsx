@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { WA_MENSAJE_INICIAL, waLink } from "../lib/contact";
 
 export default function Footer() {
-  const WA_URL = "https://wa.me/59897442696";
+  const WA_URL = waLink(WA_MENSAJE_INICIAL);
 
   return (
     <footer className="footer">
@@ -21,7 +22,7 @@ export default function Footer() {
               <span className="footer-logo-text">Parents&apos; Break</span>
             </div>
             <p className="footer-desc">
-              Red profesional de niñeras seleccionadas para babysittings y eventos en Uruguay.
+              Red profesional de niñeras seleccionadas para babysittings, petsittings y eventos en Uruguay.
             </p>
             <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="footer-wa-btn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ flexShrink: 0 }}>
@@ -75,7 +76,7 @@ export default function Footer() {
 
       <style>{`
         .footer {
-          background: var(--text);
+          background: #353759;
           color: rgba(255,255,255,.8);
           padding: 56px 0 32px;
         }
@@ -172,7 +173,7 @@ export default function Footer() {
           flex-wrap: wrap;
           gap: 8px;
           font-size: 13px;
-          color: rgba(255,255,255,.45);
+          color: rgba(255,255,255,.55); /* contraste 4,7:1 sobre el violeta del footer */
         }
 
         /* ── TABLET ── */

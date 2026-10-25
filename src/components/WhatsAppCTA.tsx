@@ -1,10 +1,11 @@
 "use client";
+import { WA_MENSAJE_INICIAL, waLink } from "../lib/contact";
+
 export default function WhatsAppCTA() {
-  const WA_URL = "https://wa.me/59897442696";
+  const WA_URL = waLink(WA_MENSAJE_INICIAL);
 
   return (
     <section className="cta-section" style={{
-      padding: "96px 24px",
       background: `
         radial-gradient(ellipse 80% 80% at 50% 50%, #fdeef1 0%, transparent 70%),
         var(--off)
@@ -85,7 +86,7 @@ export default function WhatsAppCTA() {
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
             </svg>
-            Usar el simulador
+            Completar formulario →
           </a>
         </div>
 
@@ -117,6 +118,7 @@ export default function WhatsAppCTA() {
       </div>
 
       <style>{`
+        .cta-section { padding: 96px 24px; }
         @media (max-width: 768px) {
           .cta-section { padding: 72px 20px; }
         }

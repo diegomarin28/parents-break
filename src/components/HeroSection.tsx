@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { WA_MENSAJE_INICIAL, waLink } from "../lib/contact";
 
 export default function HeroSection() {
-  const WA_URL = "https://wa.me/59897442696";
+  const WA_URL = waLink(WA_MENSAJE_INICIAL);
 
   return (
     <section className="hero-section">
@@ -68,8 +69,8 @@ personalizado.
                   </svg>
                   Coordinar servicio
                 </a>
-                <a href="#como-funciona" className="hero-btn-secondary">
-                  Cómo funciona →
+                <a href="#simulador" className="hero-btn-secondary">
+                  Completar formulario →
                 </a>
               </div>
 
@@ -360,6 +361,9 @@ personalizado.
         .hero-photo-img-mobile {
           width: 100%;
           height: auto;
+          aspect-ratio: 2 / 1;
+          object-fit: cover;
+          object-position: center 40%;
           border-radius: 18px;
           display: block;
         }
@@ -382,7 +386,7 @@ personalizado.
           .hero-visual { display: none; }
           .hero-visual-mobile {
             display: block;
-            margin: 0 0 28px;
+            margin: 0 0 20px;
           }
           .hero-cities {
             margin-bottom: 0;
@@ -422,6 +426,24 @@ personalizado.
           .hero-blob-1, .hero-blob-2 { display: none; }
           .hero-cities {
             margin-bottom: 20px;
+          }
+        }
+
+        /* ── CELULARES CHICOS (iPhone SE y similares) ──
+           Compacta la foto y los espacios para que el botón principal
+           entre completo en la primera pantalla. */
+        @media (max-width: 380px) {
+          .hero-subtitle {
+            margin-bottom: 20px;
+          }
+          .hero-cities {
+            margin-bottom: 16px;
+          }
+          .hero-visual-mobile {
+            margin-bottom: 16px;
+          }
+          .hero-photo-img-mobile {
+            aspect-ratio: 5 / 2;
           }
         }
       `}</style>

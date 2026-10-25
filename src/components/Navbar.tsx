@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { WA_MENSAJE_INICIAL, waLink } from "../lib/contact";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -75,7 +76,7 @@ useEffect(() => {
     { label: "Solicitar servicio", href: "#simulador" },
   ];
 
-  const WA_URL = "https://wa.me/59897442696";
+  const WA_URL = waLink(WA_MENSAJE_INICIAL);
 
   return (
     <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
@@ -360,12 +361,11 @@ useEffect(() => {
           .nav-cta { padding: 10px 14px; }
         }
 
-        /* ── MOBILE: links ocultos, solo logo + botón ── */
+        /* ── MOBILE: solo logo + menú. El botón de WhatsApp lo cubre el flotante ── */
         @media (max-width: 600px) {
           .nav-links { display: none; }
           .nav-toggle { display: inline-flex; }
-          .nav-cta-label { display: inline; }
-          .nav-cta { padding: 8px 14px; font-size: 13px; }
+          .nav-cta { display: none; }
           .nav-logo-text { font-size: 15px; }
         }
 

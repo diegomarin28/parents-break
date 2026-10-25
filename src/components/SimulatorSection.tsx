@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { WA_MENSAJE_INICIAL, waLink } from "../lib/contact";
 
 type Dia = { fecha: string; horaInicio: string; minInicio: string; horaFin: string; minFin: string };
 
@@ -18,13 +19,17 @@ type TimeSelectorProps = {
 };
 
 const TimeSelector = ({ label, hora, min, onHora, onMin, labelStyle, inputStyle, onComplete, isLast, hasError }: TimeSelectorProps) => {
-  const [localVal, setLocalVal] = useState(() => (hora ? `${hora}${min ? `:${min}` : ""}` : ""));
+  const externo = hora ? `${hora}${min ? `:${min}` : ""}` : "";
+  const [localVal, setLocalVal] = useState(externo);
+  const [prevExterno, setPrevExterno] = useState(externo);
   const [error, setError] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    setLocalVal(hora ? `${hora}${min ? `:${min}` : ""}` : "");
-  }, [hora, min]);
+  // Si la hora cambia desde afuera (ej. "Copiar horario del Día 1"), el campo la refleja
+  if (externo !== prevExterno) {
+    setPrevExterno(externo);
+    setLocalVal(externo);
+  }
 
   const handleChange = (raw: string) => {
     const cleaned = raw.replace(/[^0-9:]/g, "");
@@ -41,7 +46,7 @@ const TimeSelector = ({ label, hora, min, onHora, onMin, labelStyle, inputStyle,
       if (minutePart.length === 2 && minNum > 59) { setError("Minutos inválidos"); return; }
       const nextVal = hourValue + (minutePart || cleaned.endsWith(":") ? ":" : "") + minutePart;
       setLocalVal(nextVal); onHora(hourValue); onMin(minutePart || "");
-      if (hourValue && minutePart.length === 2) { isLast ? inputRef.current?.blur() : onComplete?.(); }
+      if (hourValue && minutePart.length === 2) { if (isLast) inputRef.current?.blur(); else onComplete?.(); }
       return;
     }
     if (cleaned.length === 1) {
@@ -56,7 +61,7 @@ const TimeSelector = ({ label, hora, min, onHora, onMin, labelStyle, inputStyle,
     const minNum = minuteStr ? parseInt(minuteStr, 10) : -1;
     if (minuteStr.length === 2 && minNum > 59) { setError("Minutos inválidos (máx 59)"); return; }
     setLocalVal(`${hourStr}${minuteStr ? `:${minuteStr}` : ""}`); onHora(hourStr); onMin(minuteStr || "");
-    if (minuteStr.length === 2) { isLast ? inputRef.current?.blur() : onComplete?.(); }
+    if (minuteStr.length === 2) { if (isLast) inputRef.current?.blur(); else onComplete?.(); }
   };
 
   return (
@@ -64,7 +69,7 @@ const TimeSelector = ({ label, hora, min, onHora, onMin, labelStyle, inputStyle,
       <label style={labelStyle}>{label}</label>
       <input
         ref={inputRef}
-        style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError ? "#dc2626" : undefined }}
+        style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError ? "#dc2626" : inputStyle.borderColor }}
         placeholder="08:30" value={localVal} maxLength={5}
         onChange={(e) => handleChange(e.target.value)}
         onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
@@ -84,17 +89,22 @@ type FinSelectorProps = {
   labelStyle: React.CSSProperties;
   inputStyle: React.CSSProperties;
   refKey: string;
-  finRefs: React.MutableRefObject<Record<string, HTMLInputElement | null>>;
+  registrarRef: (key: string, el: HTMLInputElement | null) => void;
   hasError?: boolean;
 };
 
-const FinSelector = ({ label, horaVal, minVal, onHora, onMin, labelStyle, inputStyle, refKey, finRefs, hasError }: FinSelectorProps) => {
-  const [localVal, setLocalVal] = useState(() => horaVal ? `${horaVal}${minVal ? `:${minVal}` : ""}` : "");
+const FinSelector = ({ label, horaVal, minVal, onHora, onMin, labelStyle, inputStyle, refKey, registrarRef, hasError }: FinSelectorProps) => {
+  const externo = horaVal ? `${horaVal}${minVal ? `:${minVal}` : ""}` : "";
+  const [localVal, setLocalVal] = useState(externo);
+  const [prevExterno, setPrevExterno] = useState(externo);
   const [error, setError] = useState("");
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    setLocalVal(horaVal ? `${horaVal}${minVal ? `:${minVal}` : ""}` : "");
-  }, [horaVal, minVal]);
+  // Si la hora cambia desde afuera (ej. "Copiar horario del Día 1"), el campo la refleja
+  if (externo !== prevExterno) {
+    setPrevExterno(externo);
+    setLocalVal(externo);
+  }
 
   const handleChange = (raw: string) => {
     const cleaned = raw.replace(/[^0-9:]/g, "");
@@ -109,7 +119,7 @@ const FinSelector = ({ label, horaVal, minVal, onHora, onMin, labelStyle, inputS
       if (mPart.length === 2 && parseInt(mPart, 10) > 59) { setError("Minutos inválidos"); return; }
       setLocalVal(hVal + (mPart || cleaned.endsWith(":") ? ":" : "") + mPart);
       onHora(hVal); onMin(mPart || "");
-      if (hVal && mPart.length === 2) { finRefs.current[refKey]?.blur(); }
+      if (hVal && mPart.length === 2) { inputRef.current?.blur(); }
       return;
     }
     if (cleaned.length === 1) {
@@ -123,15 +133,15 @@ const FinSelector = ({ label, horaVal, minVal, onHora, onMin, labelStyle, inputS
     const mStr = cleaned.slice(2, 4);
     if (mStr.length === 2 && parseInt(mStr, 10) > 59) { setError("Minutos inválidos"); return; }
     setLocalVal(`${hStr}${mStr ? `:${mStr}` : ""}`); onHora(hStr); onMin(mStr || "");
-    if (mStr.length === 2) { finRefs.current[refKey]?.blur(); }
+    if (mStr.length === 2) { inputRef.current?.blur(); }
   };
 
   return (
     <div>
       <label style={labelStyle}>{label}</label>
       <input
-        ref={(el) => { finRefs.current[refKey] = el; }}
-        style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError ? "#dc2626" : undefined }}
+        ref={(el) => { inputRef.current = el; registrarRef(refKey, el); }}
+        style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError ? "#dc2626" : inputStyle.borderColor }}
         placeholder="08:30" value={localVal} maxLength={5}
         onChange={(e) => handleChange(e.target.value)}
         onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
@@ -142,12 +152,55 @@ const FinSelector = ({ label, horaVal, minVal, onHora, onMin, labelStyle, inputS
   );
 };
 
+// Fecha local en formato "aaaa-mm-dd". toISOString() usa UTC: en Uruguay,
+// después de las 21:00 devolvía la fecha de mañana.
+const fechaLocalISO = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+// "2026-10-25" -> "25/10/2026" para el mensaje de WhatsApp
+const formatFecha = (iso: string) => {
+  const [y, m, d] = iso.split("-");
+  return y && m && d ? `${d}/${m}/${y}` : iso;
+};
+
+// Opciones de servicio del simulador. "valor" es lo que va en el mensaje de WhatsApp
+// y en ?servicio= (lo usan los botones de la sección Servicios).
+const SERVICIOS = [
+  {
+    valor: "Babysitting", titulo: "Babysitting", sub: "Cuidado en casa",
+    color: "var(--pink)", bg: "var(--pink-light)",
+    icono: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+      </svg>
+    ),
+  },
+  {
+    valor: "Petsittings", titulo: "Petsitting", sub: "Cuidado de mascotas",
+    color: "var(--blue)", bg: "var(--blue-light)",
+    icono: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+        <circle cx="4.5" cy="9.5" r="2"/><circle cx="9" cy="5.5" r="2"/><circle cx="15" cy="5.5" r="2"/><circle cx="19.5" cy="9.5" r="2"/>
+        <path d="M17.34 14.86c-.83-1.6-1.95-2.86-4.3-3.1-.34-.03-.68-.03-1.02 0-2.35.24-3.47 1.5-4.3 3.1-.83 1.6-2.55 2.3-2.7 4.02-.15 1.65 1.1 2.87 2.66 2.6.98-.17 1.9-.77 3.02-.9.5-.06 1.02-.06 1.52 0 1.12.13 2.04.73 3.02.9 1.56.27 2.81-.95 2.66-2.6-.15-1.72-1.87-2.42-2.7-4.02z"/>
+      </svg>
+    ),
+  },
+  {
+    valor: "Evento", titulo: "Eventos", sub: "Animación infantil",
+    color: "var(--yellow-dark)", bg: "#fffae8",
+    icono: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+    ),
+  },
+];
+
 export default function SimulatorSection() {
-  const WA_NUMBER = "59897442696";
-  const today = new Date().toISOString().split("T")[0];
+  const today = fechaLocalISO(new Date());
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
-  const maxDateStr = maxDate.toISOString().split("T")[0];
+  const maxDateStr = fechaLocalISO(maxDate);
   const DIAS_SEMANA = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
 
   const zonasPorDepartamento: Record<string, string[]> = {
@@ -195,7 +248,7 @@ export default function SimulatorSection() {
     horaFinH: "", horaFinM: "",
     cantNinos: "", edades: "",
     departamento: "", zona: "", zonaOtro: "",
-    tipoEvento: "", cantNinosEvento: "",
+    tipoEvento: "", cantNinosEvento: "", fechaEvento: today,
     tipoPetsitting: "", cantMascotas: "",
     petNecesita: [] as string[],
     petFechaDesde: today, petFechaHasta: "",
@@ -308,6 +361,10 @@ export default function SimulatorSection() {
     return null;
   };
 
+  // En modo Fijo el "Desde" se guarda en dias[0]; si no se tocó, vale hoy
+  // (es lo que muestra el campo).
+  const fijoDesde = form.dias[0]?.fecha || today;
+
   // Devuelve la zona final a usar en el mensaje (texto libre si es "Otro")
   const zonaFinal = () => {
     if (form.zona === "Otro") return form.zonaOtro.trim() || "Otro";
@@ -316,6 +373,12 @@ export default function SimulatorSection() {
 
   const validate = (): Record<string, string> => {
     const e: Record<string, string> = {};
+    // Fecha obligatoria y dentro del rango permitido (no anterior a hoy, no más de un año)
+    const checkFecha = (key: string, valor: string, faltante: string) => {
+      const invalida = validarFecha(valor);
+      if (!valor) e[key] = faltante;
+      else if (invalida) e[key] = invalida;
+    };
     if (!form.nombre.trim()) e["nombre"] = "Ingresá tu nombre";
     if (!form.servicio) e["servicio"] = "Seleccioná un servicio";
     if (!form.departamento) e["departamento"] = "Seleccioná un departamento";
@@ -328,7 +391,7 @@ export default function SimulatorSection() {
       if (form.tipoBabysitting === "Puntual") {
         if (!form.cantDias) e["cantDias"] = "Seleccioná la cantidad de días";
         form.dias.forEach((d, i) => {
-          if (!d.fecha) e[`dia-${i}-fecha`] = "Ingresá la fecha";
+          checkFecha(`dia-${i}-fecha`, d.fecha, "Ingresá la fecha");
           if (!d.horaInicio) e[`dia-${i}-horaInicio`] = "Ingresá hora de inicio";
           if (!d.horaFin) e[`dia-${i}-horaFin`] = "Ingresá hora de fin";
         });
@@ -337,15 +400,21 @@ export default function SimulatorSection() {
         if (form.diasSemana.length === 0) e["diasSemana"] = "Seleccioná al menos un día";
         if (!form.horarioFijoInicioH) e["horarioFijoInicio"] = "Ingresá hora de inicio";
         if (!form.horarioFijoFinH) e["horarioFijoFin"] = "Ingresá hora de fin";
+        checkFecha("fijoDesde", fijoDesde, "Ingresá desde cuándo");
+        if (form.hastaCuando === "Fecha") {
+          checkFecha("hastaFecha", form.hastaFecha, "Ingresá hasta qué fecha");
+          if (!e["hastaFecha"] && form.hastaFecha < fijoDesde) e["hastaFecha"] = "La fecha de fin no puede ser anterior a la de inicio";
+        }
       }
       if (!form.cantNinos) e["cantNinos"] = "Seleccioná cantidad de niños";
     }
 
     if (form.servicio === "Evento") {
       if (!form.tipoEvento) e["tipoEvento"] = "Seleccioná el tipo de evento";
-      if (!form.cantNinosEvento.trim()) e["cantNinosEvento"] = "Ingresá la cantidad aproximada";
+      checkFecha("fechaEvento", form.fechaEvento, "Ingresá la fecha del evento");
       if (!form.horaInicioH) e["horaInicio"] = "Ingresá hora de inicio";
       if (!form.horaFinH) e["horaFin"] = "Ingresá hora de fin";
+      if (!form.cantNinosEvento.trim()) e["cantNinosEvento"] = "Ingresá la cantidad aproximada";
     }
 
     if (form.servicio === "Petsittings") {
@@ -354,14 +423,15 @@ export default function SimulatorSection() {
       if (form.tipoPetsitting === "Visita a domicilio") {
         if (!form.cantDias) e["cantDias"] = "Seleccioná la cantidad de días";
         form.dias.forEach((d, i) => {
-          if (!d.fecha) e[`dia-${i}-fecha`] = "Ingresá la fecha";
+          checkFecha(`dia-${i}-fecha`, d.fecha, "Ingresá la fecha");
           if (!d.horaInicio) e[`dia-${i}-horaInicio`] = "Ingresá hora de inicio";
           if (!d.horaFin) e[`dia-${i}-horaFin`] = "Ingresá hora de fin";
         });
       }
       if (form.tipoPetsitting === "Pernocte" || form.tipoPetsitting === "Hospedaje") {
-        if (!form.petFechaDesde) e["petFechaDesde"] = "Ingresá la fecha de inicio";
-        if (!form.petFechaHasta) e["petFechaHasta"] = "Ingresá la fecha de fin";
+        checkFecha("petFechaDesde", form.petFechaDesde, "Ingresá la fecha de inicio");
+        checkFecha("petFechaHasta", form.petFechaHasta, "Ingresá la fecha de fin");
+        if (!e["petFechaHasta"] && form.petFechaDesde && form.petFechaHasta < form.petFechaDesde) e["petFechaHasta"] = "La fecha de fin no puede ser anterior a la de inicio";
       }
     }
 
@@ -369,22 +439,23 @@ export default function SimulatorSection() {
   };
 
   const generateMessage = () => {
-    let msg = `Hola! Quiero coordinar un servicio de Parents' Break\n\n`;
+    let msg = `${WA_MENSAJE_INICIAL}\n\n`;
     msg += `*Nombre:* ${form.nombre}\n*Servicio:* ${form.servicio}\n`;
     if (form.servicio === "Babysitting") {
       msg += `*Modalidad:* ${form.tipoBabysitting}\n`;
       if (form.tipoBabysitting === "Puntual") {
         form.dias.forEach((d, i) => {
-          msg += `\n*Día ${i + 1}:*\n  Fecha: ${d.fecha}\n  Horario: ${d.horaInicio}:${d.minInicio || "00"} - ${d.horaFin}:${d.minFin || "00"}\n`;
+          msg += `\n*Día ${i + 1}:*\n  Fecha: ${formatFecha(d.fecha)}\n  Horario: ${d.horaInicio}:${d.minInicio || "00"} - ${d.horaFin}:${d.minFin || "00"}\n`;
         });
       } else if (form.tipoBabysitting === "Fijo") {
         msg += `*Días:* ${form.diasSemana.join(", ")}\n`;
         msg += `*Horario:* ${form.horarioFijoInicioH}:${form.horarioFijoInicioM || "00"} - ${form.horarioFijoFinH}:${form.horarioFijoFinM || "00"}\n`;
-        msg += `*Desde:* ${form.dias[0]?.fecha || ""}\n`;
-        msg += `*Hasta:* ${form.hastaCuando === "Indefinido" ? "Indefinido" : form.hastaFecha}\n`;
+        msg += `*Desde:* ${formatFecha(fijoDesde)}\n`;
+        msg += `*Hasta:* ${form.hastaCuando === "Indefinido" ? "Indefinido" : formatFecha(form.hastaFecha)}\n`;
       }
     } else if (form.servicio === "Evento") {
       msg += `*Tipo de evento:* ${form.tipoEvento}\n`;
+      msg += `*Fecha:* ${formatFecha(form.fechaEvento)}\n`;
       msg += `*Horario:* ${form.horaInicioH}:${form.horaInicioM || "00"} - ${form.horaFinH}:${form.horaFinM || "00"}\n`;
       msg += `*Cantidad aproximada de niños:* ${form.cantNinosEvento}\n`;
     } else if (form.servicio === "Petsittings") {
@@ -393,17 +464,17 @@ export default function SimulatorSection() {
       if (form.petNecesita.length) msg += `*Necesita:* ${form.petNecesita.join(", ")}\n`;
       if (form.tipoPetsitting === "Visita a domicilio") {
         form.dias.forEach((d, i) => {
-          msg += `\n*Día ${i + 1}:*\n  Fecha: ${d.fecha}\n  Horario: ${d.horaInicio}:${d.minInicio || "00"} - ${d.horaFin}:${d.minFin || "00"}\n`;
+          msg += `\n*Día ${i + 1}:*\n  Fecha: ${formatFecha(d.fecha)}\n  Horario: ${d.horaInicio}:${d.minInicio || "00"} - ${d.horaFin}:${d.minFin || "00"}\n`;
         });
       } else if (form.tipoPetsitting === "Pernocte" || form.tipoPetsitting === "Hospedaje") {
-        msg += `*Desde:* ${form.petFechaDesde}\n*Hasta:* ${form.petFechaHasta}\n`;
+        msg += `*Desde:* ${formatFecha(form.petFechaDesde)}\n*Hasta:* ${formatFecha(form.petFechaHasta)}\n`;
       }
     }
     if (form.servicio === "Babysitting") msg += `\n*Cantidad de niños:* ${form.cantNinos}\n`;
     if (form.servicio !== "Petsittings") msg += `*Edades:* ${form.edades}\n`;
     msg += `*Departamento:* ${form.departamento}\n*Zona:* ${zonaFinal()}\n`;
     if (form.comentarios) msg += `*Comentarios:* ${form.comentarios}\n`;
-    return encodeURIComponent(msg);
+    return msg;
   };
 
   const handleSend = () => {
@@ -415,23 +486,26 @@ export default function SimulatorSection() {
       if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
-    window.open(`https://wa.me/${WA_NUMBER}?text=${generateMessage()}`, "_blank");
+    window.open(waLink(generateMessage()), "_blank");
   };
 
   const inputStyle: React.CSSProperties = {
-    width: "100%", padding: "12px 16px", borderRadius: 10, fontSize: 15,
-    border: "1.5px solid var(--gray)", background: "var(--white)", color: "var(--text)",
-    fontFamily: "'Source Sans 3', sans-serif", outline: "none", transition: "border-color .15s",
+    width: "100%", minHeight: 50, padding: "12px 16px", borderRadius: 12, fontSize: 15,
+    // Borde en propiedades separadas: con el atajo "border" + borderColor undefined, React
+    // borraba el color al montar los campos que aparecen después (quedaban gris oscuro).
+    borderWidth: 1.5, borderStyle: "solid", borderColor: "var(--gray)",
+    backgroundColor: "var(--off)", color: "var(--text)",
+    fontFamily: "'Source Sans 3', sans-serif", outline: "none", transition: "border-color .15s, background-color .15s",
   };
 
   const inputErr = (key: string): React.CSSProperties => ({
     ...inputStyle,
-    borderColor: errors[key] ? "#dc2626" : undefined,
+    borderColor: errors[key] ? "#dc2626" : "var(--gray)",
   });
 
   const labelStyle: React.CSSProperties = {
-    display: "block", fontSize: 13, fontWeight: 700,
-    color: "var(--text)", marginBottom: 6, letterSpacing: ".02em",
+    display: "block", fontSize: 13.5, fontWeight: 700,
+    color: "var(--text)", marginBottom: 8, letterSpacing: ".02em",
   };
 
   const btnToggle = (active: boolean): React.CSSProperties => ({
@@ -461,9 +535,11 @@ export default function SimulatorSection() {
     setTimeout(() => { finRefs.current[key]?.focus(); }, 30);
   };
 
+  const registrarFin = (key: string, el: HTMLInputElement | null) => { finRefs.current[key] = el; };
+
   return (
-    <section id="simulador" className="sim-section" style={{ padding: "96px 0", background: "var(--white)" }}>
-      <div className="sim-container" style={{ maxWidth: 820, margin: "0 auto", padding: "0 24px" }}>
+    <section id="simulador" className="sim-section" style={{ background: "var(--white)" }}>
+      <div className="sim-container" style={{ maxWidth: 820, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <span style={{
             display: "inline-block", background: "rgba(37,211,102,.12)", color: "var(--whatsapp)",
@@ -477,8 +553,8 @@ export default function SimulatorSection() {
         </div>
 
         <div className="sim-form" style={{
-          background: "var(--white)", borderRadius: 24,
-          border: "1.5px solid var(--gray)", padding: "40px", boxShadow: "var(--shadow-lg)",
+          background: "var(--white)", borderRadius: 28,
+          border: "1.5px solid #ecece6", boxShadow: "var(--shadow-lg)",
         }}>
           {/* Error banner */}
           {Object.keys(errors).length > 0 && (
@@ -505,7 +581,7 @@ export default function SimulatorSection() {
 
           <div className="sim-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
 
-            <div id="field-nombre">
+            <div id="field-nombre" className="full-col">
               <label style={labelStyle}>Tu nombre *</label>
               <input
                 style={inputErr("nombre")} placeholder="Ej: María González" value={form.nombre}
@@ -516,15 +592,32 @@ export default function SimulatorSection() {
               {errMsg("nombre")}
             </div>
 
-            <div id="field-servicio">
-              <label style={labelStyle}>Tipo de servicio *</label>
-              <select style={{ ...inputErr("servicio"), cursor: "pointer" }} value={form.servicio}
-                onChange={(e) => update("servicio", e.target.value)}>
-                <option value="">Seleccioná un servicio</option>
-                <option>Babysitting</option>
-                <option>Petsittings</option>
-                <option>Evento</option>
-              </select>
+            {/* Tarjetas de servicio: son radios reales (teclado y lector de pantalla) con el input oculto a la vista */}
+            <div id="field-servicio" className="full-col">
+              <div id="label-servicio" style={labelStyle}>Tipo de servicio *</div>
+              <div role="radiogroup" aria-labelledby="label-servicio" className="serv-grid">
+                {SERVICIOS.map((s) => {
+                  const activo = form.servicio === s.valor;
+                  return (
+                    <label key={s.valor} className="serv-card" style={{
+                      borderColor: activo ? s.color : errors["servicio"] ? "#dc2626" : "var(--gray)",
+                      background: activo ? s.bg : "var(--off)",
+                    }}>
+                      <input
+                        type="radio" name="servicio" value={s.valor} checked={activo} className="serv-radio"
+                        onChange={() => { update("servicio", s.valor); setErrors({}); }}
+                      />
+                      <span className="serv-icon" aria-hidden="true" style={{ background: activo ? "var(--white)" : s.bg, color: s.color }}>
+                        {s.icono}
+                      </span>
+                      <span>
+                        <span className="serv-titulo">{s.titulo}</span>
+                        <span className="serv-sub">{s.sub}</span>
+                      </span>
+                    </label>
+                  );
+                })}
+              </div>
               {errMsg("servicio")}
             </div>
 
@@ -573,7 +666,7 @@ export default function SimulatorSection() {
                             <label style={labelStyle}>Fecha</label>
                             <input type="date" style={inputErr(`dia-${i}-fecha`)} value={dia.fecha} min={today} max={maxDateStr}
                               onChange={(e) => updateDia(i, "fecha", e.target.value)} />
-                            {validarFecha(dia.fecha) && <div style={alertStyle}>{validarFecha(dia.fecha)}</div>}
+                            {validarFecha(dia.fecha) && !errors[`dia-${i}-fecha`] && <div style={alertStyle}>{validarFecha(dia.fecha)}</div>}
                             {errMsg(`dia-${i}-fecha`)}
                           </div>
                           <div id={`field-dia-${i}-horaInicio`}>
@@ -593,7 +686,7 @@ export default function SimulatorSection() {
                               onHora={(v) => updateDia(i, "horaFin", v)}
                               onMin={(v) => updateDia(i, "minFin", v)}
                               labelStyle={labelStyle} inputStyle={inputStyle}
-                              refKey={`dia-fin-${i}`} finRefs={finRefs}
+                              refKey={`dia-fin-${i}`} registrarRef={registrarFin}
                               hasError={!!errors[`dia-${i}-horaFin`]}
                             />
                             {errMsg(`dia-${i}-horaFin`)}
@@ -638,7 +731,7 @@ export default function SimulatorSection() {
                         onHora={(v) => update("horarioFijoFinH", v)}
                         onMin={(v) => update("horarioFijoFinM", v)}
                         labelStyle={labelStyle} inputStyle={inputStyle}
-                        refKey="fijo-fin" finRefs={finRefs}
+                        refKey="fijo-fin" registrarRef={registrarFin}
                         hasError={!!errors["horarioFijoFin"]}
                       />
                       {errMsg("horarioFijoFin")}
@@ -646,31 +739,37 @@ export default function SimulatorSection() {
                     {horasDeAlerta(form.horarioFijoInicioH, form.horarioFijoInicioM, form.horarioFijoFinH, form.horarioFijoFinM) && (
                       <div className="full-col" style={warnStyle}>El horario supera las 13 horas. Verificá que sea correcto.</div>
                     )}
-                    <div>
+                    <div id="field-fijoDesde">
                       <label style={labelStyle}>Desde cuándo</label>
-                      <input type="date" style={inputStyle}
-                        value={form.dias[0]?.fecha || today} min={today} max={maxDateStr}
+                      <input type="date" style={inputErr("fijoDesde")}
+                        value={fijoDesde} min={today} max={maxDateStr}
                         onChange={(e) => {
                           setForm((prev) => {
                             const newDias = [...prev.dias];
                             newDias[0] = { ...(newDias[0] || { horaInicio: "", minInicio: "", horaFin: "", minFin: "" }), fecha: e.target.value };
                             return { ...prev, dias: newDias };
                           });
+                          setErrors((prev) => { const n = { ...prev }; delete n["fijoDesde"]; return n; });
                         }} />
+                      {errMsg("fijoDesde")}
                     </div>
-                    <div>
+                    <div id="field-hastaFecha">
                       <label style={labelStyle}>Hasta cuándo</label>
                       <div style={{ display: "flex", gap: 10, marginBottom: form.hastaCuando === "Fecha" ? 10 : 0 }}>
                         {["Indefinido", "Fecha"].map((opt) => (
-                          <button key={opt} onClick={() => update("hastaCuando", opt)} style={btnToggle(form.hastaCuando === opt)}>
+                          <button key={opt} onClick={() => {
+                            update("hastaCuando", opt);
+                            setErrors((prev) => { const n = { ...prev }; delete n["hastaFecha"]; return n; });
+                          }} style={btnToggle(form.hastaCuando === opt)}>
                             {opt === "Fecha" ? "Hasta una fecha" : "Indefinido"}
                           </button>
                         ))}
                       </div>
                       {form.hastaCuando === "Fecha" && (
-                        <input type="date" style={{ ...inputStyle, marginTop: 10 }} value={form.hastaFecha}
-                          min={today} max={maxDateStr} onChange={(e) => update("hastaFecha", e.target.value)} />
+                        <input type="date" style={{ ...inputErr("hastaFecha"), marginTop: 10 }} value={form.hastaFecha}
+                          min={fijoDesde} max={maxDateStr} onChange={(e) => update("hastaFecha", e.target.value)} />
                       )}
+                      {errMsg("hastaFecha")}
                     </div>
                   </>
                 )}
@@ -744,7 +843,7 @@ export default function SimulatorSection() {
                             <label style={labelStyle}>Fecha</label>
                             <input type="date" style={inputErr(`dia-${i}-fecha`)} value={dia.fecha} min={today} max={maxDateStr}
                               onChange={(e) => updateDia(i, "fecha", e.target.value)} />
-                            {validarFecha(dia.fecha) && <div style={alertStyle}>{validarFecha(dia.fecha)}</div>}
+                            {validarFecha(dia.fecha) && !errors[`dia-${i}-fecha`] && <div style={alertStyle}>{validarFecha(dia.fecha)}</div>}
                             {errMsg(`dia-${i}-fecha`)}
                           </div>
                           <div id={`field-dia-${i}-horaInicio`}>
@@ -764,7 +863,7 @@ export default function SimulatorSection() {
                               onHora={(v) => updateDia(i, "horaFin", v)}
                               onMin={(v) => updateDia(i, "minFin", v)}
                               labelStyle={labelStyle} inputStyle={inputStyle}
-                              refKey={`dia-fin-${i}`} finRefs={finRefs}
+                              refKey={`dia-fin-${i}`} registrarRef={registrarFin}
                               hasError={!!errors[`dia-${i}-horaFin`]}
                             />
                             {errMsg(`dia-${i}-horaFin`)}
@@ -784,7 +883,7 @@ export default function SimulatorSection() {
                       <label style={labelStyle}>Desde</label>
                       <input type="date" style={inputErr("petFechaDesde")} value={form.petFechaDesde} min={today} max={maxDateStr}
                         onChange={(e) => update("petFechaDesde", e.target.value)} />
-                      {validarFecha(form.petFechaDesde) && <div style={alertStyle}>{validarFecha(form.petFechaDesde)}</div>}
+                      {validarFecha(form.petFechaDesde) && !errors["petFechaDesde"] && <div style={alertStyle}>{validarFecha(form.petFechaDesde)}</div>}
                       {errMsg("petFechaDesde")}
                     </div>
                     <div id="field-petFechaHasta">
@@ -814,13 +913,12 @@ export default function SimulatorSection() {
                   </select>
                   {errMsg("tipoEvento")}
                 </div>
-                <div id="field-cantNinosEvento">
-                  <label style={labelStyle}>Cantidad aprox. de niños</label>
-                  <input style={inputErr("cantNinosEvento")} placeholder="Ej: 10-15 niños" value={form.cantNinosEvento}
-                    onChange={(e) => update("cantNinosEvento", e.target.value)}
-                    onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-                    onBlur={(e) => { e.currentTarget.style.borderColor = errors["cantNinosEvento"] ? "#dc2626" : "var(--gray)"; }} />
-                  {errMsg("cantNinosEvento")}
+                <div id="field-fechaEvento">
+                  <label style={labelStyle}>Fecha</label>
+                  <input type="date" style={inputErr("fechaEvento")} value={form.fechaEvento} min={today} max={maxDateStr}
+                    onChange={(e) => update("fechaEvento", e.target.value)} />
+                  {validarFecha(form.fechaEvento) && !errors["fechaEvento"] && <div style={alertStyle}>{validarFecha(form.fechaEvento)}</div>}
+                  {errMsg("fechaEvento")}
                 </div>
                 <div id="field-horaInicio">
                   <TimeSelector
@@ -837,7 +935,7 @@ export default function SimulatorSection() {
                     label="Hora de fin" horaVal={form.horaFinH} minVal={form.horaFinM}
                     onHora={(v) => update("horaFinH", v)} onMin={(v) => update("horaFinM", v)}
                     labelStyle={labelStyle} inputStyle={inputStyle}
-                    refKey="evento-fin" finRefs={finRefs}
+                    refKey="evento-fin" registrarRef={registrarFin}
                     hasError={!!errors["horaFin"]}
                   />
                   {errMsg("horaFin")}
@@ -845,6 +943,14 @@ export default function SimulatorSection() {
                 {horasDeAlerta(form.horaInicioH, form.horaInicioM, form.horaFinH, form.horaFinM) && (
                   <div className="full-col" style={warnStyle}>El horario supera las 13 horas. Verificá que sea correcto.</div>
                 )}
+                <div id="field-cantNinosEvento">
+                  <label style={labelStyle}>Cantidad aprox. de niños</label>
+                  <input style={inputErr("cantNinosEvento")} placeholder="Ej: 10-15 niños" value={form.cantNinosEvento}
+                    onChange={(e) => update("cantNinosEvento", e.target.value)}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = errors["cantNinosEvento"] ? "#dc2626" : "var(--gray)"; }} />
+                  {errMsg("cantNinosEvento")}
+                </div>
               </>
             )}
 
@@ -921,7 +1027,7 @@ export default function SimulatorSection() {
 
             <div className="full-col">
               <label style={labelStyle}>Comentarios adicionales</label>
-              <textarea style={{ ...inputStyle, minHeight: 90, resize: "vertical" }}
+              <textarea style={{ ...inputStyle, minHeight: 110, resize: "vertical" }}
                 placeholder="Alguna preferencia o necesidad especial..."
                 value={form.comentarios} onChange={(e) => update("comentarios", e.target.value)}
                 onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
@@ -952,9 +1058,39 @@ export default function SimulatorSection() {
       </div>
 
       <style>{`
+        .sim-section { padding: 96px 0; }
+        .sim-container { padding: 0 24px; }
+        .sim-form { padding: 40px; }
         .sim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .full-col { grid-column: 1 / -1; }
         .dia-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+        /* Desplegables con flecha propia, a 16px del borde y en el violeta de la marca */
+        #simulador select {
+          -webkit-appearance: none;
+          appearance: none;
+          padding-right: 44px !important;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23757cbb' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 16px center;
+        }
+        #simulador input:focus, #simulador select:focus, #simulador textarea:focus {
+          background-color: var(--white) !important;
+        }
+        .serv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .serv-card {
+          position: relative; display: flex; align-items: center; gap: 12px;
+          padding: 14px 16px; border-radius: 16px; border: 2px solid; cursor: pointer;
+          transition: border-color .15s, background .15s;
+        }
+        /* El radio queda invisible pero sigue en el orden del teclado y para lectores de pantalla */
+        .serv-radio { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+        .serv-card:has(.serv-radio:focus-visible) { outline: 3px solid rgba(117,124,187,.5); outline-offset: 2px; }
+        .serv-icon {
+          width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+          display: flex; align-items: center; justify-content: center;
+        }
+        .serv-titulo { display: block; font-weight: 700; font-size: 15px; color: var(--text); }
+        .serv-sub { display: block; font-size: 12.5px; color: var(--text-soft); }
         @media (max-width: 768px) { .sim-section { padding: 72px 0; } }
         @media (max-width: 600px) {
           .sim-section { padding: 64px 0; }
@@ -962,6 +1098,7 @@ export default function SimulatorSection() {
           .sim-form { padding: 24px; }
           .sim-grid { grid-template-columns: 1fr !important; gap: 16px; }
           .dia-grid { grid-template-columns: 1fr !important; gap: 10px; }
+          .serv-grid { grid-template-columns: 1fr; }
         }
       `}</style>
     </section>

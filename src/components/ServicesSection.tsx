@@ -3,6 +3,7 @@ export default function ServicesSection() {
   const services = [
     {
       title: "Babysittings, fijos o esporádicos",
+      servicio: "Babysitting",
       subtitle: "Cuidado en casa",
       desc: "Niñeras que generan un vínculo real con los chicos a través del juego, la atención y el acompañamiento activo. Nos adaptamos a la rutina de cada familia para que los niños se sientan cómodos, entretenidos y cuidados en todo momento.",
       items: [
@@ -25,6 +26,7 @@ export default function ServicesSection() {
     },
     {
       title: "Petsittings",
+      servicio: "Petsittings",
       subtitle: "Cuidado de mascotas",
       desc: "Cuidamos a tu mascota y nos ocupamos de que se sienta acompañada y segura cuando vos no podés estar.",
       items: [
@@ -40,6 +42,7 @@ export default function ServicesSection() {
     },
     {
       title: "Eventos",
+      servicio: "Evento",
       subtitle: "Animación infantil",
       desc: "Creamos espacios divertidos y dinámicos para que los niños disfruten mientras los adultos pueden relajarse. Organizamos propuestas adaptadas según la edad, cantidad de chicos y tipo de evento.",
       items: [
@@ -58,7 +61,7 @@ export default function ServicesSection() {
   ];
 
   return (
-    <section id="servicios" style={{ padding: "96px 0", background: "var(--white)" }}>
+    <section id="servicios" className="services-section" style={{ background: "var(--white)" }}>
       <div style={{ maxWidth: 1140, margin: "0 auto", padding: "0 24px" }}>
 
         {/* Header */}
@@ -200,13 +203,8 @@ responsables y preparadas para cada situación.
                 href="#simulador"
                 onClick={(e) => {
                   e.preventDefault();
-                  const map: Record<string, string> = {
-                    "Babysitting": "Babysitting",
-                    "Eventos": "Evento",
-                    "Petsittings": "Petsittings",
-                  };
-                  const servicio = map[s.title] || s.title;
-                  window.history.pushState(null, "", `?servicio=${servicio}#simulador`);
+                  // El simulador escucha "popstate" y preselecciona el servicio del query param
+                  window.history.pushState(null, "", `?servicio=${s.servicio}#simulador`);
                   window.dispatchEvent(new Event("popstate"));
                   const el = document.getElementById("simulador");
                   if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -234,14 +232,15 @@ responsables y preparadas para cada situación.
       </div>
 
       <style>{`
+        .services-section { padding: 96px 0; }
         @media (max-width: 600px) {
           .services-grid { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 768px) {
-          section { padding: 72px 0; }
+          .services-section { padding: 72px 0; }
         }
         @media (max-width: 600px) {
-          section { padding: 64px 0; }
+          .services-section { padding: 64px 0; }
           .services-grid { gap: 16px; }
           .service-card { padding: 28px 20px !important; }
           .service-title { font-size: 22px !important; }
