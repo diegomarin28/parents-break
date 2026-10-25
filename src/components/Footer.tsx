@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { waLink } from "../lib/contact";
+import { WA_MENSAJE_INICIAL, waLink } from "../lib/contact";
 
 export default function Footer() {
-  const WA_URL = waLink();
+  const WA_URL = waLink(WA_MENSAJE_INICIAL);
 
   return (
     <footer className="footer">

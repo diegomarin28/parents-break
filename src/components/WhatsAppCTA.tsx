@@ -1,8 +1,8 @@
 "use client";
-import { waLink } from "../lib/contact";
+import { WA_MENSAJE_INICIAL, waLink } from "../lib/contact";
 
 export default function WhatsAppCTA() {
-  const WA_URL = waLink();
+  const WA_URL = waLink(WA_MENSAJE_INICIAL);
 
   return (
     <section className="cta-section" style={{
