@@ -19,13 +19,17 @@ type TimeSelectorProps = {
 };
 
 const TimeSelector = ({ label, hora, min, onHora, onMin, labelStyle, inputStyle, onComplete, isLast, hasError }: TimeSelectorProps) => {
-  const [localVal, setLocalVal] = useState(() => (hora ? `${hora}${min ? `:${min}` : ""}` : ""));
+  const externo = hora ? `${hora}${min ? `:${min}` : ""}` : "";
+  const [localVal, setLocalVal] = useState(externo);
+  const [prevExterno, setPrevExterno] = useState(externo);
   const [error, setError] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    setLocalVal(hora ? `${hora}${min ? `:${min}` : ""}` : "");
-  }, [hora, min]);
+  // Si la hora cambia desde afuera (ej. "Copiar horario del Día 1"), el campo la refleja
+  if (externo !== prevExterno) {
+    setPrevExterno(externo);
+    setLocalVal(externo);
+  }
 
   const handleChange = (raw: string) => {
     const cleaned = raw.replace(/[^0-9:]/g, "");
@@ -42,7 +46,7 @@ const TimeSelector = ({ label, hora, min, onHora, onMin, labelStyle, inputStyle,
       if (minutePart.length === 2 && minNum > 59) { setError("Minutos inválidos"); return; }
       const nextVal = hourValue + (minutePart || cleaned.endsWith(":") ? ":" : "") + minutePart;
       setLocalVal(nextVal); onHora(hourValue); onMin(minutePart || "");
-      if (hourValue && minutePart.length === 2) { isLast ? inputRef.current?.blur() : onComplete?.(); }
+      if (hourValue && minutePart.length === 2) { if (isLast) inputRef.current?.blur(); else onComplete?.(); }
       return;
     }
     if (cleaned.length === 1) {
@@ -57,7 +61,7 @@ const TimeSelector = ({ label, hora, min, onHora, onMin, labelStyle, inputStyle,
     const minNum = minuteStr ? parseInt(minuteStr, 10) : -1;
     if (minuteStr.length === 2 && minNum > 59) { setError("Minutos inválidos (máx 59)"); return; }
     setLocalVal(`${hourStr}${minuteStr ? `:${minuteStr}` : ""}`); onHora(hourStr); onMin(minuteStr || "");
-    if (minuteStr.length === 2) { isLast ? inputRef.current?.blur() : onComplete?.(); }
+    if (minuteStr.length === 2) { if (isLast) inputRef.current?.blur(); else onComplete?.(); }
   };
 
   return (
@@ -85,17 +89,22 @@ type FinSelectorProps = {
   labelStyle: React.CSSProperties;
   inputStyle: React.CSSProperties;
   refKey: string;
-  finRefs: React.MutableRefObject<Record<string, HTMLInputElement | null>>;
+  registrarRef: (key: string, el: HTMLInputElement | null) => void;
   hasError?: boolean;
 };
 
-const FinSelector = ({ label, horaVal, minVal, onHora, onMin, labelStyle, inputStyle, refKey, finRefs, hasError }: FinSelectorProps) => {
-  const [localVal, setLocalVal] = useState(() => horaVal ? `${horaVal}${minVal ? `:${minVal}` : ""}` : "");
+const FinSelector = ({ label, horaVal, minVal, onHora, onMin, labelStyle, inputStyle, refKey, registrarRef, hasError }: FinSelectorProps) => {
+  const externo = horaVal ? `${horaVal}${minVal ? `:${minVal}` : ""}` : "";
+  const [localVal, setLocalVal] = useState(externo);
+  const [prevExterno, setPrevExterno] = useState(externo);
   const [error, setError] = useState("");
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    setLocalVal(horaVal ? `${horaVal}${minVal ? `:${minVal}` : ""}` : "");
-  }, [horaVal, minVal]);
+  // Si la hora cambia desde afuera (ej. "Copiar horario del Día 1"), el campo la refleja
+  if (externo !== prevExterno) {
+    setPrevExterno(externo);
+    setLocalVal(externo);
+  }
 
   const handleChange = (raw: string) => {
     const cleaned = raw.replace(/[^0-9:]/g, "");
@@ -110,7 +119,7 @@ const FinSelector = ({ label, horaVal, minVal, onHora, onMin, labelStyle, inputS
       if (mPart.length === 2 && parseInt(mPart, 10) > 59) { setError("Minutos inválidos"); return; }
       setLocalVal(hVal + (mPart || cleaned.endsWith(":") ? ":" : "") + mPart);
       onHora(hVal); onMin(mPart || "");
-      if (hVal && mPart.length === 2) { finRefs.current[refKey]?.blur(); }
+      if (hVal && mPart.length === 2) { inputRef.current?.blur(); }
       return;
     }
     if (cleaned.length === 1) {
@@ -124,14 +133,14 @@ const FinSelector = ({ label, horaVal, minVal, onHora, onMin, labelStyle, inputS
     const mStr = cleaned.slice(2, 4);
     if (mStr.length === 2 && parseInt(mStr, 10) > 59) { setError("Minutos inválidos"); return; }
     setLocalVal(`${hStr}${mStr ? `:${mStr}` : ""}`); onHora(hStr); onMin(mStr || "");
-    if (mStr.length === 2) { finRefs.current[refKey]?.blur(); }
+    if (mStr.length === 2) { inputRef.current?.blur(); }
   };
 
   return (
     <div>
       <label style={labelStyle}>{label}</label>
       <input
-        ref={(el) => { finRefs.current[refKey] = el; }}
+        ref={(el) => { inputRef.current = el; registrarRef(refKey, el); }}
         style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError ? "#dc2626" : undefined }}
         placeholder="08:30" value={localVal} maxLength={5}
         onChange={(e) => handleChange(e.target.value)}
@@ -490,6 +499,8 @@ export default function SimulatorSection() {
     setTimeout(() => { finRefs.current[key]?.focus(); }, 30);
   };
 
+  const registrarFin = (key: string, el: HTMLInputElement | null) => { finRefs.current[key] = el; };
+
   return (
     <section id="simulador" className="sim-section" style={{ padding: "96px 0", background: "var(--white)" }}>
       <div className="sim-container" style={{ maxWidth: 820, margin: "0 auto", padding: "0 24px" }}>
@@ -622,7 +633,7 @@ export default function SimulatorSection() {
                               onHora={(v) => updateDia(i, "horaFin", v)}
                               onMin={(v) => updateDia(i, "minFin", v)}
                               labelStyle={labelStyle} inputStyle={inputStyle}
-                              refKey={`dia-fin-${i}`} finRefs={finRefs}
+                              refKey={`dia-fin-${i}`} registrarRef={registrarFin}
                               hasError={!!errors[`dia-${i}-horaFin`]}
                             />
                             {errMsg(`dia-${i}-horaFin`)}
@@ -667,7 +678,7 @@ export default function SimulatorSection() {
                         onHora={(v) => update("horarioFijoFinH", v)}
                         onMin={(v) => update("horarioFijoFinM", v)}
                         labelStyle={labelStyle} inputStyle={inputStyle}
-                        refKey="fijo-fin" finRefs={finRefs}
+                        refKey="fijo-fin" registrarRef={registrarFin}
                         hasError={!!errors["horarioFijoFin"]}
                       />
                       {errMsg("horarioFijoFin")}
@@ -799,7 +810,7 @@ export default function SimulatorSection() {
                               onHora={(v) => updateDia(i, "horaFin", v)}
                               onMin={(v) => updateDia(i, "minFin", v)}
                               labelStyle={labelStyle} inputStyle={inputStyle}
-                              refKey={`dia-fin-${i}`} finRefs={finRefs}
+                              refKey={`dia-fin-${i}`} registrarRef={registrarFin}
                               hasError={!!errors[`dia-${i}-horaFin`]}
                             />
                             {errMsg(`dia-${i}-horaFin`)}
@@ -871,7 +882,7 @@ export default function SimulatorSection() {
                     label="Hora de fin" horaVal={form.horaFinH} minVal={form.horaFinM}
                     onHora={(v) => update("horaFinH", v)} onMin={(v) => update("horaFinM", v)}
                     labelStyle={labelStyle} inputStyle={inputStyle}
-                    refKey="evento-fin" finRefs={finRefs}
+                    refKey="evento-fin" registrarRef={registrarFin}
                     hasError={!!errors["horaFin"]}
                   />
                   {errMsg("horaFin")}
