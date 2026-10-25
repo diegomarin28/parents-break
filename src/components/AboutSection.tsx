@@ -65,8 +65,9 @@ Nuestro compromiso es ofrecer mucho más que una niñera: es ofrecer confianza, 
                 src="/Lleno.jpg"
                 alt="Niñera de Parents’ Break jugando con niños"
                 fill
-                style={{ objectFit: "cover", objectPosition: "30% center" }}
-                sizes="(max-width: 900px) 100vw, 340px"
+                style={{ objectFit: "cover" }}
+                sizes="(max-width: 900px) 100vw, 780px"
+                quality={90}
               />
             </div>
             <div className="about-body-content">
@@ -160,7 +161,7 @@ antes de incorporarse al equipo.
 
         /* Texto central */
         .about-body-wrap {
-          max-width: 1040px;
+          max-width: 860px;
           margin: 0 auto 64px;
           background: var(--white);
           border-radius: 24px;
@@ -170,8 +171,8 @@ antes de incorporarse al equipo.
         }
         .about-body-row {
           display: grid;
-          grid-template-columns: 340px 1fr;
-          gap: 32px;
+          grid-template-columns: 1fr;
+          gap: 28px;
           align-items: center;
         }
         .about-image-wrap {
@@ -179,7 +180,9 @@ antes de incorporarse al equipo.
           width: 100%;
           border-radius: 24px;
           overflow: hidden;
-          min-height: 360px;
+          /* Foto debajo del texto y entera, en su proporción real (800x438) */
+          order: 2;
+          aspect-ratio: 800 / 438;
           box-shadow: 0 20px 60px rgba(0,0,0,.08);
         }
         .about-body-content {
@@ -261,10 +264,6 @@ antes de incorporarse al equipo.
         @media (max-width: 900px) {
           .about-body-row {
             grid-template-columns: 1fr;
-          }
-          .about-image-wrap {
-            min-height: 0;
-            aspect-ratio: 3 / 2;
           }
           .values-grid {
             grid-template-columns: 1fr;
