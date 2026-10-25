@@ -35,6 +35,7 @@ El flujo esperado: el usuario entra, entiende el servicio, usa el simulador o el
 - Next.js + React + Tailwind CSS
 - Tailwind se usa muy poco. Está instalado en su versión 4 (vía `postcss.config.mjs` y `@tailwindcss/postcss`), pero casi todo el estilo vive en las variables CSS de `src/app/globals.css` y en bloques `<style>` o estilos inline de cada componente. Al tocar un componente, seguir el estilo que ya usa.
 - Hosting: Vercel (plan gratis)
+- Vercel Web Analytics activado: sin cookies, visitante identificado con un hash que se descarta a las 24 horas. Plan Hobby: 50.000 eventos por mes, un mes de historial, sin eventos personalizados. Por eso los toques en WhatsApp se cuentan como páginas vistas de `/ir/whatsapp/<origen>`.
 - Node.js 24, fijado con `engines` en `package.json`. Vercel dejó de aceptar Node 20 (con esa versión el deploy falla antes de instalar): no bajarlo.
 - Editor: VS Code
 - No cambiar de stack ni agregar dependencias pesadas sin que Diego lo pida.
@@ -143,7 +144,8 @@ Diseño:
 ## Seguridad
 
 - No commitear claves, tokens ni credenciales. Usar variables de entorno (`.env.local`) y mantenerlas en `.gitignore`.
-- El número de WhatsApp de contacto vive en un solo lugar: `WA_NUMBER` en `src/lib/contact.ts`. Los links se arman con `waLink(texto?)`; no escribir el número ni armar links `wa.me` a mano en los componentes.
+- El número de WhatsApp de contacto vive en un solo lugar: `WA_NUMBER` en `src/lib/contact.ts`. No escribir el número ni armar links `wa.me` a mano en los componentes.
+- Los botones no enlazan a `wa.me` directamente: usan `waIrLink(origen)`, que apunta a `/ir/whatsapp/<origen>`. Esa página registra la visita en Analytics (una página vista por toque, separada por origen) y redirige a WhatsApp con `waLink(texto)`. Los orígenes válidos están en `ORIGENES_WA`. El texto del mensaje del simulador viaja en el `#hash`, que no llega al servidor y se saca de la URL antes de que cargue el script de Analytics.
 
 ## Qué NO es parte de este repo
 

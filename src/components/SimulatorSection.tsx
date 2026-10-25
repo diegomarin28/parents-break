@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { WA_MENSAJE_INICIAL, waLink } from "../lib/contact";
+import { WA_MENSAJE_INICIAL, waIrLink } from "../lib/contact";
 
 type Dia = { fecha: string; horaInicio: string; minInicio: string; horaFin: string; minFin: string };
 
@@ -486,7 +486,7 @@ export default function SimulatorSection() {
       if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
-    window.open(waLink(generateMessage()), "_blank");
+    window.open(waIrLink("simulador", generateMessage()), "_blank");
   };
 
   const inputStyle: React.CSSProperties = {

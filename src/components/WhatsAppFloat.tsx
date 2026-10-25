@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { WA_MENSAJE_INICIAL, waLink } from "../lib/contact";
+import { waIrLink } from "../lib/contact";
 
 export default function WhatsAppFloat() {
   // Arranca oculto: la página abre en el Hero
@@ -34,7 +34,7 @@ export default function WhatsAppFloat() {
 
   return (
     <a
-      href={waLink(WA_MENSAJE_INICIAL)}
+      href={waIrLink("flotante")}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Coordinar servicio por WhatsApp"
