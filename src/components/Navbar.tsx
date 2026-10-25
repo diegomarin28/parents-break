@@ -361,12 +361,11 @@ useEffect(() => {
           .nav-cta { padding: 10px 14px; }
         }
 
-        /* ── MOBILE: links ocultos, solo logo + botón ── */
+        /* ── MOBILE: solo logo + menú. El botón de WhatsApp lo cubre el flotante ── */
         @media (max-width: 600px) {
           .nav-links { display: none; }
           .nav-toggle { display: inline-flex; }
-          .nav-cta-label { display: inline; }
-          .nav-cta { padding: 8px 14px; font-size: 13px; }
+          .nav-cta { display: none; }
           .nav-logo-text { font-size: 15px; }
         }
 
