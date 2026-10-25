@@ -43,7 +43,7 @@ El flujo esperado: el usuario entra, entiende el servicio, usa el simulador o el
 Orden actual en `src/app/page.tsx`:
 
 1. Navbar (links a cada sección + botón "Coordinar servicio" a WhatsApp; en celular solo logo y menú, porque está el botón flotante)
-2. Hero: título, subtítulo, zonas, botón principal (WhatsApp con mensaje inicial) y botón secundario (lleva al simulador)
+2. Hero: título, subtítulo, zonas, botón principal (WhatsApp con mensaje inicial) y botón secundario "Completar formulario →" (lleva al simulador; el CTA final usa el mismo texto)
 3. Barra de números (+80 niñeras, +3 años)
 4. Quiénes somos
 5. Servicios: Babysitting, Petsitting y Eventos
@@ -65,7 +65,7 @@ Prioridad de desarrollo: 1) Hero + CTA, 2) botón de WhatsApp funcional, 3) simu
 
 Formulario dinámico (`SimulatorSection.tsx`) que arma un mensaje y abre WhatsApp (link `wa.me` con el texto codificado).
 
-Campos base: nombre, tipo de servicio (Babysitting / Petsittings / Evento), departamento (Montevideo, Canelones o Maldonado), zona (con "Otro" de texto libre), edades (salvo Petsitting) y comentarios.
+Campos base: nombre, tipo de servicio (Babysitting / Petsittings / Evento, elegido con tres tarjetas que son radios reales: se manejan con teclado y lector de pantalla), departamento (Montevideo, Canelones o Maldonado), zona (con "Otro" de texto libre), edades (salvo Petsitting) y comentarios.
 
 Condicionales:
 
