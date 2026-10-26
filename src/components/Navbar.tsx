@@ -5,9 +5,11 @@ import Image from "next/image";
 import { waIrLink } from "../lib/contact";
 import { irASeccion } from "../lib/scroll";
 import MenuCelular from "./MenuCelular";
+import SelectorIdioma from "./SelectorIdioma";
+import type { Idioma } from "../lib/idiomas";
 import type { Diccionario } from "../dictionaries/tipos";
 
-export default function Navbar({ t, saludo }: { t: Diccionario["navbar"]; saludo?: string }) {
+export default function Navbar({ t, lang, saludo }: { t: Diccionario["navbar"]; lang: Idioma; saludo?: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
@@ -123,11 +125,13 @@ useEffect(() => {
           </div>
 
           <div className="nav-actions">
+            <SelectorIdioma actual={lang} etiqueta={t.idioma} variante="barra" />
             <a
               href={WA_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="nav-cta"
+              aria-label={t.boton}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "translateY(-2px)";
                 e.currentTarget.style.boxShadow = "0 6px 20px rgba(255,222,134,.6)";
@@ -157,7 +161,7 @@ useEffect(() => {
         </div>
       </div>
 
-      <MenuCelular abierto={open} onCerrar={cerrarMenu} links={links} activo={active} onNavegar={handleNav} t={t} saludo={saludo} />
+      <MenuCelular abierto={open} onCerrar={cerrarMenu} links={links} activo={active} onNavegar={handleNav} t={t} lang={lang} saludo={saludo} />
 
       <style>{`
         .navbar {
@@ -308,11 +312,22 @@ useEffect(() => {
         .nav-toggle-open span::after { transform: rotate(-45deg); top: 0; }
         /* El menú de celular es una hoja inferior: ver MenuCelular.tsx */
 
-        /* ── TABLET: links más chicos ── */
-        @media (max-width: 768px) {
-          .nav-link { font-size: 13px; padding: 6px 10px; }
+        /* Compu chica: links más juntos para que entre el selector de idioma */
+        @media (max-width: 1024px) {
+          .nav-link { padding: 6px 7px; }
+        }
+        /* El botón amarillo queda solo con el ícono: si no, los links no entran */
+        @media (max-width: 900px) {
           .nav-cta-label { display: none; }
           .nav-cta { padding: 10px 14px; }
+        }
+
+        /* ── TABLET: links más chicos ── */
+        @media (max-width: 768px) {
+          .nav-link { font-size: 13px; padding: 6px 7px; }
+        }
+        @media (max-width: 700px) {
+          .nav-link { padding: 6px 5px; }
         }
 
         /* ── MOBILE: solo logo + menú. El botón de WhatsApp es el flotante, que acá vive en la Navbar ── */

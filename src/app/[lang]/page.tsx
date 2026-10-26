@@ -21,7 +21,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   const { textos, lineaIdioma, saludo } = getMensaje(lang);
   return (
     <main>
-      <Navbar t={t.navbar} saludo={saludo} />
+      <Navbar t={t.navbar} lang={lang} saludo={saludo} />
       <HeroSection t={t.hero} saludo={saludo} />
       <StatsBar t={t.numeros} />
       <FadeIn>

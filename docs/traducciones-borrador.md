@@ -48,6 +48,7 @@ Para revisar especialmente:
 | `boton` | Coordinar servicio | Book a service | Agendar serviço |
 | `abrirMenu` | Abrir menú | Open menu | Abrir menu |
 | `cerrarMenu` | Cerrar menú | Close menu | Fechar menu |
+| `idioma` | Idioma | Language | Idioma |
 | `menu` | Menú | Menu | Menu |
 | `menuWhatsApp` | Escribinos por WhatsApp | Message us on WhatsApp | Fale conosco no WhatsApp |
 
