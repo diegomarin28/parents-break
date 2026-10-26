@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ORIGENES_WA } from "../../../../lib/contact";
 import { getDictionary, getMensaje } from "../../../../dictionaries";
+import { IDIOMAS, RUTA_IDIOMA } from "../../../../lib/idiomas";
 import Redirigir from "./Redirigir";
 
 // Páginas estáticas, una por origen; cualquier otro origen da 404.
@@ -30,7 +31,11 @@ export default async function Page({ params }: { params: Promise<{ origen: strin
             "if(location.hash){history.replaceState(null,'',location.pathname)}",
         }}
       />
-      <Redirigir t={getDictionary("es").redireccion} saludo={getMensaje("es").textos.saludo} />
+      {/* No sabe en qué idioma estaba la familia (el mensaje ya viene armado): muestra los tres */}
+      <Redirigir
+        textos={IDIOMAS.map((lang) => ({ lang, ruta: RUTA_IDIOMA[lang], t: getDictionary(lang).redireccion }))}
+        saludo={getMensaje("es").textos.saludo}
+      />
     </main>
   );
 }

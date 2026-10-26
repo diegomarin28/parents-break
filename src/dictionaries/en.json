@@ -1,0 +1,354 @@
+{
+  "metadatos": {
+    "titulo": "Parents' Break – Professional childcare in Uruguay",
+    "descripcion": "A network of more than 80 carefully selected babysitters for babysitting, pet sitting and events in Montevideo, Canelones and Punta del Este. Trust and quality in every service.",
+    "palabrasClave": [
+      "babysitter Uruguay",
+      "babysitting Montevideo",
+      "babysitter Punta del Este",
+      "nanny Uruguay",
+      "pet sitting Montevideo",
+      "kids entertainment events Uruguay"
+    ],
+    "ogTitulo": "Parents' Break – Professional childcare",
+    "ogDescripcion": "Carefully selected babysitters for babysitting, pet sitting and events in Montevideo, Canelones and Punta del Este.",
+    "ogImagenAlt": "A Parents' Break babysitter playing with a girl at a play table, with the Parents' Break logo"
+  },
+  "navbar": {
+    "links": {
+      "quienesSomos": "About us",
+      "servicios": "Services",
+      "comoFunciona": "How it works",
+      "nineras": "Our sitters",
+      "simulador": "Request a service"
+    },
+    "boton": "Book a service",
+    "abrirMenu": "Open menu",
+    "cerrarMenu": "Close menu",
+    "menu": "Menu",
+    "menuWhatsApp": "Message us on WhatsApp"
+  },
+  "hero": {
+    "tituloAntes": "Your children in the",
+    "tituloResaltado": "best",
+    "tituloDespues": "hands",
+    "subtitulo": "We connect families with specialized babysitters to provide safe, warm and personalized care.",
+    "fotoAlt": "Babysitter caring for happy children",
+    "pregunta": "What do you need?",
+    "necesidades": {
+      "Babysitting": "Babysitting",
+      "Petsittings": "Pet sitting",
+      "Evento": "Events"
+    },
+    "botonPrincipal": "Book a service",
+    "botonSecundario": "Fill in the form →",
+    "nota": "No commitment. We'll reply on WhatsApp",
+    "prueba": [
+      {
+        "numero": "+80 active babysitters",
+        "lineas": ["Selected and vetted", "by our team", "of psychologists"]
+      },
+      {
+        "numero": "+3 years of experience",
+        "lineas": ["Supporting families", "in Uruguay"]
+      }
+    ]
+  },
+  "numeros": {
+    "nineras": "Active babysitters",
+    "anios": "Years of experience"
+  },
+  "quienesSomos": {
+    "etiqueta": "About us",
+    "titulo": "A service built on trust",
+    "intro": "We are Delfina and Federica, babysitters with more than six years of experience. For more than three years we have been helping families in Montevideo, Canelones and Punta del Este find trained, responsible and trustworthy babysitters.",
+    "leerMas": "Read more ↓",
+    "leerMenos": "Read less ↑",
+    "resto": "After working with many families, we realized how important it is to have someone truly reliable to look after the children. That is how Parents’ Break was born: so families can enjoy their time knowing their children are in the best hands. Today we have a network of more than 80 sitters, carefully selected by our team. Our commitment is to offer much more than a babysitter: we offer trust, safety and peace of mind to every family.",
+    "fotoAlt": "Parents’ Break babysitter playing with children",
+    "subtitulo": "We're not an app. We're people.",
+    "cuerpo": "Behind every service there is a real team guiding the process. We listen to each family's needs, look for the most suitable babysitter and coordinate every detail personally, so the experience is simple, close and reliable. Our selection process is supported by psychologists and professionals specialized in childhood, prioritizing not only experience but also responsibility, warmth and the human quality of each profile. All Parents’ Break babysitters have previous childcare experience and go through interviews, reference checks and assessments before joining the team.",
+    "valores": [
+      {
+        "titulo": "Rigorous selection",
+        "texto": "Every babysitter goes through a rigorous selection process supported by psychologists and professionals specialized in childhood, so we choose the best-prepared babysitters for each family. We assess previous experience, hold personal interviews and check references."
+      },
+      {
+        "titulo": "Personalized care",
+        "texto": "We stay with you through every service, from start to finish. We want families to feel safe, comfortable and truly supported."
+      },
+      {
+        "titulo": "Trust above all",
+        "texto": "We only work with babysitters we would recommend to our own families. That is our standard."
+      }
+    ]
+  },
+  "servicios": {
+    "etiqueta": "What we offer",
+    "titulo": "Our services",
+    "subtitulo": "We support families at different moments of everyday life with selected, responsible babysitters prepared for every situation.",
+    "masSolicitado": "Most requested",
+    "verTodo": "See everything included",
+    "verMenos": "See less",
+    "tarjetas": [
+      {
+        "servicio": "Babysitting",
+        "titulo": "Babysitting, recurring or occasional",
+        "subtitulo": "Care at home",
+        "descripcion": "Babysitters who build a real bond with the kids through play, attention and active involvement.",
+        "descripcionResto": "We adapt to each family's routine so the children feel comfortable, entertained and cared for at all times.",
+        "items": [
+          "Care at homes and hotels",
+          "One-off or occasional services",
+          "Age-appropriate games and activities",
+          "Active and responsible care",
+          "Constant communication with parents",
+          "Toys made in Uruguay to encourage play-based development"
+        ],
+        "boton": "Book babysitting"
+      },
+      {
+        "servicio": "Petsittings",
+        "titulo": "Pet sitting",
+        "subtitulo": "Pet care",
+        "descripcion": "We look after your pet and make sure it feels safe and accompanied when you can't be there.",
+        "descripcionResto": "",
+        "items": [
+          "Home visits to feed and walk your pet",
+          "Care for your pet and home while you travel (overnight stays)",
+          "Boarding for your pet at one of our sitters' homes",
+          "Personalized care and constant communication"
+        ],
+        "boton": "Ask about pet sitting"
+      },
+      {
+        "servicio": "Evento",
+        "titulo": "Events",
+        "subtitulo": "Kids' entertainment",
+        "descripcion": "We create fun, lively spaces so the kids have a great time while the adults can relax.",
+        "descripcionResto": "We plan activities adapted to the children's ages, the number of kids and the type of event.",
+        "items": [
+          "Weddings",
+          "Birthdays and family events",
+          "Business and corporate events",
+          "Themed and recreational activities",
+          "Group games adapted by age",
+          "Professional coordination of the kids' area"
+        ],
+        "boton": "Ask about entertainment"
+      }
+    ]
+  },
+  "comoFunciona": {
+    "etiqueta": "How it works",
+    "titulo": "Booking a service is easy",
+    "subtitulo": "Everything is arranged on WhatsApp, quickly, simply and personally.",
+    "pasos": [
+      {
+        "titulo": "Start your request",
+        "texto": "We ask about the date, time, area, number of children and type of service"
+      },
+      {
+        "titulo": "We find the babysitter who best fits your needs",
+        "texto": "We select the most suitable babysitters for your request and send you their profiles to choose from"
+      },
+      {
+        "titulo": "Meet the babysitter on a video call",
+        "texto": "Ask your questions and make sure she is the right person for your family"
+      },
+      {
+        "titulo": "We confirm the service",
+        "texto": "We coordinate the final details and share all the information you need"
+      },
+      {
+        "titulo": "Enjoy your time",
+        "texto": "While your children are cared for and in good company, you can relax and enjoy"
+      }
+    ]
+  },
+  "nineras": {
+    "etiqueta": "Our team",
+    "titulo": "Babysitters we choose with care",
+    "subtitulo": "Everyone who joins Parents' Break goes through a selection process designed to guarantee safety, trust and human quality.",
+    "fotoAlt": "Babysitter seen from behind",
+    "procesoTitulo": "Selection process",
+    "proceso": [
+      {
+        "titulo": "Application and experience",
+        "texto": "We review previous experience, training, availability and personal profile."
+      },
+      {
+        "titulo": "Personal interview",
+        "texto": "We meet each candidate to assess her vocation, responsibility and fit with our standards."
+      },
+      {
+        "titulo": "Professional assessment",
+        "texto": "Psychologists and professionals specialized in childhood support the selection process to ensure reliable profiles suited to childcare."
+      },
+      {
+        "titulo": "Reference checks",
+        "texto": "We verify references and background"
+      }
+    ],
+    "elegirTitulo": "You can choose by",
+    "cualidades": [
+      {
+        "titulo": "Education",
+        "texto": "Students and profiles related to Medicine, Early Childhood Education, Psychology and similar fields."
+      },
+      {
+        "titulo": "Experience",
+        "texto": "Experience in homes, hotels, events and childcare."
+      },
+      {
+        "titulo": "Languages",
+        "texto": "Bilingual or trilingual babysitters available."
+      },
+      {
+        "titulo": "Availability",
+        "texto": "Services 24 hours a day, 7 days a week"
+      },
+      {
+        "titulo": "Ages",
+        "texto": "Experience with babies, children and/or teenagers."
+      },
+      {
+        "titulo": "Areas",
+        "texto": "Coverage in Montevideo, Canelones and Punta del Este."
+      }
+    ]
+  },
+  "simulador": {
+    "etiqueta": "Quick and easy",
+    "titulo": "Book your service",
+    "subtitulo": "Fill in the form and we'll automatically prepare a message ready to send on WhatsApp.",
+    "erroresTitulo": "Please complete the following fields before sending:",
+    "nombre": "Your name *",
+    "nombreEjemplo": "E.g. Mary Smith",
+    "tipoServicio": "Type of service *",
+    "servicios": {
+      "Babysitting": { "titulo": "Babysitting", "sub": "Care at home" },
+      "Petsittings": { "titulo": "Pet sitting", "sub": "Pet care" },
+      "Evento": { "titulo": "Events", "sub": "Kids' entertainment" }
+    },
+    "puntualOFijo": "Is it a one-off or a recurring service?",
+    "cuantosDias": "How many days?",
+    "dia": "Day {n}",
+    "copiarDia1": "Copy Day 1 times",
+    "fecha": "Date",
+    "horaInicio": "Start time",
+    "horaFin": "End time",
+    "alertaHoras": "The schedule is longer than 13 hours. Please check that it is correct.",
+    "diasSemana": "Days of the week",
+    "desdeCuando": "Starting on",
+    "hastaCuando": "Until",
+    "hastaUnaFecha": "Until a date",
+    "hastaQueFecha": "Until what date",
+    "tipoPetsitting": "Type of service",
+    "cantMascotas": "Number of pets",
+    "seleccionar": "Select",
+    "queNecesita": "What does your pet need?",
+    "desde": "From",
+    "hasta": "To",
+    "tipoEvento": "Type of event",
+    "eventoHoraInicio": "Start time",
+    "eventoHoraFin": "End time",
+    "cantNinosEvento": "Approx. number of children",
+    "cantNinosEventoEjemplo": "E.g. 10-15 children",
+    "departamento": "Department *",
+    "zona": "Area *",
+    "seleccionarZona": "Select your area",
+    "zonaOtro": "Which area? *",
+    "zonaOtroEjemplo": "E.g. Colón, Cerro, La Unión...",
+    "cantNinos": "Number of children",
+    "edades": "Ages *",
+    "edadesEjemplo": "E.g. 2 and 5 years",
+    "comentarios": "Additional comments",
+    "comentariosEjemplo": "Any preference or special need...",
+    "enviar": "Send on WhatsApp",
+    "notaIdioma": "",
+    "privacidad": "We don't store your data. The message is created directly in WhatsApp.",
+    "opciones": {
+      "Puntual": "One-off",
+      "Fijo": "Recurring",
+      "Lun": "Mon",
+      "Mar": "Tue",
+      "Mié": "Wed",
+      "Jue": "Thu",
+      "Vie": "Fri",
+      "Sáb": "Sat",
+      "Dom": "Sun",
+      "Indefinido": "Open-ended",
+      "Visita a domicilio": "Home visit",
+      "Pernocte": "Overnight stay (the sitter stays at your home)",
+      "Hospedaje": "Boarding at the sitter's home",
+      "Darle de comer": "Feeding",
+      "Pasearlo": "Walking",
+      "Compañía / cuidado general": "Company / general care",
+      "Cumpleaños": "Birthday",
+      "Evento empresarial": "Corporate event",
+      "Evento familiar": "Family event",
+      "Casamiento": "Wedding",
+      "Otro": "Other",
+      "10 o más": "10 or more"
+    },
+    "errores": {
+      "nombre": "Enter your name",
+      "servicio": "Select a service",
+      "departamento": "Select a department",
+      "zona": "Select an area",
+      "zonaOtro": "Enter your area",
+      "edades": "Enter the ages",
+      "tipoBabysitting": "Select one-off or recurring",
+      "cantDias": "Select the number of days",
+      "fecha": "Enter the date",
+      "horaInicio": "Enter a start time",
+      "horaFin": "Enter an end time",
+      "diasSemana": "Select at least one day",
+      "fijoDesde": "Enter a start date",
+      "hastaFecha": "Enter an end date",
+      "finAntesDeInicio": "The end date can't be before the start date",
+      "cantNinos": "Select the number of children",
+      "tipoEvento": "Select the type of event",
+      "fechaEvento": "Enter the event date",
+      "cantNinosEvento": "Enter the approximate number",
+      "tipoPetsitting": "Select the type of service",
+      "cantMascotas": "Select the number of pets",
+      "petFechaDesde": "Enter the start date",
+      "petFechaHasta": "Enter the end date",
+      "fechaInvalida": "Invalid date",
+      "fechaPasada": "Can't be earlier than today",
+      "fechaLejana": "Can't be more than a year from now",
+      "horaInvalida": "Invalid hour",
+      "horaInvalidaMax": "Invalid hour (max 23)",
+      "minutosInvalidos": "Invalid minutes",
+      "minutosInvalidosMax": "Invalid minutes (max 59)"
+    }
+  },
+  "ctaFinal": {
+    "titulo": "We're here to help",
+    "texto": "Message us on WhatsApp and tell us what you need. Together we'll find the babysitter who best fits your family.",
+    "botonWhatsApp": "Message us on WhatsApp now",
+    "botonFormulario": "Fill in the form →",
+    "nota": "No commitment. We'll reply on WhatsApp",
+    "beneficios": ["Quick reply", "Personalized care", "No hidden costs"]
+  },
+  "footer": {
+    "descripcion": "A professional network of selected babysitters for babysitting, pet sitting and events in Uruguay.",
+    "serviciosTitulo": "Services",
+    "servicios": ["Babysitting", "Pet sitting", "Events", "Services for companies"],
+    "zonasTitulo": "Areas",
+    "contactoTitulo": "Contact",
+    "contacto": "24/7 support on WhatsApp",
+    "derechos": "All rights reserved.",
+    "hecho": "Designed and developed in Uruguay",
+    "aviso": "We use anonymous visit statistics, without cookies."
+  },
+  "flotante": "Message us on WhatsApp",
+  "redireccion": {
+    "titulo": "Opening WhatsApp…",
+    "siNoAbre": "If it doesn't open,",
+    "tocaAca": "tap here",
+    "volver": "Back to the site"
+  }
+}

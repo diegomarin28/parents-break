@@ -1077,6 +1077,11 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
             {t.enviar}
           </button>
 
+          {t.notaIdioma && (
+            <p style={{ textAlign: "center", fontSize: 13, color: "var(--text-soft)", marginTop: 14 }}>
+              {t.notaIdioma}
+            </p>
+          )}
           <p style={{ textAlign: "center", fontSize: 12, color: "var(--text-muted)", marginTop: 14 }}>
             {t.privacidad}
           </p>
