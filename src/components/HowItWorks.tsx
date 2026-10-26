@@ -1,4 +1,3 @@
-"use client";
 export default function HowItWorks() {
   const steps = [
     {
@@ -86,16 +85,6 @@ export default function HowItWorks() {
             <div
               key={i}
               className="step-card"
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-6px)";
-                e.currentTarget.style.boxShadow = "var(--shadow-lg)";
-                e.currentTarget.style.borderColor = "transparent";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "none";
-                e.currentTarget.style.borderColor = "var(--gray)";
-              }}
             >
               <div className="step-num" style={{ background: s.color }}>
                 {s.num}
@@ -178,6 +167,11 @@ export default function HowItWorks() {
           z-index: 1;
           transition: transform .2s, box-shadow .2s, border-color .2s;
           cursor: default;
+        }
+        .step-card:hover {
+          transform: translateY(-6px);
+          box-shadow: var(--shadow-lg);
+          border-color: transparent;
         }
         .step-num {
           width: 50px;
