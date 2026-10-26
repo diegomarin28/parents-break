@@ -8,6 +8,19 @@ const nextConfig: NextConfig = {
     // Quiénes somos y Niñeras para que se vean más nítidas.
     qualities: [75, 90],
   },
+  // El español vive en "/" aunque la página se genere en /es (src/app/[lang]).
+  // Se resuelve acá y no en un proxy (middleware) para que Vercel lo haga en su
+  // ruteo, sin ejecutar una función en cada visita a "/".
+  async rewrites() {
+    return [{ source: "/", destination: "/es" }];
+  },
+  async redirects() {
+    // Una sola dirección para el español: /es lleva a /
+    return [
+      { source: "/es", destination: "/", permanent: true },
+      { source: "/es/:ruta*", destination: "/:ruta*", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;
