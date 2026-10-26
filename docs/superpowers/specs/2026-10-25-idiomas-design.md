@@ -1,6 +1,6 @@
 # Diseño: versiones en inglés y portugués de la web
 
-Fecha: 25 de octubre de 2026. Estado: borrador para aprobación de Diego. Cuando esté aprobado, se ejecuta desde acá (el plan de implementación se escribe aparte).
+Fecha: 25 de octubre de 2026. Estado: aprobado por Diego el 25/10/2026. Se ejecuta en un PR aparte, después de mergear el PR #3, con las traducciones marcadas como borrador.
 
 ## Para qué
 
@@ -12,7 +12,7 @@ Que familias que buscan en inglés o en portugués encuentren a Parents' Break e
 - Mensaje de WhatsApp del simulador:
   - Español: igual que hoy.
   - Inglés: el mensaje completo sale en inglés, etiquetas y valores. El equipo lee inglés y responde en inglés.
-  - Portugués: la web se lee en portugués, pero el mensaje sale en español con una línea final `*Idioma:* Português`, porque el equipo responde en español. Junto al botón de enviar se avisa a la familia que la respuesta va a ser en español (texto a aprobar antes de aplicar).
+  - Portugués: la web se lee en portugués, pero el mensaje sale en español con una línea final `*Idioma:* Português`, porque el equipo responde en español. Junto al botón de enviar se avisa a la familia que la respuesta va a ser en español ("Sua mensagem será enviada em espanhol e a nossa resposta também será em espanhol.", aprobado).
 - Las traducciones se entregan como borrador para que Diego y las dueñas las revisen antes de publicar. No se publican textos sin esa revisión.
 - Sin redirección automática por el idioma del navegador. Como mucho, más adelante, una línea discreta ofreciendo la versión en inglés cuando el navegador viene en inglés.
 
@@ -69,7 +69,7 @@ Los componentes que hoy son `"use client"` (todos) siguen siéndolo; reciben sus
   - En `/en`: `en`. Etiquetas ("Name", "Service", "Date"…) y valores traducidos ("Babysitting", "Pet sitting", "Event", "One-off", "Recurring", días de la semana, tipos de evento, "To be confirmed"/"Open-ended", etc.). Las fechas van en `dd/mm/yyyy`, como hoy, porque las lee el equipo en Uruguay.
   - En `/pt`: `es`, más la línea final `*Idioma:* Português`.
 - El saludo inicial de los botones directos (Navbar, Hero, flotante, CTA, Footer, menú) sigue la misma regla: en español en `/` y `/pt` (en `/pt` con la línea `*Idioma:* Português`), en inglés en `/en`.
-- Junto al botón "Enviar por WhatsApp" de la versión en portugués va una nota de una línea avisando que la respuesta es en español. Texto a aprobar; propuesta de borrador: "Sua mensagem será enviada em espanhol e a nossa resposta também será em espanhol."
+- Junto al botón "Enviar por WhatsApp" de la versión en portugués va una nota de una línea avisando que la respuesta es en español. Texto aprobado: "Sua mensagem será enviada em espanhol e a nossa resposta também será em espanhol."
 - Los mensajes de error de fecha y hora (que hoy están en los componentes `TimeSelector` y `FinSelector`) también salen del diccionario.
 
 ### Selector de idioma
@@ -127,8 +127,14 @@ Más el tiempo de revisión de las traducciones por parte de Diego y las dueñas
 - Cómo pasar `lang` a los componentes cliente que lo necesiten (el simulador, para el idioma del mensaje): por props desde la página.
 - Si el selector de idioma en compu va como texto `ES · EN · PT` o como un desplegable pequeño; la propuesta es el texto, por simplicidad.
 
-## Decisiones pendientes de Diego
+## Decisiones de Diego (25/10/2026)
 
-- Aprobar este diseño.
-- Aprobar el texto de la nota en portugués junto al botón de enviar.
-- Definir si los textos "Montevideo, Canelones y Punta del Este" se mantienen idénticos (propuesta: sí).
+- Diseño aprobado.
+- Nota en portugués aprobada tal cual.
+- Pendiente de confirmar: que los nombres de zonas ("Montevideo, Canelones y Punta del Este") se mantengan idénticos en los tres idiomas (propuesta: sí).
+
+## Cambios desde que se escribió este diseño
+
+- El Hero ahora tiene "¿Qué necesitás?" con tres accesos al simulador, Servicios tiene "Ver todo lo que incluye" y Quiénes somos "Leer más": esos textos también van a los diccionarios.
+- Las fuentes están en el repo (`next/font/local`) y cubren el subconjunto latino, que alcanza para inglés y portugués (ã, õ, ç incluidos).
+- Hero, Quiénes somos, Servicios, Cómo funciona, Niñeras, CTA final y Footer ya son componentes de servidor: pueden recibir el diccionario directamente.
