@@ -40,9 +40,8 @@ function StatItem({ stat, label, started, isLast }: { stat: Stat; label: string;
   const count = useCountUp(stat.num, 1800, started);
 
   return (
-    <div style={{
+    <div className="stats-item" style={{
       textAlign: "center",
-      padding: "0 40px",
       borderRight: !isLast ? "1px solid rgba(255,255,255,.15)" : "none",
     }}>
       <div style={{ marginBottom: 8, display: "flex", justifyContent: "center" }}>
@@ -94,6 +93,7 @@ export default function StatsBar({ t }: { t: Diccionario["numeros"] }) {
       <style>{`
         .stats-section { padding: 48px 0; }
         .stats-container { padding: 0 24px; }
+        .stats-item { padding: 0 40px; }
         @media (max-width: 768px) {
           .stats-section { padding: 36px 0; }
         }
@@ -101,6 +101,8 @@ export default function StatsBar({ t }: { t: Diccionario["numeros"] }) {
           .stats-section { padding: 28px 0; }
           .stats-container { padding: 0 16px; max-width: 100% !important; }
           .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 0 !important; }
+          /* Menos relleno para que "experiencia" (19 px en negrita) entre a 320 px sin scroll horizontal */
+          .stats-item { padding: 0 10px; }
         }
       `}</style>
     </section>
