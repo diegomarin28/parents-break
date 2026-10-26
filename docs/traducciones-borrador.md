@@ -1,6 +1,6 @@
 # Traducciones: borrador para revisar
 
-Estado: **revisión de Diego aplicada (26/10/2026)**. Queda una fila pendiente, marcada con **PENDIENTE**. Ningún texto nuevo en inglés o portugués se publica sin revisión.
+Estado: **revisión de Diego aplicada (26/10/2026)**, sin filas pendientes. Ningún texto nuevo en inglés o portugués se publica sin revisión.
 
 Esta tabla se armó a partir de `src/dictionaries/*.json`, que es de donde la página lee los textos. Las correcciones se pueden marcar acá; después se pasan a los JSON.
 
@@ -17,6 +17,9 @@ Cambios de la revisión del 26/10/2026:
 
 - Inglés: "Book a service" → "Arrange a service"; "Book your service" → "Arrange your service"; "Book babysitting" → "Request babysitting"; "Booking a service is easy" → "Arranging a service is easy"; etiqueta "Department" → "Department (e.g. Maldonado)".
 - Portugués: "Agendar serviço" → "Solicitar serviço"; "Agende seu serviço" → "Solicite seu serviço"; "Agendar um serviço é muito fácil" → "Solicitar um serviço é muito fácil"; "babysitter(s)" y "sitters" → "babá(s)" en Quiénes somos y en el CTA final.
+- Paso "Validación de referencias", en los tres idiomas: sin "antecedentes" / "background". Queda "Verificamos referencias de trabajos anteriores." / "We check references from previous jobs." / "Verificamos referências de trabalhos anteriores." (cambia también el texto en español).
+- Inglés: "Company / general care" → "Companionship / general care" (formulario y mensaje de WhatsApp).
+- Zonas: confirmado que quedan iguales en los tres idiomas.
 - Agregados por el mismo criterio, a confirmar: "Reservar babysitting" → "Solicitar babysitting" (portugués), y "sitters" / "as babysitters mais preparadas" → "babás" (portugués, Quiénes somos).
 
 ## Google y vista previa al compartir
@@ -181,7 +184,7 @@ Cambios de la revisión del 26/10/2026:
 | `proceso[3].titulo` | Evaluación profesional | Professional assessment | Avaliação profissional |
 | `proceso[3].texto` | Psicólogas y profesionales especializadas en infancia acompañan el proceso de selección para garantizar perfiles confiables y adecuados para el cuidado infantil. | Psychologists and professionals specialized in childhood support the selection process to ensure reliable profiles suited to childcare. | Psicólogas e profissionais especializadas em infância acompanham o processo de seleção para garantir perfis confiáveis e adequados para o cuidado infantil. |
 | `proceso[4].titulo` | Validación de referencias | Reference checks | Verificação de referências |
-| `proceso[4].texto` **PENDIENTE: Diego lo confirma con las dueñas** | Verificamos referencias y antecedentes | We verify references and background | Verificamos referências e antecedentes |
+| `proceso[4].texto` | Verificamos referencias de trabajos anteriores. | We check references from previous jobs. | Verificamos referências de trabalhos anteriores. |
 | `elegirTitulo` | Podés elegir según | You can choose by | Você pode escolher por |
 | `cualidades[1].titulo` | Formación | Education | Formação |
 | `cualidades[1].texto` | Estudiantes y perfiles vinculados a Medicina, Educación Inicial, Psicología y áreas afines. | Students and profiles related to Medicine, Early Childhood Education, Psychology and similar fields. | Estudantes e perfis ligados a Medicina, Educação Infantil, Psicologia e áreas afins. |
@@ -265,7 +268,7 @@ Cambios de la revisión del 26/10/2026:
 | `opciones.Hospedaje` | Hospedaje en casa de la cuidadora | Boarding at the sitter's home | Hospedagem na casa da cuidadora |
 | `opciones.Darle de comer` | Darle de comer | Feeding | Alimentar |
 | `opciones.Pasearlo` | Pasearlo | Walking | Passear |
-| `opciones.Compañía / cuidado general` | Compañía / cuidado general | Company / general care | Companhia / cuidado geral |
+| `opciones.Compañía / cuidado general` | Compañía / cuidado general | Companionship / general care | Companhia / cuidado geral |
 | `opciones.Cumpleaños` | Cumpleaños | Birthday | Aniversário |
 | `opciones.Evento empresarial` | Evento empresarial | Corporate event | Evento empresarial |
 | `opciones.Evento familiar` | Evento familiar | Family event | Evento familiar |
@@ -398,7 +401,7 @@ Valores del formulario que cambian en el mensaje en inglés (en español van tal
 | `Hospedaje` | Hospedaje en casa de la cuidadora | Boarding at the sitter's home |
 | `Darle de comer` | Darle de comer | Feeding |
 | `Pasearlo` | Pasearlo | Walking |
-| `Compañía / cuidado general` | Compañía / cuidado general | Company / general care |
+| `Compañía / cuidado general` | Compañía / cuidado general | Companionship / general care |
 | `Cumpleaños` | Cumpleaños | Birthday |
 | `Evento empresarial` | Evento empresarial | Corporate event |
 | `Evento familiar` | Evento familiar | Family event |

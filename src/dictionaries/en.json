@@ -188,7 +188,7 @@
       },
       {
         "titulo": "Reference checks",
-        "texto": "We verify references and background"
+        "texto": "We check references from previous jobs."
       }
     ],
     "elegirTitulo": "You can choose by",
@@ -285,7 +285,7 @@
       "Hospedaje": "Boarding at the sitter's home",
       "Darle de comer": "Feeding",
       "Pasearlo": "Walking",
-      "Compañía / cuidado general": "Company / general care",
+      "Compañía / cuidado general": "Companionship / general care",
       "Cumpleaños": "Birthday",
       "Evento empresarial": "Corporate event",
       "Evento familiar": "Family event",
