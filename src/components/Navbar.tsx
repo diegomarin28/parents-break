@@ -361,7 +361,7 @@ useEffect(() => {
           .nav-cta { padding: 10px 14px; }
         }
 
-        /* ── MOBILE: solo logo + menú. El botón de WhatsApp lo cubre el flotante ── */
+        /* ── MOBILE: solo logo + menú. El botón de WhatsApp es el flotante, que acá vive en la Navbar ── */
         @media (max-width: 600px) {
           .nav-links { display: none; }
           .nav-toggle { display: inline-flex; }
