@@ -1,10 +1,8 @@
-"use client";
-
 import Image from "next/image";
-import { WA_MENSAJE_INICIAL, waLink } from "../lib/contact";
+import { waIrLink } from "../lib/contact";
 
 export default function Footer() {
-  const WA_URL = waLink(WA_MENSAJE_INICIAL);
+  const WA_URL = waIrLink("footer");
 
   return (
     <footer className="footer">
@@ -34,7 +32,7 @@ export default function Footer() {
 
           {/* Servicios */}
           <div className="footer-col">
-            <h6 className="footer-col-title">Servicios</h6>
+            <h3 className="footer-col-title">Servicios</h3>
             <ul className="footer-list">
               {["Babysittings", "Petsittings", "Eventos", "Servicios para empresas"].map((item) => (
                 <li key={item}>
@@ -46,9 +44,9 @@ export default function Footer() {
 
           {/* Zonas */}
           <div className="footer-col">
-            <h6 className="footer-col-title">Zonas</h6>
+            <h3 className="footer-col-title">Zonas</h3>
             <ul className="footer-list">
-              {["Montevideo", "Ciudad de la Costa", "Punta del Este", "Maldonado"].map((item) => (
+              {["Montevideo", "Canelones", "Punta del Este"].map((item) => (
                 <li key={item}>
                   <span className="footer-text">{item}</span>
                 </li>
@@ -58,20 +56,20 @@ export default function Footer() {
 
           {/* Contacto */}
           <div className="footer-col">
-            <h6 className="footer-col-title">Contacto</h6>
+            <h3 className="footer-col-title">Contacto</h3>
             <ul className="footer-list">
-              <li className="footer-text">WhatsApp disponible</li>
-              <li className="footer-text">Uruguay</li>
-              <li className="footer-text">Todos los días</li>
+              <li className="footer-text">Atención 24/7 por WhatsApp</li>
             </ul>
           </div>
         </div>
 
         {/* Bottom */}
         <div className="footer-bottom">
+          {/* Componente de servidor: el año se fija al publicar (cada deploy lo actualiza) */}
           <span>© {new Date().getFullYear()} Parents&apos; Break. Todos los derechos reservados.</span>
           <span>Diseñado y desarrollado en Uruguay</span>
         </div>
+        <p className="footer-aviso">Usamos estadísticas anónimas de visitas, sin cookies.</p>
       </div>
 
       <style>{`
@@ -107,13 +105,13 @@ export default function Footer() {
           align-items: center;
           justify-content: center;
           color: white;
-          font-family: 'Baloo 2', cursive;
+          font-family: var(--font-baloo), cursive;
           font-weight: 800;
           font-size: 18px;
           flex-shrink: 0;
         }
         .footer-logo-text {
-          font-family: 'Baloo 2', cursive;
+          font-family: var(--font-baloo), cursive;
           font-weight: 800;
           font-size: 18px;
           color: white;
@@ -129,7 +127,7 @@ export default function Footer() {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          background: var(--whatsapp);
+          background: var(--whatsapp-boton);
           color: white;
           padding: 11px 20px;
           border-radius: 99px;
@@ -139,8 +137,10 @@ export default function Footer() {
           min-height: 44px;
           transition: background .2s;
         }
-        .footer-wa-btn:hover { background: var(--whatsapp-d, #1da851); }
+        .footer-wa-btn:hover { background: var(--whatsapp-boton-hover); }
         .footer-col-title {
+          font-family: var(--font-source), sans-serif;
+          line-height: 1.3;
           color: white;
           font-size: 13px;
           letter-spacing: .08em;
@@ -174,6 +174,12 @@ export default function Footer() {
           gap: 8px;
           font-size: 13px;
           color: rgba(255,255,255,.55); /* contraste 4,7:1 sobre el violeta del footer */
+        }
+
+        .footer-aviso {
+          margin-top: 10px;
+          font-size: 12px;
+          color: rgba(255,255,255,.55);
         }
 
         /* ── TABLET ── */

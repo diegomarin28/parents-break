@@ -21,6 +21,9 @@
   --text-muted:   #a0a0b0;
 
   --whatsapp:     #25d366;
+  /* Fondo de los botones de WhatsApp con texto blanco: el verde de marca da 2:1, este 4,8:1 */
+  --whatsapp-boton: #17833f;
+  --whatsapp-boton-hover: #136c34;
   --radius:       16px;
   --radius-sm:    10px;
   --shadow:       0 4px 20px rgba(117, 124, 187, .10);
@@ -44,7 +47,7 @@ section[id] {
 }
 
 body {
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: var(--font-source), sans-serif;
   font-size: 16px;
   color: var(--text);
   background: var(--white);
@@ -53,13 +56,13 @@ body {
 }
 
 h1, h2, h3 {
-  font-family: 'Baloo 2', cursive;
+  font-family: var(--font-baloo), cursive;
   line-height: 1.15;
 }
 h1, h2 { letter-spacing: -0.02em; }
 
 h4, h5, h6 {
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: var(--font-source), sans-serif;
   font-weight: 700;
 }
 
@@ -134,8 +137,8 @@ button:active {
 
 .fade-in {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(20px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
 }
 .fade-in.visible {
   opacity: 1;
@@ -144,4 +147,16 @@ button:active {
 
 @media (max-width: 600px) {
   body { font-size: 15px; }
+}
+/* ── Movimiento reducido ──
+   Si la persona pidió menos movimiento en su sistema, las animaciones y
+   transiciones quedan casi instantáneas y las secciones aparecen sin desplazarse. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  .fade-in { opacity: 1; transform: none; }
 }

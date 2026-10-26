@@ -1,4 +1,3 @@
-"use client";
 export default function HowItWorks() {
   const steps = [
     {
@@ -86,16 +85,6 @@ export default function HowItWorks() {
             <div
               key={i}
               className="step-card"
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-6px)";
-                e.currentTarget.style.boxShadow = "var(--shadow-lg)";
-                e.currentTarget.style.borderColor = "transparent";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "none";
-                e.currentTarget.style.borderColor = "var(--gray)";
-              }}
             >
               <div className="step-num" style={{ background: s.color }}>
                 {s.num}
@@ -103,7 +92,7 @@ export default function HowItWorks() {
               <div className="step-icon" style={{ background: s.bg, color: s.color }}>
                 {s.icon}
               </div>
-              <h4 className="step-title">{s.title}</h4>
+              <h3 className="step-title">{s.title}</h3>
               <p className="step-desc">{s.desc}</p>
             </div>
           ))}
@@ -179,12 +168,17 @@ export default function HowItWorks() {
           transition: transform .2s, box-shadow .2s, border-color .2s;
           cursor: default;
         }
+        .step-card:hover {
+          transform: translateY(-6px);
+          box-shadow: var(--shadow-lg);
+          border-color: transparent;
+        }
         .step-num {
           width: 50px;
           height: 50px;
           border-radius: 50%;
           color: white;
-          font-family: 'Baloo 2', cursive;
+          font-family: var(--font-baloo), cursive;
           font-size: 22px;
           font-weight: 800;
           display: flex;
@@ -202,6 +196,8 @@ export default function HowItWorks() {
           margin: 0 auto 14px;
         }
         .step-title {
+          font-family: var(--font-source), sans-serif;
+          line-height: 1.3;
           font-size: 16px;
           font-weight: 700;
           margin-bottom: 8px;

@@ -19,6 +19,8 @@ function useCountUp(target: number, duration = 1800, started: boolean) {
 
   useEffect(() => {
     if (!started) return;
+    // Con movimiento reducido, el número aparece directamente en su valor final.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { requestAnimationFrame(() => setCount(target)); return; }
     let startTime: number | null = null;
     const step = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
@@ -46,7 +48,7 @@ function StatItem({ stat, started, isLast }: { stat: Stat; started: boolean; isL
         {stat.icon}
       </div>
       <div style={{
-        fontFamily: "'Baloo 2', cursive",
+        fontFamily: "var(--font-baloo), cursive",
         fontSize: 48, fontWeight: 800,
         color: "var(--yellow)",
         lineHeight: 1,
@@ -54,7 +56,8 @@ function StatItem({ stat, started, isLast }: { stat: Stat; started: boolean; isL
       }}>
         {stat.prefix}{count}{stat.suffix}
       </div>
-      <div style={{ fontSize: 16, color: "rgba(255,255,255,.75)", marginTop: 8 }}>
+      {/* Blanco sobre el violeta da 3,9:1: alcanza solo como texto grande (19 px en negrita) */}
+      <div style={{ fontSize: 19, fontWeight: 700, color: "#fff", marginTop: 8 }}>
         {stat.label}
       </div>
     </div>

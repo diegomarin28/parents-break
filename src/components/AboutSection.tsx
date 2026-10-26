@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 
 export default function AboutSection() {
@@ -51,10 +49,18 @@ export default function AboutSection() {
             Un servicio construido desde la confianza
           </h2>
           <p className="about-lead">
-Somos Paulina y Delfina, babysitters con más de seis años de experiencia en el cuidado infantil. Después de acompañar a numerosas familias, entendimos lo importante que es poder contar con alguien realmente confiable para el cuidado de los niños. Así nació Parents’ Break. 
-Desde hace más de tres años ayudamos a familias a encontrar babysitters capacitadas, responsables y de confianza, para que puedan disfrutar de su tiempo con la tranquilidad de saber que sus hijos están en las mejores manos. Hoy contamos con una red de más de 80 sitters seleccionadas cuidadosamente por nuestro equipo, brindando servicios en Montevideo, Canelones y Punta del Este.
-Nuestro compromiso es ofrecer mucho más que una niñera: es ofrecer confianza, seguridad y tranquilidad para cada familia.
+            Somos Delfina y Federica, babysitters con más de seis años de experiencia. Desde hace más de tres años ayudamos a familias de Montevideo, Canelones y Punta del Este a encontrar babysitters capacitadas, responsables y de confianza.
           </p>
+          {/* El resto del texto, desplegable. <details> nativo: sin JavaScript y accesible. */}
+          <details className="about-mas">
+            <summary>
+              <span className="about-mas-abrir">Leer más ↓</span>
+              <span className="about-mas-cerrar">Leer menos ↑</span>
+            </summary>
+            <p className="about-lead">
+              Después de acompañar a numerosas familias, entendimos lo importante que es poder contar con alguien realmente confiable para el cuidado de los niños. Así nació Parents’ Break, para que las familias puedan disfrutar de su tiempo con la tranquilidad de saber que sus hijos están en las mejores manos. Hoy contamos con una red de más de 80 sitters seleccionadas cuidadosamente por nuestro equipo. Nuestro compromiso es ofrecer mucho más que una niñera: es ofrecer confianza, seguridad y tranquilidad para cada familia.
+            </p>
+          </details>
         </div>
 
         {/* Texto central */}
@@ -97,14 +103,6 @@ antes de incorporarse al equipo.
               key={i}
               className="value-card"
               style={{ background: v.bg }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-4px)";
-                e.currentTarget.style.boxShadow = "0 12px 32px rgba(0,0,0,.08)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "none";
-              }}
             >
               <div className="value-icon-wrap" style={{ background: "rgba(255,255,255,.6)" }}>
                 {v.icon}
@@ -158,6 +156,21 @@ antes de incorporarse al equipo.
           margin: 0 auto;
           line-height: 1.8;
         }
+        .about-mas { margin-top: 10px; }
+        .about-mas > .about-lead { margin-top: 12px; }
+        .about-mas summary {
+          display: inline-block;
+          cursor: pointer;
+          list-style: none;
+          font-weight: 700;
+          font-size: 15px;
+          color: #5a60a0;
+          padding: 6px 4px;
+        }
+        .about-mas summary::-webkit-details-marker { display: none; }
+        .about-mas-cerrar { display: none; }
+        .about-mas[open] .about-mas-abrir { display: none; }
+        .about-mas[open] .about-mas-cerrar { display: inline; }
 
         /* Texto central */
         .about-body-wrap {
@@ -217,7 +230,7 @@ antes de incorporarse al equipo.
           border-right: none;
         }
         .about-stat-num {
-          font-family: 'Baloo 2', cursive;
+          font-family: var(--font-baloo), cursive;
           font-size: 36px;
           font-weight: 800;
           color: var(--blue);
@@ -239,6 +252,10 @@ antes de incorporarse al equipo.
           border-radius: 20px;
           padding: 32px 28px;
           transition: transform .2s, box-shadow .2s;
+        }
+        .value-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 32px rgba(0,0,0,.08);
         }
         .value-icon-wrap {
           width: 44px; height: 44px;

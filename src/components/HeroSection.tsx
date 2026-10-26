@@ -1,10 +1,28 @@
-"use client";
-
 import Image from "next/image";
-import { WA_MENSAJE_INICIAL, waLink } from "../lib/contact";
+import { waIrLink } from "../lib/contact";
+import IrAlSimulador from "./IrAlSimulador";
+
+// Accesos directos al simulador con el servicio ya elegido
+const NECESIDADES = [
+  {
+    servicio: "Babysitting", texto: "Babysitting", color: "var(--pink)", bg: "var(--pink-light)",
+    icono: <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></>,
+    relleno: false,
+  },
+  {
+    servicio: "Petsittings", texto: "Petsitting", color: "var(--blue)", bg: "var(--blue-light)",
+    icono: <><circle cx="4.5" cy="9.5" r="2"/><circle cx="9" cy="5.5" r="2"/><circle cx="15" cy="5.5" r="2"/><circle cx="19.5" cy="9.5" r="2"/><path d="M17.34 14.86c-.83-1.6-1.95-2.86-4.3-3.1-.34-.03-.68-.03-1.02 0-2.35.24-3.47 1.5-4.3 3.1-.83 1.6-2.55 2.3-2.7 4.02-.15 1.65 1.1 2.87 2.66 2.6.98-.17 1.9-.77 3.02-.9.5-.06 1.02-.06 1.52 0 1.12.13 2.04.73 3.02.9 1.56.27 2.81-.95 2.66-2.6-.15-1.72-1.87-2.42-2.7-4.02z"/></>,
+    relleno: true,
+  },
+  {
+    servicio: "Evento", texto: "Eventos", color: "var(--yellow-dark)", bg: "#fffae8",
+    icono: <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>,
+    relleno: false,
+  },
+];
 
 export default function HeroSection() {
-  const WA_URL = waLink(WA_MENSAJE_INICIAL);
+  const WA_URL = waIrLink("hero");
 
   return (
     <section className="hero-section">
@@ -56,12 +74,26 @@ personalizado.
                 height={1024}
                 className="hero-photo-img-mobile"
                 priority
+                fetchPriority="high"
                 sizes="100vw"
               />
             </div>
 
             {/* Bloque inferior: botones + social proof */}
             <div className="hero-bottom">
+              <div className="hero-pregunta">
+                <p className="hero-pregunta-titulo">¿Qué necesitás?</p>
+                <div className="hero-chips">
+                  {NECESIDADES.map((n) => (
+                    <IrAlSimulador key={n.servicio} servicio={n.servicio} className="hero-chip">
+                      <span className="hero-chip-icono" style={{ background: n.bg, color: n.color }} aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill={n.relleno ? "currentColor" : "none"} stroke={n.relleno ? "none" : "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{n.icono}</svg>
+                      </span>
+                      {n.texto}
+                    </IrAlSimulador>
+                  ))}
+                </div>
+              </div>
               <div className="hero-ctas">
                 <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="hero-btn-primary">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style={{ flexShrink: 0 }}>
@@ -73,6 +105,7 @@ personalizado.
                   Completar formulario →
                 </a>
               </div>
+              <p className="hero-nota">Sin compromiso. Te respondemos por WhatsApp</p>
 
               <div className="hero-proof">
                 <div className="hero-avatars">
@@ -118,6 +151,7 @@ personalizado.
                 height={1024}
                 className="hero-photo-img"
                 priority
+                fetchPriority="high"
                 sizes="(max-width: 900px) 100vw, 600px"
               />
             </div>
@@ -223,7 +257,7 @@ personalizado.
           align-items: center;
           font-size: 13px;
           font-weight: 600;
-          color: var(--blue);
+          color: #5a60a0; /* más oscuro que --blue para 5:1 de contraste sobre --blue-light */
           background: var(--blue-light);
           padding: 4px 12px;
           border-radius: 99px;
@@ -271,6 +305,51 @@ personalizado.
         .hero-btn-secondary:hover {
           background: var(--blue-light);
           border-color: var(--blue);
+        }
+        /* En compu las preguntas van arriba de los botones; en celular, debajo, para
+           que el botón de WhatsApp siga entrando en la primera pantalla. */
+        .hero-bottom { display: flex; flex-direction: column; }
+        .hero-pregunta { order: 0; margin-bottom: 22px; }
+        .hero-ctas, .hero-nota { order: 1; }
+        .hero-proof { order: 3; }
+        .hero-pregunta-titulo {
+          font-weight: 700;
+          font-size: 14px;
+          color: var(--text);
+          margin-bottom: 10px;
+        }
+        .hero-chips { display: flex; gap: 10px; flex-wrap: wrap; }
+        .hero-chip {
+          display: inline-flex;
+          align-items: center;
+          gap: 9px;
+          padding: 8px 16px 8px 9px;
+          min-height: 44px;
+          border-radius: 99px;
+          background: var(--white);
+          border: 1.5px solid var(--gray);
+          font-weight: 700;
+          font-size: 14px;
+          color: var(--text);
+          text-decoration: none;
+          box-shadow: 0 2px 10px rgba(117,124,187,.08);
+          transition: border-color .15s, transform .15s, box-shadow .15s;
+        }
+        .hero-chip:hover {
+          border-color: var(--blue-mid);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(117,124,187,.14);
+        }
+        .hero-chip-icono {
+          width: 28px; height: 28px;
+          border-radius: 9px;
+          display: flex; align-items: center; justify-content: center;
+          flex-shrink: 0;
+        }
+        .hero-nota {
+          margin-top: 12px;
+          font-size: 13px;
+          color: var(--text-soft);
         }
         .hero-proof {
           display: flex;
@@ -397,6 +476,7 @@ personalizado.
           .hero-bottom {
             margin-top: 0;
           }
+          .hero-pregunta { order: 2; margin: 24px 0 0; }
         }
 
         /* ── MOBILE ── */

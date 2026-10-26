@@ -4,7 +4,7 @@
 
 Landing page de Parents' Break, un servicio premium de cuidado infantil en Uruguay (Montevideo, Canelones y Punta del Este). El negocio conecta familias con niñeras previamente seleccionadas y validadas.
 
-Las dueñas son Paulina (Pau) y Delfina (Delfi). Diego es el developer que construye y mantiene la web y responde a ellas. Si hay una decisión de negocio o de contenido que no está acá, se consulta con Diego antes de inventarla.
+Las dueñas son Paulina (Pau) y Delfina (Delfi); Federica (Fede) se sumó como socia. Públicamente el negocio se presenta como Delfi y Fede: en los textos de la web van esos nombres, no Pau. Diego es el developer que construye y mantiene la web y responde a ellas. Si hay una decisión de negocio o de contenido que no está acá, se consulta con Diego antes de inventarla.
 
 **No es una plataforma automática.** Es un servicio operado manualmente. La coordinación final ocurre por WhatsApp. La tecnología acompaña, no lidera: el valor está en la selección de niñeras, la confianza y la experiencia del cliente, no en la complejidad técnica.
 
@@ -32,29 +32,30 @@ El flujo esperado: el usuario entra, entiende el servicio, usa el simulador o el
 
 ## Stack
 
-- Next.js + React + Tailwind CSS
 - Tailwind se usa muy poco. Está instalado en su versión 4 (vía `postcss.config.mjs` y `@tailwindcss/postcss`), pero casi todo el estilo vive en las variables CSS de `src/app/globals.css` y en bloques `<style>` o estilos inline de cada componente. Al tocar un componente, seguir el estilo que ya usa.
 - Hosting: Vercel (plan gratis)
+- Vercel Web Analytics activado: sin cookies, visitante identificado con un hash que se descarta a las 24 horas. Plan Hobby: 50.000 eventos por mes, un mes de historial, sin eventos personalizados. Por eso los toques en WhatsApp se cuentan como páginas vistas de `/ir/whatsapp/<origen>`.
 - Node.js 24, fijado con `engines` en `package.json`. Vercel dejó de aceptar Node 20 (con esa versión el deploy falla antes de instalar): no bajarlo.
-- Editor: VS Code
+- Fuentes: Baloo 2 y Source Sans 3 están en `src/app/fonts` (subconjunto latino, licencia OFL) y se cargan con `next/font/local` desde `src/app/layout.tsx` (variables `--font-baloo` y `--font-source`). No volver a `next/font/google`: descarga las fuentes en cada build y el build fallaba cuando Google no respondía. Tampoco a Google Fonts por `<link>` ni `@import`: bloqueaba el render y hacía saltar el texto.
+- Componentes de servidor: Hero, Quiénes somos, Servicios, Cómo funciona, Niñeras, CTA final y Footer no llevan `"use client"`. Los efectos al pasar el mouse van en CSS (`:hover`), no en `onMouseEnter`; los estilos que cambian con el mouse no pueden ir en `style={{}}` porque le ganan al CSS. Lo que necesita JavaScript va en componentes cliente chicos (`IrAlSimulador`, `FadeIn`). Los desplegables ("Ver todo lo que incluye", "Leer más") son `<details>` nativos: sin JavaScript y accesibles.
 - No cambiar de stack ni agregar dependencias pesadas sin que Diego lo pida.
 
 ## Estructura de la página (una sola página)
 
 Orden actual en `src/app/page.tsx`:
 
-1. Navbar (links a cada sección + botón "Coordinar servicio" a WhatsApp; en celular solo logo y menú, porque está el botón flotante)
-2. Hero: título, subtítulo, zonas, botón principal (WhatsApp con mensaje inicial) y botón secundario "Completar formulario →" (lleva al simulador; el CTA final usa el mismo texto)
+1. Navbar (links a cada sección + botón "Coordinar servicio" a WhatsApp; en celular solo logo y menú). El menú de celular es una hoja que sube desde abajo (`MenuCelular.tsx`): diálogo modal con foco atrapado, Escape y fondo para cerrar, y botón verde de WhatsApp. El link del menú se llama "Solicitar servicio"; los botones, "Completar formulario"
+2. Hero: título, subtítulo, zonas, "¿Qué necesitás?" con tres accesos directos al simulador (Babysitting, Petsitting, Eventos; en compu arriba de los botones, en celular debajo para que el botón de WhatsApp entre en la primera pantalla), botón principal (WhatsApp con mensaje inicial) y botón secundario "Completar formulario →" (lleva al simulador; el CTA final usa el mismo texto), y debajo la nota "Sin compromiso. Te respondemos por WhatsApp" (también en el CTA final)
 3. Barra de números (+80 niñeras, +3 años)
-4. Quiénes somos
-5. Servicios: Babysitting, Petsitting y Eventos
+4. Quiénes somos: dos oraciones a la vista y el resto en un desplegable "Leer más"
+5. Servicios: Babysitting, Petsitting y Eventos. Cada tarjeta muestra la primera oración y tres ítems; el resto va en "Ver todo lo que incluye"
 6. Cómo funciona (pasos simples)
 7. Niñeras: proceso de selección y "Podés elegir según"
 8. Simulador (formulario dinámico)
 9. CTA final (WhatsApp)
 10. Footer
 
-Además hay un botón flotante de WhatsApp que solo aparece en celular (`WhatsAppFloat.tsx`), oculto mientras se ve el Hero, el simulador o el Footer.
+Además hay un botón flotante de WhatsApp siempre visible (`WhatsAppFloat.tsx`). En compu es una píldora con texto abajo a la derecha que se achica a círculo mientras el simulador o el Footer están en pantalla. En celular es un círculo abajo a la derecha que, mientras el Hero, el simulador o el Footer están en pantalla, se acomoda en la Navbar al lado del menú, así nunca tapa los botones de esas secciones. Hace un solo pulso a los 4 segundos.
 
 El simulador queda en esa posición por decisión del negocio.
 
@@ -62,12 +63,17 @@ Fotos (en `public/`):
 
 - `hero.jpg`: Hero. En celular se muestra más baja (2:1, y 5:2 en pantallas de hasta 380px) para que los botones entren en la primera pantalla.
 - `Lleno.jpg`: Quiénes somos, debajo del texto, entera y sin recortar. Muestra caras de chicos: hay permiso de los padres y Diego la aprobó.
-- `PauDeEspaldas.jpg`: Niñeras, al costado del proceso de selección, en su proporción real (3:2) y sin estirarla.
+- `ninera-de-espaldas.jpg`: Niñeras, al costado del proceso de selección, en su proporción real (3:2) y sin estirarla.
 - Las fotos de Quiénes somos y Niñeras se sirven con calidad 90; Next 16 exige declarar esa calidad en `images.qualities` de `next.config.ts`.
 - `Lleno.jpg` es de solo 800px de ancho y se ve algo blanda en pantallas retina. Si llegan los originales en mayor resolución, reemplazarla.
 - `public/` se publica entero: cualquiera puede abrir un archivo con el link directo. No dejar fotos que la página no use, sobre todo si muestran caras.
+- Vista previa al compartir el link: `src/app/opengraph-image.jpg` (1200x630, la foto del Hero con el logo) y su `opengraph-image.alt.txt`; favicon: `src/app/icon.png` y `apple-icon.png`. `metadataBase` en el layout apunta a la URL de producción; si cambia el dominio, cambiar ahí.
 
 `ReviewsSection.tsx` (testimonios) existe pero está oculta a propósito: no se importa en `page.tsx`. Se va a activar cuando haya reseñas reales. No activarla ni borrarla sin que Diego lo pida.
+
+Pendiente a futuro: un reel de Instagram en la página. El reel que va todavía no está hecho (el que se evaluó, de @parentsbreak_, se descartó). Cuando exista, insertarlo con el embed oficial de Instagram y carga al tocar: portada con botón de play, y `embed.js` (con `next/script`) solo se carga cuando alguien lo toca, para no hacer lenta la página ni rastrear a quien no lo mira. Ubicación a definir con Diego.
+
+Pendiente a futuro: preguntas frecuentes, cuando Diego tenga las respuestas reales.
 
 Prioridad de desarrollo: 1) Hero + CTA, 2) botón de WhatsApp funcional, 3) simulador básico, 4) sección "Cómo funciona". Todo lo demás es secundario.
 
@@ -75,34 +81,9 @@ Prioridad de desarrollo: 1) Hero + CTA, 2) botón de WhatsApp funcional, 3) simu
 
 Formulario dinámico (`SimulatorSection.tsx`) que arma un mensaje y abre WhatsApp (link `wa.me` con el texto codificado).
 
-Campos base: nombre, tipo de servicio (Babysitting / Petsittings / Evento, elegido con tres tarjetas que son radios reales: se manejan con teclado y lector de pantalla), departamento (Montevideo, Canelones o Maldonado), zona (con "Otro" de texto libre), edades (salvo Petsitting) y comentarios.
+El tipo de servicio se elige con tres tarjetas que son radios reales (teclado y lector de pantalla): no cambiarlas por divs clickeables.
 
-Condicionales:
-
-- Babysitting: modalidad Puntual o Fijo, y cantidad de niños.
-  - Puntual: de 1 a 4 días, cada uno con fecha, hora de inicio y hora de fin.
-  - Fijo: días de la semana, horario, desde cuándo y hasta cuándo (indefinido o hasta una fecha).
-- Petsitting: tipo (visita a domicilio, pernocte u hospedaje en casa de la cuidadora), cantidad de mascotas y qué necesita. La visita pide días y horarios; pernocte y hospedaje piden fechas desde/hasta.
-- Evento: tipo de evento, fecha, horario y cantidad aproximada de niños.
-
-Los botones de cada tarjeta de Servicios preseleccionan el servicio en el simulador (`?servicio=` + evento `popstate`).
-
-Mensaje generado (ejemplo de un evento; solo se incluyen los campos del servicio elegido):
-
-```
-Hola! Quiero coordinar un servicio de Parents' Break
-
-*Nombre:*
-*Servicio:*
-*Tipo de evento:*
-*Fecha:*
-*Horario:*
-*Cantidad aproximada de niños:*
-*Edades:*
-*Departamento:*
-*Zona:*
-*Comentarios:*
-```
+Los botones de cada tarjeta de Servicios y los accesos "¿Qué necesitás?" del Hero preseleccionan el servicio en el simulador con `IrAlSimulador` (`?servicio=` + evento `popstate`).
 
 Las fechas van en formato dd/mm/aaaa. "Hoy" se calcula con la hora local, no con `toISOString()` (que usa UTC).
 
@@ -131,6 +112,9 @@ Diseño:
 - Sin emojis en el código, en los textos de la interfaz ni en los commits, salvo que Diego pida lo contrario.
 - Diego es estudiante de Ingeniería Telemática y construye esto como proyecto real y como pieza de portfolio. Explicar los cambios con claridad, sin asumir jerga, pero sin tratarlo como alguien no técnico.
 - Mensajes de commit claros y en español.
+- Toda animación o transición respeta `prefers-reduced-motion`: hay una regla global en `globals.css`, y FadeIn y el contador de la barra de números lo chequean en JS. Antes y después de tocar animaciones o la carga de la página, correr Lighthouse en celular simulado (mediana de 3 corridas) y no aceptar más de 2 puntos de caída en rendimiento ni más de 100 ms de LCP.
+- Para llevar la vista a una sección usar `irASeccion()` de `src/lib/scroll.ts`: mide sin la animación de aparición de FadeIn (que desplaza la sección 20 px hasta que se ve) y deja los 72 px de la Navbar.
+- Accesibilidad: cada campo del simulador tiene su `label` asociada (`htmlFor`/`id`); los títulos de grupos de botones son `<div>`. Contraste: los botones de WhatsApp con texto blanco usan `--whatsapp-boton` (#17833f, 4,8:1), no el verde de marca `--whatsapp` (#25d366, 2:1), que queda para sombras y detalles. Las etiquetas de la barra de números van en blanco a 19 px en negrita: sobre el violeta dan 3,9:1, que solo alcanza como texto grande (18,7 px en negrita o más); no bajarles el tamaño ni el peso. Los links de texto chico en color de marca usan un tono oscuro de ese color para llegar a 4,5:1 sobre blanco.
 
 ## Errores a evitar (aprendidos en el sistema interno de Parents' Break)
 
@@ -143,7 +127,8 @@ Diseño:
 ## Seguridad
 
 - No commitear claves, tokens ni credenciales. Usar variables de entorno (`.env.local`) y mantenerlas en `.gitignore`.
-- El número de WhatsApp de contacto vive en un solo lugar: `WA_NUMBER` en `src/lib/contact.ts`. Los links se arman con `waLink(texto?)`; no escribir el número ni armar links `wa.me` a mano en los componentes.
+- El número de WhatsApp de contacto vive en un solo lugar: `WA_NUMBER` en `src/lib/contact.ts`. No escribir el número ni armar links `wa.me` a mano en los componentes.
+- Los botones no enlazan a `wa.me` directamente: usan `waIrLink(origen)`, que apunta a `/ir/whatsapp/<origen>`. Esa página registra la visita en Analytics (una página vista por toque, separada por origen) y redirige a WhatsApp con `waLink(texto)`. Los orígenes válidos están en `ORIGENES_WA`. El texto del mensaje del simulador viaja en el `#hash`, que no llega al servidor y se saca de la URL antes de que cargue el script de Analytics.
 
 ## Qué NO es parte de este repo
 

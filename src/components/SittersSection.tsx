@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 
 export default function SittersSection() {
@@ -55,7 +53,7 @@ export default function SittersSection() {
   boxShadow: "var(--shadow)",
 }}>
   <Image
-    src="/PauDeEspaldas.jpg"
+    src="/ninera-de-espaldas.jpg"
     alt="Niñera de espaldas"
     fill
     style={{ objectFit: "cover" }}
@@ -71,15 +69,13 @@ export default function SittersSection() {
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               {process.map((p, i) => (
-                <div key={i} style={{
+                <div key={i} className="sitters-paso" style={{
                   display: "flex", alignItems: "flex-start", gap: 16,
                   background: "var(--white)",
                   borderRadius: 16, padding: "18px",
                   border: "1.5px solid var(--gray)",
                   transition: "box-shadow .2s",
                 }}
-                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "var(--shadow)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; }}
                 >
                   <div style={{
                     width: 44, height: 44, borderRadius: 12,
@@ -197,6 +193,7 @@ export default function SittersSection() {
       </div>
 
       <style>{`
+        .sitters-paso:hover { box-shadow: var(--shadow); }
         .sitters-section { padding: 96px 0; }
         .sitters-container { padding: 0 24px; }
         /* Foto más chica que la lista y en su proporción real (3:2), sin estirarla */

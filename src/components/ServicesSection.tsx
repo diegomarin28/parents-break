@@ -1,11 +1,35 @@
-"use client";
+import IrAlSimulador from "./IrAlSimulador";
+
+// Cuántos ítems de cada servicio se ven sin abrir "Ver todo lo que incluye"
+const VISIBLES = 3;
+
+type Servicio = { color: string; bg: string };
+function itemDeServicio(item: string, s: Servicio) {
+  return (
+    <li key={item} className="service-item" style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13.5, color: "var(--text-soft)" }}>
+      <span style={{
+        width: 18, height: 18, borderRadius: "50%",
+        background: s.bg,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        flexShrink: 0,
+      }}>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={s.color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </span>
+      {item}
+    </li>
+  );
+}
+
 export default function ServicesSection() {
   const services = [
     {
       title: "Babysittings, fijos o esporádicos",
       servicio: "Babysitting",
       subtitle: "Cuidado en casa",
-      desc: "Niñeras que generan un vínculo real con los chicos a través del juego, la atención y el acompañamiento activo. Nos adaptamos a la rutina de cada familia para que los niños se sientan cómodos, entretenidos y cuidados en todo momento.",
+      desc: "Niñeras que generan un vínculo real con los chicos a través del juego, la atención y el acompañamiento activo.",
+      descResto: "Nos adaptamos a la rutina de cada familia para que los niños se sientan cómodos, entretenidos y cuidados en todo momento.",
       items: [
         "Cuidado en hogares y hoteles",
         "Servicios puntuales o esporádicos",
@@ -16,6 +40,7 @@ export default function ServicesSection() {
       ],
       color: "var(--pink)",
       bg: "var(--pink-light)",
+      colorLink: "#b5464c", // tonos oscuros de cada color: 4,5:1 o más sobre blanco
       border: "var(--pink-mid)",
       cta: "Reservar babysitting",
       ctaBg: "var(--pink)",
@@ -37,6 +62,7 @@ export default function ServicesSection() {
       ],
       color: "var(--blue)",
       bg: "var(--blue-light)",
+      colorLink: "#5a60a0",
       border: "var(--blue-mid)",
       cta: "Consultar petsittings",
     },
@@ -44,7 +70,8 @@ export default function ServicesSection() {
       title: "Eventos",
       servicio: "Evento",
       subtitle: "Animación infantil",
-      desc: "Creamos espacios divertidos y dinámicos para que los niños disfruten mientras los adultos pueden relajarse. Organizamos propuestas adaptadas según la edad, cantidad de chicos y tipo de evento.",
+      desc: "Creamos espacios divertidos y dinámicos para que los niños disfruten mientras los adultos pueden relajarse.",
+      descResto: "Organizamos propuestas adaptadas según la edad, cantidad de chicos y tipo de evento.",
       items: [
         "Casamientos",
         "Cumpleaños y eventos familiares",
@@ -55,6 +82,7 @@ export default function ServicesSection() {
       ],
       color: "var(--yellow-dark)",
       bg: "#fffae8",
+      colorLink: "#8a6d0f",
       border: "#ffe8a0",
       cta: "Consultar animación",
     },
@@ -94,31 +122,16 @@ responsables y preparadas para cada situación.
           {services.map((s, i) => (
             <div
               key={i}
-              className="service-card"
+              className={`service-card${s.featured ? " service-card-destacada" : ""}`}
               style={{
                 background: "var(--white)",
                 borderRadius: 24,
                 border: `1.5px solid ${s.featured ? s.border : "var(--gray)"}`,
                 padding: "36px 28px",
                 position: "relative",
-                transition: "transform .2s, box-shadow .2s",
-                boxShadow: s.featured ? "var(--shadow-lg)" : "none",
-                transform: "none",
                   display: "flex",
   flexDirection: "column",
   height: "100%",
-              }}
-              onMouseEnter={(e) => {
-                
-                  e.currentTarget.style.transform = "translateY(-6px)";
-                  e.currentTarget.style.boxShadow = "var(--shadow-lg)";
-        
-              }}
-              onMouseLeave={(e) => {
-          
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "none";
-                
               }}
             >
               <div style={{
@@ -177,38 +190,36 @@ responsables y preparadas para cada situación.
               <h3 className="service-title" style={{ fontSize: 26, fontWeight: 800, marginBottom: 12, color: "var(--text)" }}>
                 {s.title}
               </h3>
-              <p className="service-desc" style={{ fontSize: 14, color: "var(--text-soft)", lineHeight: 1.7, marginBottom: 22 }}>
+              <p className="service-desc" style={{ fontSize: 14, color: "var(--text-soft)", lineHeight: 1.7, marginBottom: 18 }}>
                 {s.desc}
               </p>
 
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8, marginBottom: 28 }}>
-                {s.items.map((item, j) => (
-                  <li key={j} className="service-item" style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13.5, color: "var(--text-soft)" }}>
-                    <span style={{
-                      width: 18, height: 18, borderRadius: "50%",
-                      background: s.bg,
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      flexShrink: 0,
-                    }}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={s.color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12"/>
-                      </svg>
-                    </span>
-                    {item}
-                  </li>
-                ))}
+              <ul className="service-lista">
+                {s.items.slice(0, VISIBLES).map((item) => itemDeServicio(item, s))}
               </ul>
 
-              <a
-                href="#simulador"
-                onClick={(e) => {
-                  e.preventDefault();
-                  // El simulador escucha "popstate" y preselecciona el servicio del query param
-                  window.history.pushState(null, "", `?servicio=${s.servicio}#simulador`);
-                  window.dispatchEvent(new Event("popstate"));
-                  const el = document.getElementById("simulador");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                }}
+              {(s.items.length > VISIBLES || s.descResto) && (
+                <details className="service-mas">
+                  <summary style={{ color: s.colorLink }}>
+                    <span className="service-mas-abrir">Ver todo lo que incluye</span>
+                    <span className="service-mas-cerrar">Ver menos</span>
+                  </summary>
+                  {s.items.length > VISIBLES && (
+                    <ul className="service-lista">
+                      {s.items.slice(VISIBLES).map((item) => itemDeServicio(item, s))}
+                    </ul>
+                  )}
+                  {s.descResto && (
+                    <p className="service-desc" style={{ fontSize: 14, color: "var(--text-soft)", lineHeight: 1.7 }}>
+                      {s.descResto}
+                    </p>
+                  )}
+                </details>
+              )}
+
+              <IrAlSimulador
+                servicio={s.servicio}
+                className="service-cta"
                 style={{
                     marginTop: "auto",
                   display: "flex", alignItems: "center", justifyContent: "center",
@@ -218,14 +229,11 @@ responsables y preparadas para cada situación.
                   padding: "13px", borderRadius: 99,
                   fontWeight: 700, fontSize: 14,
                   border: `1.5px solid ${s.ctaBg ? s.ctaBg : s.featured ? s.color : s.border}`,
-                  transition: "opacity .15s",
                   textDecoration: "none",
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.opacity = ".85"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
               >
                 {s.cta} →
-              </a>
+              </IrAlSimulador>
             </div>
           ))}
         </div>
@@ -233,6 +241,28 @@ responsables y preparadas para cada situación.
 
       <style>{`
         .services-section { padding: 96px 0; }
+        .service-lista { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .service-mas { margin: 12px 0 24px; }
+        .service-mas > .service-lista { margin-top: 8px; }
+        .service-mas > .service-desc { margin-top: 12px; }
+        .service-mas summary {
+          display: inline-block;
+          cursor: pointer;
+          font-size: 13.5px;
+          font-weight: 700;
+          text-decoration: underline;
+          text-underline-offset: 3px;
+          list-style: none;
+        }
+        .service-mas summary::-webkit-details-marker { display: none; }
+        .service-mas-cerrar { display: none; }
+        .service-mas[open] .service-mas-abrir { display: none; }
+        .service-mas[open] .service-mas-cerrar { display: inline; }
+        .service-cta:hover { opacity: .85; }
+        .service-card { transition: transform .2s, box-shadow .2s; }
+        .service-card-destacada { box-shadow: var(--shadow-lg); }
+        .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+        .service-cta { transition: opacity .15s; }
         @media (max-width: 600px) {
           .services-grid { grid-template-columns: 1fr !important; }
         }

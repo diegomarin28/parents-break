@@ -12,6 +12,8 @@ export default function FadeIn({ children, delay = 0 }: Props) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // Con movimiento reducido, la sección se muestra directamente.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { el.classList.add("visible"); return; }
     el.style.transitionDelay = `${delay}ms`;
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) el.classList.add("visible"); },

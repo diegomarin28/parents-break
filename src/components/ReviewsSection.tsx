@@ -209,7 +209,7 @@ export default function ReviewsSection() {
           transition: transform .2s, box-shadow .2s;
         }
         .review-quote {
-          font-family: 'Baloo 2', cursive;
+          font-family: var(--font-baloo), cursive;
           font-size: 64px;
           font-weight: 800;
           color: var(--gray);

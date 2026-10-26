@@ -1,13 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
-import { WA_MENSAJE_INICIAL, waLink } from "../lib/contact";
+import { waIrLink } from "../lib/contact";
+import { irASeccion } from "../lib/scroll";
+import MenuCelular from "./MenuCelular";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  // Al cerrar el menú, el foco vuelve al botón que lo abrió (teclado y lector de pantalla).
+  const cerrarMenu = useCallback(() => {
+    setOpen(false);
+    toggleRef.current?.focus();
+  }, []);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -65,7 +73,7 @@ useEffect(() => {
     const el = document.getElementById(id);
     if (!el) return;
     setActive(id);
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72, behavior: "smooth" });
+    irASeccion(el);
   };
 
   const links = [
@@ -76,7 +84,7 @@ useEffect(() => {
     { label: "Solicitar servicio", href: "#simulador" },
   ];
 
-  const WA_URL = waLink(WA_MENSAJE_INICIAL);
+  const WA_URL = waIrLink("navbar");
 
   return (
     <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
@@ -134,10 +142,13 @@ useEffect(() => {
               <span className="nav-cta-label">Coordinar servicio</span>
             </a>
             <button
+              ref={toggleRef}
               type="button"
               className={`nav-toggle ${open ? "nav-toggle-open" : ""}`}
               onClick={() => setOpen((prev) => !prev)}
               aria-label={open ? "Cerrar menú" : "Abrir menú"}
+              aria-expanded={open}
+              aria-controls="menu-celular"
             >
               <span />
             </button>
@@ -145,27 +156,7 @@ useEffect(() => {
         </div>
       </div>
 
-      {open && (
-        <div className="nav-mobile-menu">
-          {links.map((l) => {
-            const id = l.href.replace("#", "");
-            return (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setOpen(false);
-                  handleNav(e, id);
-                }}
-                className={`nav-mobile-link ${active === id ? "nav-mobile-link-active" : ""}`}
-              >
-                {l.label}
-              </a>
-            );
-          })}
-        </div>
-      )}
+      <MenuCelular abierto={open} onCerrar={cerrarMenu} links={links} activo={active} onNavegar={handleNav} />
 
       <style>{`
         .navbar {
@@ -207,13 +198,13 @@ useEffect(() => {
           background: var(--pink);
           display: flex; align-items: center; justify-content: center;
           color: white;
-          font-family: 'Baloo 2', cursive;
+          font-family: var(--font-baloo), cursive;
           font-weight: 800;
           font-size: 16px;
           flex-shrink: 0;
         }
         .nav-logo-text {
-          font-family: 'Baloo 2', cursive;
+          font-family: var(--font-baloo), cursive;
           font-weight: 800;
           font-size: 17px;
           color: var(--blue);
@@ -314,45 +305,7 @@ useEffect(() => {
         .nav-toggle-open span { background: transparent; }
         .nav-toggle-open span::before { transform: rotate(45deg); top: 0; }
         .nav-toggle-open span::after { transform: rotate(-45deg); top: 0; }
-        .nav-mobile-menu {
-          position: absolute;
-          top: 100%;
-          left: 12px;
-          right: 12px;
-          background: rgba(255,255,255,.98);
-          border-radius: 18px;
-          border: 1px solid rgba(0,0,0,.08);
-          box-shadow: 0 20px 45px rgba(0,0,0,.14);
-          z-index: 99;
-          padding: 12px 0 16px;
-          overflow: hidden;
-          backdrop-filter: blur(6px);
-        }
-        .nav-mobile-link {
-          display: block;
-          padding: 14px 20px;
-          color: var(--text);
-          text-decoration: none;
-          margin: 0 12px 8px;
-          border-radius: 14px;
-          background: var(--off);
-          border: 1px solid rgba(0,0,0,.06);
-          transition: background .2s, color .2s, transform .2s, border-color .2s;
-        }
-        .nav-mobile-link:hover {
-          background: white;
-          transform: translateX(4px);
-          border-color: rgba(0,0,0,.1);
-        }
-        .nav-mobile-link-active {
-          color: var(--blue);
-          background: rgba(227,244,255,.9);
-          font-weight: 700;
-          border-color: rgba(46,125,255,.18);
-        }
-        .nav-mobile-link:last-child {
-          margin-bottom: 0;
-        }
+        /* El menú de celular es una hoja inferior: ver MenuCelular.tsx */
 
         /* ── TABLET: links más chicos ── */
         @media (max-width: 768px) {
@@ -361,7 +314,7 @@ useEffect(() => {
           .nav-cta { padding: 10px 14px; }
         }
 
-        /* ── MOBILE: solo logo + menú. El botón de WhatsApp lo cubre el flotante ── */
+        /* ── MOBILE: solo logo + menú. El botón de WhatsApp es el flotante, que acá vive en la Navbar ── */
         @media (max-width: 600px) {
           .nav-links { display: none; }
           .nav-toggle { display: inline-flex; }
