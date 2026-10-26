@@ -56,7 +56,8 @@ function StatItem({ stat, started, isLast }: { stat: Stat; started: boolean; isL
       }}>
         {stat.prefix}{count}{stat.suffix}
       </div>
-      <div style={{ fontSize: 16, color: "#14152a", marginTop: 8 }}>
+      {/* Blanco sobre el violeta da 3,9:1: alcanza solo como texto grande (19 px en negrita) */}
+      <div style={{ fontSize: 19, fontWeight: 700, color: "#fff", marginTop: 8 }}>
         {stat.label}
       </div>
     </div>
