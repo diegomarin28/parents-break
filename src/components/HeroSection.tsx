@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { waIrLink } from "../lib/contact";
 import IrAlSimulador from "./IrAlSimulador";
