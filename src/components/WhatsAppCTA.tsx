@@ -41,7 +41,7 @@ export default function WhatsAppCTA() {
             rel="noopener noreferrer"
             style={{
               display: "inline-flex", alignItems: "center", gap: 12,
-              background: "var(--whatsapp)", color: "white",
+              background: "var(--whatsapp-boton)", color: "white",
               padding: "18px 36px", borderRadius: 99,
               fontWeight: 800, fontSize: 18,
               boxShadow: "0 6px 28px rgba(37,211,102,.4)",

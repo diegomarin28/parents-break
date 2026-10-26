@@ -56,7 +56,7 @@ function StatItem({ stat, started, isLast }: { stat: Stat; started: boolean; isL
       }}>
         {stat.prefix}{count}{stat.suffix}
       </div>
-      <div style={{ fontSize: 16, color: "rgba(255,255,255,.95)", marginTop: 8 }}>
+      <div style={{ fontSize: 16, color: "#14152a", marginTop: 8 }}>
         {stat.label}
       </div>
     </div>

@@ -128,7 +128,7 @@ export default function Footer() {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          background: var(--whatsapp);
+          background: var(--whatsapp-boton);
           color: white;
           padding: 11px 20px;
           border-radius: 99px;
@@ -138,7 +138,7 @@ export default function Footer() {
           min-height: 44px;
           transition: background .2s;
         }
-        .footer-wa-btn:hover { background: var(--whatsapp-d, #1da851); }
+        .footer-wa-btn:hover { background: var(--whatsapp-boton-hover); }
         .footer-col-title {
           font-family: var(--font-source), sans-serif;
           line-height: 1.3;

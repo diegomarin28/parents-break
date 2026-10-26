@@ -21,6 +21,9 @@
   --text-muted:   #a0a0b0;
 
   --whatsapp:     #25d366;
+  /* Fondo de los botones de WhatsApp con texto blanco: el verde de marca da 2:1, este 4,8:1 */
+  --whatsapp-boton: #17833f;
+  --whatsapp-boton-hover: #136c34;
   --radius:       16px;
   --radius-sm:    10px;
   --shadow:       0 4px 20px rgba(117, 124, 187, .10);

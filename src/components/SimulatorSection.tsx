@@ -546,7 +546,7 @@ export default function SimulatorSection() {
       <div className="sim-container" style={{ maxWidth: 820, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <span style={{
-            display: "inline-block", background: "rgba(37,211,102,.12)", color: "var(--whatsapp)",
+            display: "inline-block", background: "rgba(37,211,102,.12)", color: "var(--whatsapp-boton)",
             fontWeight: 700, fontSize: 12, letterSpacing: ".1em", textTransform: "uppercase",
             padding: "6px 16px", borderRadius: 99, marginBottom: 16,
           }}>Rápido y fácil</span>
@@ -1050,7 +1050,7 @@ export default function SimulatorSection() {
           <button onClick={handleSend} style={{
             marginTop: 28, width: "100%",
             display: "flex", alignItems: "center", justifyContent: "center", gap: 12,
-            background: "var(--whatsapp)", color: "white", padding: "17px", borderRadius: 99,
+            background: "var(--whatsapp-boton)", color: "white", padding: "17px", borderRadius: 99,
             fontWeight: 800, fontSize: 17, fontFamily: "var(--font-source), sans-serif",
             boxShadow: "0 4px 24px rgba(37,211,102,.35)", transition: "transform .18s, box-shadow .18s", border: "none",
           }}

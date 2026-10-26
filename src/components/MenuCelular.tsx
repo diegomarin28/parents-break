@@ -165,7 +165,7 @@ export default function MenuCelular({ abierto, onCerrar, links, activo, onNavega
         .menu-cel-wa {
           display: flex; align-items: center; justify-content: center; gap: 10px;
           margin-top: 16px; padding: 15px; border-radius: 99px;
-          background: var(--whatsapp); color: white;
+          background: var(--whatsapp-boton); color: white;
           font-weight: 800; font-size: 16px; text-decoration: none;
           box-shadow: 0 6px 24px rgba(37,211,102,.35);
         }

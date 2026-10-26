@@ -57,7 +57,7 @@ export default function WhatsAppFloat() {
           align-items: center;
           justify-content: center;
           gap: 10px;
-          background: var(--whatsapp);
+          background: var(--whatsapp-boton);
           color: white;
           font-weight: 700;
           font-size: 15px;
