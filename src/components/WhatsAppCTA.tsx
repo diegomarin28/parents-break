@@ -1,4 +1,3 @@
-"use client";
 import { waIrLink } from "../lib/contact";
 
 export default function WhatsAppCTA() {
@@ -37,6 +36,7 @@ export default function WhatsAppCTA() {
 
           <a
             href={WA_URL}
+            className="cta-boton-wa"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -44,17 +44,7 @@ export default function WhatsAppCTA() {
               background: "var(--whatsapp-boton)", color: "white",
               padding: "18px 36px", borderRadius: 99,
               fontWeight: 800, fontSize: 18,
-              boxShadow: "0 6px 28px rgba(37,211,102,.4)",
-              transition: "transform .18s, box-shadow .18s",
               textDecoration: "none",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-4px)";
-              e.currentTarget.style.boxShadow = "0 10px 36px rgba(37,211,102,.5)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 6px 28px rgba(37,211,102,.4)";
             }}
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
@@ -65,22 +55,13 @@ export default function WhatsAppCTA() {
 
           <a
             href="#simulador"
+            className="cta-boton-form"
             style={{
               display: "inline-flex", alignItems: "center", gap: 10,
-              background: "transparent", color: "var(--blue)",
-              border: "2px solid var(--blue-mid)",
+              color: "var(--blue)",
               padding: "18px 32px", borderRadius: 99,
               fontWeight: 700, fontSize: 17,
-              transition: "background .15s, border-color .15s",
               textDecoration: "none",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "var(--blue-light)";
-              e.currentTarget.style.borderColor = "var(--blue)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "transparent";
-              e.currentTarget.style.borderColor = "var(--blue-mid)";
             }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -120,6 +101,23 @@ export default function WhatsAppCTA() {
 
       <style>{`
         .cta-section { padding: 96px 24px; }
+        .cta-boton-wa {
+          box-shadow: 0 6px 28px rgba(37,211,102,.4);
+          transition: transform .18s, box-shadow .18s;
+        }
+        .cta-boton-wa:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 10px 36px rgba(37,211,102,.5);
+        }
+        .cta-boton-form {
+          background: transparent;
+          border: 2px solid var(--blue-mid);
+          transition: background .15s, border-color .15s;
+        }
+        .cta-boton-form:hover {
+          background: var(--blue-light);
+          border-color: var(--blue);
+        }
         @media (max-width: 768px) {
           .cta-section { padding: 72px 20px; }
         }
