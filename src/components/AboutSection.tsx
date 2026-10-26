@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 
 export default function AboutSection() {
@@ -105,14 +103,6 @@ antes de incorporarse al equipo.
               key={i}
               className="value-card"
               style={{ background: v.bg }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-4px)";
-                e.currentTarget.style.boxShadow = "0 12px 32px rgba(0,0,0,.08)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "none";
-              }}
             >
               <div className="value-icon-wrap" style={{ background: "rgba(255,255,255,.6)" }}>
                 {v.icon}
@@ -262,6 +252,10 @@ antes de incorporarse al equipo.
           border-radius: 20px;
           padding: 32px 28px;
           transition: transform .2s, box-shadow .2s;
+        }
+        .value-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 32px rgba(0,0,0,.08);
         }
         .value-icon-wrap {
           width: 44px; height: 44px;
