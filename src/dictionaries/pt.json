@@ -22,7 +22,7 @@
       "nineras": "Babás",
       "simulador": "Solicitar serviço"
     },
-    "boton": "Agendar serviço",
+    "boton": "Solicitar serviço",
     "abrirMenu": "Abrir menu",
     "cerrarMenu": "Fechar menu",
     "idioma": "Idioma",
@@ -41,7 +41,7 @@
       "Petsittings": "Pet sitting",
       "Evento": "Eventos"
     },
-    "botonPrincipal": "Agendar serviço",
+    "botonPrincipal": "Solicitar serviço",
     "botonSecundario": "Preencher formulário →",
     "nota": "Sem compromisso. Respondemos pelo WhatsApp",
     "prueba": [
@@ -62,17 +62,17 @@
   "quienesSomos": {
     "etiqueta": "Quem somos",
     "titulo": "Um serviço construído com confiança",
-    "intro": "Somos Delfina e Federica, babysitters com mais de seis anos de experiência. Há mais de três anos ajudamos famílias de Montevideo, Canelones e Punta del Este a encontrar babysitters capacitadas, responsáveis e de confiança.",
+    "intro": "Somos Delfina e Federica, babás com mais de seis anos de experiência. Há mais de três anos ajudamos famílias de Montevideo, Canelones e Punta del Este a encontrar babás capacitadas, responsáveis e de confiança.",
     "leerMas": "Ler mais ↓",
     "leerMenos": "Ler menos ↑",
-    "resto": "Depois de acompanhar muitas famílias, entendemos como é importante poder contar com alguém realmente confiável para cuidar das crianças. Assim nasceu a Parents’ Break, para que as famílias possam aproveitar o seu tempo com a tranquilidade de saber que os filhos estão nas melhores mãos. Hoje contamos com uma rede de mais de 80 sitters selecionadas com cuidado pela nossa equipe. Nosso compromisso é oferecer muito mais do que uma babá: é oferecer confiança, segurança e tranquilidade para cada família.",
+    "resto": "Depois de acompanhar muitas famílias, entendemos como é importante poder contar com alguém realmente confiável para cuidar das crianças. Assim nasceu a Parents’ Break, para que as famílias possam aproveitar o seu tempo com a tranquilidade de saber que os filhos estão nas melhores mãos. Hoje contamos com uma rede de mais de 80 babás selecionadas com cuidado pela nossa equipe. Nosso compromisso é oferecer muito mais do que uma babá: é oferecer confiança, segurança e tranquilidade para cada família.",
     "fotoAlt": "Babá da Parents’ Break brincando com crianças",
     "subtitulo": "Não somos um aplicativo. Somos pessoas.",
     "cuerpo": "Por trás de cada serviço há uma equipe real acompanhando o processo. Ouvimos as necessidades de cada família, buscamos a babá mais adequada e coordenamos cada detalhe de forma personalizada, para que a experiência seja simples, próxima e confiável. Nosso processo de seleção é acompanhado por psicólogas e profissionais especializadas em infância, priorizando não só a experiência, mas também a responsabilidade, o carinho e a qualidade humana de cada perfil. Todas as babás da Parents’ Break têm experiência prévia em cuidado infantil e passam por entrevistas, verificação de referências e avaliações antes de entrar para a equipe.",
     "valores": [
       {
         "titulo": "Seleção rigorosa",
-        "texto": "Cada babá passa por um rigoroso processo de seleção acompanhado por psicólogas e profissionais especializadas em infância, para selecionar as babysitters mais preparadas para acompanhar cada família. Avaliamos a experiência prévia, fazemos entrevistas pessoais e verificamos referências."
+        "texto": "Cada babá passa por um rigoroso processo de seleção acompanhado por psicólogas e profissionais especializadas em infância, para selecionar as babás mais preparadas para acompanhar cada família. Avaliamos a experiência prévia, fazemos entrevistas pessoais e verificamos referências."
       },
       {
         "titulo": "Atendimento personalizado",
@@ -106,7 +106,7 @@
           "Comunicação constante com os pais",
           "Brinquedos de fabricação uruguaia para estimular o desenvolvimento lúdico"
         ],
-        "boton": "Reservar babysitting"
+        "boton": "Solicitar babysitting"
       },
       {
         "servicio": "Petsittings",
@@ -142,7 +142,7 @@
   },
   "comoFunciona": {
     "etiqueta": "Como funciona",
-    "titulo": "Agendar um serviço é muito fácil",
+    "titulo": "Solicitar um serviço é muito fácil",
     "subtitulo": "Tudo é combinado pelo WhatsApp, de forma rápida, simples e personalizada.",
     "pasos": [
       {
@@ -221,7 +221,7 @@
   },
   "simulador": {
     "etiqueta": "Rápido e fácil",
-    "titulo": "Agende seu serviço",
+    "titulo": "Solicite seu serviço",
     "subtitulo": "Preencha o formulário e preparamos automaticamente uma mensagem pronta para enviar pelo WhatsApp.",
     "erroresTitulo": "Preencha os campos a seguir antes de enviar:",
     "nombre": "Seu nome *",
@@ -328,7 +328,7 @@
   },
   "ctaFinal": {
     "titulo": "Estamos aqui para ajudar",
-    "texto": "Fale conosco pelo WhatsApp e conte do que você precisa. Juntas vamos encontrar a babysitter que melhor se adapta à sua família.",
+    "texto": "Fale conosco pelo WhatsApp e conte do que você precisa. Juntas vamos encontrar a babá que melhor se adapta à sua família.",
     "botonWhatsApp": "Fale conosco no WhatsApp agora",
     "botonFormulario": "Preencher formulário →",
     "nota": "Sem compromisso. Respondemos pelo WhatsApp",

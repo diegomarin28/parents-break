@@ -22,7 +22,7 @@
       "nineras": "Our sitters",
       "simulador": "Request a service"
     },
-    "boton": "Book a service",
+    "boton": "Arrange a service",
     "abrirMenu": "Open menu",
     "cerrarMenu": "Close menu",
     "idioma": "Language",
@@ -41,7 +41,7 @@
       "Petsittings": "Pet sitting",
       "Evento": "Events"
     },
-    "botonPrincipal": "Book a service",
+    "botonPrincipal": "Arrange a service",
     "botonSecundario": "Fill in the form →",
     "nota": "No commitment. We'll reply on WhatsApp",
     "prueba": [
@@ -106,7 +106,7 @@
           "Constant communication with parents",
           "Toys made in Uruguay to encourage play-based development"
         ],
-        "boton": "Book babysitting"
+        "boton": "Request babysitting"
       },
       {
         "servicio": "Petsittings",
@@ -142,7 +142,7 @@
   },
   "comoFunciona": {
     "etiqueta": "How it works",
-    "titulo": "Booking a service is easy",
+    "titulo": "Arranging a service is easy",
     "subtitulo": "Everything is arranged on WhatsApp, quickly, simply and personally.",
     "pasos": [
       {
@@ -221,7 +221,7 @@
   },
   "simulador": {
     "etiqueta": "Quick and easy",
-    "titulo": "Book your service",
+    "titulo": "Arrange your service",
     "subtitulo": "Fill in the form and we'll automatically prepare a message ready to send on WhatsApp.",
     "erroresTitulo": "Please complete the following fields before sending:",
     "nombre": "Your name *",
@@ -256,7 +256,7 @@
     "eventoHoraFin": "End time",
     "cantNinosEvento": "Approx. number of children",
     "cantNinosEventoEjemplo": "E.g. 10-15 children",
-    "departamento": "Department *",
+    "departamento": "Department (e.g. Maldonado) *",
     "zona": "Area *",
     "seleccionarZona": "Select your area",
     "zonaOtro": "Which area? *",

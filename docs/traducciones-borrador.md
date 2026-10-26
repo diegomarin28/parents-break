@@ -1,24 +1,23 @@
 # Traducciones: borrador para revisar
 
-Estado: **borrador**. Ningún texto en inglés o portugués se publica sin la revisión de Diego y de las dueñas.
+Estado: **revisión de Diego aplicada (26/10/2026)**. Queda una fila pendiente, marcada con **PENDIENTE**. Ningún texto nuevo en inglés o portugués se publica sin revisión.
 
 Esta tabla se armó a partir de `src/dictionaries/*.json`, que es de donde la página lee los textos. Las correcciones se pueden marcar acá; después se pasan a los JSON.
 
-Criterios usados en el borrador:
+Criterios:
 
 - Nombres propios y zonas no se traducen (Montevideo, Canelones, Punta del Este, Pocitos, Delfina, Federica, Parents' Break).
-- Inglés: "babysitter" para niñera (también se usa "sitter" donde el español dice "sitter"). "Department" para departamento.
-- Portugués de Brasil (`pt_BR`): "babá" para niñera, "pet" para mascota, "região" para zona.
+- No se usa "book" / "agendar" / "reservar": dan a entender una reserva automática, y todo se coordina por WhatsApp. Inglés: "arrange" / "request". Portugués: "solicitar".
+- Inglés: "babysitter" para niñera (también "sitter" donde el español dice "sitter"). En el formulario, "Department (e.g. Maldonado)"; en el mensaje de WhatsApp, "Department".
+- Portugués de Brasil (`pt_BR`): "babá" para niñera en todos los textos ("Babysitting" queda como nombre del servicio), "pet" para mascota, "região" para zona.
 - Los números (+80 niñeras, +3 años, 24/7) son los mismos que en español: no se agregó ningún dato.
 - Las fechas del mensaje de WhatsApp siguen en dd/mm/aaaa en los tres idiomas, porque las lee el equipo en Uruguay.
 
-Para revisar especialmente:
+Cambios de la revisión del 26/10/2026:
 
-- "Most requested" / "Mais procurado" ("Más solicitado") y los textos de los botones de cada servicio.
-- "Book a service" / "Agendar serviço" para "Coordinar servicio".
-- "Open-ended" / "Sem data de término" para "Indefinido" (babysitting fijo).
-- Los tres textos de la página "Abriendo WhatsApp".
-- Las palabras clave para Google: son una propuesta, conviene ajustarlas a cómo buscan las familias.
+- Inglés: "Book a service" → "Arrange a service"; "Book your service" → "Arrange your service"; "Book babysitting" → "Request babysitting"; "Booking a service is easy" → "Arranging a service is easy"; etiqueta "Department" → "Department (e.g. Maldonado)".
+- Portugués: "Agendar serviço" → "Solicitar serviço"; "Agende seu serviço" → "Solicite seu serviço"; "Agendar um serviço é muito fácil" → "Solicitar um serviço é muito fácil"; "babysitter(s)" y "sitters" → "babá(s)" en Quiénes somos y en el CTA final.
+- Agregados por el mismo criterio, a confirmar: "Reservar babysitting" → "Solicitar babysitting" (portugués), y "sitters" / "as babysitters mais preparadas" → "babás" (portugués, Quiénes somos).
 
 ## Google y vista previa al compartir
 
@@ -45,7 +44,7 @@ Para revisar especialmente:
 | `links.comoFunciona` | Cómo funciona | How it works | Como funciona |
 | `links.nineras` | Niñeras | Our sitters | Babás |
 | `links.simulador` | Solicitar servicio | Request a service | Solicitar serviço |
-| `boton` | Coordinar servicio | Book a service | Agendar serviço |
+| `boton` | Coordinar servicio | Arrange a service | Solicitar serviço |
 | `abrirMenu` | Abrir menú | Open menu | Abrir menu |
 | `cerrarMenu` | Cerrar menú | Close menu | Fechar menu |
 | `idioma` | Idioma | Language | Idioma |
@@ -65,7 +64,7 @@ Para revisar especialmente:
 | `necesidades.Babysitting` | Babysitting | Babysitting | Babysitting |
 | `necesidades.Petsittings` | Petsitting | Pet sitting | Pet sitting |
 | `necesidades.Evento` | Eventos | Events | Eventos |
-| `botonPrincipal` | Coordinar servicio | Book a service | Agendar serviço |
+| `botonPrincipal` | Coordinar servicio | Arrange a service | Solicitar serviço |
 | `botonSecundario` | Completar formulario → | Fill in the form → | Preencher formulário → |
 | `nota` | Sin compromiso. Te respondemos por WhatsApp | No commitment. We'll reply on WhatsApp | Sem compromisso. Respondemos pelo WhatsApp |
 | `prueba[1].numero` | +80 niñeras activas | +80 active babysitters | +80 babás ativas |
@@ -89,15 +88,15 @@ Para revisar especialmente:
 |---|---|---|---|
 | `etiqueta` | Quiénes somos | About us | Quem somos |
 | `titulo` | Un servicio construido desde la confianza | A service built on trust | Um serviço construído com confiança |
-| `intro` | Somos Delfina y Federica, babysitters con más de seis años de experiencia. Desde hace más de tres años ayudamos a familias de Montevideo, Canelones y Punta del Este a encontrar babysitters capacitadas, responsables y de confianza. | We are Delfina and Federica, babysitters with more than six years of experience. For more than three years we have been helping families in Montevideo, Canelones and Punta del Este find trained, responsible and trustworthy babysitters. | Somos Delfina e Federica, babysitters com mais de seis anos de experiência. Há mais de três anos ajudamos famílias de Montevideo, Canelones e Punta del Este a encontrar babysitters capacitadas, responsáveis e de confiança. |
+| `intro` | Somos Delfina y Federica, babysitters con más de seis años de experiencia. Desde hace más de tres años ayudamos a familias de Montevideo, Canelones y Punta del Este a encontrar babysitters capacitadas, responsables y de confianza. | We are Delfina and Federica, babysitters with more than six years of experience. For more than three years we have been helping families in Montevideo, Canelones and Punta del Este find trained, responsible and trustworthy babysitters. | Somos Delfina e Federica, babás com mais de seis anos de experiência. Há mais de três anos ajudamos famílias de Montevideo, Canelones e Punta del Este a encontrar babás capacitadas, responsáveis e de confiança. |
 | `leerMas` | Leer más ↓ | Read more ↓ | Ler mais ↓ |
 | `leerMenos` | Leer menos ↑ | Read less ↑ | Ler menos ↑ |
-| `resto` | Después de acompañar a numerosas familias, entendimos lo importante que es poder contar con alguien realmente confiable para el cuidado de los niños. Así nació Parents’ Break, para que las familias puedan disfrutar de su tiempo con la tranquilidad de saber que sus hijos están en las mejores manos. Hoy contamos con una red de más de 80 sitters seleccionadas cuidadosamente por nuestro equipo. Nuestro compromiso es ofrecer mucho más que una niñera: es ofrecer confianza, seguridad y tranquilidad para cada familia. | After working with many families, we realized how important it is to have someone truly reliable to look after the children. That is how Parents’ Break was born: so families can enjoy their time knowing their children are in the best hands. Today we have a network of more than 80 sitters, carefully selected by our team. Our commitment is to offer much more than a babysitter: we offer trust, safety and peace of mind to every family. | Depois de acompanhar muitas famílias, entendemos como é importante poder contar com alguém realmente confiável para cuidar das crianças. Assim nasceu a Parents’ Break, para que as famílias possam aproveitar o seu tempo com a tranquilidade de saber que os filhos estão nas melhores mãos. Hoje contamos com uma rede de mais de 80 sitters selecionadas com cuidado pela nossa equipe. Nosso compromisso é oferecer muito mais do que uma babá: é oferecer confiança, segurança e tranquilidade para cada família. |
+| `resto` | Después de acompañar a numerosas familias, entendimos lo importante que es poder contar con alguien realmente confiable para el cuidado de los niños. Así nació Parents’ Break, para que las familias puedan disfrutar de su tiempo con la tranquilidad de saber que sus hijos están en las mejores manos. Hoy contamos con una red de más de 80 sitters seleccionadas cuidadosamente por nuestro equipo. Nuestro compromiso es ofrecer mucho más que una niñera: es ofrecer confianza, seguridad y tranquilidad para cada familia. | After working with many families, we realized how important it is to have someone truly reliable to look after the children. That is how Parents’ Break was born: so families can enjoy their time knowing their children are in the best hands. Today we have a network of more than 80 sitters, carefully selected by our team. Our commitment is to offer much more than a babysitter: we offer trust, safety and peace of mind to every family. | Depois de acompanhar muitas famílias, entendemos como é importante poder contar com alguém realmente confiável para cuidar das crianças. Assim nasceu a Parents’ Break, para que as famílias possam aproveitar o seu tempo com a tranquilidade de saber que os filhos estão nas melhores mãos. Hoje contamos com uma rede de mais de 80 babás selecionadas com cuidado pela nossa equipe. Nosso compromisso é oferecer muito mais do que uma babá: é oferecer confiança, segurança e tranquilidade para cada família. |
 | `fotoAlt` | Niñera de Parents’ Break jugando con niños | Parents’ Break babysitter playing with children | Babá da Parents’ Break brincando com crianças |
 | `subtitulo` | No somos una app. Somos personas. | We're not an app. We're people. | Não somos um aplicativo. Somos pessoas. |
 | `cuerpo` | Detrás de cada servicio hay un equipo real acompañando el proceso. Escuchamos las necesidades de cada familia, buscamos la niñera más adecuada y coordinamos cada detalle de forma personalizada para que la experiencia sea simple, cercana y confiable. Nuestro proceso de selección es acompañado por psicólogas y profesionales especializadas en infancia, priorizando no solo la experiencia, sino también la responsabilidad, la calidez y la calidad humana de cada perfil. Todas las niñeras de Parents’ Break cuentan con experiencia previa en cuidado infantil y atraviesan entrevistas, validación de referencias y evaluaciones antes de incorporarse al equipo. | Behind every service there is a real team guiding the process. We listen to each family's needs, look for the most suitable babysitter and coordinate every detail personally, so the experience is simple, close and reliable. Our selection process is supported by psychologists and professionals specialized in childhood, prioritizing not only experience but also responsibility, warmth and the human quality of each profile. All Parents’ Break babysitters have previous childcare experience and go through interviews, reference checks and assessments before joining the team. | Por trás de cada serviço há uma equipe real acompanhando o processo. Ouvimos as necessidades de cada família, buscamos a babá mais adequada e coordenamos cada detalhe de forma personalizada, para que a experiência seja simples, próxima e confiável. Nosso processo de seleção é acompanhado por psicólogas e profissionais especializadas em infância, priorizando não só a experiência, mas também a responsabilidade, o carinho e a qualidade humana de cada perfil. Todas as babás da Parents’ Break têm experiência prévia em cuidado infantil e passam por entrevistas, verificação de referências e avaliações antes de entrar para a equipe. |
 | `valores[1].titulo` | Selección rigurosa | Rigorous selection | Seleção rigorosa |
-| `valores[1].texto` | Cada niñera atraviesa un riguroso proceso de selección acompañado por psicólogas y profesionales especializadas en infancia, para así seleccionar a las babysitters más preparadas para acompañar a cada familia. Evaluamos experiencia previa, realizamos entrevistas personales y validamos referencias. | Every babysitter goes through a rigorous selection process supported by psychologists and professionals specialized in childhood, so we choose the best-prepared babysitters for each family. We assess previous experience, hold personal interviews and check references. | Cada babá passa por um rigoroso processo de seleção acompanhado por psicólogas e profissionais especializadas em infância, para selecionar as babysitters mais preparadas para acompanhar cada família. Avaliamos a experiência prévia, fazemos entrevistas pessoais e verificamos referências. |
+| `valores[1].texto` | Cada niñera atraviesa un riguroso proceso de selección acompañado por psicólogas y profesionales especializadas en infancia, para así seleccionar a las babysitters más preparadas para acompañar a cada familia. Evaluamos experiencia previa, realizamos entrevistas personales y validamos referencias. | Every babysitter goes through a rigorous selection process supported by psychologists and professionals specialized in childhood, so we choose the best-prepared babysitters for each family. We assess previous experience, hold personal interviews and check references. | Cada babá passa por um rigoroso processo de seleção acompanhado por psicólogas e profissionais especializadas em infância, para selecionar as babás mais preparadas para acompanhar cada família. Avaliamos a experiência prévia, fazemos entrevistas pessoais e verificamos referências. |
 | `valores[2].titulo` | Atención personalizada | Personalized care | Atendimento personalizado |
 | `valores[2].texto` | Acompañamos cada servicio de principio a fin. Queremos que las familias se sientan seguras, cómodas y realmente acompañadas. | We stay with you through every service, from start to finish. We want families to feel safe, comfortable and truly supported. | Acompanhamos cada serviço do início ao fim. Queremos que as famílias se sintam seguras, à vontade e realmente acompanhadas. |
 | `valores[3].titulo` | Confianza ante todo | Trust above all | Confiança acima de tudo |
@@ -124,7 +123,7 @@ Para revisar especialmente:
 | `tarjetas[1].items[4]` | Acompañamiento activo y responsable | Active and responsible care | Acompanhamento ativo e responsável |
 | `tarjetas[1].items[5]` | Comunicación constante con los padres | Constant communication with parents | Comunicação constante com os pais |
 | `tarjetas[1].items[6]` | Juguetes de industria nacional para fomentar el desarrollo lúdico | Toys made in Uruguay to encourage play-based development | Brinquedos de fabricação uruguaia para estimular o desenvolvimento lúdico |
-| `tarjetas[1].boton` | Reservar babysitting | Book babysitting | Reservar babysitting |
+| `tarjetas[1].boton` | Reservar babysitting | Request babysitting | Solicitar babysitting |
 | `tarjetas[2].servicio` | Petsittings | Petsittings | Petsittings |
 | `tarjetas[2].titulo` | Petsittings | Pet sitting | Pet sitting |
 | `tarjetas[2].subtitulo` | Cuidado de mascotas | Pet care | Cuidado de pets |
@@ -153,7 +152,7 @@ Para revisar especialmente:
 | Clave | Español | English | Português |
 |---|---|---|---|
 | `etiqueta` | Cómo funciona | How it works | Como funciona |
-| `titulo` | Coordinar un servicio es muy fácil | Booking a service is easy | Agendar um serviço é muito fácil |
+| `titulo` | Coordinar un servicio es muy fácil | Arranging a service is easy | Solicitar um serviço é muito fácil |
 | `subtitulo` | Todo se organiza por WhatsApp, de forma rápida, simple y personalizada. | Everything is arranged on WhatsApp, quickly, simply and personally. | Tudo é combinado pelo WhatsApp, de forma rápida, simples e personalizada. |
 | `pasos[1].titulo` | Empieza tu solicitud | Start your request | Comece sua solicitação |
 | `pasos[1].texto` | Te consultamos fecha, horario, zona, cantidad de niños y tipo de servicio | We ask about the date, time, area, number of children and type of service | Perguntamos a data, o horário, a região, a quantidade de crianças e o tipo de serviço |
@@ -182,7 +181,7 @@ Para revisar especialmente:
 | `proceso[3].titulo` | Evaluación profesional | Professional assessment | Avaliação profissional |
 | `proceso[3].texto` | Psicólogas y profesionales especializadas en infancia acompañan el proceso de selección para garantizar perfiles confiables y adecuados para el cuidado infantil. | Psychologists and professionals specialized in childhood support the selection process to ensure reliable profiles suited to childcare. | Psicólogas e profissionais especializadas em infância acompanham o processo de seleção para garantir perfis confiáveis e adequados para o cuidado infantil. |
 | `proceso[4].titulo` | Validación de referencias | Reference checks | Verificação de referências |
-| `proceso[4].texto` | Verificamos referencias y antecedentes | We verify references and background | Verificamos referências e antecedentes |
+| `proceso[4].texto` **PENDIENTE: Diego lo confirma con las dueñas** | Verificamos referencias y antecedentes | We verify references and background | Verificamos referências e antecedentes |
 | `elegirTitulo` | Podés elegir según | You can choose by | Você pode escolher por |
 | `cualidades[1].titulo` | Formación | Education | Formação |
 | `cualidades[1].texto` | Estudiantes y perfiles vinculados a Medicina, Educación Inicial, Psicología y áreas afines. | Students and profiles related to Medicine, Early Childhood Education, Psychology and similar fields. | Estudantes e perfis ligados a Medicina, Educação Infantil, Psicologia e áreas afins. |
@@ -202,7 +201,7 @@ Para revisar especialmente:
 | Clave | Español | English | Português |
 |---|---|---|---|
 | `etiqueta` | Rápido y fácil | Quick and easy | Rápido e fácil |
-| `titulo` | Coordina tu servicio | Book your service | Agende seu serviço |
+| `titulo` | Coordina tu servicio | Arrange your service | Solicite seu serviço |
 | `subtitulo` | Completá el formulario y te preparamos automáticamente un mensaje listo para enviar por WhatsApp. | Fill in the form and we'll automatically prepare a message ready to send on WhatsApp. | Preencha o formulário e preparamos automaticamente uma mensagem pronta para enviar pelo WhatsApp. |
 | `erroresTitulo` | Completá los siguientes campos antes de enviar: | Please complete the following fields before sending: | Preencha os campos a seguir antes de enviar: |
 | `nombre` | Tu nombre * | Your name * | Seu nome * |
@@ -238,7 +237,7 @@ Para revisar especialmente:
 | `eventoHoraFin` | Hora de fin | End time | Hora de término |
 | `cantNinosEvento` | Cantidad aprox. de niños | Approx. number of children | Quantidade aprox. de crianças |
 | `cantNinosEventoEjemplo` | Ej: 10-15 niños | E.g. 10-15 children | Ex.: 10-15 crianças |
-| `departamento` | Departamento * | Department * | Departamento * |
+| `departamento` | Departamento * | Department (e.g. Maldonado) * | Departamento * |
 | `zona` | Zona * | Area * | Região * |
 | `seleccionarZona` | Seleccioná tu zona | Select your area | Selecione sua região |
 | `zonaOtro` | ¿En qué zona? * | Which area? * | Em qual região? * |
@@ -309,7 +308,7 @@ Para revisar especialmente:
 | Clave | Español | English | Português |
 |---|---|---|---|
 | `titulo` | Estamos para ayudarte | We're here to help | Estamos aqui para ajudar |
-| `texto` | Escribinos por WhatsApp y contanos qué necesitás. Juntas encontraremos la babysitter que mejor se adapte a tu familia. | Message us on WhatsApp and tell us what you need. Together we'll find the babysitter who best fits your family. | Fale conosco pelo WhatsApp e conte do que você precisa. Juntas vamos encontrar a babysitter que melhor se adapta à sua família. |
+| `texto` | Escribinos por WhatsApp y contanos qué necesitás. Juntas encontraremos la babysitter que mejor se adapte a tu familia. | Message us on WhatsApp and tell us what you need. Together we'll find the babysitter who best fits your family. | Fale conosco pelo WhatsApp e conte do que você precisa. Juntas vamos encontrar a babá que melhor se adapta à sua família. |
 | `botonWhatsApp` | Escríbenos por WhatsApp ahora | Message us on WhatsApp now | Fale conosco no WhatsApp agora |
 | `botonFormulario` | Completar formulario → | Fill in the form → | Preencher formulário → |
 | `nota` | Sin compromiso. Te respondemos por WhatsApp | No commitment. We'll reply on WhatsApp | Sem compromisso. Respondemos pelo WhatsApp |
