@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { waIrLink } from "../lib/contact";
 
@@ -67,6 +65,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="footer-bottom">
+          {/* Componente de servidor: el año se fija al publicar (cada deploy lo actualiza) */}
           <span>© {new Date().getFullYear()} Parents&apos; Break. Todos los derechos reservados.</span>
           <span>Diseñado y desarrollado en Uruguay</span>
         </div>
