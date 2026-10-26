@@ -346,6 +346,11 @@
     "aviso": "We use anonymous visit statistics, without cookies."
   },
   "flotante": "Message us on WhatsApp",
+  "noEncontrada": {
+    "titulo": "We couldn't find this page",
+    "texto": "The link may be mistyped, or the page may no longer exist.",
+    "volver": "Back to home"
+  },
   "redireccion": {
     "titulo": "Opening WhatsApp…",
     "siNoAbre": "If it doesn't open,",

@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // Página 404 propia (src/app/global-not-found.tsx): hace falta porque la app tiene
+    // dos layouts raíz ([lang] e ir) y no hay uno común para armarla.
+    globalNotFound: true,
+  },
   images: {
     // AVIF primero (pesa ~30% menos que WebP a igual calidad); WebP como respaldo.
     formats: ["image/avif", "image/webp"],

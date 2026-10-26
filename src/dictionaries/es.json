@@ -346,6 +346,11 @@
     "aviso": "Usamos estadísticas anónimas de visitas, sin cookies."
   },
   "flotante": "Escribinos por WhatsApp",
+  "noEncontrada": {
+    "titulo": "No encontramos esta página",
+    "texto": "Puede que el link esté mal escrito o que la página ya no exista.",
+    "volver": "Volver al inicio"
+  },
   "redireccion": {
     "titulo": "Abriendo WhatsApp…",
     "siNoAbre": "Si no se abre solo,",

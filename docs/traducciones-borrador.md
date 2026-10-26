@@ -20,6 +20,7 @@ Cambios de la revisión del 26/10/2026:
 - Paso "Validación de referencias", en los tres idiomas: sin "antecedentes" / "background". Queda "Verificamos referencias de trabajos anteriores." / "We check references from previous jobs." / "Verificamos referências de trabalhos anteriores." (cambia también el texto en español).
 - Inglés: "Company / general care" → "Companionship / general care" (formulario y mensaje de WhatsApp).
 - Zonas: confirmado que quedan iguales en los tres idiomas.
+- Nueva: textos de la página 404, a revisar.
 - Agregados por el mismo criterio, a confirmar: "Reservar babysitting" → "Solicitar babysitting" (portugués), y "sitters" / "as babysitters mais preparadas" → "babás" (portugués, Quiénes somos).
 
 ## Google y vista previa al compartir
@@ -350,6 +351,14 @@ Cambios de la revisión del 26/10/2026:
 | `siNoAbre` | Si no se abre solo, | If it doesn't open, | Se não abrir sozinho, |
 | `tocaAca` | tocá acá | tap here | toque aqui |
 | `volver` | Volver a la página | Back to the site | Voltar ao site |
+
+## Página 404 (dirección que no existe; elige el idioma por la dirección)
+
+| Clave | Español | English | Português |
+|---|---|---|---|
+| `titulo` | No encontramos esta página | We couldn't find this page | Não encontramos esta página |
+| `texto` | Puede que el link esté mal escrito o que la página ya no exista. | The link may be mistyped, or the page may no longer exist. | O link pode estar digitado errado ou a página pode não existir mais. |
+| `volver` | Volver al inicio | Back to home | Voltar ao início |
 
 ## Mensaje de WhatsApp
 
