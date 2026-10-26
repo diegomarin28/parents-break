@@ -226,6 +226,10 @@ useEffect(() => {
           scrollbar-width: none;
         }
         .nav-links::-webkit-scrollbar { display: none; }
+        /* Centrado con márgenes automáticos: si los links no entran, se recorta solo
+           el final (y se puede deslizar), nunca el primero. */
+        .nav-links > :first-child { margin-left: auto; }
+        .nav-links > :last-child { margin-right: auto; }
         .nav-link {
           flex-shrink: 0;
           padding: 6px 13px;
@@ -317,17 +321,31 @@ useEffect(() => {
           .nav-link { padding: 6px 7px; }
         }
         /* El botón amarillo queda solo con el ícono: si no, los links no entran */
-        @media (max-width: 900px) {
+        @media (max-width: 960px) {
           .nav-cta-label { display: none; }
           .nav-cta { padding: 10px 14px; }
         }
 
         /* ── TABLET: links más chicos ── */
-        @media (max-width: 768px) {
+        @media (max-width: 800px) {
           .nav-link { font-size: 13px; padding: 6px 7px; }
         }
+        @media (max-width: 768px) {
+          .nav-container { padding: 0 16px; }
+          .nav-logo img { width: 100px; height: auto; }
+        }
         @media (max-width: 700px) {
-          .nav-link { padding: 6px 5px; }
+          .nav-link { font-size: 12.5px; padding: 6px 4px; }
+        }
+        @media (max-width: 660px) {
+          .nav-inner { gap: 4px; }
+          .nav-links { gap: 0; }
+          .nav-actions { gap: 4px; }
+          .nav-logo img { width: 84px; }
+          .nav-link { padding: 6px 3px; }
+          .nav-cta { padding: 10px 12px; }
+          .nav-actions .idioma-barra { margin-right: 0; }
+          .nav-actions .idioma-barra .idioma-link { padding: 10px 2px; }
         }
 
         /* ── MOBILE: solo logo + menú. El botón de WhatsApp es el flotante, que acá vive en la Navbar ── */
