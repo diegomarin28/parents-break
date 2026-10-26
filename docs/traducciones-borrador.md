@@ -20,8 +20,9 @@ Cambios de la revisión del 26/10/2026:
 - Paso "Validación de referencias", en los tres idiomas: sin "antecedentes" / "background". Queda "Verificamos referencias de trabajos anteriores." / "We check references from previous jobs." / "Verificamos referências de trabalhos anteriores." (cambia también el texto en español).
 - Inglés: "Company / general care" → "Companionship / general care" (formulario y mensaje de WhatsApp).
 - Zonas: confirmado que quedan iguales en los tres idiomas.
-- Nueva: textos de la página 404, a revisar.
-- Agregados por el mismo criterio, a confirmar: "Reservar babysitting" → "Solicitar babysitting" (portugués), y "sitters" / "as babysitters mais preparadas" → "babás" (portugués, Quiénes somos).
+- Textos de la página 404: aprobados.
+- Botón de la tarjeta de babysitting: "Solicitar babysitting" en español y portugués (antes "Reservar babysitting"), "Request babysitting" en inglés.
+- Portugués: "babás" en todos los textos, incluidos "sitters" y "as babysitters mais preparadas" de Quiénes somos (aprobado).
 
 ## Google y vista previa al compartir
 
@@ -127,7 +128,7 @@ Cambios de la revisión del 26/10/2026:
 | `tarjetas[1].items[4]` | Acompañamiento activo y responsable | Active and responsible care | Acompanhamento ativo e responsável |
 | `tarjetas[1].items[5]` | Comunicación constante con los padres | Constant communication with parents | Comunicação constante com os pais |
 | `tarjetas[1].items[6]` | Juguetes de industria nacional para fomentar el desarrollo lúdico | Toys made in Uruguay to encourage play-based development | Brinquedos de fabricação uruguaia para estimular o desenvolvimento lúdico |
-| `tarjetas[1].boton` | Reservar babysitting | Request babysitting | Solicitar babysitting |
+| `tarjetas[1].boton` | Solicitar babysitting | Request babysitting | Solicitar babysitting |
 | `tarjetas[2].servicio` | Petsittings | Petsittings | Petsittings |
 | `tarjetas[2].titulo` | Petsittings | Pet sitting | Pet sitting |
 | `tarjetas[2].subtitulo` | Cuidado de mascotas | Pet care | Cuidado de pets |
