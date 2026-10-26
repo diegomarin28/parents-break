@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import { URL_SITIO } from "../../lib/sitio";
 import { claseFuentes } from "../fuentes";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://parents-break.vercel.app"),
+  metadataBase: new URL(URL_SITIO),
 };
 
 // Layout raíz de /ir/whatsapp/<origen>, aparte del de la página: no lleva prefijo de

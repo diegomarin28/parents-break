@@ -20,3 +20,17 @@ export const NOMBRE_IDIOMA: Record<Idioma, string> = {
   en: "English",
   pt: "Português",
 };
+
+// Idioma y región para og:locale (vista previa al compartir)
+export const LOCALE_OG: Record<Idioma, string> = {
+  es: "es_UY",
+  en: "en_US",
+  pt: "pt_BR",
+};
+
+// Versiones alternativas para Google (hreflang). x-default: la que se muestra
+// cuando el idioma del buscador no es ninguno de estos.
+export const ALTERNATIVAS: Record<string, string> = {
+  ...RUTA_IDIOMA,
+  "x-default": RUTA_IDIOMA.es,
+};

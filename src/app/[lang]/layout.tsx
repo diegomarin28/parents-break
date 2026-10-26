@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { getDictionary } from "../../dictionaries";
-import { IDIOMAS, esIdioma } from "../../lib/idiomas";
+import { ALTERNATIVAS, IDIOMAS, LOCALE_OG, RUTA_IDIOMA, esIdioma } from "../../lib/idiomas";
+import { URL_SITIO } from "../../lib/sitio";
 import { claseFuentes } from "../fuentes";
 import "../globals.css";
 
@@ -17,17 +18,21 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   if (!esIdioma(lang)) return {};
   const t = getDictionary(lang).metadatos;
   return {
-    // Base para las URL absolutas de la vista previa (og:image). Si el sitio pasa a un dominio propio, cambiar acá.
-    metadataBase: new URL("https://parents-break.vercel.app"),
+    // Base para las URL absolutas (og:image, canonical, hreflang)
+    metadataBase: new URL(URL_SITIO),
     title: t.titulo,
     description: t.descripcion,
     keywords: t.palabrasClave,
+    // canonical: la dirección propia de esta versión. languages: las tres versiones,
+    // de donde Next arma las etiquetas <link rel="alternate" hreflang="...">.
+    alternates: { canonical: RUTA_IDIOMA[lang], languages: ALTERNATIVAS },
     openGraph: {
-      url: "/",
+      url: RUTA_IDIOMA[lang],
       siteName: "Parents' Break",
       title: t.ogTitulo,
       description: t.ogDescripcion,
-      locale: "es_UY",
+      locale: LOCALE_OG[lang],
+      alternateLocale: IDIOMAS.filter((l) => l !== lang).map((l) => LOCALE_OG[l]),
       type: "website",
       // La imagen se declara acá (y vive en public/): si quedara como archivo
       // opengraph-image.jpg en src/app, este openGraph la taparía.
