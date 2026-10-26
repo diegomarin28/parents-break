@@ -32,14 +32,12 @@ El flujo esperado: el usuario entra, entiende el servicio, usa el simulador o el
 
 ## Stack
 
-- Next.js + React + Tailwind CSS
 - Tailwind se usa muy poco. Está instalado en su versión 4 (vía `postcss.config.mjs` y `@tailwindcss/postcss`), pero casi todo el estilo vive en las variables CSS de `src/app/globals.css` y en bloques `<style>` o estilos inline de cada componente. Al tocar un componente, seguir el estilo que ya usa.
 - Hosting: Vercel (plan gratis)
 - Vercel Web Analytics activado: sin cookies, visitante identificado con un hash que se descarta a las 24 horas. Plan Hobby: 50.000 eventos por mes, un mes de historial, sin eventos personalizados. Por eso los toques en WhatsApp se cuentan como páginas vistas de `/ir/whatsapp/<origen>`.
 - Node.js 24, fijado con `engines` en `package.json`. Vercel dejó de aceptar Node 20 (con esa versión el deploy falla antes de instalar): no bajarlo.
 - Fuentes: Baloo 2 y Source Sans 3 están en `src/app/fonts` (subconjunto latino, licencia OFL) y se cargan con `next/font/local` desde `src/app/layout.tsx` (variables `--font-baloo` y `--font-source`). No volver a `next/font/google`: descarga las fuentes en cada build y el build fallaba cuando Google no respondía. Tampoco a Google Fonts por `<link>` ni `@import`: bloqueaba el render y hacía saltar el texto.
 - Componentes de servidor: Hero, Quiénes somos, Servicios, Cómo funciona, Niñeras, CTA final y Footer no llevan `"use client"`. Los efectos al pasar el mouse van en CSS (`:hover`), no en `onMouseEnter`; los estilos que cambian con el mouse no pueden ir en `style={{}}` porque le ganan al CSS. Lo que necesita JavaScript va en componentes cliente chicos (`IrAlSimulador`, `FadeIn`). Los desplegables ("Ver todo lo que incluye", "Leer más") son `<details>` nativos: sin JavaScript y accesibles.
-- Editor: VS Code
 - No cambiar de stack ni agregar dependencias pesadas sin que Diego lo pida.
 
 ## Estructura de la página (una sola página)
@@ -83,34 +81,9 @@ Prioridad de desarrollo: 1) Hero + CTA, 2) botón de WhatsApp funcional, 3) simu
 
 Formulario dinámico (`SimulatorSection.tsx`) que arma un mensaje y abre WhatsApp (link `wa.me` con el texto codificado).
 
-Campos base: nombre, tipo de servicio (Babysitting / Petsittings / Evento, elegido con tres tarjetas que son radios reales: se manejan con teclado y lector de pantalla), departamento (Montevideo, Canelones o Maldonado), zona (con "Otro" de texto libre), edades (salvo Petsitting) y comentarios.
-
-Condicionales:
-
-- Babysitting: modalidad Puntual o Fijo, y cantidad de niños.
-  - Puntual: de 1 a 4 días, cada uno con fecha, hora de inicio y hora de fin.
-  - Fijo: días de la semana, horario, desde cuándo y hasta cuándo (indefinido o hasta una fecha).
-- Petsitting: tipo (visita a domicilio, pernocte u hospedaje en casa de la cuidadora), cantidad de mascotas y qué necesita. La visita pide días y horarios; pernocte y hospedaje piden fechas desde/hasta.
-- Evento: tipo de evento, fecha, horario y cantidad aproximada de niños.
+El tipo de servicio se elige con tres tarjetas que son radios reales (teclado y lector de pantalla): no cambiarlas por divs clickeables.
 
 Los botones de cada tarjeta de Servicios y los accesos "¿Qué necesitás?" del Hero preseleccionan el servicio en el simulador con `IrAlSimulador` (`?servicio=` + evento `popstate`).
-
-Mensaje generado (ejemplo de un evento; solo se incluyen los campos del servicio elegido):
-
-```
-Hola! Quiero coordinar un servicio de Parents' Break
-
-*Nombre:*
-*Servicio:*
-*Tipo de evento:*
-*Fecha:*
-*Horario:*
-*Cantidad aproximada de niños:*
-*Edades:*
-*Departamento:*
-*Zona:*
-*Comentarios:*
-```
 
 Las fechas van en formato dd/mm/aaaa. "Hoy" se calcula con la hora local, no con `toISOString()` (que usa UTC).
 
