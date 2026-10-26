@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { WA_MENSAJE_INICIAL, waLink } from "../../../../lib/contact";
+import { waLink } from "../../../../lib/contact";
+import type { Diccionario } from "../../../../dictionaries/tipos";
 
 declare global {
   interface Window { __mensajeWA?: string }
@@ -10,12 +10,19 @@ declare global {
 
 const SCRIPT_ANALYTICS = "/_vercel/insights/script.js";
 
-export default function Redirigir() {
-  const enlace = useRef<HTMLAnchorElement>(null);
+type Props = {
+  // Textos en cada idioma, con la dirección de esa versión de la página
+  textos: { lang: string; ruta: string; t: Diccionario["redireccion"] }[];
+  // Mensaje que se usa si el botón no mandó uno (los de la versión en español)
+  saludo: string;
+};
+
+export default function Redirigir({ textos, saludo }: Props) {
+  const caja = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const url = waLink(window.__mensajeWA || WA_MENSAJE_INICIAL);
-    if (enlace.current) enlace.current.href = url;
+    const url = waLink(window.__mensajeWA || saludo);
+    caja.current?.querySelectorAll<HTMLAnchorElement>("a.ir-wa-enlace").forEach((a) => { a.href = url; });
     // Espera a que el script de Analytics haya terminado de cargar (aparece en
     // Resource Timing) y le deja 200 ms para mandar la página vista. Si tarda
     // más de 1,5 s en total, redirige igual.
@@ -31,16 +38,26 @@ export default function Redirigir() {
     };
     esperar();
     return () => window.clearTimeout(timer);
-  }, []);
+  }, [saludo]);
 
   return (
-    <div className="ir-wa-caja">
+    <div className="ir-wa-caja" ref={caja}>
       <Image src="/logo.png" alt="Parents' Break" width={120} height={50} style={{ objectFit: "contain" }} priority />
-      <p className="ir-wa-titulo">Abriendo WhatsApp…</p>
-      <p className="ir-wa-texto">
-        Si no se abre solo, <a ref={enlace} href="#">tocá acá</a>.
+      <div className="ir-wa-titulos">
+        {textos.map(({ lang, t }, i) => (
+          <p key={lang} lang={lang} className={i === 0 ? "ir-wa-titulo" : "ir-wa-titulo-otro"}>{t.titulo}</p>
+        ))}
+      </div>
+      <div className="ir-wa-texto">
+        {textos.map(({ lang, t }) => (
+          <p key={lang} lang={lang}>{t.siNoAbre} <a className="ir-wa-enlace" href="#">{t.tocaAca}</a>.</p>
+        ))}
+      </div>
+      <p className="ir-wa-volver">
+        {textos.map(({ lang, ruta, t }, i) => (
+          <span key={lang}>{i > 0 && " · "}<a href={ruta} lang={lang} hrefLang={lang}>{t.volver}</a></span>
+        ))}
       </p>
-      <Link className="ir-wa-volver" href="/">Volver a la página</Link>
       <style>{`
         .ir-wa {
           min-height: 100vh;
@@ -72,11 +89,18 @@ export default function Redirigir() {
           font-weight: 800;
           font-size: 24px;
           color: var(--text);
-          margin-top: 12px;
         }
-        .ir-wa-texto { font-size: 15px; color: var(--text-soft); }
+        .ir-wa-titulos { margin-top: 12px; }
+        .ir-wa-titulo-otro {
+          font-family: var(--font-baloo), cursive;
+          font-weight: 700;
+          font-size: 17px;
+          color: var(--text-soft);
+        }
+        .ir-wa-texto { font-size: 14px; color: var(--text-soft); display: flex; flex-direction: column; gap: 2px; }
         .ir-wa-texto a { color: var(--blue); font-weight: 700; text-decoration: underline; }
-        .ir-wa-volver { margin-top: 14px; font-size: 13px; color: var(--text-muted); }
+        .ir-wa-volver { margin-top: 14px; font-size: 13px; color: var(--text-soft); }
+        .ir-wa-volver a { color: inherit; }
       `}</style>
     </div>
   );

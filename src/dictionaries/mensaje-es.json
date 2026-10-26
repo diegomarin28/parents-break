@@ -1,0 +1,29 @@
+{
+  "saludo": "Hola! Quiero coordinar un servicio de Parents' Break",
+  "etiquetas": {
+    "nombre": "Nombre",
+    "servicio": "Servicio",
+    "modalidad": "Modalidad",
+    "dia": "Día {n}",
+    "fecha": "Fecha",
+    "horario": "Horario",
+    "dias": "Días",
+    "desde": "Desde",
+    "hasta": "Hasta",
+    "tipoEvento": "Tipo de evento",
+    "cantNinosEvento": "Cantidad aproximada de niños",
+    "tipoServicio": "Tipo de servicio",
+    "cantMascotas": "Cantidad de mascotas",
+    "necesita": "Necesita",
+    "cantNinos": "Cantidad de niños",
+    "edades": "Edades",
+    "departamento": "Departamento",
+    "zona": "Zona",
+    "comentarios": "Comentarios",
+    "idioma": "Idioma"
+  },
+  "valores": {
+    "Pernocte": "Pernocte (la cuidadora se queda en tu casa)",
+    "Hospedaje": "Hospedaje en casa de la cuidadora"
+  }
+}

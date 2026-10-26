@@ -1,0 +1,360 @@
+{
+  "metadatos": {
+    "titulo": "Parents' Break – Cuidado infantil profissional no Uruguai",
+    "descripcion": "Rede de mais de 80 babás selecionadas para babysitting, pet sitting e eventos em Montevideo, Canelones e Punta del Este. Confiança e qualidade em cada serviço.",
+    "palabrasClave": [
+      "babá Uruguai",
+      "babá Punta del Este",
+      "babysitting Montevideo",
+      "cuidado infantil Punta del Este",
+      "pet sitting Montevideo",
+      "recreação infantil eventos Uruguai"
+    ],
+    "ogTitulo": "Parents' Break – Cuidado infantil profissional",
+    "ogDescripcion": "Babás selecionadas para babysitting, pet sitting e eventos em Montevideo, Canelones e Punta del Este.",
+    "ogImagenAlt": "Babá da Parents' Break brincando com uma menina em uma mesa de brinquedos, com o logo da Parents' Break"
+  },
+  "navbar": {
+    "links": {
+      "quienesSomos": "Quem somos",
+      "servicios": "Serviços",
+      "comoFunciona": "Como funciona",
+      "nineras": "Babás",
+      "simulador": "Solicitar serviço"
+    },
+    "boton": "Solicitar serviço",
+    "abrirMenu": "Abrir menu",
+    "cerrarMenu": "Fechar menu",
+    "idioma": "Idioma",
+    "menu": "Menu",
+    "menuWhatsApp": "Fale conosco no WhatsApp"
+  },
+  "hero": {
+    "tituloAntes": "Seus filhos nas",
+    "tituloResaltado": "melhores",
+    "tituloDespues": "mãos",
+    "subtitulo": "Conectamos famílias a babás especializadas para oferecer um cuidado seguro, acolhedor e personalizado.",
+    "fotoAlt": "Babá cuidando de crianças felizes",
+    "pregunta": "Do que você precisa?",
+    "necesidades": {
+      "Babysitting": "Babysitting",
+      "Petsittings": "Pet sitting",
+      "Evento": "Eventos"
+    },
+    "botonPrincipal": "Solicitar serviço",
+    "botonSecundario": "Preencher formulário →",
+    "nota": "Sem compromisso. Respondemos pelo WhatsApp",
+    "prueba": [
+      {
+        "numero": "+80 babás ativas",
+        "lineas": ["Selecionadas e avaliadas", "pela nossa equipe", "de psicólogas"]
+      },
+      {
+        "numero": "+3 anos de experiência",
+        "lineas": ["Acompanhando famílias", "no Uruguai"]
+      }
+    ]
+  },
+  "numeros": {
+    "nineras": "Babás ativas",
+    "anios": "Anos de experiência"
+  },
+  "quienesSomos": {
+    "etiqueta": "Quem somos",
+    "titulo": "Um serviço construído com confiança",
+    "intro": "Somos Delfina e Federica, babás com mais de seis anos de experiência. Há mais de três anos ajudamos famílias de Montevideo, Canelones e Punta del Este a encontrar babás capacitadas, responsáveis e de confiança.",
+    "leerMas": "Ler mais ↓",
+    "leerMenos": "Ler menos ↑",
+    "resto": "Depois de acompanhar muitas famílias, entendemos como é importante poder contar com alguém realmente confiável para cuidar das crianças. Assim nasceu a Parents’ Break, para que as famílias possam aproveitar o seu tempo com a tranquilidade de saber que os filhos estão nas melhores mãos. Hoje contamos com uma rede de mais de 80 babás selecionadas com cuidado pela nossa equipe. Nosso compromisso é oferecer muito mais do que uma babá: é oferecer confiança, segurança e tranquilidade para cada família.",
+    "fotoAlt": "Babá da Parents’ Break brincando com crianças",
+    "subtitulo": "Não somos um aplicativo. Somos pessoas.",
+    "cuerpo": "Por trás de cada serviço há uma equipe real acompanhando o processo. Ouvimos as necessidades de cada família, buscamos a babá mais adequada e coordenamos cada detalhe de forma personalizada, para que a experiência seja simples, próxima e confiável. Nosso processo de seleção é acompanhado por psicólogas e profissionais especializadas em infância, priorizando não só a experiência, mas também a responsabilidade, o carinho e a qualidade humana de cada perfil. Todas as babás da Parents’ Break têm experiência prévia em cuidado infantil e passam por entrevistas, verificação de referências e avaliações antes de entrar para a equipe.",
+    "valores": [
+      {
+        "titulo": "Seleção rigorosa",
+        "texto": "Cada babá passa por um rigoroso processo de seleção acompanhado por psicólogas e profissionais especializadas em infância, para selecionar as babás mais preparadas para acompanhar cada família. Avaliamos a experiência prévia, fazemos entrevistas pessoais e verificamos referências."
+      },
+      {
+        "titulo": "Atendimento personalizado",
+        "texto": "Acompanhamos cada serviço do início ao fim. Queremos que as famílias se sintam seguras, à vontade e realmente acompanhadas."
+      },
+      {
+        "titulo": "Confiança acima de tudo",
+        "texto": "Trabalhamos apenas com babás que nós mesmas recomendaríamos às nossas famílias. Esse é o nosso padrão."
+      }
+    ]
+  },
+  "servicios": {
+    "etiqueta": "O que oferecemos",
+    "titulo": "Nossos serviços",
+    "subtitulo": "Acompanhamos famílias em diferentes momentos do dia a dia com babás selecionadas, responsáveis e preparadas para cada situação.",
+    "masSolicitado": "Mais procurado",
+    "verTodo": "Ver tudo o que inclui",
+    "verMenos": "Ver menos",
+    "tarjetas": [
+      {
+        "servicio": "Babysitting",
+        "titulo": "Babysitting, fixo ou esporádico",
+        "subtitulo": "Cuidado em casa",
+        "descripcion": "Babás que criam um vínculo real com as crianças por meio da brincadeira, da atenção e do acompanhamento ativo.",
+        "descripcionResto": "Nos adaptamos à rotina de cada família para que as crianças se sintam à vontade, entretidas e cuidadas o tempo todo.",
+        "items": [
+          "Cuidado em casas e hotéis",
+          "Serviços pontuais ou esporádicos",
+          "Brincadeiras e atividades adaptadas à idade",
+          "Acompanhamento ativo e responsável",
+          "Comunicação constante com os pais",
+          "Brinquedos de fabricação uruguaia para estimular o desenvolvimento lúdico"
+        ],
+        "boton": "Solicitar babysitting"
+      },
+      {
+        "servicio": "Petsittings",
+        "titulo": "Pet sitting",
+        "subtitulo": "Cuidado de pets",
+        "descripcion": "Cuidamos do seu pet e garantimos que ele se sinta acompanhado e seguro quando você não puder estar.",
+        "descripcionResto": "",
+        "items": [
+          "Visitas em domicílio para alimentar e passear",
+          "Cuidado do seu pet e da casa durante viagens (pernoite)",
+          "Hospedagem do seu pet na casa das nossas cuidadoras",
+          "Atendimento personalizado e comunicação constante"
+        ],
+        "boton": "Consultar pet sitting"
+      },
+      {
+        "servicio": "Evento",
+        "titulo": "Eventos",
+        "subtitulo": "Recreação infantil",
+        "descripcion": "Criamos espaços divertidos e dinâmicos para que as crianças aproveitem enquanto os adultos podem relaxar.",
+        "descripcionResto": "Organizamos propostas adaptadas à idade, à quantidade de crianças e ao tipo de evento.",
+        "items": [
+          "Casamentos",
+          "Aniversários e eventos familiares",
+          "Eventos empresariais e corporativos",
+          "Atividades temáticas e recreativas",
+          "Brincadeiras em grupo adaptadas à idade",
+          "Coordenação profissional do espaço infantil"
+        ],
+        "boton": "Consultar recreação"
+      }
+    ]
+  },
+  "comoFunciona": {
+    "etiqueta": "Como funciona",
+    "titulo": "Solicitar um serviço é muito fácil",
+    "subtitulo": "Tudo é combinado pelo WhatsApp, de forma rápida, simples e personalizada.",
+    "pasos": [
+      {
+        "titulo": "Comece sua solicitação",
+        "texto": "Perguntamos a data, o horário, a região, a quantidade de crianças e o tipo de serviço"
+      },
+      {
+        "titulo": "Buscamos a babá que melhor se encaixa no que você precisa",
+        "texto": "Selecionamos as babás mais adequadas para a sua solicitação e enviamos os perfis para você escolher"
+      },
+      {
+        "titulo": "Conheça a babá por videochamada",
+        "texto": "Tire suas dúvidas e confirme que ela é a pessoa certa para a sua família"
+      },
+      {
+        "titulo": "Confirmamos o serviço",
+        "texto": "Combinamos os últimos detalhes e enviamos todas as informações necessárias"
+      },
+      {
+        "titulo": "Aproveite o seu momento",
+        "texto": "Enquanto seus filhos estão acompanhados e cuidados, você pode aproveitar com tranquilidade"
+      }
+    ]
+  },
+  "nineras": {
+    "etiqueta": "Nossa equipe",
+    "titulo": "Babás que escolhemos com cuidado",
+    "subtitulo": "Cada pessoa que faz parte da Parents' Break passa por um processo de seleção pensado para garantir segurança, confiança e qualidade humana.",
+    "fotoAlt": "Babá de costas",
+    "procesoTitulo": "Processo de seleção",
+    "proceso": [
+      {
+        "titulo": "Formulário e experiência",
+        "texto": "Analisamos experiência prévia, formação, disponibilidade e perfil pessoal."
+      },
+      {
+        "titulo": "Entrevista pessoal",
+        "texto": "Conhecemos cada candidata para avaliar vocação, responsabilidade e compatibilidade com os nossos padrões."
+      },
+      {
+        "titulo": "Avaliação profissional",
+        "texto": "Psicólogas e profissionais especializadas em infância acompanham o processo de seleção para garantir perfis confiáveis e adequados para o cuidado infantil."
+      },
+      {
+        "titulo": "Verificação de referências",
+        "texto": "Verificamos referências de trabalhos anteriores."
+      }
+    ],
+    "elegirTitulo": "Você pode escolher por",
+    "cualidades": [
+      {
+        "titulo": "Formação",
+        "texto": "Estudantes e perfis ligados a Medicina, Educação Infantil, Psicologia e áreas afins."
+      },
+      {
+        "titulo": "Experiência",
+        "texto": "Experiência em casas, hotéis, eventos e cuidado infantil."
+      },
+      {
+        "titulo": "Idiomas",
+        "texto": "Babás bilíngues ou trilíngues disponíveis."
+      },
+      {
+        "titulo": "Disponibilidade",
+        "texto": "Serviços 24 horas por dia, 7 dias por semana"
+      },
+      {
+        "titulo": "Idades",
+        "texto": "Experiência com bebês, crianças e/ou adolescentes."
+      },
+      {
+        "titulo": "Regiões",
+        "texto": "Atendimento em Montevideo, Canelones e Punta del Este."
+      }
+    ]
+  },
+  "simulador": {
+    "etiqueta": "Rápido e fácil",
+    "titulo": "Solicite seu serviço",
+    "subtitulo": "Preencha o formulário e preparamos automaticamente uma mensagem pronta para enviar pelo WhatsApp.",
+    "erroresTitulo": "Preencha os campos a seguir antes de enviar:",
+    "nombre": "Seu nome *",
+    "nombreEjemplo": "Ex.: Maria Silva",
+    "tipoServicio": "Tipo de serviço *",
+    "servicios": {
+      "Babysitting": { "titulo": "Babysitting", "sub": "Cuidado em casa" },
+      "Petsittings": { "titulo": "Pet sitting", "sub": "Cuidado de pets" },
+      "Evento": { "titulo": "Eventos", "sub": "Recreação infantil" }
+    },
+    "puntualOFijo": "É um serviço pontual ou fixo?",
+    "cuantosDias": "Quantos dias?",
+    "dia": "Dia {n}",
+    "copiarDia1": "Copiar horário do Dia 1",
+    "fecha": "Data",
+    "horaInicio": "Hora de início",
+    "horaFin": "Hora de término",
+    "alertaHoras": "O horário passa de 13 horas. Confira se está correto.",
+    "diasSemana": "Dias da semana",
+    "desdeCuando": "A partir de quando",
+    "hastaCuando": "Até quando",
+    "hastaUnaFecha": "Até uma data",
+    "hastaQueFecha": "Até que data",
+    "tipoPetsitting": "Tipo de serviço",
+    "cantMascotas": "Quantidade de pets",
+    "seleccionar": "Selecione",
+    "queNecesita": "Do que ele precisa?",
+    "desde": "De",
+    "hasta": "Até",
+    "tipoEvento": "Tipo de evento",
+    "eventoHoraInicio": "Hora de início",
+    "eventoHoraFin": "Hora de término",
+    "cantNinosEvento": "Quantidade aprox. de crianças",
+    "cantNinosEventoEjemplo": "Ex.: 10-15 crianças",
+    "departamento": "Departamento *",
+    "zona": "Região *",
+    "seleccionarZona": "Selecione sua região",
+    "zonaOtro": "Em qual região? *",
+    "zonaOtroEjemplo": "Ex.: Colón, Cerro, La Unión...",
+    "cantNinos": "Quantidade de crianças",
+    "edades": "Idades *",
+    "edadesEjemplo": "Ex.: 2 e 5 anos",
+    "comentarios": "Comentários adicionais",
+    "comentariosEjemplo": "Alguma preferência ou necessidade especial...",
+    "enviar": "Enviar pelo WhatsApp",
+    "notaIdioma": "Sua mensagem será enviada em espanhol e a nossa resposta também será em espanhol.",
+    "privacidad": "Não guardamos seus dados. A mensagem é criada diretamente no WhatsApp.",
+    "opciones": {
+      "Puntual": "Pontual",
+      "Fijo": "Fixo",
+      "Lun": "Seg",
+      "Mar": "Ter",
+      "Mié": "Qua",
+      "Jue": "Qui",
+      "Vie": "Sex",
+      "Sáb": "Sáb",
+      "Dom": "Dom",
+      "Indefinido": "Sem data de término",
+      "Visita a domicilio": "Visita em domicílio",
+      "Pernocte": "Pernoite (a cuidadora fica na sua casa)",
+      "Hospedaje": "Hospedagem na casa da cuidadora",
+      "Darle de comer": "Alimentar",
+      "Pasearlo": "Passear",
+      "Compañía / cuidado general": "Companhia / cuidado geral",
+      "Cumpleaños": "Aniversário",
+      "Evento empresarial": "Evento empresarial",
+      "Evento familiar": "Evento familiar",
+      "Casamiento": "Casamento",
+      "Otro": "Outro",
+      "10 o más": "10 ou mais"
+    },
+    "errores": {
+      "nombre": "Digite seu nome",
+      "servicio": "Selecione um serviço",
+      "departamento": "Selecione um departamento",
+      "zona": "Selecione uma região",
+      "zonaOtro": "Digite sua região",
+      "edades": "Digite as idades",
+      "tipoBabysitting": "Selecione pontual ou fixo",
+      "cantDias": "Selecione a quantidade de dias",
+      "fecha": "Digite a data",
+      "horaInicio": "Digite a hora de início",
+      "horaFin": "Digite a hora de término",
+      "diasSemana": "Selecione pelo menos um dia",
+      "fijoDesde": "Digite a data de início",
+      "hastaFecha": "Digite a data de término",
+      "finAntesDeInicio": "A data de término não pode ser anterior à de início",
+      "cantNinos": "Selecione a quantidade de crianças",
+      "tipoEvento": "Selecione o tipo de evento",
+      "fechaEvento": "Digite a data do evento",
+      "cantNinosEvento": "Digite a quantidade aproximada",
+      "tipoPetsitting": "Selecione o tipo de serviço",
+      "cantMascotas": "Selecione a quantidade de pets",
+      "petFechaDesde": "Digite a data de início",
+      "petFechaHasta": "Digite a data de término",
+      "fechaInvalida": "Data inválida",
+      "fechaPasada": "Não pode ser anterior a hoje",
+      "fechaLejana": "Não pode passar de um ano",
+      "horaInvalida": "Hora inválida",
+      "horaInvalidaMax": "Hora inválida (máx. 23)",
+      "minutosInvalidos": "Minutos inválidos",
+      "minutosInvalidosMax": "Minutos inválidos (máx. 59)"
+    }
+  },
+  "ctaFinal": {
+    "titulo": "Estamos aqui para ajudar",
+    "texto": "Fale conosco pelo WhatsApp e conte do que você precisa. Juntas vamos encontrar a babá que melhor se adapta à sua família.",
+    "botonWhatsApp": "Fale conosco no WhatsApp agora",
+    "botonFormulario": "Preencher formulário →",
+    "nota": "Sem compromisso. Respondemos pelo WhatsApp",
+    "beneficios": ["Resposta rápida", "Atendimento personalizado", "Sem custos ocultos"]
+  },
+  "footer": {
+    "descripcion": "Rede profissional de babás selecionadas para babysitting, pet sitting e eventos no Uruguai.",
+    "serviciosTitulo": "Serviços",
+    "servicios": ["Babysitting", "Pet sitting", "Eventos", "Serviços para empresas"],
+    "zonasTitulo": "Regiões",
+    "contactoTitulo": "Contato",
+    "contacto": "Atendimento 24/7 pelo WhatsApp",
+    "derechos": "Todos os direitos reservados.",
+    "hecho": "Criado e desenvolvido no Uruguai",
+    "aviso": "Usamos estatísticas anônimas de visitas, sem cookies."
+  },
+  "flotante": "Fale conosco no WhatsApp",
+  "noEncontrada": {
+    "titulo": "Não encontramos esta página",
+    "texto": "O link pode estar digitado errado ou a página pode não existir mais.",
+    "volver": "Voltar ao início"
+  },
+  "redireccion": {
+    "titulo": "Abrindo o WhatsApp…",
+    "siNoAbre": "Se não abrir sozinho,",
+    "tocaAca": "toque aqui",
+    "volver": "Voltar ao site"
+  }
+}

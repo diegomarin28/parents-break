@@ -1,22 +1,7 @@
 import Image from "next/image";
+import type { Diccionario } from "../dictionaries/tipos";
 
-export default function SittersSection() {
-  const process = [
-    {title: "Formulario y experiencia", desc: "Analizamos experiencia previa, formación, disponibilidad y perfil personal." },
-    {title: "Entrevista personal", desc: "Conocemos a cada candidata para evaluar vocación, responsabilidad y compatibilidad con nuestros estándares." },
-    {title: "Evaluación profesional", desc: "Psicólogas y profesionales especializadas en infancia acompañan el proceso de selección para garantizar perfiles confiables y adecuados para el cuidado infantil." },
-    {title: "Validación de referencias", desc: "Verificamos referencias y antecedentes" },
-  ];
-
-  const qualities = [
-    {label: "Formación", detail: "Estudiantes y perfiles vinculados a Medicina, Educación Inicial, Psicología y áreas afines." },
-    {label: "Experiencia", detail: "Experiencia en hogares, hoteles, eventos y cuidado infantil." },
-    {label: "Idiomas", detail: "Disponibilidad de niñeras bilingües o trilingües." },
-    {label: "Disponibilidad", detail: "Servicios las 24 horas los 7 días de la semana" },
-    {label: "Edades", detail: "Experiencia con bebés, niños y/o adolescentes." },
-    {label: "Zonas", detail: "Cobertura en Montevideo, Canelones y Punta del Este." },
-  ];
-
+export default function SittersSection({ t }: { t: Diccionario["nineras"] }) {
   return (
     <section id="nineras" className="sitters-section" style={{ background: "var(--off)" }}>
       <div className="sitters-container" style={{ maxWidth: 1140, margin: "0 auto" }}>
@@ -30,13 +15,13 @@ export default function SittersSection() {
             textTransform: "uppercase", padding: "6px 16px", borderRadius: 99,
             marginBottom: 16,
           }}>
-            Nuestro equipo
+            {t.etiqueta}
           </span>
           <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, marginBottom: 14 }}>
-            Niñeras que elegimos con cuidado
+            {t.titulo}
           </h2>
           <p style={{ fontSize: 17, color: "var(--text-soft)", maxWidth: 520, margin: "0 auto" }}>
-          Cada persona que forma parte de Parents&apos; Break atraviesa un proceso de selección pensado para garantizar seguridad, confianza y calidad humana.
+            {t.subtitulo}
           </p>
         </div>
 
@@ -54,7 +39,7 @@ export default function SittersSection() {
 }}>
   <Image
     src="/ninera-de-espaldas.jpg"
-    alt="Niñera de espaldas"
+    alt={t.fotoAlt}
     fill
     style={{ objectFit: "cover" }}
     sizes="(max-width: 900px) 100vw, 460px"
@@ -65,10 +50,10 @@ export default function SittersSection() {
           {/* Proceso */}
           <div>
             <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 28, color: "var(--text)" }}>
-              Proceso de selección
+              {t.procesoTitulo}
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              {process.map((p, i) => (
+              {t.proceso.map((p, i) => (
                 <div key={i} className="sitters-paso" style={{
                   display: "flex", alignItems: "flex-start", gap: 16,
                   background: "var(--white)",
@@ -112,8 +97,8 @@ export default function SittersSection() {
                     )}
                   </div>
                   <div>
-                    <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 4 }}>{p.title}</div>
-                    <div style={{ fontSize: 13, color: "var(--text-soft)", lineHeight: 1.6 }}>{p.desc}</div>
+                    <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 4 }}>{p.titulo}</div>
+                    <div style={{ fontSize: 13, color: "var(--text-soft)", lineHeight: 1.6 }}>{p.texto}</div>
                   </div>
                 </div>
               ))}
@@ -129,14 +114,14 @@ export default function SittersSection() {
           padding: "36px",
         }}>
           <h4 style={{ textAlign: "center", fontSize: 18, fontWeight: 700, marginBottom: 28 }}>
-            Podés elegir según
+            {t.elegirTitulo}
           </h4>
           <div className="qualities-grid" style={{
             display: "grid",
             gridTemplateColumns: "repeat(6, 1fr)",
             gap: 16,
           }}>
-            {qualities.map((q, i) => (
+            {t.cualidades.map((q, i) => (
               <div key={i} style={{ textAlign: "center" }}>
                 <div style={{
                   width: 52, height: 52, borderRadius: 14,
@@ -184,8 +169,8 @@ export default function SittersSection() {
                     </svg>
                   )}
                 </div>
-                <div style={{ fontWeight: 700, fontSize: 13 }}>{q.label}</div>
-                <div style={{ fontSize: 11, color: "var(--text-soft)", marginTop: 3 }}>{q.detail}</div>
+                <div style={{ fontWeight: 700, fontSize: 13 }}>{q.titulo}</div>
+                <div style={{ fontSize: 11, color: "var(--text-soft)", marginTop: 3 }}>{q.texto}</div>
               </div>
             ))}
           </div>

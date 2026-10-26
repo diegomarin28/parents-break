@@ -1,0 +1,360 @@
+{
+  "metadatos": {
+    "titulo": "Parents' Break – Cuidado infantil profesional en Uruguay",
+    "descripcion": "Red de más de 80 niñeras seleccionadas para babysitting, petsitting y eventos en Montevideo, Canelones y Punta del Este. Confianza y calidad en cada servicio.",
+    "palabrasClave": [
+      "niñeras Uruguay",
+      "babysitting Montevideo",
+      "cuidado infantil Punta del Este",
+      "niñeras profesionales",
+      "petsitting Montevideo",
+      "animación eventos infantiles"
+    ],
+    "ogTitulo": "Parents' Break – Cuidado infantil profesional",
+    "ogDescripcion": "Niñeras seleccionadas para babysitting, petsitting y eventos en Montevideo, Canelones y Punta del Este.",
+    "ogImagenAlt": "Niñera de Parents' Break jugando con una niña en una mesa de juegos, con el logo de Parents' Break"
+  },
+  "navbar": {
+    "links": {
+      "quienesSomos": "Quiénes somos",
+      "servicios": "Servicios",
+      "comoFunciona": "Cómo funciona",
+      "nineras": "Niñeras",
+      "simulador": "Solicitar servicio"
+    },
+    "boton": "Coordinar servicio",
+    "abrirMenu": "Abrir menú",
+    "cerrarMenu": "Cerrar menú",
+    "idioma": "Idioma",
+    "menu": "Menú",
+    "menuWhatsApp": "Escribinos por WhatsApp"
+  },
+  "hero": {
+    "tituloAntes": "Tus hijos en las",
+    "tituloResaltado": "mejores",
+    "tituloDespues": "manos",
+    "subtitulo": "Conectamos familias con niñeras especializadas para brindar un cuidado seguro, cálido y personalizado.",
+    "fotoAlt": "Niñera cuidando niños felices",
+    "pregunta": "¿Qué necesitás?",
+    "necesidades": {
+      "Babysitting": "Babysitting",
+      "Petsittings": "Petsitting",
+      "Evento": "Eventos"
+    },
+    "botonPrincipal": "Coordinar servicio",
+    "botonSecundario": "Completar formulario →",
+    "nota": "Sin compromiso. Te respondemos por WhatsApp",
+    "prueba": [
+      {
+        "numero": "+80 niñeras activas",
+        "lineas": ["Seleccionadas y validadas", "por nuestro equipo", "de psicólogas"]
+      },
+      {
+        "numero": "+3 años de experiencia",
+        "lineas": ["Acompañando a familias", "en Uruguay"]
+      }
+    ]
+  },
+  "numeros": {
+    "nineras": "Niñeras activas",
+    "anios": "Años de experiencia"
+  },
+  "quienesSomos": {
+    "etiqueta": "Quiénes somos",
+    "titulo": "Un servicio construido desde la confianza",
+    "intro": "Somos Delfina y Federica, babysitters con más de seis años de experiencia. Desde hace más de tres años ayudamos a familias de Montevideo, Canelones y Punta del Este a encontrar babysitters capacitadas, responsables y de confianza.",
+    "leerMas": "Leer más ↓",
+    "leerMenos": "Leer menos ↑",
+    "resto": "Después de acompañar a numerosas familias, entendimos lo importante que es poder contar con alguien realmente confiable para el cuidado de los niños. Así nació Parents’ Break, para que las familias puedan disfrutar de su tiempo con la tranquilidad de saber que sus hijos están en las mejores manos. Hoy contamos con una red de más de 80 sitters seleccionadas cuidadosamente por nuestro equipo. Nuestro compromiso es ofrecer mucho más que una niñera: es ofrecer confianza, seguridad y tranquilidad para cada familia.",
+    "fotoAlt": "Niñera de Parents’ Break jugando con niños",
+    "subtitulo": "No somos una app. Somos personas.",
+    "cuerpo": "Detrás de cada servicio hay un equipo real acompañando el proceso. Escuchamos las necesidades de cada familia, buscamos la niñera más adecuada y coordinamos cada detalle de forma personalizada para que la experiencia sea simple, cercana y confiable. Nuestro proceso de selección es acompañado por psicólogas y profesionales especializadas en infancia, priorizando no solo la experiencia, sino también la responsabilidad, la calidez y la calidad humana de cada perfil. Todas las niñeras de Parents’ Break cuentan con experiencia previa en cuidado infantil y atraviesan entrevistas, validación de referencias y evaluaciones antes de incorporarse al equipo.",
+    "valores": [
+      {
+        "titulo": "Selección rigurosa",
+        "texto": "Cada niñera atraviesa un riguroso proceso de selección acompañado por psicólogas y profesionales especializadas en infancia, para así seleccionar a las babysitters más preparadas para acompañar a cada familia. Evaluamos experiencia previa, realizamos entrevistas personales y validamos referencias."
+      },
+      {
+        "titulo": "Atención personalizada",
+        "texto": "Acompañamos cada servicio de principio a fin. Queremos que las familias se sientan seguras, cómodas y realmente acompañadas."
+      },
+      {
+        "titulo": "Confianza ante todo",
+        "texto": "Trabajamos solo con niñeras que nosotras mismas recomendaríamos a nuestras familias. Ese es nuestro estándar."
+      }
+    ]
+  },
+  "servicios": {
+    "etiqueta": "Lo que ofrecemos",
+    "titulo": "Nuestros servicios",
+    "subtitulo": "Acompañamos a familias en distintos momentos del día a día con niñeras seleccionadas, responsables y preparadas para cada situación.",
+    "masSolicitado": "Más solicitado",
+    "verTodo": "Ver todo lo que incluye",
+    "verMenos": "Ver menos",
+    "tarjetas": [
+      {
+        "servicio": "Babysitting",
+        "titulo": "Babysittings, fijos o esporádicos",
+        "subtitulo": "Cuidado en casa",
+        "descripcion": "Niñeras que generan un vínculo real con los chicos a través del juego, la atención y el acompañamiento activo.",
+        "descripcionResto": "Nos adaptamos a la rutina de cada familia para que los niños se sientan cómodos, entretenidos y cuidados en todo momento.",
+        "items": [
+          "Cuidado en hogares y hoteles",
+          "Servicios puntuales o esporádicos",
+          "Juegos y actividades adaptadas por edad",
+          "Acompañamiento activo y responsable",
+          "Comunicación constante con los padres",
+          "Juguetes de industria nacional para fomentar el desarrollo lúdico"
+        ],
+        "boton": "Solicitar babysitting"
+      },
+      {
+        "servicio": "Petsittings",
+        "titulo": "Petsittings",
+        "subtitulo": "Cuidado de mascotas",
+        "descripcion": "Cuidamos a tu mascota y nos ocupamos de que se sienta acompañada y segura cuando vos no podés estar.",
+        "descripcionResto": "",
+        "items": [
+          "Visitas a domicilio para darle de comer y pasearla",
+          "Cuidado de tu mascota y casa durante viajes (pernocte)",
+          "Hospedaje de tu mascota en la casa de nuestras cuidadoras",
+          "Atención personalizada y comunicación constante"
+        ],
+        "boton": "Consultar petsittings"
+      },
+      {
+        "servicio": "Evento",
+        "titulo": "Eventos",
+        "subtitulo": "Animación infantil",
+        "descripcion": "Creamos espacios divertidos y dinámicos para que los niños disfruten mientras los adultos pueden relajarse.",
+        "descripcionResto": "Organizamos propuestas adaptadas según la edad, cantidad de chicos y tipo de evento.",
+        "items": [
+          "Casamientos",
+          "Cumpleaños y eventos familiares",
+          "Eventos empresariales y corporativos",
+          "Actividades temáticas y recreativas",
+          "Juegos grupales adaptados por edad",
+          "Coordinación profesional del espacio infantil"
+        ],
+        "boton": "Consultar animación"
+      }
+    ]
+  },
+  "comoFunciona": {
+    "etiqueta": "Cómo funciona",
+    "titulo": "Coordinar un servicio es muy fácil",
+    "subtitulo": "Todo se organiza por WhatsApp, de forma rápida, simple y personalizada.",
+    "pasos": [
+      {
+        "titulo": "Empieza tu solicitud",
+        "texto": "Te consultamos fecha, horario, zona, cantidad de niños y tipo de servicio"
+      },
+      {
+        "titulo": "Buscamos la niñera que más se ajusta a tus necesidades",
+        "texto": "Seleccionamos las niñeras más adecuadas según tu solicitud y te enviamos los distintos perfiles para elegir"
+      },
+      {
+        "titulo": "Conoce a la niñera por videollamada",
+        "texto": "Despejá dudas y asegurate de que es la persona adecuada para tu familia"
+      },
+      {
+        "titulo": "Confirmamos el servicio",
+        "texto": "Coordinamos los detalles finales y te compartimos toda la información necesaria"
+      },
+      {
+        "titulo": "Disfrutás tu momento",
+        "texto": "Mientras tus hijos están acompañados y cuidados, vos podés disfrutar con tranquilidad"
+      }
+    ]
+  },
+  "nineras": {
+    "etiqueta": "Nuestro equipo",
+    "titulo": "Niñeras que elegimos con cuidado",
+    "subtitulo": "Cada persona que forma parte de Parents' Break atraviesa un proceso de selección pensado para garantizar seguridad, confianza y calidad humana.",
+    "fotoAlt": "Niñera de espaldas",
+    "procesoTitulo": "Proceso de selección",
+    "proceso": [
+      {
+        "titulo": "Formulario y experiencia",
+        "texto": "Analizamos experiencia previa, formación, disponibilidad y perfil personal."
+      },
+      {
+        "titulo": "Entrevista personal",
+        "texto": "Conocemos a cada candidata para evaluar vocación, responsabilidad y compatibilidad con nuestros estándares."
+      },
+      {
+        "titulo": "Evaluación profesional",
+        "texto": "Psicólogas y profesionales especializadas en infancia acompañan el proceso de selección para garantizar perfiles confiables y adecuados para el cuidado infantil."
+      },
+      {
+        "titulo": "Validación de referencias",
+        "texto": "Verificamos referencias de trabajos anteriores."
+      }
+    ],
+    "elegirTitulo": "Podés elegir según",
+    "cualidades": [
+      {
+        "titulo": "Formación",
+        "texto": "Estudiantes y perfiles vinculados a Medicina, Educación Inicial, Psicología y áreas afines."
+      },
+      {
+        "titulo": "Experiencia",
+        "texto": "Experiencia en hogares, hoteles, eventos y cuidado infantil."
+      },
+      {
+        "titulo": "Idiomas",
+        "texto": "Disponibilidad de niñeras bilingües o trilingües."
+      },
+      {
+        "titulo": "Disponibilidad",
+        "texto": "Servicios las 24 horas los 7 días de la semana"
+      },
+      {
+        "titulo": "Edades",
+        "texto": "Experiencia con bebés, niños y/o adolescentes."
+      },
+      {
+        "titulo": "Zonas",
+        "texto": "Cobertura en Montevideo, Canelones y Punta del Este."
+      }
+    ]
+  },
+  "simulador": {
+    "etiqueta": "Rápido y fácil",
+    "titulo": "Coordina tu servicio",
+    "subtitulo": "Completá el formulario y te preparamos automáticamente un mensaje listo para enviar por WhatsApp.",
+    "erroresTitulo": "Completá los siguientes campos antes de enviar:",
+    "nombre": "Tu nombre *",
+    "nombreEjemplo": "Ej: María González",
+    "tipoServicio": "Tipo de servicio *",
+    "servicios": {
+      "Babysitting": { "titulo": "Babysitting", "sub": "Cuidado en casa" },
+      "Petsittings": { "titulo": "Petsitting", "sub": "Cuidado de mascotas" },
+      "Evento": { "titulo": "Eventos", "sub": "Animación infantil" }
+    },
+    "puntualOFijo": "¿Es un servicio puntual o fijo?",
+    "cuantosDias": "¿Cuántos días?",
+    "dia": "Día {n}",
+    "copiarDia1": "Copiar horario del Día 1",
+    "fecha": "Fecha",
+    "horaInicio": "Hora inicio",
+    "horaFin": "Hora fin",
+    "alertaHoras": "El horario supera las 13 horas. Verificá que sea correcto.",
+    "diasSemana": "Días de la semana",
+    "desdeCuando": "Desde cuándo",
+    "hastaCuando": "Hasta cuándo",
+    "hastaUnaFecha": "Hasta una fecha",
+    "hastaQueFecha": "Hasta qué fecha",
+    "tipoPetsitting": "Tipo de servicio",
+    "cantMascotas": "Cantidad de mascotas",
+    "seleccionar": "Seleccioná",
+    "queNecesita": "¿Qué necesita?",
+    "desde": "Desde",
+    "hasta": "Hasta",
+    "tipoEvento": "Tipo de evento",
+    "eventoHoraInicio": "Hora de inicio",
+    "eventoHoraFin": "Hora de fin",
+    "cantNinosEvento": "Cantidad aprox. de niños",
+    "cantNinosEventoEjemplo": "Ej: 10-15 niños",
+    "departamento": "Departamento *",
+    "zona": "Zona *",
+    "seleccionarZona": "Seleccioná tu zona",
+    "zonaOtro": "¿En qué zona? *",
+    "zonaOtroEjemplo": "Ej: Colón, Cerro, La Unión...",
+    "cantNinos": "Cantidad de niños",
+    "edades": "Edades *",
+    "edadesEjemplo": "Ej: 2 y 5 años",
+    "comentarios": "Comentarios adicionales",
+    "comentariosEjemplo": "Alguna preferencia o necesidad especial...",
+    "enviar": "Enviar por WhatsApp",
+    "notaIdioma": "",
+    "privacidad": "No guardamos tus datos. El mensaje se genera directamente en WhatsApp.",
+    "opciones": {
+      "Puntual": "Puntual",
+      "Fijo": "Fijo",
+      "Lun": "Lun",
+      "Mar": "Mar",
+      "Mié": "Mié",
+      "Jue": "Jue",
+      "Vie": "Vie",
+      "Sáb": "Sáb",
+      "Dom": "Dom",
+      "Indefinido": "Indefinido",
+      "Visita a domicilio": "Visita a domicilio",
+      "Pernocte": "Pernocte (la cuidadora se queda en tu casa)",
+      "Hospedaje": "Hospedaje en casa de la cuidadora",
+      "Darle de comer": "Darle de comer",
+      "Pasearlo": "Pasearlo",
+      "Compañía / cuidado general": "Compañía / cuidado general",
+      "Cumpleaños": "Cumpleaños",
+      "Evento empresarial": "Evento empresarial",
+      "Evento familiar": "Evento familiar",
+      "Casamiento": "Casamiento",
+      "Otro": "Otro",
+      "10 o más": "10 o más"
+    },
+    "errores": {
+      "nombre": "Ingresá tu nombre",
+      "servicio": "Seleccioná un servicio",
+      "departamento": "Seleccioná un departamento",
+      "zona": "Seleccioná una zona",
+      "zonaOtro": "Ingresá tu zona",
+      "edades": "Ingresá las edades",
+      "tipoBabysitting": "Seleccioná puntual o fijo",
+      "cantDias": "Seleccioná la cantidad de días",
+      "fecha": "Ingresá la fecha",
+      "horaInicio": "Ingresá hora de inicio",
+      "horaFin": "Ingresá hora de fin",
+      "diasSemana": "Seleccioná al menos un día",
+      "fijoDesde": "Ingresá desde cuándo",
+      "hastaFecha": "Ingresá hasta qué fecha",
+      "finAntesDeInicio": "La fecha de fin no puede ser anterior a la de inicio",
+      "cantNinos": "Seleccioná cantidad de niños",
+      "tipoEvento": "Seleccioná el tipo de evento",
+      "fechaEvento": "Ingresá la fecha del evento",
+      "cantNinosEvento": "Ingresá la cantidad aproximada",
+      "tipoPetsitting": "Seleccioná el tipo de servicio",
+      "cantMascotas": "Seleccioná la cantidad de mascotas",
+      "petFechaDesde": "Ingresá la fecha de inicio",
+      "petFechaHasta": "Ingresá la fecha de fin",
+      "fechaInvalida": "Fecha inválida",
+      "fechaPasada": "No puede ser anterior a hoy",
+      "fechaLejana": "No puede ser mayor a un año",
+      "horaInvalida": "Hora inválida",
+      "horaInvalidaMax": "Hora inválida (máx 23)",
+      "minutosInvalidos": "Minutos inválidos",
+      "minutosInvalidosMax": "Minutos inválidos (máx 59)"
+    }
+  },
+  "ctaFinal": {
+    "titulo": "Estamos para ayudarte",
+    "texto": "Escribinos por WhatsApp y contanos qué necesitás. Juntas encontraremos la babysitter que mejor se adapte a tu familia.",
+    "botonWhatsApp": "Escríbenos por WhatsApp ahora",
+    "botonFormulario": "Completar formulario →",
+    "nota": "Sin compromiso. Te respondemos por WhatsApp",
+    "beneficios": ["Respuesta rápida", "Atención personalizada", "Sin costos ocultos"]
+  },
+  "footer": {
+    "descripcion": "Red profesional de niñeras seleccionadas para babysittings, petsittings y eventos en Uruguay.",
+    "serviciosTitulo": "Servicios",
+    "servicios": ["Babysittings", "Petsittings", "Eventos", "Servicios para empresas"],
+    "zonasTitulo": "Zonas",
+    "contactoTitulo": "Contacto",
+    "contacto": "Atención 24/7 por WhatsApp",
+    "derechos": "Todos los derechos reservados.",
+    "hecho": "Diseñado y desarrollado en Uruguay",
+    "aviso": "Usamos estadísticas anónimas de visitas, sin cookies."
+  },
+  "flotante": "Escribinos por WhatsApp",
+  "noEncontrada": {
+    "titulo": "No encontramos esta página",
+    "texto": "Puede que el link esté mal escrito o que la página ya no exista.",
+    "volver": "Volver al inicio"
+  },
+  "redireccion": {
+    "titulo": "Abriendo WhatsApp…",
+    "siNoAbre": "Si no se abre solo,",
+    "tocaAca": "tocá acá",
+    "volver": "Volver a la página"
+  }
+}

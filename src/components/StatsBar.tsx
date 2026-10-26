@@ -1,15 +1,16 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import type { Diccionario } from "../dictionaries/tipos";
 
-type Stat = { prefix: string; num: number; suffix: string; label: string; icon: React.ReactNode };
+type Stat = { prefix: string; num: number; suffix: string; clave: keyof Diccionario["numeros"]; icon: React.ReactNode };
 
 const stats: Stat[] = [
   {
-    prefix: "+", num: 80, suffix: "", label: "Niñeras activas",
+    prefix: "+", num: 80, suffix: "", clave: "nineras",
     icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
   },
   {
-    prefix: "+", num: 3, suffix: "", label: "Años de experiencia",
+    prefix: "+", num: 3, suffix: "", clave: "anios",
     icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
   },
 ];
@@ -35,13 +36,12 @@ function useCountUp(target: number, duration = 1800, started: boolean) {
   return count;
 }
 
-function StatItem({ stat, started, isLast }: { stat: Stat; started: boolean; isLast: boolean }) {
+function StatItem({ stat, label, started, isLast }: { stat: Stat; label: string; started: boolean; isLast: boolean }) {
   const count = useCountUp(stat.num, 1800, started);
 
   return (
-    <div style={{
+    <div className="stats-item" style={{
       textAlign: "center",
-      padding: "0 40px",
       borderRight: !isLast ? "1px solid rgba(255,255,255,.15)" : "none",
     }}>
       <div style={{ marginBottom: 8, display: "flex", justifyContent: "center" }}>
@@ -58,13 +58,13 @@ function StatItem({ stat, started, isLast }: { stat: Stat; started: boolean; isL
       </div>
       {/* Blanco sobre el violeta da 3,9:1: alcanza solo como texto grande (19 px en negrita) */}
       <div style={{ fontSize: 19, fontWeight: 700, color: "#fff", marginTop: 8 }}>
-        {stat.label}
+        {label}
       </div>
     </div>
   );
 }
 
-export default function StatsBar() {
+export default function StatsBar({ t }: { t: Diccionario["numeros"] }) {
   const ref = useRef<HTMLElement>(null);
   const [started, setStarted] = useState(false);
 
@@ -86,13 +86,14 @@ export default function StatsBar() {
           gap: 0,
         }}>
           {stats.map((s, i) => (
-            <StatItem key={i} stat={s} started={started} isLast={i === stats.length - 1} />
+            <StatItem key={i} stat={s} label={t[s.clave]} started={started} isLast={i === stats.length - 1} />
           ))}
         </div>
       </div>
       <style>{`
         .stats-section { padding: 48px 0; }
         .stats-container { padding: 0 24px; }
+        .stats-item { padding: 0 40px; }
         @media (max-width: 768px) {
           .stats-section { padding: 36px 0; }
         }
@@ -100,6 +101,8 @@ export default function StatsBar() {
           .stats-section { padding: 28px 0; }
           .stats-container { padding: 0 16px; max-width: 100% !important; }
           .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 0 !important; }
+          /* Menos relleno para que "experiencia" (19 px en negrita) entre a 320 px sin scroll horizontal */
+          .stats-item { padding: 0 10px; }
         }
       `}</style>
     </section>
