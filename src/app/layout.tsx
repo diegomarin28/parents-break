@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
+import { getDictionary } from "../dictionaries";
 import "./globals.css";
 
 // Fuentes guardadas en el repo (src/app/fonts, licencia OFL): se sirven desde el mismo
@@ -22,26 +23,19 @@ const sourceSans = localFont({
   variable: "--font-source",
 });
 
+const t = getDictionary("es").metadatos;
+
 export const metadata: Metadata = {
   // Base para las URL absolutas de la vista previa (og:image). Si el sitio pasa a un dominio propio, cambiar acá.
   metadataBase: new URL("https://parents-break.vercel.app"),
-  title: "Parents' Break – Cuidado infantil profesional en Uruguay",
-  description:
-    "Red de más de 80 niñeras seleccionadas para babysitting, petsitting y eventos en Montevideo, Canelones y Punta del Este. Confianza y calidad en cada servicio.",
-  keywords: [
-    "niñeras Uruguay",
-    "babysitting Montevideo",
-    "cuidado infantil Punta del Este",
-    "niñeras profesionales",
-    "petsitting Montevideo",
-    "animación eventos infantiles",
-  ],
+  title: t.titulo,
+  description: t.descripcion,
+  keywords: t.palabrasClave,
   openGraph: {
     url: "/",
     siteName: "Parents' Break",
-    title: "Parents' Break – Cuidado infantil profesional",
-    description:
-      "Niñeras seleccionadas para babysitting, petsitting y eventos en Montevideo, Canelones y Punta del Este.",
+    title: t.ogTitulo,
+    description: t.ogDescripcion,
     locale: "es_UY",
     type: "website",
   },

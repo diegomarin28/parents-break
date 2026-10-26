@@ -2,6 +2,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import { WA_MENSAJE_INICIAL, waIrLink } from "../lib/contact";
+import type { Diccionario } from "../dictionaries/tipos";
+
+type Textos = Diccionario["simulador"];
 
 type Dia = { fecha: string; horaInicio: string; minInicio: string; horaFin: string; minFin: string };
 
@@ -17,9 +20,10 @@ type TimeSelectorProps = {
   onComplete?: () => void;
   isLast?: boolean;
   hasError?: boolean;
+  errores: Textos["errores"];
 };
 
-const TimeSelector = ({ label, inputId, hora, min, onHora, onMin, labelStyle, inputStyle, onComplete, isLast, hasError }: TimeSelectorProps) => {
+const TimeSelector = ({ label, inputId, hora, min, onHora, onMin, labelStyle, inputStyle, onComplete, isLast, hasError, errores }: TimeSelectorProps) => {
   const externo = hora ? `${hora}${min ? `:${min}` : ""}` : "";
   const [localVal, setLocalVal] = useState(externo);
   const [prevExterno, setPrevExterno] = useState(externo);
@@ -41,10 +45,10 @@ const TimeSelector = ({ label, inputId, hora, min, onHora, onMin, labelStyle, in
       const hourPart = hourRaw.slice(0, 2);
       const minutePart = minuteRaw.slice(0, 2);
       const hourNum = parseInt(hourPart, 10);
-      if (hourNum > 23) { setError("Hora inválida"); return; }
+      if (hourNum > 23) { setError(errores.horaInvalida); return; }
       const hourValue = String(hourNum).padStart(2, "0");
       const minNum = minutePart ? parseInt(minutePart, 10) : -1;
-      if (minutePart.length === 2 && minNum > 59) { setError("Minutos inválidos"); return; }
+      if (minutePart.length === 2 && minNum > 59) { setError(errores.minutosInvalidos); return; }
       const nextVal = hourValue + (minutePart || cleaned.endsWith(":") ? ":" : "") + minutePart;
       setLocalVal(nextVal); onHora(hourValue); onMin(minutePart || "");
       if (hourValue && minutePart.length === 2) { if (isLast) inputRef.current?.blur(); else onComplete?.(); }
@@ -57,10 +61,10 @@ const TimeSelector = ({ label, inputId, hora, min, onHora, onMin, labelStyle, in
     }
     const hourStr = cleaned.slice(0, 2);
     const hourNum = parseInt(hourStr, 10);
-    if (hourNum > 23) { setError("Hora inválida (máx 23)"); return; }
+    if (hourNum > 23) { setError(errores.horaInvalidaMax); return; }
     const minuteStr = cleaned.slice(2, 4);
     const minNum = minuteStr ? parseInt(minuteStr, 10) : -1;
-    if (minuteStr.length === 2 && minNum > 59) { setError("Minutos inválidos (máx 59)"); return; }
+    if (minuteStr.length === 2 && minNum > 59) { setError(errores.minutosInvalidosMax); return; }
     setLocalVal(`${hourStr}${minuteStr ? `:${minuteStr}` : ""}`); onHora(hourStr); onMin(minuteStr || "");
     if (minuteStr.length === 2) { if (isLast) inputRef.current?.blur(); else onComplete?.(); }
   };
@@ -94,9 +98,10 @@ type FinSelectorProps = {
   refKey: string;
   registrarRef: (key: string, el: HTMLInputElement | null) => void;
   hasError?: boolean;
+  errores: Textos["errores"];
 };
 
-const FinSelector = ({ label, inputId, horaVal, minVal, onHora, onMin, labelStyle, inputStyle, refKey, registrarRef, hasError }: FinSelectorProps) => {
+const FinSelector = ({ label, inputId, horaVal, minVal, onHora, onMin, labelStyle, inputStyle, refKey, registrarRef, hasError, errores }: FinSelectorProps) => {
   const externo = horaVal ? `${horaVal}${minVal ? `:${minVal}` : ""}` : "";
   const [localVal, setLocalVal] = useState(externo);
   const [prevExterno, setPrevExterno] = useState(externo);
@@ -116,10 +121,10 @@ const FinSelector = ({ label, inputId, horaVal, minVal, onHora, onMin, labelStyl
     if (cleaned.includes(":")) {
       const [h, m] = cleaned.split(":");
       const hNum = parseInt(h.slice(0, 2), 10);
-      if (hNum > 23) { setError("Hora inválida"); return; }
+      if (hNum > 23) { setError(errores.horaInvalida); return; }
       const hVal = String(hNum).padStart(2, "0");
       const mPart = m.slice(0, 2);
-      if (mPart.length === 2 && parseInt(mPart, 10) > 59) { setError("Minutos inválidos"); return; }
+      if (mPart.length === 2 && parseInt(mPart, 10) > 59) { setError(errores.minutosInvalidos); return; }
       setLocalVal(hVal + (mPart || cleaned.endsWith(":") ? ":" : "") + mPart);
       onHora(hVal); onMin(mPart || "");
       if (hVal && mPart.length === 2) { inputRef.current?.blur(); }
@@ -132,9 +137,9 @@ const FinSelector = ({ label, inputId, horaVal, minVal, onHora, onMin, labelStyl
     }
     const hStr = cleaned.slice(0, 2);
     const hNum = parseInt(hStr, 10);
-    if (hNum > 23) { setError("Hora inválida (máx 23)"); return; }
+    if (hNum > 23) { setError(errores.horaInvalidaMax); return; }
     const mStr = cleaned.slice(2, 4);
-    if (mStr.length === 2 && parseInt(mStr, 10) > 59) { setError("Minutos inválidos"); return; }
+    if (mStr.length === 2 && parseInt(mStr, 10) > 59) { setError(errores.minutosInvalidos); return; }
     setLocalVal(`${hStr}${mStr ? `:${mStr}` : ""}`); onHora(hStr); onMin(mStr || "");
     if (mStr.length === 2) { inputRef.current?.blur(); }
   };
@@ -171,7 +176,7 @@ const formatFecha = (iso: string) => {
 // y en ?servicio= (lo usan los botones de la sección Servicios).
 const SERVICIOS = [
   {
-    valor: "Babysitting", titulo: "Babysitting", sub: "Cuidado en casa",
+    valor: "Babysitting",
     color: "var(--pink)", bg: "var(--pink-light)",
     icono: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -180,7 +185,7 @@ const SERVICIOS = [
     ),
   },
   {
-    valor: "Petsittings", titulo: "Petsitting", sub: "Cuidado de mascotas",
+    valor: "Petsittings",
     color: "var(--blue)", bg: "var(--blue-light)",
     icono: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
@@ -190,7 +195,7 @@ const SERVICIOS = [
     ),
   },
   {
-    valor: "Evento", titulo: "Eventos", sub: "Animación infantil",
+    valor: "Evento",
     color: "var(--yellow-dark)", bg: "#fffae8",
     icono: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -198,9 +203,12 @@ const SERVICIOS = [
       </svg>
     ),
   },
-];
+] as const;
 
-export default function SimulatorSection() {
+export default function SimulatorSection({ t }: { t: Textos }) {
+  // Etiqueta visible de un valor interno ("Puntual", "Lun", "Cumpleaños"...). Los valores
+  // internos no cambian con el idioma: son los que usa el mensaje y la preselección.
+  const op = (valor: string) => (t.opciones as Record<string, string>)[valor] ?? valor;
   const today = fechaLocalISO(new Date());
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
@@ -338,11 +346,6 @@ export default function SimulatorSection() {
   const cantNinosOptions = () => ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10 o más"];
   const cantMascotasOptions = () => ["1", "2", "3", "4+"];
 
-  const petTipoLabel: Record<string, string> = {
-    "Visita a domicilio": "Visita a domicilio",
-    "Pernocte": "Pernocte (la cuidadora se queda en tu casa)",
-    "Hospedaje": "Hospedaje en casa de la cuidadora",
-  };
 
   const duracionMinutos = (h1: string, m1: string, h2: string, m2: string): number => {
     if (!h1 || !h2) return 0;
@@ -359,9 +362,9 @@ export default function SimulatorSection() {
     if (!fechaStr) return null;
     const [year, month, day] = fechaStr.split("-").map(Number);
     const date = new Date(year, month - 1, day);
-    if (date.getMonth() !== month - 1) return "Fecha inválida";
-    if (fechaStr < today) return "No puede ser anterior a hoy";
-    if (fechaStr > maxDateStr) return "No puede ser mayor a un año";
+    if (date.getMonth() !== month - 1) return t.errores.fechaInvalida;
+    if (fechaStr < today) return t.errores.fechaPasada;
+    if (fechaStr > maxDateStr) return t.errores.fechaLejana;
     return null;
   };
 
@@ -383,59 +386,59 @@ export default function SimulatorSection() {
       if (!valor) e[key] = faltante;
       else if (invalida) e[key] = invalida;
     };
-    if (!form.nombre.trim()) e["nombre"] = "Ingresá tu nombre";
-    if (!form.servicio) e["servicio"] = "Seleccioná un servicio";
-    if (!form.departamento) e["departamento"] = "Seleccioná un departamento";
-    if (!form.zona) e["zona"] = "Seleccioná una zona";
-    if (form.zona === "Otro" && !form.zonaOtro.trim()) e["zonaOtro"] = "Ingresá tu zona";
-    if (form.servicio !== "Petsittings" && !form.edades.trim()) e["edades"] = "Ingresá las edades";
+    if (!form.nombre.trim()) e["nombre"] = t.errores.nombre;
+    if (!form.servicio) e["servicio"] = t.errores.servicio;
+    if (!form.departamento) e["departamento"] = t.errores.departamento;
+    if (!form.zona) e["zona"] = t.errores.zona;
+    if (form.zona === "Otro" && !form.zonaOtro.trim()) e["zonaOtro"] = t.errores.zonaOtro;
+    if (form.servicio !== "Petsittings" && !form.edades.trim()) e["edades"] = t.errores.edades;
 
     if (form.servicio === "Babysitting") {
-      if (!form.tipoBabysitting) e["tipoBabysitting"] = "Seleccioná puntual o fijo";
+      if (!form.tipoBabysitting) e["tipoBabysitting"] = t.errores.tipoBabysitting;
       if (form.tipoBabysitting === "Puntual") {
-        if (!form.cantDias) e["cantDias"] = "Seleccioná la cantidad de días";
+        if (!form.cantDias) e["cantDias"] = t.errores.cantDias;
         form.dias.forEach((d, i) => {
-          checkFecha(`dia-${i}-fecha`, d.fecha, "Ingresá la fecha");
-          if (!d.horaInicio) e[`dia-${i}-horaInicio`] = "Ingresá hora de inicio";
-          if (!d.horaFin) e[`dia-${i}-horaFin`] = "Ingresá hora de fin";
+          checkFecha(`dia-${i}-fecha`, d.fecha, t.errores.fecha);
+          if (!d.horaInicio) e[`dia-${i}-horaInicio`] = t.errores.horaInicio;
+          if (!d.horaFin) e[`dia-${i}-horaFin`] = t.errores.horaFin;
         });
       }
       if (form.tipoBabysitting === "Fijo") {
-        if (form.diasSemana.length === 0) e["diasSemana"] = "Seleccioná al menos un día";
-        if (!form.horarioFijoInicioH) e["horarioFijoInicio"] = "Ingresá hora de inicio";
-        if (!form.horarioFijoFinH) e["horarioFijoFin"] = "Ingresá hora de fin";
-        checkFecha("fijoDesde", fijoDesde, "Ingresá desde cuándo");
+        if (form.diasSemana.length === 0) e["diasSemana"] = t.errores.diasSemana;
+        if (!form.horarioFijoInicioH) e["horarioFijoInicio"] = t.errores.horaInicio;
+        if (!form.horarioFijoFinH) e["horarioFijoFin"] = t.errores.horaFin;
+        checkFecha("fijoDesde", fijoDesde, t.errores.fijoDesde);
         if (form.hastaCuando === "Fecha") {
-          checkFecha("hastaFecha", form.hastaFecha, "Ingresá hasta qué fecha");
-          if (!e["hastaFecha"] && form.hastaFecha < fijoDesde) e["hastaFecha"] = "La fecha de fin no puede ser anterior a la de inicio";
+          checkFecha("hastaFecha", form.hastaFecha, t.errores.hastaFecha);
+          if (!e["hastaFecha"] && form.hastaFecha < fijoDesde) e["hastaFecha"] = t.errores.finAntesDeInicio;
         }
       }
-      if (!form.cantNinos) e["cantNinos"] = "Seleccioná cantidad de niños";
+      if (!form.cantNinos) e["cantNinos"] = t.errores.cantNinos;
     }
 
     if (form.servicio === "Evento") {
-      if (!form.tipoEvento) e["tipoEvento"] = "Seleccioná el tipo de evento";
-      checkFecha("fechaEvento", form.fechaEvento, "Ingresá la fecha del evento");
-      if (!form.horaInicioH) e["horaInicio"] = "Ingresá hora de inicio";
-      if (!form.horaFinH) e["horaFin"] = "Ingresá hora de fin";
-      if (!form.cantNinosEvento.trim()) e["cantNinosEvento"] = "Ingresá la cantidad aproximada";
+      if (!form.tipoEvento) e["tipoEvento"] = t.errores.tipoEvento;
+      checkFecha("fechaEvento", form.fechaEvento, t.errores.fechaEvento);
+      if (!form.horaInicioH) e["horaInicio"] = t.errores.horaInicio;
+      if (!form.horaFinH) e["horaFin"] = t.errores.horaFin;
+      if (!form.cantNinosEvento.trim()) e["cantNinosEvento"] = t.errores.cantNinosEvento;
     }
 
     if (form.servicio === "Petsittings") {
-      if (!form.tipoPetsitting) e["tipoPetsitting"] = "Seleccioná el tipo de servicio";
-      if (!form.cantMascotas) e["cantMascotas"] = "Seleccioná la cantidad de mascotas";
+      if (!form.tipoPetsitting) e["tipoPetsitting"] = t.errores.tipoPetsitting;
+      if (!form.cantMascotas) e["cantMascotas"] = t.errores.cantMascotas;
       if (form.tipoPetsitting === "Visita a domicilio") {
-        if (!form.cantDias) e["cantDias"] = "Seleccioná la cantidad de días";
+        if (!form.cantDias) e["cantDias"] = t.errores.cantDias;
         form.dias.forEach((d, i) => {
-          checkFecha(`dia-${i}-fecha`, d.fecha, "Ingresá la fecha");
-          if (!d.horaInicio) e[`dia-${i}-horaInicio`] = "Ingresá hora de inicio";
-          if (!d.horaFin) e[`dia-${i}-horaFin`] = "Ingresá hora de fin";
+          checkFecha(`dia-${i}-fecha`, d.fecha, t.errores.fecha);
+          if (!d.horaInicio) e[`dia-${i}-horaInicio`] = t.errores.horaInicio;
+          if (!d.horaFin) e[`dia-${i}-horaFin`] = t.errores.horaFin;
         });
       }
       if (form.tipoPetsitting === "Pernocte" || form.tipoPetsitting === "Hospedaje") {
-        checkFecha("petFechaDesde", form.petFechaDesde, "Ingresá la fecha de inicio");
-        checkFecha("petFechaHasta", form.petFechaHasta, "Ingresá la fecha de fin");
-        if (!e["petFechaHasta"] && form.petFechaDesde && form.petFechaHasta < form.petFechaDesde) e["petFechaHasta"] = "La fecha de fin no puede ser anterior a la de inicio";
+        checkFecha("petFechaDesde", form.petFechaDesde, t.errores.petFechaDesde);
+        checkFecha("petFechaHasta", form.petFechaHasta, t.errores.petFechaHasta);
+        if (!e["petFechaHasta"] && form.petFechaDesde && form.petFechaHasta < form.petFechaDesde) e["petFechaHasta"] = t.errores.finAntesDeInicio;
       }
     }
 
@@ -463,7 +466,7 @@ export default function SimulatorSection() {
       msg += `*Horario:* ${form.horaInicioH}:${form.horaInicioM || "00"} - ${form.horaFinH}:${form.horaFinM || "00"}\n`;
       msg += `*Cantidad aproximada de niños:* ${form.cantNinosEvento}\n`;
     } else if (form.servicio === "Petsittings") {
-      msg += `*Tipo de servicio:* ${petTipoLabel[form.tipoPetsitting] || form.tipoPetsitting}\n`;
+      msg += `*Tipo de servicio:* ${op(form.tipoPetsitting)}\n`;
       msg += `*Cantidad de mascotas:* ${form.cantMascotas}\n`;
       if (form.petNecesita.length) msg += `*Necesita:* ${form.petNecesita.join(", ")}\n`;
       if (form.tipoPetsitting === "Visita a domicilio") {
@@ -549,10 +552,10 @@ export default function SimulatorSection() {
             display: "inline-block", background: "rgba(37,211,102,.12)", color: "var(--whatsapp-boton)",
             fontWeight: 700, fontSize: 12, letterSpacing: ".1em", textTransform: "uppercase",
             padding: "6px 16px", borderRadius: 99, marginBottom: 16,
-          }}>Rápido y fácil</span>
-          <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 800, marginBottom: 12 }}>Coordina tu servicio</h2>
+          }}>{t.etiqueta}</span>
+          <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 800, marginBottom: 12 }}>{t.titulo}</h2>
           <p style={{ fontSize: 16, color: "var(--text-soft)" }}>
-            Completá el formulario y te preparamos automáticamente un mensaje listo para enviar por WhatsApp.
+            {t.subtitulo}
           </p>
         </div>
 
@@ -572,7 +575,7 @@ export default function SimulatorSection() {
               </svg>
               <div>
                 <div style={{ fontSize: 13, fontWeight: 700, color: "#dc2626", marginBottom: 6 }}>
-                  Completá los siguientes campos antes de enviar:
+                  {t.erroresTitulo}
                 </div>
                 <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 3 }}>
                   {Object.values(errors).map((msg, i) => (
@@ -586,9 +589,9 @@ export default function SimulatorSection() {
           <div className="sim-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
 
             <div id="field-nombre" className="full-col">
-              <label style={labelStyle} htmlFor="in-nombre">Tu nombre *</label>
+              <label style={labelStyle} htmlFor="in-nombre">{t.nombre}</label>
               <input id="in-nombre"
-                style={inputErr("nombre")} placeholder="Ej: María González" value={form.nombre}
+                style={inputErr("nombre")} placeholder={t.nombreEjemplo} value={form.nombre}
                 onChange={(e) => update("nombre", e.target.value)}
                 onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
                 onBlur={(e) => { e.currentTarget.style.borderColor = errors["nombre"] ? "#dc2626" : "var(--gray)"; }}
@@ -598,7 +601,7 @@ export default function SimulatorSection() {
 
             {/* Tarjetas de servicio: son radios reales (teclado y lector de pantalla) con el input oculto a la vista */}
             <div id="field-servicio" className="full-col">
-              <div id="label-servicio" style={labelStyle}>Tipo de servicio *</div>
+              <div id="label-servicio" style={labelStyle}>{t.tipoServicio}</div>
               <div role="radiogroup" aria-labelledby="label-servicio" className="serv-grid">
                 {SERVICIOS.map((s) => {
                   const activo = form.servicio === s.valor;
@@ -615,8 +618,8 @@ export default function SimulatorSection() {
                         {s.icono}
                       </span>
                       <span>
-                        <span className="serv-titulo">{s.titulo}</span>
-                        <span className="serv-sub">{s.sub}</span>
+                        <span className="serv-titulo">{t.servicios[s.valor].titulo}</span>
+                        <span className="serv-sub">{t.servicios[s.valor].sub}</span>
                       </span>
                     </label>
                   );
@@ -629,10 +632,10 @@ export default function SimulatorSection() {
             {form.servicio === "Babysitting" && (
               <>
                 <div className="full-col" id="field-tipoBabysitting">
-                  <div style={labelStyle}>¿Es un servicio puntual o fijo?</div>
+                  <div style={labelStyle}>{t.puntualOFijo}</div>
                   <div style={{ display: "flex", gap: 10 }}>
                     {["Puntual", "Fijo"].map((opt) => (
-                      <button key={opt} onClick={() => update("tipoBabysitting", opt)} style={btnToggle(form.tipoBabysitting === opt)}>{opt}</button>
+                      <button key={opt} onClick={() => update("tipoBabysitting", opt)} style={btnToggle(form.tipoBabysitting === opt)}>{op(opt)}</button>
                     ))}
                   </div>
                   {errMsg("tipoBabysitting")}
@@ -641,7 +644,7 @@ export default function SimulatorSection() {
                 {form.tipoBabysitting === "Puntual" && (
                   <>
                     <div className="full-col" id="field-cantDias">
-                      <div style={labelStyle}>¿Cuántos días?</div>
+                      <div style={labelStyle}>{t.cuantosDias}</div>
                       <div style={{ display: "flex", gap: 10 }}>
                         {["1", "2", "3", "4"].map((n) => (
                           <button key={n} onClick={() => handleCantDias(n)} style={btnToggle(form.cantDias === n)}>{n}</button>
@@ -655,19 +658,19 @@ export default function SimulatorSection() {
                         background: "var(--off)", borderRadius: 14, padding: "20px", border: "1.5px solid var(--gray)",
                       }}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-                          <span style={{ fontWeight: 700, fontSize: 15, color: "var(--blue)" }}>Día {i + 1}</span>
+                          <span style={{ fontWeight: 700, fontSize: 15, color: "var(--blue)" }}>{t.dia.replace("{n}", String(i + 1))}</span>
                           {i > 0 && (
                             <button onClick={() => copiarDia1(i)} style={{
                               fontSize: 12, fontWeight: 700, color: "var(--blue)",
                               background: "var(--blue-light)", border: "1.5px solid var(--blue-mid)",
                               borderRadius: 99, padding: "5px 14px", cursor: "pointer",
                               fontFamily: "var(--font-source), sans-serif",
-                            }}>Copiar horario del Día 1</button>
+                            }}>{t.copiarDia1}</button>
                           )}
                         </div>
                         <div className="dia-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
                           <div id={`field-dia-${i}-fecha`}>
-                            <label style={labelStyle} htmlFor={`in-dia-${i}-fecha`}>Fecha</label>
+                            <label style={labelStyle} htmlFor={`in-dia-${i}-fecha`}>{t.fecha}</label>
                             <input id={`in-dia-${i}-fecha`} type="date" style={inputErr(`dia-${i}-fecha`)} value={dia.fecha} min={today} max={maxDateStr}
                               onChange={(e) => updateDia(i, "fecha", e.target.value)} />
                             {validarFecha(dia.fecha) && !errors[`dia-${i}-fecha`] && <div style={alertStyle}>{validarFecha(dia.fecha)}</div>}
@@ -676,10 +679,10 @@ export default function SimulatorSection() {
                           <div id={`field-dia-${i}-horaInicio`}>
                             <TimeSelector
  inputId={`in-dia-${i}-horaInicio`}
-                              label="Hora inicio" hora={dia.horaInicio} min={dia.minInicio}
+                              label={t.horaInicio} hora={dia.horaInicio} min={dia.minInicio}
                               onHora={(v) => updateDia(i, "horaInicio", v)}
                               onMin={(v) => updateDia(i, "minInicio", v)}
-                              labelStyle={labelStyle} inputStyle={inputStyle}
+                              labelStyle={labelStyle} inputStyle={inputStyle} errores={t.errores}
                               isLast={false} onComplete={() => focusRef(`dia-fin-${i}`)}
                               hasError={!!errors[`dia-${i}-horaInicio`]}
                             />
@@ -688,10 +691,10 @@ export default function SimulatorSection() {
                           <div id={`field-dia-${i}-horaFin`}>
                             <FinSelector
  inputId={`in-dia-${i}-horaFin`}
-                              label="Hora fin" horaVal={dia.horaFin} minVal={dia.minFin}
+                              label={t.horaFin} horaVal={dia.horaFin} minVal={dia.minFin}
                               onHora={(v) => updateDia(i, "horaFin", v)}
                               onMin={(v) => updateDia(i, "minFin", v)}
-                              labelStyle={labelStyle} inputStyle={inputStyle}
+                              labelStyle={labelStyle} inputStyle={inputStyle} errores={t.errores}
                               refKey={`dia-fin-${i}`} registrarRef={registrarFin}
                               hasError={!!errors[`dia-${i}-horaFin`]}
                             />
@@ -699,7 +702,7 @@ export default function SimulatorSection() {
                           </div>
                         </div>
                         {horasDeAlerta(dia.horaInicio, dia.minInicio, dia.horaFin, dia.minFin) && (
-                          <div style={warnStyle}>El horario supera las 13 horas. Verificá que sea correcto.</div>
+                          <div style={warnStyle}>{t.alertaHoras}</div>
                         )}
                       </div>
                     ))}
@@ -709,12 +712,12 @@ export default function SimulatorSection() {
                 {form.tipoBabysitting === "Fijo" && (
                   <>
                     <div className="full-col" id="field-diasSemana">
-                      <div style={labelStyle}>Días de la semana</div>
+                      <div style={labelStyle}>{t.diasSemana}</div>
                       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                         {DIAS_SEMANA.map((dia) => (
                           <button key={dia} onClick={() => toggleDiaSemana(dia)}
                             style={{ ...btnToggle(form.diasSemana.includes(dia)), flex: "none", padding: "8px 14px" }}>
-                            {dia}
+                            {op(dia)}
                           </button>
                         ))}
                       </div>
@@ -723,10 +726,10 @@ export default function SimulatorSection() {
                     <div id="field-horarioFijoInicio">
                       <TimeSelector
  inputId="in-horarioFijoInicio"
-                        label="Hora inicio" hora={form.horarioFijoInicioH} min={form.horarioFijoInicioM}
+                        label={t.horaInicio} hora={form.horarioFijoInicioH} min={form.horarioFijoInicioM}
                         onHora={(v) => update("horarioFijoInicioH", v)}
                         onMin={(v) => update("horarioFijoInicioM", v)}
-                        labelStyle={labelStyle} inputStyle={inputStyle}
+                        labelStyle={labelStyle} inputStyle={inputStyle} errores={t.errores}
                         isLast={false} onComplete={() => focusRef("fijo-fin")}
                         hasError={!!errors["horarioFijoInicio"]}
                       />
@@ -735,20 +738,20 @@ export default function SimulatorSection() {
                     <div id="field-horarioFijoFin">
                       <FinSelector
  inputId="in-horarioFijoFin"
-                        label="Hora fin" horaVal={form.horarioFijoFinH} minVal={form.horarioFijoFinM}
+                        label={t.horaFin} horaVal={form.horarioFijoFinH} minVal={form.horarioFijoFinM}
                         onHora={(v) => update("horarioFijoFinH", v)}
                         onMin={(v) => update("horarioFijoFinM", v)}
-                        labelStyle={labelStyle} inputStyle={inputStyle}
+                        labelStyle={labelStyle} inputStyle={inputStyle} errores={t.errores}
                         refKey="fijo-fin" registrarRef={registrarFin}
                         hasError={!!errors["horarioFijoFin"]}
                       />
                       {errMsg("horarioFijoFin")}
                     </div>
                     {horasDeAlerta(form.horarioFijoInicioH, form.horarioFijoInicioM, form.horarioFijoFinH, form.horarioFijoFinM) && (
-                      <div className="full-col" style={warnStyle}>El horario supera las 13 horas. Verificá que sea correcto.</div>
+                      <div className="full-col" style={warnStyle}>{t.alertaHoras}</div>
                     )}
                     <div id="field-fijoDesde">
-                      <label style={labelStyle} htmlFor="in-fijoDesde">Desde cuándo</label>
+                      <label style={labelStyle} htmlFor="in-fijoDesde">{t.desdeCuando}</label>
                       <input id="in-fijoDesde" type="date" style={inputErr("fijoDesde")}
                         value={fijoDesde} min={today} max={maxDateStr}
                         onChange={(e) => {
@@ -762,19 +765,19 @@ export default function SimulatorSection() {
                       {errMsg("fijoDesde")}
                     </div>
                     <div id="field-hastaFecha">
-                      <div style={labelStyle}>Hasta cuándo</div>
+                      <div style={labelStyle}>{t.hastaCuando}</div>
                       <div style={{ display: "flex", gap: 10, marginBottom: form.hastaCuando === "Fecha" ? 10 : 0 }}>
                         {["Indefinido", "Fecha"].map((opt) => (
                           <button key={opt} onClick={() => {
                             update("hastaCuando", opt);
                             setErrors((prev) => { const n = { ...prev }; delete n["hastaFecha"]; return n; });
                           }} style={btnToggle(form.hastaCuando === opt)}>
-                            {opt === "Fecha" ? "Hasta una fecha" : "Indefinido"}
+                            {opt === "Fecha" ? t.hastaUnaFecha : op("Indefinido")}
                           </button>
                         ))}
                       </div>
                       {form.hastaCuando === "Fecha" && (
-                        <input type="date" style={{ ...inputErr("hastaFecha"), marginTop: 10 }} value={form.hastaFecha} aria-label="Hasta qué fecha"
+                        <input type="date" style={{ ...inputErr("hastaFecha"), marginTop: 10 }} value={form.hastaFecha} aria-label={t.hastaQueFecha}
                           min={fijoDesde} max={maxDateStr} onChange={(e) => update("hastaFecha", e.target.value)} />
                       )}
                       {errMsg("hastaFecha")}
@@ -788,32 +791,32 @@ export default function SimulatorSection() {
             {form.servicio === "Petsittings" && (
               <>
                 <div className="full-col" id="field-tipoPetsitting">
-                  <div style={labelStyle}>Tipo de servicio</div>
+                  <div style={labelStyle}>{t.tipoPetsitting}</div>
                   <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                     {["Visita a domicilio", "Pernocte", "Hospedaje"].map((opt) => (
-                      <button key={opt} onClick={() => update("tipoPetsitting", opt)} style={{ ...btnToggle(form.tipoPetsitting === opt), flex: "1 1 140px" }}>{petTipoLabel[opt]}</button>
+                      <button key={opt} onClick={() => update("tipoPetsitting", opt)} style={{ ...btnToggle(form.tipoPetsitting === opt), flex: "1 1 140px" }}>{op(opt)}</button>
                     ))}
                   </div>
                   {errMsg("tipoPetsitting")}
                 </div>
 
                 <div className="full-col" id="field-cantMascotas">
-                  <label style={labelStyle} htmlFor="in-cantMascotas">Cantidad de mascotas</label>
+                  <label style={labelStyle} htmlFor="in-cantMascotas">{t.cantMascotas}</label>
                   <select id="in-cantMascotas" style={{ ...inputErr("cantMascotas"), cursor: "pointer" }} value={form.cantMascotas}
                     onChange={(e) => update("cantMascotas", e.target.value)}>
-                    <option value="">Seleccioná</option>
+                    <option value="">{t.seleccionar}</option>
                     {cantMascotasOptions().map((n) => <option key={n}>{n}</option>)}
                   </select>
                   {errMsg("cantMascotas")}
                 </div>
 
                 <div className="full-col" id="field-petNecesita">
-                  <div style={labelStyle}>¿Qué necesita?</div>
+                  <div style={labelStyle}>{t.queNecesita}</div>
                   <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                     {["Darle de comer", "Pasearlo", "Compañía / cuidado general"].map((item) => (
                       <button key={item} onClick={() => togglePetNecesita(item)}
                         style={{ ...btnToggle(form.petNecesita.includes(item)), flex: "none", padding: "8px 14px" }}>
-                        {item}
+                        {op(item)}
                       </button>
                     ))}
                   </div>
@@ -822,7 +825,7 @@ export default function SimulatorSection() {
                 {form.tipoPetsitting === "Visita a domicilio" && (
                   <>
                     <div className="full-col" id="field-cantDias">
-                      <div style={labelStyle}>¿Cuántos días?</div>
+                      <div style={labelStyle}>{t.cuantosDias}</div>
                       <div style={{ display: "flex", gap: 10 }}>
                         {["1", "2", "3", "4"].map((n) => (
                           <button key={n} onClick={() => handleCantDias(n)} style={btnToggle(form.cantDias === n)}>{n}</button>
@@ -836,19 +839,19 @@ export default function SimulatorSection() {
                         background: "var(--off)", borderRadius: 14, padding: "20px", border: "1.5px solid var(--gray)",
                       }}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-                          <span style={{ fontWeight: 700, fontSize: 15, color: "var(--blue)" }}>Día {i + 1}</span>
+                          <span style={{ fontWeight: 700, fontSize: 15, color: "var(--blue)" }}>{t.dia.replace("{n}", String(i + 1))}</span>
                           {i > 0 && (
                             <button onClick={() => copiarDia1(i)} style={{
                               fontSize: 12, fontWeight: 700, color: "var(--blue)",
                               background: "var(--blue-light)", border: "1.5px solid var(--blue-mid)",
                               borderRadius: 99, padding: "5px 14px", cursor: "pointer",
                               fontFamily: "var(--font-source), sans-serif",
-                            }}>Copiar horario del Día 1</button>
+                            }}>{t.copiarDia1}</button>
                           )}
                         </div>
                         <div className="dia-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
                           <div id={`field-dia-${i}-fecha`}>
-                            <label style={labelStyle} htmlFor={`in-dia-${i}-fecha`}>Fecha</label>
+                            <label style={labelStyle} htmlFor={`in-dia-${i}-fecha`}>{t.fecha}</label>
                             <input id={`in-dia-${i}-fecha`} type="date" style={inputErr(`dia-${i}-fecha`)} value={dia.fecha} min={today} max={maxDateStr}
                               onChange={(e) => updateDia(i, "fecha", e.target.value)} />
                             {validarFecha(dia.fecha) && !errors[`dia-${i}-fecha`] && <div style={alertStyle}>{validarFecha(dia.fecha)}</div>}
@@ -857,10 +860,10 @@ export default function SimulatorSection() {
                           <div id={`field-dia-${i}-horaInicio`}>
                             <TimeSelector
  inputId={`in-dia-${i}-horaInicio`}
-                              label="Hora inicio" hora={dia.horaInicio} min={dia.minInicio}
+                              label={t.horaInicio} hora={dia.horaInicio} min={dia.minInicio}
                               onHora={(v) => updateDia(i, "horaInicio", v)}
                               onMin={(v) => updateDia(i, "minInicio", v)}
-                              labelStyle={labelStyle} inputStyle={inputStyle}
+                              labelStyle={labelStyle} inputStyle={inputStyle} errores={t.errores}
                               isLast={false} onComplete={() => focusRef(`dia-fin-${i}`)}
                               hasError={!!errors[`dia-${i}-horaInicio`]}
                             />
@@ -869,10 +872,10 @@ export default function SimulatorSection() {
                           <div id={`field-dia-${i}-horaFin`}>
                             <FinSelector
  inputId={`in-dia-${i}-horaFin`}
-                              label="Hora fin" horaVal={dia.horaFin} minVal={dia.minFin}
+                              label={t.horaFin} horaVal={dia.horaFin} minVal={dia.minFin}
                               onHora={(v) => updateDia(i, "horaFin", v)}
                               onMin={(v) => updateDia(i, "minFin", v)}
-                              labelStyle={labelStyle} inputStyle={inputStyle}
+                              labelStyle={labelStyle} inputStyle={inputStyle} errores={t.errores}
                               refKey={`dia-fin-${i}`} registrarRef={registrarFin}
                               hasError={!!errors[`dia-${i}-horaFin`]}
                             />
@@ -880,7 +883,7 @@ export default function SimulatorSection() {
                           </div>
                         </div>
                         {horasDeAlerta(dia.horaInicio, dia.minInicio, dia.horaFin, dia.minFin) && (
-                          <div style={warnStyle}>El horario supera las 13 horas. Verificá que sea correcto.</div>
+                          <div style={warnStyle}>{t.alertaHoras}</div>
                         )}
                       </div>
                     ))}
@@ -890,14 +893,14 @@ export default function SimulatorSection() {
                 {(form.tipoPetsitting === "Pernocte" || form.tipoPetsitting === "Hospedaje") && (
                   <>
                     <div id="field-petFechaDesde">
-                      <label style={labelStyle} htmlFor="in-petFechaDesde">Desde</label>
+                      <label style={labelStyle} htmlFor="in-petFechaDesde">{t.desde}</label>
                       <input id="in-petFechaDesde" type="date" style={inputErr("petFechaDesde")} value={form.petFechaDesde} min={today} max={maxDateStr}
                         onChange={(e) => update("petFechaDesde", e.target.value)} />
                       {validarFecha(form.petFechaDesde) && !errors["petFechaDesde"] && <div style={alertStyle}>{validarFecha(form.petFechaDesde)}</div>}
                       {errMsg("petFechaDesde")}
                     </div>
                     <div id="field-petFechaHasta">
-                      <label style={labelStyle} htmlFor="in-petFechaHasta">Hasta</label>
+                      <label style={labelStyle} htmlFor="in-petFechaHasta">{t.hasta}</label>
                       <input id="in-petFechaHasta" type="date" style={inputErr("petFechaHasta")} value={form.petFechaHasta} min={form.petFechaDesde || today} max={maxDateStr}
                         onChange={(e) => update("petFechaHasta", e.target.value)} />
                       {errMsg("petFechaHasta")}
@@ -911,20 +914,18 @@ export default function SimulatorSection() {
             {form.servicio === "Evento" && (
               <>
                 <div id="field-tipoEvento">
-                  <label style={labelStyle} htmlFor="in-tipoEvento">Tipo de evento</label>
+                  <label style={labelStyle} htmlFor="in-tipoEvento">{t.tipoEvento}</label>
                   <select id="in-tipoEvento" style={{ ...inputErr("tipoEvento"), cursor: "pointer" }} value={form.tipoEvento}
                     onChange={(e) => update("tipoEvento", e.target.value)}>
-                    <option value="">Seleccioná</option>
-                    <option>Cumpleaños</option>
-                    <option>Evento empresarial</option>
-                    <option>Evento familiar</option>
-                    <option>Casamiento</option>
-                    <option>Otro</option>
+                    <option value="">{t.seleccionar}</option>
+                    {["Cumpleaños", "Evento empresarial", "Evento familiar", "Casamiento", "Otro"].map((v) => (
+                      <option key={v} value={v}>{op(v)}</option>
+                    ))}
                   </select>
                   {errMsg("tipoEvento")}
                 </div>
                 <div id="field-fechaEvento">
-                  <label style={labelStyle} htmlFor="in-fechaEvento">Fecha</label>
+                  <label style={labelStyle} htmlFor="in-fechaEvento">{t.fecha}</label>
                   <input id="in-fechaEvento" type="date" style={inputErr("fechaEvento")} value={form.fechaEvento} min={today} max={maxDateStr}
                     onChange={(e) => update("fechaEvento", e.target.value)} />
                   {validarFecha(form.fechaEvento) && !errors["fechaEvento"] && <div style={alertStyle}>{validarFecha(form.fechaEvento)}</div>}
@@ -933,9 +934,9 @@ export default function SimulatorSection() {
                 <div id="field-horaInicio">
                   <TimeSelector
  inputId="in-horaInicio"
-                    label="Hora de inicio" hora={form.horaInicioH} min={form.horaInicioM}
+                    label={t.eventoHoraInicio} hora={form.horaInicioH} min={form.horaInicioM}
                     onHora={(v) => update("horaInicioH", v)} onMin={(v) => update("horaInicioM", v)}
-                    labelStyle={labelStyle} inputStyle={inputStyle}
+                    labelStyle={labelStyle} inputStyle={inputStyle} errores={t.errores}
                     isLast={false} onComplete={() => focusRef("evento-fin")}
                     hasError={!!errors["horaInicio"]}
                   />
@@ -944,20 +945,20 @@ export default function SimulatorSection() {
                 <div id="field-horaFin">
                   <FinSelector
  inputId="in-horaFin"
-                    label="Hora de fin" horaVal={form.horaFinH} minVal={form.horaFinM}
+                    label={t.eventoHoraFin} horaVal={form.horaFinH} minVal={form.horaFinM}
                     onHora={(v) => update("horaFinH", v)} onMin={(v) => update("horaFinM", v)}
-                    labelStyle={labelStyle} inputStyle={inputStyle}
+                    labelStyle={labelStyle} inputStyle={inputStyle} errores={t.errores}
                     refKey="evento-fin" registrarRef={registrarFin}
                     hasError={!!errors["horaFin"]}
                   />
                   {errMsg("horaFin")}
                 </div>
                 {horasDeAlerta(form.horaInicioH, form.horaInicioM, form.horaFinH, form.horaFinM) && (
-                  <div className="full-col" style={warnStyle}>El horario supera las 13 horas. Verificá que sea correcto.</div>
+                  <div className="full-col" style={warnStyle}>{t.alertaHoras}</div>
                 )}
                 <div id="field-cantNinosEvento">
-                  <label style={labelStyle} htmlFor="in-cantNinosEvento">Cantidad aprox. de niños</label>
-                  <input id="in-cantNinosEvento" style={inputErr("cantNinosEvento")} placeholder="Ej: 10-15 niños" value={form.cantNinosEvento}
+                  <label style={labelStyle} htmlFor="in-cantNinosEvento">{t.cantNinosEvento}</label>
+                  <input id="in-cantNinosEvento" style={inputErr("cantNinosEvento")} placeholder={t.cantNinosEventoEjemplo} value={form.cantNinosEvento}
                     onChange={(e) => update("cantNinosEvento", e.target.value)}
                     onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
                     onBlur={(e) => { e.currentTarget.style.borderColor = errors["cantNinosEvento"] ? "#dc2626" : "var(--gray)"; }} />
@@ -968,10 +969,10 @@ export default function SimulatorSection() {
 
             {/* ── DEPARTAMENTO ── */}
             <div id="field-departamento">
-              <label style={labelStyle} htmlFor="in-departamento">Departamento *</label>
+              <label style={labelStyle} htmlFor="in-departamento">{t.departamento}</label>
               <select id="in-departamento" style={{ ...inputErr("departamento"), cursor: "pointer" }} value={form.departamento}
                 onChange={(e) => { update("departamento", e.target.value); update("zona", ""); update("zonaOtro", ""); }}>
-                <option value="">Seleccioná</option>
+                <option value="">{t.seleccionar}</option>
                 <option>Montevideo</option>
                 <option>Canelones</option>
                 <option>Maldonado</option>
@@ -982,15 +983,15 @@ export default function SimulatorSection() {
             {/* ── ZONA ── */}
             {form.departamento && (
               <div id="field-zona">
-                <label style={labelStyle} htmlFor="in-zona">Zona *</label>
+                <label style={labelStyle} htmlFor="in-zona">{t.zona}</label>
                 <select id="in-zona"
                   style={{ ...inputErr("zona"), cursor: "pointer" }}
                   value={form.zona}
                   onChange={(e) => { update("zona", e.target.value); update("zonaOtro", ""); }}
                 >
-                  <option value="">Seleccioná tu zona</option>
+                  <option value="">{t.seleccionarZona}</option>
                   {zonasPorDepartamento[form.departamento]?.map((z) => (
-                    <option key={z}>{z}</option>
+                    <option key={z} value={z}>{op(z)}</option>
                   ))}
                 </select>
                 {errMsg("zona")}
@@ -1000,10 +1001,10 @@ export default function SimulatorSection() {
             {/* ── ZONA OTRO (texto libre) ── */}
             {form.zona === "Otro" && (
               <div className="full-col" id="field-zonaOtro">
-                <label style={labelStyle} htmlFor="in-zonaOtro">¿En qué zona? *</label>
+                <label style={labelStyle} htmlFor="in-zonaOtro">{t.zonaOtro}</label>
                 <input id="in-zonaOtro"
                   style={inputErr("zonaOtro")}
-                  placeholder="Ej: Colón, Cerro, La Unión..."
+                  placeholder={t.zonaOtroEjemplo}
                   value={form.zonaOtro}
                   onChange={(e) => update("zonaOtro", e.target.value)}
                   onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
@@ -1016,11 +1017,11 @@ export default function SimulatorSection() {
             {/* ── CANTIDAD DE NIÑOS ── */}
             {form.servicio === "Babysitting" && (
               <div id="field-cantNinos">
-                <label style={labelStyle} htmlFor="in-cantNinos">Cantidad de niños</label>
+                <label style={labelStyle} htmlFor="in-cantNinos">{t.cantNinos}</label>
                 <select id="in-cantNinos" style={{ ...inputErr("cantNinos"), cursor: "pointer" }} value={form.cantNinos}
                   onChange={(e) => update("cantNinos", e.target.value)}>
-                  <option value="">Seleccioná</option>
-                  {cantNinosOptions().map((n) => <option key={n}>{n}</option>)}
+                  <option value="">{t.seleccionar}</option>
+                  {cantNinosOptions().map((n) => <option key={n} value={n}>{op(n)}</option>)}
                 </select>
                 {errMsg("cantNinos")}
               </div>
@@ -1028,8 +1029,8 @@ export default function SimulatorSection() {
 
             {form.servicio !== "Petsittings" && (
               <div id="field-edades">
-                <label style={labelStyle} htmlFor="in-edades">Edades *</label>
-                <input id="in-edades" style={inputErr("edades")} placeholder="Ej: 2 y 5 años" value={form.edades}
+                <label style={labelStyle} htmlFor="in-edades">{t.edades}</label>
+                <input id="in-edades" style={inputErr("edades")} placeholder={t.edadesEjemplo} value={form.edades}
                   onChange={(e) => update("edades", e.target.value)}
                   onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
                   onBlur={(e) => { e.currentTarget.style.borderColor = errors["edades"] ? "#dc2626" : "var(--gray)"; }} />
@@ -1038,9 +1039,9 @@ export default function SimulatorSection() {
             )}
 
             <div className="full-col">
-              <label style={labelStyle} htmlFor="in-comentarios">Comentarios adicionales</label>
+              <label style={labelStyle} htmlFor="in-comentarios">{t.comentarios}</label>
               <textarea id="in-comentarios" style={{ ...inputStyle, minHeight: 110, resize: "vertical" }}
-                placeholder="Alguna preferencia o necesidad especial..."
+                placeholder={t.comentariosEjemplo}
                 value={form.comentarios} onChange={(e) => update("comentarios", e.target.value)}
                 onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
                 onBlur={(e) => { e.currentTarget.style.borderColor = "var(--gray)"; }} />
@@ -1060,11 +1061,11 @@ export default function SimulatorSection() {
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
             </svg>
-            Enviar por WhatsApp
+            {t.enviar}
           </button>
 
           <p style={{ textAlign: "center", fontSize: 12, color: "var(--text-muted)", marginTop: 14 }}>
-            No guardamos tus datos. El mensaje se genera directamente en WhatsApp.
+            {t.privacidad}
           </p>
         </div>
       </div>

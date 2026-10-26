@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { WA_MENSAJE_INICIAL, waLink } from "../../../../lib/contact";
+import type { Diccionario } from "../../../../dictionaries/tipos";
 
 declare global {
   interface Window { __mensajeWA?: string }
@@ -10,7 +11,7 @@ declare global {
 
 const SCRIPT_ANALYTICS = "/_vercel/insights/script.js";
 
-export default function Redirigir() {
+export default function Redirigir({ t }: { t: Diccionario["redireccion"] }) {
   const enlace = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
@@ -36,11 +37,11 @@ export default function Redirigir() {
   return (
     <div className="ir-wa-caja">
       <Image src="/logo.png" alt="Parents' Break" width={120} height={50} style={{ objectFit: "contain" }} priority />
-      <p className="ir-wa-titulo">Abriendo WhatsApp…</p>
+      <p className="ir-wa-titulo">{t.titulo}</p>
       <p className="ir-wa-texto">
-        Si no se abre solo, <a ref={enlace} href="#">tocá acá</a>.
+        {t.siNoAbre} <a ref={enlace} href="#">{t.tocaAca}</a>.
       </p>
-      <Link className="ir-wa-volver" href="/">Volver a la página</Link>
+      <Link className="ir-wa-volver" href="/">{t.volver}</Link>
       <style>{`
         .ir-wa {
           min-height: 100vh;

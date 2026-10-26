@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { waIrLink } from "../lib/contact";
+import type { Diccionario } from "../dictionaries/tipos";
 
-export default function Footer() {
+export default function Footer({ t }: { t: Diccionario["footer"] }) {
   const WA_URL = waIrLink("footer");
 
   return (
@@ -20,7 +21,7 @@ export default function Footer() {
               <span className="footer-logo-text">Parents&apos; Break</span>
             </div>
             <p className="footer-desc">
-              Red profesional de niñeras seleccionadas para babysittings, petsittings y eventos en Uruguay.
+              {t.descripcion}
             </p>
             <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="footer-wa-btn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ flexShrink: 0 }}>
@@ -32,9 +33,9 @@ export default function Footer() {
 
           {/* Servicios */}
           <div className="footer-col">
-            <h3 className="footer-col-title">Servicios</h3>
+            <h3 className="footer-col-title">{t.serviciosTitulo}</h3>
             <ul className="footer-list">
-              {["Babysittings", "Petsittings", "Eventos", "Servicios para empresas"].map((item) => (
+              {t.servicios.map((item) => (
                 <li key={item}>
                   <a href="#servicios" className="footer-link">{item}</a>
                 </li>
@@ -44,7 +45,7 @@ export default function Footer() {
 
           {/* Zonas */}
           <div className="footer-col">
-            <h3 className="footer-col-title">Zonas</h3>
+            <h3 className="footer-col-title">{t.zonasTitulo}</h3>
             <ul className="footer-list">
               {["Montevideo", "Canelones", "Punta del Este"].map((item) => (
                 <li key={item}>
@@ -56,9 +57,9 @@ export default function Footer() {
 
           {/* Contacto */}
           <div className="footer-col">
-            <h3 className="footer-col-title">Contacto</h3>
+            <h3 className="footer-col-title">{t.contactoTitulo}</h3>
             <ul className="footer-list">
-              <li className="footer-text">Atención 24/7 por WhatsApp</li>
+              <li className="footer-text">{t.contacto}</li>
             </ul>
           </div>
         </div>
@@ -66,10 +67,10 @@ export default function Footer() {
         {/* Bottom */}
         <div className="footer-bottom">
           {/* Componente de servidor: el año se fija al publicar (cada deploy lo actualiza) */}
-          <span>© {new Date().getFullYear()} Parents&apos; Break. Todos los derechos reservados.</span>
-          <span>Diseñado y desarrollado en Uruguay</span>
+          <span>© {new Date().getFullYear()} Parents&apos; Break. {t.derechos}</span>
+          <span>{t.hecho}</span>
         </div>
-        <p className="footer-aviso">Usamos estadísticas anónimas de visitas, sin cookies.</p>
+        <p className="footer-aviso">{t.aviso}</p>
       </div>
 
       <style>{`

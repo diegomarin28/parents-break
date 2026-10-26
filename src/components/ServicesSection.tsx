@@ -1,4 +1,5 @@
 import IrAlSimulador from "./IrAlSimulador";
+import type { Diccionario } from "../dictionaries/tipos";
 
 // Cuántos ítems de cada servicio se ven sin abrir "Ver todo lo que incluye"
 const VISIBLES = 3;
@@ -22,27 +23,14 @@ function itemDeServicio(item: string, s: Servicio) {
   );
 }
 
-export default function ServicesSection() {
-  const services = [
+export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) {
+  // Colores de cada tarjeta, en el orden de t.tarjetas (Babysitting, Petsittings, Evento)
+  const estilos = [
     {
-      title: "Babysittings, fijos o esporádicos",
-      servicio: "Babysitting",
-      subtitle: "Cuidado en casa",
-      desc: "Niñeras que generan un vínculo real con los chicos a través del juego, la atención y el acompañamiento activo.",
-      descResto: "Nos adaptamos a la rutina de cada familia para que los niños se sientan cómodos, entretenidos y cuidados en todo momento.",
-      items: [
-        "Cuidado en hogares y hoteles",
-        "Servicios puntuales o esporádicos",
-        "Juegos y actividades adaptadas por edad",
-        "Acompañamiento activo y responsable",
-        "Comunicación constante con los padres",
-        "Juguetes de industria nacional para fomentar el desarrollo lúdico",
-      ],
       color: "var(--pink)",
       bg: "var(--pink-light)",
       colorLink: "#b5464c", // tonos oscuros de cada color: 4,5:1 o más sobre blanco
       border: "var(--pink-mid)",
-      cta: "Reservar babysitting",
       ctaBg: "var(--pink)",
       ctaColor: "white",
       featured: true,
@@ -50,43 +38,19 @@ export default function ServicesSection() {
       featuredBadgeColor: "white",
     },
     {
-      title: "Petsittings",
-      servicio: "Petsittings",
-      subtitle: "Cuidado de mascotas",
-      desc: "Cuidamos a tu mascota y nos ocupamos de que se sienta acompañada y segura cuando vos no podés estar.",
-      items: [
-        "Visitas a domicilio para darle de comer y pasearla",
-        "Cuidado de tu mascota y casa durante viajes (pernocte)",
-        "Hospedaje de tu mascota en la casa de nuestras cuidadoras",
-        "Atención personalizada y comunicación constante",
-      ],
       color: "var(--blue)",
       bg: "var(--blue-light)",
       colorLink: "#5a60a0",
       border: "var(--blue-mid)",
-      cta: "Consultar petsittings",
     },
     {
-      title: "Eventos",
-      servicio: "Evento",
-      subtitle: "Animación infantil",
-      desc: "Creamos espacios divertidos y dinámicos para que los niños disfruten mientras los adultos pueden relajarse.",
-      descResto: "Organizamos propuestas adaptadas según la edad, cantidad de chicos y tipo de evento.",
-      items: [
-        "Casamientos",
-        "Cumpleaños y eventos familiares",
-        "Eventos empresariales y corporativos",
-        "Actividades temáticas y recreativas",
-        "Juegos grupales adaptados por edad",
-        "Coordinación profesional del espacio infantil",
-      ],
       color: "var(--yellow-dark)",
       bg: "#fffae8",
       colorLink: "#8a6d0f",
       border: "#ffe8a0",
-      cta: "Consultar animación",
     },
   ];
+  const services = t.tarjetas.map((tarjeta, i) => ({ ...tarjeta, ...estilos[i] }));
 
   return (
     <section id="servicios" className="services-section" style={{ background: "var(--white)" }}>
@@ -101,14 +65,13 @@ export default function ServicesSection() {
             textTransform: "uppercase", padding: "6px 16px", borderRadius: 99,
             marginBottom: 16,
           }}>
-            Lo que ofrecemos
+            {t.etiqueta}
           </span>
           <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, marginBottom: 14 }}>
-            Nuestros servicios
+            {t.titulo}
           </h2>
           <p style={{ fontSize: 17, color: "var(--text-soft)", maxWidth: 520, margin: "0 auto" }}>
-            Acompañamos a familias en distintos momentos del día a día con niñeras seleccionadas,
-responsables y preparadas para cada situación.
+            {t.subtitulo}
           </p>
         </div>
 
@@ -148,7 +111,7 @@ responsables y preparadas para cada situación.
                   textTransform: "uppercase", padding: "4px 12px", borderRadius: 99,
                   transform: "none",
                 }}>
-                  Más solicitado
+                  {t.masSolicitado}
                 </div>
               )}
 
@@ -159,13 +122,13 @@ responsables y preparadas para cada situación.
                 display: "flex", alignItems: "center", justifyContent: "center",
                 marginBottom: 20,
               }}>
-                {s.title === "Babysittings, fijos o esporádicos" && (
+                {s.servicio === "Babysitting" && (
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={s.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                     <circle cx="12" cy="7" r="4"/>
                   </svg>
                 )}
-                {s.title === "Petsittings" && (
+                {s.servicio === "Petsittings" && (
                   <svg width="26" height="26" viewBox="0 0 24 24" fill={s.color} stroke="none">
                     <circle cx="4.5" cy="9.5" r="2"/>
                     <circle cx="9" cy="5.5" r="2"/>
@@ -174,7 +137,7 @@ responsables y preparadas para cada situación.
                     <path d="M17.34 14.86c-.83-1.6-1.95-2.86-4.3-3.1-.34-.03-.68-.03-1.02 0-2.35.24-3.47 1.5-4.3 3.1-.83 1.6-2.55 2.3-2.7 4.02-.15 1.65 1.1 2.87 2.66 2.6.98-.17 1.9-.77 3.02-.9.5-.06 1.02-.06 1.52 0 1.12.13 2.04.73 3.02.9 1.56.27 2.81-.95 2.66-2.6-.15-1.72-1.87-2.42-2.7-4.02z"/>
                   </svg>
                 )}
-                {s.title === "Eventos" && (
+                {s.servicio === "Evento" && (
  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={s.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
   <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
 </svg>
@@ -185,33 +148,33 @@ responsables y preparadas para cada situación.
                 fontSize: 11, fontWeight: 700, letterSpacing: ".08em",
                 textTransform: "uppercase", color: s.color, marginBottom: 6,
               }}>
-                {s.subtitle}
+                {s.subtitulo}
               </div>
               <h3 className="service-title" style={{ fontSize: 26, fontWeight: 800, marginBottom: 12, color: "var(--text)" }}>
-                {s.title}
+                {s.titulo}
               </h3>
               <p className="service-desc" style={{ fontSize: 14, color: "var(--text-soft)", lineHeight: 1.7, marginBottom: 18 }}>
-                {s.desc}
+                {s.descripcion}
               </p>
 
               <ul className="service-lista">
                 {s.items.slice(0, VISIBLES).map((item) => itemDeServicio(item, s))}
               </ul>
 
-              {(s.items.length > VISIBLES || s.descResto) && (
+              {(s.items.length > VISIBLES || s.descripcionResto) && (
                 <details className="service-mas">
                   <summary style={{ color: s.colorLink }}>
-                    <span className="service-mas-abrir">Ver todo lo que incluye</span>
-                    <span className="service-mas-cerrar">Ver menos</span>
+                    <span className="service-mas-abrir">{t.verTodo}</span>
+                    <span className="service-mas-cerrar">{t.verMenos}</span>
                   </summary>
                   {s.items.length > VISIBLES && (
                     <ul className="service-lista">
                       {s.items.slice(VISIBLES).map((item) => itemDeServicio(item, s))}
                     </ul>
                   )}
-                  {s.descResto && (
+                  {s.descripcionResto && (
                     <p className="service-desc" style={{ fontSize: 14, color: "var(--text-soft)", lineHeight: 1.7 }}>
-                      {s.descResto}
+                      {s.descripcionResto}
                     </p>
                   )}
                 </details>
@@ -232,7 +195,7 @@ responsables y preparadas para cada situación.
                   textDecoration: "none",
                 }}
               >
-                {s.cta} →
+                {s.boton} →
               </IrAlSimulador>
             </div>
           ))}

@@ -1,9 +1,10 @@
-export default function HowItWorks() {
+import type { Diccionario } from "../dictionaries/tipos";
+
+export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
+  // Número, color e ícono de cada paso; los textos salen de t.pasos, en el mismo orden.
   const steps = [
     {
       num: "1",
-      title: "Empieza tu solicitud",
-      desc: "Te consultamos fecha, horario, zona, cantidad de niños y tipo de servicio",
       color: "var(--pink)",
       bg: "var(--pink-light)",
       icon: (
@@ -14,8 +15,6 @@ export default function HowItWorks() {
     },
     {
       num: "2",
-      title: "Buscamos la niñera que más se ajusta a tus necesidades",
-      desc: "Seleccionamos las niñeras más adecuadas según tu solicitud y te enviamos los distintos perfiles para elegir",
       color: "var(--blue)",
       bg: "var(--blue-light)",
       icon: (
@@ -27,8 +26,6 @@ export default function HowItWorks() {
 
         {
       num: "3",
-      title: "Conoce a la niñera por videollamada",
-      desc: "Despejá dudas y asegurate de que es la persona adecuada para tu familia",
       color: "var(--yellow-dark)",
       bg: "#fffae8",
       icon: (
@@ -41,8 +38,6 @@ export default function HowItWorks() {
 
     {
       num: "4",
-      title: "Confirmamos el servicio",
-      desc: "Coordinamos los detalles finales y te compartimos toda la información necesaria",
       color: "var(--blue)",
       bg: "var(--blue-light)",
       icon: (
@@ -53,8 +48,6 @@ export default function HowItWorks() {
     },
     {
       num: "5",
-      title: "Disfrutás tu momento",
-      desc: "Mientras tus hijos están acompañados y cuidados, vos podés disfrutar con tranquilidad",
       color: "var(--pink)",
       bg: "var(--pink-light)",
       icon: (
@@ -71,10 +64,10 @@ export default function HowItWorks() {
 
         {/* Header */}
         <div className="hiw-header">
-          <span className="hiw-badge">Cómo funciona</span>
-          <h2 className="hiw-title">Coordinar un servicio es muy fácil</h2>
+          <span className="hiw-badge">{t.etiqueta}</span>
+          <h2 className="hiw-title">{t.titulo}</h2>
           <p className="hiw-subtitle">
-            Todo se organiza por WhatsApp, de forma rápida, simple y personalizada.
+            {t.subtitulo}
           </p>
         </div>
 
@@ -92,8 +85,8 @@ export default function HowItWorks() {
               <div className="step-icon" style={{ background: s.bg, color: s.color }}>
                 {s.icon}
               </div>
-              <h3 className="step-title">{s.title}</h3>
-              <p className="step-desc">{s.desc}</p>
+              <h3 className="step-title">{t.pasos[i].titulo}</h3>
+              <p className="step-desc">{t.pasos[i].texto}</p>
             </div>
           ))}
         </div>

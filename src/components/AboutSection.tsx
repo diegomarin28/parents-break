@@ -1,10 +1,10 @@
 import Image from "next/image";
+import type { Diccionario } from "../dictionaries/tipos";
 
-export default function AboutSection() {
+export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) {
+  // Íconos y colores de cada valor; los textos salen del diccionario, en el mismo orden.
   const values = [
     {
-      title: "Selección rigurosa",
-      desc: "Cada niñera atraviesa un riguroso proceso de selección acompañado por psicólogas y profesionales especializadas en infancia, para así seleccionar a las babysitters más preparadas para acompañar a cada familia. Evaluamos experiencia previa, realizamos entrevistas personales y validamos referencias.",
       color: "var(--pink)",
       bg: "var(--pink-light)",
       icon: (
@@ -14,8 +14,6 @@ export default function AboutSection() {
       )
     },
     {
-      title: "Atención personalizada",
-      desc: "Acompañamos cada servicio de principio a fin. Queremos que las familias se sientan seguras, cómodas y realmente acompañadas.",
       color: "var(--blue)",
       bg: "var(--blue-light)",
       icon: (
@@ -26,8 +24,6 @@ export default function AboutSection() {
       )
     },
     {
-      title: "Confianza ante todo",
-      desc: "Trabajamos solo con niñeras que nosotras mismas recomendaríamos a nuestras familias. Ese es nuestro estándar.",
       color: "var(--yellow-dark)",
       bg: "#fffae8",
       icon: (
@@ -44,21 +40,21 @@ export default function AboutSection() {
 
         {/* Header */}
         <div className="about-header">
-          <span className="about-badge">Quiénes somos</span>
+          <span className="about-badge">{t.etiqueta}</span>
           <h2 className="about-title">
-            Un servicio construido desde la confianza
+            {t.titulo}
           </h2>
           <p className="about-lead">
-            Somos Delfina y Federica, babysitters con más de seis años de experiencia. Desde hace más de tres años ayudamos a familias de Montevideo, Canelones y Punta del Este a encontrar babysitters capacitadas, responsables y de confianza.
+            {t.intro}
           </p>
           {/* El resto del texto, desplegable. <details> nativo: sin JavaScript y accesible. */}
           <details className="about-mas">
             <summary>
-              <span className="about-mas-abrir">Leer más ↓</span>
-              <span className="about-mas-cerrar">Leer menos ↑</span>
+              <span className="about-mas-abrir">{t.leerMas}</span>
+              <span className="about-mas-cerrar">{t.leerMenos}</span>
             </summary>
             <p className="about-lead">
-              Después de acompañar a numerosas familias, entendimos lo importante que es poder contar con alguien realmente confiable para el cuidado de los niños. Así nació Parents’ Break, para que las familias puedan disfrutar de su tiempo con la tranquilidad de saber que sus hijos están en las mejores manos. Hoy contamos con una red de más de 80 sitters seleccionadas cuidadosamente por nuestro equipo. Nuestro compromiso es ofrecer mucho más que una niñera: es ofrecer confianza, seguridad y tranquilidad para cada familia.
+              {t.resto}
             </p>
           </details>
         </div>
@@ -69,7 +65,7 @@ export default function AboutSection() {
             <div className="about-image-wrap">
               <Image
                 src="/Lleno.jpg"
-                alt="Niñera de Parents’ Break jugando con niños"
+                alt={t.fotoAlt}
                 fill
                 style={{ objectFit: "cover" }}
                 sizes="(max-width: 900px) 100vw, 780px"
@@ -78,19 +74,11 @@ export default function AboutSection() {
             </div>
             <div className="about-body-content">
               <h3 className="about-subtitle">
-                No somos una app. Somos personas.
+                {t.subtitulo}
               </h3>
               <p className="about-body">
-            Detrás de cada servicio hay un equipo real acompañando el proceso. Escuchamos las
-necesidades de cada familia, buscamos la niñera más adecuada y coordinamos cada detalle de
-forma personalizada para que la experiencia sea simple, cercana y confiable.
-Nuestro proceso de selección es acompañado por psicólogas y profesionales especializadas en
-infancia, priorizando no solo la experiencia, sino también la responsabilidad, la calidez y la
-calidad humana de cada perfil. Todas las niñeras de Parents’ Break cuentan con experiencia
-previa en cuidado infantil y atraviesan entrevistas, validación de referencias y evaluaciones
-antes de incorporarse al equipo.
-
-          </p>
+                {t.cuerpo}
+              </p>
             </div>
           </div>
 
@@ -107,8 +95,8 @@ antes de incorporarse al equipo.
               <div className="value-icon-wrap" style={{ background: "rgba(255,255,255,.6)" }}>
                 {v.icon}
               </div>
-              <h4 className="value-title">{v.title}</h4>
-              <p className="value-desc">{v.desc}</p>
+              <h4 className="value-title">{t.valores[i].titulo}</h4>
+              <p className="value-desc">{t.valores[i].texto}</p>
             </div>
           ))}
         </div>

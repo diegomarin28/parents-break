@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ORIGENES_WA } from "../../../../lib/contact";
+import { getDictionary } from "../../../../dictionaries";
 import Redirigir from "./Redirigir";
 
 // Páginas estáticas, una por origen; cualquier otro origen da 404.
@@ -29,7 +30,7 @@ export default async function Page({ params }: { params: Promise<{ origen: strin
             "if(location.hash){history.replaceState(null,'',location.pathname)}",
         }}
       />
-      <Redirigir />
+      <Redirigir t={getDictionary("es").redireccion} />
     </main>
   );
 }

@@ -10,33 +10,35 @@ import WhatsAppCTA from "../components/WhatsAppCTA";
 import Footer from "../components/Footer";
 import FadeIn from "../components/FadeIn";
 import WhatsAppFloat from "../components/WhatsAppFloat";
+import { getDictionary } from "../dictionaries";
 
 export default function Home() {
+  const t = getDictionary("es");
   return (
     <main>
-      <Navbar />
-      <HeroSection />
-      <StatsBar />
+      <Navbar t={t.navbar} />
+      <HeroSection t={t.hero} />
+      <StatsBar t={t.numeros} />
       <FadeIn>
-        <AboutSection />
+        <AboutSection t={t.quienesSomos} />
       </FadeIn>
       <FadeIn delay={100}>
-        <ServicesSection />
+        <ServicesSection t={t.servicios} />
       </FadeIn>
       <FadeIn>
-        <HowItWorks />
+        <HowItWorks t={t.comoFunciona} />
       </FadeIn>
       <FadeIn delay={100}>
-        <SittersSection />
+        <SittersSection t={t.nineras} />
       </FadeIn>
       <FadeIn>
-        <SimulatorSection />
+        <SimulatorSection t={t.simulador} />
       </FadeIn>
       <FadeIn>
-        <WhatsAppCTA />
+        <WhatsAppCTA t={t.ctaFinal} />
       </FadeIn>
-      <Footer />
-      <WhatsAppFloat />
+      <Footer t={t.footer} />
+      <WhatsAppFloat texto={t.flotante} />
     </main>
   );
 }

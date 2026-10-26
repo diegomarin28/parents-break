@@ -1,27 +1,29 @@
+import { Fragment } from "react";
 import Image from "next/image";
 import { waIrLink } from "../lib/contact";
 import IrAlSimulador from "./IrAlSimulador";
+import type { Diccionario } from "../dictionaries/tipos";
 
 // Accesos directos al simulador con el servicio ya elegido
 const NECESIDADES = [
   {
-    servicio: "Babysitting", texto: "Babysitting", color: "var(--pink)", bg: "var(--pink-light)",
+    servicio: "Babysitting", color: "var(--pink)", bg: "var(--pink-light)",
     icono: <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></>,
     relleno: false,
   },
   {
-    servicio: "Petsittings", texto: "Petsitting", color: "var(--blue)", bg: "var(--blue-light)",
+    servicio: "Petsittings", color: "var(--blue)", bg: "var(--blue-light)",
     icono: <><circle cx="4.5" cy="9.5" r="2"/><circle cx="9" cy="5.5" r="2"/><circle cx="15" cy="5.5" r="2"/><circle cx="19.5" cy="9.5" r="2"/><path d="M17.34 14.86c-.83-1.6-1.95-2.86-4.3-3.1-.34-.03-.68-.03-1.02 0-2.35.24-3.47 1.5-4.3 3.1-.83 1.6-2.55 2.3-2.7 4.02-.15 1.65 1.1 2.87 2.66 2.6.98-.17 1.9-.77 3.02-.9.5-.06 1.02-.06 1.52 0 1.12.13 2.04.73 3.02.9 1.56.27 2.81-.95 2.66-2.6-.15-1.72-1.87-2.42-2.7-4.02z"/></>,
     relleno: true,
   },
   {
-    servicio: "Evento", texto: "Eventos", color: "var(--yellow-dark)", bg: "#fffae8",
+    servicio: "Evento", color: "var(--yellow-dark)", bg: "#fffae8",
     icono: <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>,
     relleno: false,
   },
-];
+] as const;
 
-export default function HeroSection() {
+export default function HeroSection({ t }: { t: Diccionario["hero"] }) {
   const WA_URL = waIrLink("hero");
 
   return (
@@ -38,19 +40,18 @@ export default function HeroSection() {
             <div className="hero-top">
 
               <h1 className="hero-title">
-                Tus hijos en las{" "}
+                {t.tituloAntes}{" "}
                 <span className="hero-highlight">
-                  mejores
+                  {t.tituloResaltado}
                   <svg viewBox="0 0 200 12" className="hero-underline" preserveAspectRatio="none">
                     <path d="M2 8 Q50 2 100 8 Q150 14 198 6" stroke="#ffde86" strokeWidth="3" fill="none" strokeLinecap="round"/>
                   </svg>
                 </span>{" "}
-                manos
+                {t.tituloDespues}
               </h1>
 
               <p className="hero-subtitle">
-                Conectamos familias con niñeras especializadas para brindar un cuidado seguro, cálido y
-personalizado.
+                {t.subtitulo}
               </p>
 
               <div className="hero-cities">
@@ -69,7 +70,7 @@ personalizado.
             <div className="hero-visual-mobile">
               <Image
                 src="/hero.jpg"
-                alt="Niñera cuidando niños felices"
+                alt={t.fotoAlt}
                 width={1536}
                 height={1024}
                 className="hero-photo-img-mobile"
@@ -82,14 +83,14 @@ personalizado.
             {/* Bloque inferior: botones + social proof */}
             <div className="hero-bottom">
               <div className="hero-pregunta">
-                <p className="hero-pregunta-titulo">¿Qué necesitás?</p>
+                <p className="hero-pregunta-titulo">{t.pregunta}</p>
                 <div className="hero-chips">
                   {NECESIDADES.map((n) => (
                     <IrAlSimulador key={n.servicio} servicio={n.servicio} className="hero-chip">
                       <span className="hero-chip-icono" style={{ background: n.bg, color: n.color }} aria-hidden="true">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill={n.relleno ? "currentColor" : "none"} stroke={n.relleno ? "none" : "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{n.icono}</svg>
                       </span>
-                      {n.texto}
+                      {t.necesidades[n.servicio]}
                     </IrAlSimulador>
                   ))}
                 </div>
@@ -99,13 +100,13 @@ personalizado.
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style={{ flexShrink: 0 }}>
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                   </svg>
-                  Coordinar servicio
+                  {t.botonPrincipal}
                 </a>
                 <a href="#simulador" className="hero-btn-secondary">
-                  Completar formulario →
+                  {t.botonSecundario}
                 </a>
               </div>
-              <p className="hero-nota">Sin compromiso. Te respondemos por WhatsApp</p>
+              <p className="hero-nota">{t.nota}</p>
 
               <div className="hero-proof">
                 <div className="hero-avatars">
@@ -122,20 +123,19 @@ personalizado.
                     </div>
                   ))}
                 </div>
-                <div className="hero-proof-stat">
-                  <div className="hero-proof-num">+80 niñeras activas</div>
-                  <div className="hero-proof-label">
-                    Seleccionadas y validadas<br />
-                    por nuestro equipo<br />
-                    de psicólogas
-                  </div>
-                </div>
-                <div className="hero-proof-divider" />
-                <div className="hero-proof-stat">
-                  <div className="hero-proof-num">+3 años de experiencia</div>
-                  <div className="hero-proof-label">Acompañando a familias<br />
-                   en Uruguay</div>
-                </div>
+                {t.prueba.map((p, i) => (
+                  <Fragment key={i}>
+                    {i > 0 && <div className="hero-proof-divider" />}
+                    <div className="hero-proof-stat">
+                      <div className="hero-proof-num">{p.numero}</div>
+                      <div className="hero-proof-label">
+                        {p.lineas.map((linea, j) => (
+                          <Fragment key={j}>{j > 0 && <br />}{linea}</Fragment>
+                        ))}
+                      </div>
+                    </div>
+                  </Fragment>
+                ))}
               </div>
             </div>
           </div>
@@ -146,7 +146,7 @@ personalizado.
               <div className="hero-photo-glow" />
               <Image
                 src="/hero.jpg"
-                alt="Niñera cuidando niños felices"
+                alt={t.fotoAlt}
                 width={1536}
                 height={1024}
                 className="hero-photo-img"
