@@ -1,14 +1,26 @@
 import type { Metadata } from "next";
-import { Baloo_2, Source_Sans_3 } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
-// Fuentes servidas por Next (se descargan en el build y se sirven desde el mismo dominio):
-// sin pedidos a Google Fonts, sin CSS que bloquee el render y con una fuente de
-// respaldo ajustada para que el texto no salte al cargar. Las dos son variables, así
-// que no hace falta listar pesos. Sin itálica: solo la usa ReviewsSection, que está oculta.
-const baloo = Baloo_2({ subsets: ["latin"], display: "swap", variable: "--font-baloo" });
-const sourceSans = Source_Sans_3({ subsets: ["latin"], display: "swap", variable: "--font-source" });
+// Fuentes guardadas en el repo (src/app/fonts, licencia OFL): se sirven desde el mismo
+// dominio, sin CSS que bloquee el render y con una fuente de respaldo ajustada para que
+// el texto no salte al cargar. Antes usábamos next/font/google, que las descarga de
+// Google en cada build: cuando Google no respondía a tiempo, el build fallaba.
+// Son variables (todos los pesos en un archivo) y solo el subconjunto latino, que cubre
+// el español con tildes y ñ. Sin itálica: solo la usa ReviewsSection, que está oculta.
+const baloo = localFont({
+  src: "./fonts/baloo-2-latin.woff2",
+  weight: "400 800",
+  display: "swap",
+  variable: "--font-baloo",
+});
+const sourceSans = localFont({
+  src: "./fonts/source-sans-3-latin.woff2",
+  weight: "200 900",
+  display: "swap",
+  variable: "--font-source",
+});
 
 export const metadata: Metadata = {
   // Base para las URL absolutas de la vista previa (og:image). Si el sitio pasa a un dominio propio, cambiar acá.
