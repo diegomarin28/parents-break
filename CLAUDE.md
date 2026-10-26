@@ -36,15 +36,15 @@ El flujo esperado: el usuario entra, entiende el servicio, usa el simulador o el
 - Hosting: Vercel (plan gratis)
 - Vercel Web Analytics activado: sin cookies, visitante identificado con un hash que se descarta a las 24 horas. Plan Hobby: 50.000 eventos por mes, un mes de historial, sin eventos personalizados. Por eso los toques en WhatsApp se cuentan como páginas vistas de `/ir/whatsapp/<origen>`.
 - Node.js 24, fijado con `engines` en `package.json`. Vercel dejó de aceptar Node 20 (con esa versión el deploy falla antes de instalar): no bajarlo.
-- Fuentes: Baloo 2 y Source Sans 3 están en `src/app/fonts` (subconjunto latino, licencia OFL) y se cargan con `next/font/local` desde `src/app/layout.tsx` (variables `--font-baloo` y `--font-source`). No volver a `next/font/google`: descarga las fuentes en cada build y el build fallaba cuando Google no respondía. Tampoco a Google Fonts por `<link>` ni `@import`: bloqueaba el render y hacía saltar el texto.
+- Fuentes: Baloo 2 y Source Sans 3 están en `src/app/fonts` (subconjunto latino, licencia OFL) y se cargan con `next/font/local` desde `src/app/fuentes.ts`, que usan los dos layouts raíz (variables `--font-baloo` y `--font-source`). No volver a `next/font/google`: descarga las fuentes en cada build y el build fallaba cuando Google no respondía. Tampoco a Google Fonts por `<link>` ni `@import`: bloqueaba el render y hacía saltar el texto.
 - Componentes de servidor: Hero, Quiénes somos, Servicios, Cómo funciona, Niñeras, CTA final y Footer no llevan `"use client"`. Los efectos al pasar el mouse van en CSS (`:hover`), no en `onMouseEnter`; los estilos que cambian con el mouse no pueden ir en `style={{}}` porque le ganan al CSS. Lo que necesita JavaScript va en componentes cliente chicos (`IrAlSimulador`, `FadeIn`). Los desplegables ("Ver todo lo que incluye", "Leer más") son `<details>` nativos: sin JavaScript y accesibles.
 - No cambiar de stack ni agregar dependencias pesadas sin que Diego lo pida.
 
 ## Estructura de la página (una sola página)
 
-Orden actual en `src/app/page.tsx`:
+Orden actual en `src/app/[lang]/page.tsx` (la misma página para los tres idiomas, ver "Idiomas"):
 
-1. Navbar (links a cada sección + botón "Coordinar servicio" a WhatsApp; en celular solo logo y menú). El menú de celular es una hoja que sube desde abajo (`MenuCelular.tsx`): diálogo modal con foco atrapado, Escape y fondo para cerrar, y botón verde de WhatsApp. El link del menú se llama "Solicitar servicio"; los botones, "Completar formulario"
+1. Navbar (links a cada sección + selector de idioma `ES · EN · PT` + botón "Coordinar servicio" a WhatsApp, que muestra solo el ícono por debajo de 900 px; en celular solo logo y menú). El menú de celular es una hoja que sube desde abajo (`MenuCelular.tsx`): diálogo modal con foco atrapado, Escape y fondo para cerrar, fila de idiomas y botón verde de WhatsApp. El link del menú se llama "Solicitar servicio"; los botones, "Completar formulario"
 2. Hero: título, subtítulo, zonas, "¿Qué necesitás?" con tres accesos directos al simulador (Babysitting, Petsitting, Eventos; en compu arriba de los botones, en celular debajo para que el botón de WhatsApp entre en la primera pantalla), botón principal (WhatsApp con mensaje inicial) y botón secundario "Completar formulario →" (lleva al simulador; el CTA final usa el mismo texto), y debajo la nota "Sin compromiso. Te respondemos por WhatsApp" (también en el CTA final)
 3. Barra de números (+80 niñeras, +3 años)
 4. Quiénes somos: dos oraciones a la vista y el resto en un desplegable "Leer más"
@@ -67,13 +67,25 @@ Fotos (en `public/`):
 - Las fotos de Quiénes somos y Niñeras se sirven con calidad 90; Next 16 exige declarar esa calidad en `images.qualities` de `next.config.ts`.
 - `Lleno.jpg` es de solo 800px de ancho y se ve algo blanda en pantallas retina. Si llegan los originales en mayor resolución, reemplazarla.
 - `public/` se publica entero: cualquiera puede abrir un archivo con el link directo. No dejar fotos que la página no use, sobre todo si muestran caras.
-- Vista previa al compartir el link: `src/app/opengraph-image.jpg` (1200x630, la foto del Hero con el logo) y su `opengraph-image.alt.txt`; favicon: `src/app/icon.png` y `apple-icon.png`. `metadataBase` en el layout apunta a la URL de producción; si cambia el dominio, cambiar ahí.
+- Vista previa al compartir el link: `public/opengraph-image.jpg` (1200x630, la foto del Hero con el logo), declarada en los metadatos de `src/app/[lang]/layout.tsx` con su texto alternativo en el diccionario. No volver a ponerla como `src/app/opengraph-image.jpg`: el `openGraph` del layout de `[lang]` la tapa. Favicon: `src/app/icon.png` y `apple-icon.png`. La URL de producción vive en `URL_SITIO` de `src/lib/sitio.ts` (metadatos, sitemap y robots); si cambia el dominio, cambiar ahí.
 
 `ReviewsSection.tsx` (testimonios) existe pero está oculta a propósito: no se importa en `page.tsx`. Se va a activar cuando haya reseñas reales. No activarla ni borrarla sin que Diego lo pida.
 
 Pendiente a futuro: un reel de Instagram en la página. El reel que va todavía no está hecho (el que se evaluó, de @parentsbreak_, se descartó). Cuando exista, insertarlo con el embed oficial de Instagram y carga al tocar: portada con botón de play, y `embed.js` (con `next/script`) solo se carga cuando alguien lo toca, para no hacer lenta la página ni rastrear a quien no lo mira. Ubicación a definir con Diego.
 
 Pendiente a futuro: preguntas frecuentes, cuando Diego tenga las respuestas reales.
+
+## Idiomas
+
+La página existe en español (`/`), inglés (`/en`) y portugués (`/pt`). Diseño aprobado en `docs/superpowers/specs/2026-10-25-idiomas-design.md`.
+
+- Rutas: todo vive en `src/app/[lang]/` (`generateStaticParams` con `es`, `en`, `pt`; otro valor da 404). El español se genera en `/es` pero se sirve en `/`: `next.config.ts` reescribe `/` a `/es` y redirige `/es` a `/` (308). Se hace en la configuración y no con `proxy.ts` para que Vercel lo resuelva en su ruteo, sin ejecutar una función en cada visita. La dirección del español no cambia nunca.
+- `/ir/whatsapp/<origen>` no lleva idioma: tiene su propio layout raíz (`src/app/ir/layout.tsx`) y muestra su texto en los tres idiomas a la vez.
+- Textos: `src/dictionaries/es.json`, `en.json` y `pt.json`, con las mismas claves (el tipo sale de `es.json`: si a otro le falta una clave, el build falla). Se cargan solo en el servidor (`server-only`) y cada componente recibe por props los textos de su sección. Todo texto visible nuevo va a los tres JSON, no escrito en el componente. Las listas de idiomas, rutas y `og:locale` están en `src/lib/idiomas.ts`.
+- Traducciones: en inglés y portugués son borrador hasta que Diego y las dueñas las revisen (`docs/traducciones-borrador.md`). No publicar textos nuevos sin esa revisión. Nombres propios y zonas no se traducen.
+- Mensaje de WhatsApp: en `/` y `/en` sale en el idioma de la página; en `/pt` sale en español con la línea final `*Idioma:* Português`, porque el equipo responde en español, y junto al botón de enviar se avisa a la familia. Los textos del mensaje están en `src/dictionaries/mensaje-es.json` y `mensaje-en.json`; `getMensaje(lang)` elige cuál usar, arma esa línea y el saludo de los botones directos (en español no mandan saludo: la página de redirección usa el de por defecto). Las fechas van en dd/mm/aaaa en los tres idiomas.
+- Sin redirección automática por el idioma del navegador.
+- SEO: cada versión tiene `lang`, título y descripción propios, `canonical`, `hreflang` cruzados (`x-default` al español) y `og:locale`. `src/app/sitemap.ts` lista las tres; `src/app/robots.ts` excluye `/ir/`.
 
 Prioridad de desarrollo: 1) Hero + CTA, 2) botón de WhatsApp funcional, 3) simulador básico, 4) sección "Cómo funciona". Todo lo demás es secundario.
 
@@ -82,6 +94,8 @@ Prioridad de desarrollo: 1) Hero + CTA, 2) botón de WhatsApp funcional, 3) simu
 Formulario dinámico (`SimulatorSection.tsx`) que arma un mensaje y abre WhatsApp (link `wa.me` con el texto codificado).
 
 El tipo de servicio se elige con tres tarjetas que son radios reales (teclado y lector de pantalla): no cambiarlas por divs clickeables.
+
+Los valores internos del formulario (`"Babysitting"`, `"Petsittings"`, `"Evento"`, `"Puntual"`, `"Fijo"`, días, tipos de evento, zonas) son los mismos en los tres idiomas: los usan el mensaje y `?servicio=`. Lo que cambia es la etiqueta visible (`opciones` en el diccionario) y, en el mensaje en inglés, el texto (`valores` en `mensaje-en.json`).
 
 Los botones de cada tarjeta de Servicios y los accesos "¿Qué necesitás?" del Hero preseleccionan el servicio en el simulador con `IrAlSimulador` (`?servicio=` + evento `popstate`).
 
@@ -128,7 +142,7 @@ Diseño:
 
 - No commitear claves, tokens ni credenciales. Usar variables de entorno (`.env.local`) y mantenerlas en `.gitignore`.
 - El número de WhatsApp de contacto vive en un solo lugar: `WA_NUMBER` en `src/lib/contact.ts`. No escribir el número ni armar links `wa.me` a mano en los componentes.
-- Los botones no enlazan a `wa.me` directamente: usan `waIrLink(origen)`, que apunta a `/ir/whatsapp/<origen>`. Esa página registra la visita en Analytics (una página vista por toque, separada por origen) y redirige a WhatsApp con `waLink(texto)`. Los orígenes válidos están en `ORIGENES_WA`. El texto del mensaje del simulador viaja en el `#hash`, que no llega al servidor y se saca de la URL antes de que cargue el script de Analytics.
+- Los botones no enlazan a `wa.me` directamente: usan `waIrLink(origen)`, que apunta a `/ir/whatsapp/<origen>`. Esa página registra la visita en Analytics (una página vista por toque, separada por origen) y redirige a WhatsApp con `waLink(texto)`. Los orígenes válidos están en `ORIGENES_WA` y son los mismos en los tres idiomas (Analytics no separa los toques por idioma). El texto del mensaje del simulador viaja en el `#hash`, que no llega al servidor y se saca de la URL antes de que cargue el script de Analytics.
 
 ## Qué NO es parte de este repo
 
