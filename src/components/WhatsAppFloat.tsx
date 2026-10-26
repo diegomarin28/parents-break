@@ -9,7 +9,7 @@ import { waIrLink } from "../lib/contact";
 // - Celular: círculo abajo a la derecha. Mientras el Hero, el simulador o el Footer
 //   están en pantalla (todos tienen botones propios a todo el ancho) vive en la
 //   Navbar, al lado del menú, así nunca tapa nada.
-export default function WhatsAppFloat({ texto }: { texto: string }) {
+export default function WhatsAppFloat({ texto, saludo }: { texto: string; saludo?: string }) {
   // La página abre en el Hero, así que arranca "en el Hero" también en el HTML del servidor.
   const [enHero, setEnHero] = useState(true);
   const [enTapa, setEnTapa] = useState(false);
@@ -38,7 +38,7 @@ export default function WhatsAppFloat({ texto }: { texto: string }) {
 
   return (
     <a
-      href={waIrLink("flotante")}
+      href={waIrLink("flotante", saludo)}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={texto}

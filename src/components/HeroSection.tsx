@@ -23,8 +23,8 @@ const NECESIDADES = [
   },
 ] as const;
 
-export default function HeroSection({ t }: { t: Diccionario["hero"] }) {
-  const WA_URL = waIrLink("hero");
+export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; saludo?: string }) {
+  const WA_URL = waIrLink("hero", saludo);
 
   return (
     <section className="hero-section">

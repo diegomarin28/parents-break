@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { WA_MENSAJE_INICIAL, waLink } from "../../../../lib/contact";
+import { waLink } from "../../../../lib/contact";
 import type { Diccionario } from "../../../../dictionaries/tipos";
 
 declare global {
@@ -11,11 +11,12 @@ declare global {
 
 const SCRIPT_ANALYTICS = "/_vercel/insights/script.js";
 
-export default function Redirigir({ t }: { t: Diccionario["redireccion"] }) {
+// saludo: mensaje que se usa si el botón no mandó uno (los de la versión en español)
+export default function Redirigir({ t, saludo }: { t: Diccionario["redireccion"]; saludo: string }) {
   const enlace = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
-    const url = waLink(window.__mensajeWA || WA_MENSAJE_INICIAL);
+    const url = waLink(window.__mensajeWA || saludo);
     if (enlace.current) enlace.current.href = url;
     // Espera a que el script de Analytics haya terminado de cargar (aparece en
     // Resource Timing) y le deja 200 ms para mandar la página vista. Si tarda
@@ -32,7 +33,7 @@ export default function Redirigir({ t }: { t: Diccionario["redireccion"] }) {
     };
     esperar();
     return () => window.clearTimeout(timer);
-  }, []);
+  }, [saludo]);
 
   return (
     <div className="ir-wa-caja">

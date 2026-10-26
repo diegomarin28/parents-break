@@ -7,7 +7,7 @@ import { irASeccion } from "../lib/scroll";
 import MenuCelular from "./MenuCelular";
 import type { Diccionario } from "../dictionaries/tipos";
 
-export default function Navbar({ t }: { t: Diccionario["navbar"] }) {
+export default function Navbar({ t, saludo }: { t: Diccionario["navbar"]; saludo?: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
@@ -85,7 +85,7 @@ useEffect(() => {
     { label: t.links.simulador,    href: "#simulador" },
   ];
 
-  const WA_URL = waIrLink("navbar");
+  const WA_URL = waIrLink("navbar", saludo);
 
   return (
     <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
@@ -157,7 +157,7 @@ useEffect(() => {
         </div>
       </div>
 
-      <MenuCelular abierto={open} onCerrar={cerrarMenu} links={links} activo={active} onNavegar={handleNav} t={t} />
+      <MenuCelular abierto={open} onCerrar={cerrarMenu} links={links} activo={active} onNavegar={handleNav} t={t} saludo={saludo} />
 
       <style>{`
         .navbar {

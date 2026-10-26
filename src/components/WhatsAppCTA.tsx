@@ -1,8 +1,8 @@
 import { waIrLink } from "../lib/contact";
 import type { Diccionario } from "../dictionaries/tipos";
 
-export default function WhatsAppCTA({ t }: { t: Diccionario["ctaFinal"] }) {
-  const WA_URL = waIrLink("cta");
+export default function WhatsAppCTA({ t, saludo }: { t: Diccionario["ctaFinal"]; saludo?: string }) {
+  const WA_URL = waIrLink("cta", saludo);
 
   return (
     <section className="cta-section" style={{

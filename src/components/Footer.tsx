@@ -2,8 +2,8 @@ import Image from "next/image";
 import { waIrLink } from "../lib/contact";
 import type { Diccionario } from "../dictionaries/tipos";
 
-export default function Footer({ t }: { t: Diccionario["footer"] }) {
-  const WA_URL = waIrLink("footer");
+export default function Footer({ t, saludo }: { t: Diccionario["footer"]; saludo?: string }) {
+  const WA_URL = waIrLink("footer", saludo);
 
   return (
     <footer className="footer">

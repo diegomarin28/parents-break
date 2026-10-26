@@ -11,3 +11,8 @@ export function esIdioma(valor: string): valor is Idioma {
 export const RUTA_IDIOMA: Record<Idioma, string> = {
   es: "/",
 };
+
+// Nombre de cada idioma en ese mismo idioma
+export const NOMBRE_IDIOMA: Record<Idioma, string> = {
+  es: "Español",
+};

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { WA_MENSAJE_INICIAL, waIrLink } from "../lib/contact";
-import type { Diccionario } from "../dictionaries/tipos";
+import { waIrLink } from "../lib/contact";
+import type { Diccionario, TextosMensaje } from "../dictionaries/tipos";
 
 type Textos = Diccionario["simulador"];
 
@@ -205,7 +205,15 @@ const SERVICIOS = [
   },
 ] as const;
 
-export default function SimulatorSection({ t }: { t: Textos }) {
+type Props = {
+  t: Textos;
+  // Textos del mensaje de WhatsApp, en el idioma en que responde el equipo
+  mensaje: TextosMensaje;
+  // Línea final del mensaje cuando la página está en otro idioma ("*Idioma:* Português")
+  lineaIdioma: string;
+};
+
+export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
   // Etiqueta visible de un valor interno ("Puntual", "Lun", "Cumpleaños"...). Los valores
   // internos no cambian con el idioma: son los que usa el mensaje y la preselección.
   const op = (valor: string) => (t.opciones as Record<string, string>)[valor] ?? valor;
@@ -446,41 +454,46 @@ export default function SimulatorSection({ t }: { t: Textos }) {
   };
 
   const generateMessage = () => {
-    let msg = `${WA_MENSAJE_INICIAL}\n\n`;
-    msg += `*Nombre:* ${form.nombre}\n*Servicio:* ${form.servicio}\n`;
+    const et = mensaje.etiquetas;
+    // Valor interno -> texto del mensaje ("Petsittings" -> "Pet sitting" en inglés)
+    const v = (valor: string) => mensaje.valores[valor] ?? valor;
+    const dia = (i: number) => et.dia.replace("{n}", String(i + 1));
+    let msg = `${mensaje.saludo}\n\n`;
+    msg += `*${et.nombre}:* ${form.nombre}\n*${et.servicio}:* ${v(form.servicio)}\n`;
     if (form.servicio === "Babysitting") {
-      msg += `*Modalidad:* ${form.tipoBabysitting}\n`;
+      msg += `*${et.modalidad}:* ${v(form.tipoBabysitting)}\n`;
       if (form.tipoBabysitting === "Puntual") {
         form.dias.forEach((d, i) => {
-          msg += `\n*Día ${i + 1}:*\n  Fecha: ${formatFecha(d.fecha)}\n  Horario: ${d.horaInicio}:${d.minInicio || "00"} - ${d.horaFin}:${d.minFin || "00"}\n`;
+          msg += `\n*${dia(i)}:*\n  ${et.fecha}: ${formatFecha(d.fecha)}\n  ${et.horario}: ${d.horaInicio}:${d.minInicio || "00"} - ${d.horaFin}:${d.minFin || "00"}\n`;
         });
       } else if (form.tipoBabysitting === "Fijo") {
-        msg += `*Días:* ${form.diasSemana.join(", ")}\n`;
-        msg += `*Horario:* ${form.horarioFijoInicioH}:${form.horarioFijoInicioM || "00"} - ${form.horarioFijoFinH}:${form.horarioFijoFinM || "00"}\n`;
-        msg += `*Desde:* ${formatFecha(fijoDesde)}\n`;
-        msg += `*Hasta:* ${form.hastaCuando === "Indefinido" ? "Indefinido" : formatFecha(form.hastaFecha)}\n`;
+        msg += `*${et.dias}:* ${form.diasSemana.map(v).join(", ")}\n`;
+        msg += `*${et.horario}:* ${form.horarioFijoInicioH}:${form.horarioFijoInicioM || "00"} - ${form.horarioFijoFinH}:${form.horarioFijoFinM || "00"}\n`;
+        msg += `*${et.desde}:* ${formatFecha(fijoDesde)}\n`;
+        msg += `*${et.hasta}:* ${form.hastaCuando === "Indefinido" ? v("Indefinido") : formatFecha(form.hastaFecha)}\n`;
       }
     } else if (form.servicio === "Evento") {
-      msg += `*Tipo de evento:* ${form.tipoEvento}\n`;
-      msg += `*Fecha:* ${formatFecha(form.fechaEvento)}\n`;
-      msg += `*Horario:* ${form.horaInicioH}:${form.horaInicioM || "00"} - ${form.horaFinH}:${form.horaFinM || "00"}\n`;
-      msg += `*Cantidad aproximada de niños:* ${form.cantNinosEvento}\n`;
+      msg += `*${et.tipoEvento}:* ${v(form.tipoEvento)}\n`;
+      msg += `*${et.fecha}:* ${formatFecha(form.fechaEvento)}\n`;
+      msg += `*${et.horario}:* ${form.horaInicioH}:${form.horaInicioM || "00"} - ${form.horaFinH}:${form.horaFinM || "00"}\n`;
+      msg += `*${et.cantNinosEvento}:* ${form.cantNinosEvento}\n`;
     } else if (form.servicio === "Petsittings") {
-      msg += `*Tipo de servicio:* ${op(form.tipoPetsitting)}\n`;
-      msg += `*Cantidad de mascotas:* ${form.cantMascotas}\n`;
-      if (form.petNecesita.length) msg += `*Necesita:* ${form.petNecesita.join(", ")}\n`;
+      msg += `*${et.tipoServicio}:* ${v(form.tipoPetsitting)}\n`;
+      msg += `*${et.cantMascotas}:* ${v(form.cantMascotas)}\n`;
+      if (form.petNecesita.length) msg += `*${et.necesita}:* ${form.petNecesita.map(v).join(", ")}\n`;
       if (form.tipoPetsitting === "Visita a domicilio") {
         form.dias.forEach((d, i) => {
-          msg += `\n*Día ${i + 1}:*\n  Fecha: ${formatFecha(d.fecha)}\n  Horario: ${d.horaInicio}:${d.minInicio || "00"} - ${d.horaFin}:${d.minFin || "00"}\n`;
+          msg += `\n*${dia(i)}:*\n  ${et.fecha}: ${formatFecha(d.fecha)}\n  ${et.horario}: ${d.horaInicio}:${d.minInicio || "00"} - ${d.horaFin}:${d.minFin || "00"}\n`;
         });
       } else if (form.tipoPetsitting === "Pernocte" || form.tipoPetsitting === "Hospedaje") {
-        msg += `*Desde:* ${formatFecha(form.petFechaDesde)}\n*Hasta:* ${formatFecha(form.petFechaHasta)}\n`;
+        msg += `*${et.desde}:* ${formatFecha(form.petFechaDesde)}\n*${et.hasta}:* ${formatFecha(form.petFechaHasta)}\n`;
       }
     }
-    if (form.servicio === "Babysitting") msg += `\n*Cantidad de niños:* ${form.cantNinos}\n`;
-    if (form.servicio !== "Petsittings") msg += `*Edades:* ${form.edades}\n`;
-    msg += `*Departamento:* ${form.departamento}\n*Zona:* ${zonaFinal()}\n`;
-    if (form.comentarios) msg += `*Comentarios:* ${form.comentarios}\n`;
+    if (form.servicio === "Babysitting") msg += `\n*${et.cantNinos}:* ${v(form.cantNinos)}\n`;
+    if (form.servicio !== "Petsittings") msg += `*${et.edades}:* ${form.edades}\n`;
+    msg += `*${et.departamento}:* ${form.departamento}\n*${et.zona}:* ${zonaFinal()}\n`;
+    if (form.comentarios) msg += `*${et.comentarios}:* ${form.comentarios}\n`;
+    if (lineaIdioma) msg += `${lineaIdioma}\n`;
     return msg;
   };
 
