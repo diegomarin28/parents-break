@@ -1,4 +1,3 @@
-"use client";
 import IrAlSimulador from "./IrAlSimulador";
 
 // Cuántos ítems de cada servicio se ven sin abrir "Ver todo lo que incluye"
@@ -123,31 +122,16 @@ responsables y preparadas para cada situación.
           {services.map((s, i) => (
             <div
               key={i}
-              className="service-card"
+              className={`service-card${s.featured ? " service-card-destacada" : ""}`}
               style={{
                 background: "var(--white)",
                 borderRadius: 24,
                 border: `1.5px solid ${s.featured ? s.border : "var(--gray)"}`,
                 padding: "36px 28px",
                 position: "relative",
-                transition: "transform .2s, box-shadow .2s",
-                boxShadow: s.featured ? "var(--shadow-lg)" : "none",
-                transform: "none",
                   display: "flex",
   flexDirection: "column",
   height: "100%",
-              }}
-              onMouseEnter={(e) => {
-                
-                  e.currentTarget.style.transform = "translateY(-6px)";
-                  e.currentTarget.style.boxShadow = "var(--shadow-lg)";
-        
-              }}
-              onMouseLeave={(e) => {
-          
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "none";
-                
               }}
             >
               <div style={{
@@ -275,6 +259,9 @@ responsables y preparadas para cada situación.
         .service-mas[open] .service-mas-abrir { display: none; }
         .service-mas[open] .service-mas-cerrar { display: inline; }
         .service-cta:hover { opacity: .85; }
+        .service-card { transition: transform .2s, box-shadow .2s; }
+        .service-card-destacada { box-shadow: var(--shadow-lg); }
+        .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
         .service-cta { transition: opacity .15s; }
         @media (max-width: 600px) {
           .services-grid { grid-template-columns: 1fr !important; }
