@@ -1,4 +1,6 @@
 "use client";
+import { irASeccion } from "../lib/scroll";
+
 export default function ServicesSection() {
   const services = [
     {
@@ -206,8 +208,7 @@ responsables y preparadas para cada situación.
                   // El simulador escucha "popstate" y preselecciona el servicio del query param
                   window.history.pushState(null, "", `?servicio=${s.servicio}#simulador`);
                   window.dispatchEvent(new Event("popstate"));
-                  const el = document.getElementById("simulador");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                  irASeccion("simulador");
                 }}
                 style={{
                     marginTop: "auto",

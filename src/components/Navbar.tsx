@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { waIrLink } from "../lib/contact";
+import { irASeccion } from "../lib/scroll";
 import MenuCelular from "./MenuCelular";
 
 export default function Navbar() {
@@ -72,7 +73,7 @@ useEffect(() => {
     const el = document.getElementById(id);
     if (!el) return;
     setActive(id);
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72, behavior: "smooth" });
+    irASeccion(el);
   };
 
   const links = [
