@@ -78,7 +78,7 @@ export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) 
         {/* Cards */}
         <div className="services-grid" style={{
           display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
+          gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
           gap: 24,
             alignItems: "stretch",
         }}>
@@ -226,6 +226,12 @@ export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) 
         .service-card-destacada { box-shadow: var(--shadow-lg); }
         .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
         .service-cta { transition: opacity .15s; }
+        /* Tablet: tres columnas angostas. Menos relleno y título más chico para que el
+           contenido no las desborde (antes generaba scroll horizontal entre 601 y 630 px). */
+        @media (max-width: 900px) {
+          .service-card { padding: 32px 18px !important; }
+          .service-title { font-size: 22px !important; }
+        }
         @media (max-width: 600px) {
           .services-grid { grid-template-columns: 1fr !important; }
         }
