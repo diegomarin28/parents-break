@@ -37,6 +37,7 @@ El flujo esperado: el usuario entra, entiende el servicio, usa el simulador o el
 - Hosting: Vercel (plan gratis)
 - Vercel Web Analytics activado: sin cookies, visitante identificado con un hash que se descarta a las 24 horas. Plan Hobby: 50.000 eventos por mes, un mes de historial, sin eventos personalizados. Por eso los toques en WhatsApp se cuentan como páginas vistas de `/ir/whatsapp/<origen>`.
 - Node.js 24, fijado con `engines` en `package.json`. Vercel dejó de aceptar Node 20 (con esa versión el deploy falla antes de instalar): no bajarlo.
+- Fuentes: Baloo 2 y Source Sans 3 se sirven con `next/font/google` desde `src/app/layout.tsx` (variables `--font-baloo` y `--font-source`). No volver a Google Fonts por `<link>` ni `@import`: bloqueaba el render y hacía saltar el texto.
 - Editor: VS Code
 - No cambiar de stack ni agregar dependencias pesadas sin que Diego lo pida.
 
@@ -44,8 +45,8 @@ El flujo esperado: el usuario entra, entiende el servicio, usa el simulador o el
 
 Orden actual en `src/app/page.tsx`:
 
-1. Navbar (links a cada sección + botón "Coordinar servicio" a WhatsApp; en celular solo logo y menú, porque está el botón flotante)
-2. Hero: título, subtítulo, zonas, botón principal (WhatsApp con mensaje inicial) y botón secundario "Completar formulario →" (lleva al simulador; el CTA final usa el mismo texto)
+1. Navbar (links a cada sección + botón "Coordinar servicio" a WhatsApp; en celular solo logo y menú). El menú de celular es una hoja que sube desde abajo (`MenuCelular.tsx`): diálogo modal con foco atrapado, Escape y fondo para cerrar, y botón verde de WhatsApp. El link del menú se llama "Solicitar servicio"; los botones, "Completar formulario"
+2. Hero: título, subtítulo, zonas, botón principal (WhatsApp con mensaje inicial) y botón secundario "Completar formulario →" (lleva al simulador; el CTA final usa el mismo texto), y debajo la nota "Sin compromiso. Te respondemos por WhatsApp" (también en el CTA final)
 3. Barra de números (+80 niñeras, +3 años)
 4. Quiénes somos
 5. Servicios: Babysitting, Petsitting y Eventos
@@ -55,7 +56,7 @@ Orden actual en `src/app/page.tsx`:
 9. CTA final (WhatsApp)
 10. Footer
 
-Además hay un botón flotante de WhatsApp que solo aparece en celular (`WhatsAppFloat.tsx`), oculto mientras se ve el Hero, el simulador o el Footer.
+Además hay un botón flotante de WhatsApp siempre visible (`WhatsAppFloat.tsx`). En compu es una píldora con texto abajo a la derecha que se achica a círculo mientras el simulador o el Footer están en pantalla. En celular es un círculo abajo a la derecha que, mientras el Hero, el simulador o el Footer están en pantalla, se acomoda en la Navbar al lado del menú, así nunca tapa los botones de esas secciones. Hace un solo pulso a los 4 segundos.
 
 El simulador queda en esa posición por decisión del negocio.
 
@@ -67,6 +68,7 @@ Fotos (en `public/`):
 - Las fotos de Quiénes somos y Niñeras se sirven con calidad 90; Next 16 exige declarar esa calidad en `images.qualities` de `next.config.ts`.
 - `Lleno.jpg` es de solo 800px de ancho y se ve algo blanda en pantallas retina. Si llegan los originales en mayor resolución, reemplazarla.
 - `public/` se publica entero: cualquiera puede abrir un archivo con el link directo. No dejar fotos que la página no use, sobre todo si muestran caras.
+- Vista previa al compartir el link: `src/app/opengraph-image.jpg` (1200x630, la foto del Hero con el logo) y su `opengraph-image.alt.txt`; favicon: `src/app/icon.png` y `apple-icon.png`. `metadataBase` en el layout apunta a la URL de producción; si cambia el dominio, cambiar ahí.
 
 `ReviewsSection.tsx` (testimonios) existe pero está oculta a propósito: no se importa en `page.tsx`. Se va a activar cuando haya reseñas reales. No activarla ni borrarla sin que Diego lo pida.
 
@@ -132,6 +134,9 @@ Diseño:
 - Sin emojis en el código, en los textos de la interfaz ni en los commits, salvo que Diego pida lo contrario.
 - Diego es estudiante de Ingeniería Telemática y construye esto como proyecto real y como pieza de portfolio. Explicar los cambios con claridad, sin asumir jerga, pero sin tratarlo como alguien no técnico.
 - Mensajes de commit claros y en español.
+- Toda animación o transición respeta `prefers-reduced-motion`: hay una regla global en `globals.css`, y FadeIn y el contador de la barra de números lo chequean en JS. Antes y después de tocar animaciones o la carga de la página, correr Lighthouse en celular simulado (mediana de 3 corridas) y no aceptar más de 2 puntos de caída en rendimiento ni más de 100 ms de LCP.
+- Para llevar la vista a una sección usar `irASeccion()` de `src/lib/scroll.ts`: mide sin la animación de aparición de FadeIn (que desplaza la sección 20 px hasta que se ve) y deja los 72 px de la Navbar.
+- Accesibilidad: cada campo del simulador tiene su `label` asociada (`htmlFor`/`id`); los títulos de grupos de botones son `<div>`. Contraste pendiente, por decisión de marca: blanco sobre el verde de WhatsApp (1,98:1) y las etiquetas de la barra de números sobre el violeta (3,9:1).
 
 ## Errores a evitar (aprendidos en el sistema interno de Parents' Break)
 
