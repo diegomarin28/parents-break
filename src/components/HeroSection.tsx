@@ -1,5 +1,6 @@
 import { Fragment } from "react";
-import Image from "next/image";
+import { preload } from "react-dom";
+import { getImageProps } from "next/image";
 import { waIrLink } from "../lib/contact";
 import IrAlSimulador from "./IrAlSimulador";
 import type { Diccionario } from "../dictionaries/tipos";
@@ -22,6 +23,30 @@ const NECESIDADES = [
     relleno: false,
   },
 ] as const;
+
+// La foto del Hero está en dos lugares: en celular entre el texto y los botones, y en
+// compu en la columna derecha. Antes eran dos <Image priority> y en compu se descargaban
+// las dos (la de celular, oculta, en 1920 px). Ahora cada lugar es un <picture> que, en
+// el ancho donde ese lugar está oculto, apunta a un GIF vacío de 1 px embebido: cada
+// dispositivo descarga una sola foto. La precarga lleva el mismo media.
+const PIXEL_VACIO = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+const CELULAR = "(max-width: 900px)";
+const COMPU = "(min-width: 901px)";
+
+function FotoHero({ alt, className, sizes, media }: { alt: string; className: string; sizes: string; media: string }) {
+  const { props } = getImageProps({
+    src: "/hero.jpg", alt, width: 1536, height: 1024, className, sizes,
+    loading: "eager", fetchPriority: "high",
+  });
+  // Precarga en el <head> (como hacía <Image priority>), solo en el ancho donde se ve
+  preload(props.src, { as: "image", imageSrcSet: props.srcSet, imageSizes: sizes, fetchPriority: "high", media });
+  return (
+    <picture className="hero-picture">
+      <source media={media === CELULAR ? COMPU : CELULAR} srcSet={PIXEL_VACIO} />
+      <img {...props} alt={alt} />
+    </picture>
+  );
+}
 
 export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; saludo?: string }) {
   const WA_URL = waIrLink("hero", saludo);
@@ -68,16 +93,7 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
 
             {/* Foto — solo visible en mobile, insertada en el medio */}
             <div className="hero-visual-mobile">
-              <Image
-                src="/hero.jpg"
-                alt={t.fotoAlt}
-                width={1536}
-                height={1024}
-                className="hero-photo-img-mobile"
-                priority
-                fetchPriority="high"
-                sizes="100vw"
-              />
+              <FotoHero alt={t.fotoAlt} className="hero-photo-img-mobile" sizes="100vw" media={CELULAR} />
             </div>
 
             {/* Bloque inferior: botones + social proof */}
@@ -144,16 +160,7 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           <div className="hero-visual">
             <div className="hero-photo-wrap">
               <div className="hero-photo-glow" />
-              <Image
-                src="/hero.jpg"
-                alt={t.fotoAlt}
-                width={1536}
-                height={1024}
-                className="hero-photo-img"
-                priority
-                fetchPriority="high"
-                sizes="(max-width: 900px) 100vw, 600px"
-              />
+              <FotoHero alt={t.fotoAlt} className="hero-photo-img" sizes="600px" media={COMPU} />
             </div>
           </div>
 
@@ -404,6 +411,9 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           align-self: stretch;
           flex-shrink: 0;
         }
+
+        /* El <picture> no genera caja: el diseño sigue siendo el del <img> */
+        .hero-picture { display: contents; }
 
         /* ── Visual desktop ── */
         .hero-visual { position: relative; }
