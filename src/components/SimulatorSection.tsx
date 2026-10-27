@@ -551,8 +551,13 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
     border: "1px solid #fde68a", borderRadius: 8, padding: "8px 12px", marginTop: 8,
   };
 
+  // Salto automático de "Hora de inicio" a "Hora de fin". Solo mueve el cursor si
+  // sigue en el campo de inicio: si la persona ya pasó a otro campo, no le roba el foco.
   const focusRef = (key: string) => {
-    setTimeout(() => { finRefs.current[key]?.focus(); }, 30);
+    const origen = document.activeElement;
+    setTimeout(() => {
+      if (document.activeElement === origen) finRefs.current[key]?.focus();
+    }, 30);
   };
 
   const registrarFin = (key: string, el: HTMLInputElement | null) => { finRefs.current[key] = el; };
