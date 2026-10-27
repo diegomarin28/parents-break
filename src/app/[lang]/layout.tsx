@@ -39,6 +39,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630, type: "image/jpeg", alt: t.ogImagenAlt }],
     },
     twitter: { card: "summary_large_image" },
+    // Verificación de la propiedad en Google Search Console (no es secreta: Google la lee del HTML)
+    verification: { google: "oOQSRNJlFqlnwkvCJOhyfLPvxwzSCRvygJvLhKn5KFM" },
   };
 }
 
