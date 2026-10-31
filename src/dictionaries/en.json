@@ -299,6 +299,7 @@
       "fijoDesde": "Enter a start date",
       "hastaFecha": "Enter an end date",
       "finAntesDeInicio": "The end date can't be before the start date",
+      "diaAntesDelAnterior": "Day {n} can't be before Day {anterior}",
       "cantNinos": "Select the number of children",
       "tipoEvento": "Select the type of event",
       "fechaEvento": "Enter the event date",

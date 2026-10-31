@@ -299,6 +299,7 @@
       "fijoDesde": "Ingresa desde cuándo",
       "hastaFecha": "Ingresa hasta qué fecha",
       "finAntesDeInicio": "La fecha de fin no puede ser anterior a la de inicio",
+      "diaAntesDelAnterior": "El Día {n} no puede ser antes del Día {anterior}",
       "cantNinos": "Selecciona cantidad de niños",
       "tipoEvento": "Selecciona el tipo de evento",
       "fechaEvento": "Ingresa la fecha del evento",

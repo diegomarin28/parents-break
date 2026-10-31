@@ -308,7 +308,13 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
       newDias[index] = { ...newDias[index], [field]: value };
       return { ...prev, dias: newDias };
     });
-    setErrors((prev) => { const n = { ...prev }; delete n[`dia-${index}-${field}`]; return n; });
+    setErrors((prev) => {
+      const n = { ...prev };
+      delete n[`dia-${index}-${field}`];
+      // El día siguiente se compara con este: si cambia la fecha, su error puede dejar de valer
+      if (field === "fecha") delete n[`dia-${index + 1}-fecha`];
+      return n;
+    });
   };
 
   const copiarDia1 = (index: number) => {
@@ -385,6 +391,17 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
     return null;
   };
 
+  // Un día no puede ser anterior al día previo (por ejemplo, si el Día 1 se cambió a una
+  // fecha posterior al Día 2). La misma fecha sí vale: pueden ser dos turnos del mismo día.
+  const diaAntesDelAnterior = (i: number): string | null => {
+    const actual = form.dias[i]?.fecha, previa = form.dias[i - 1]?.fecha;
+    if (i === 0 || !actual || !previa || actual >= previa) return null;
+    return t.errores.diaAntesDelAnterior.replace("{n}", String(i + 1)).replace("{anterior}", String(i));
+  };
+
+  // Aviso debajo de la fecha de cada día, visible antes de enviar
+  const avisoDia = (i: number) => validarFecha(form.dias[i]?.fecha ?? "") || diaAntesDelAnterior(i);
+
   // En modo Fijo el "Desde" se guarda en dias[0]; si no se tocó, vale hoy
   // (es lo que muestra el campo).
   const fijoDesde = form.dias[0]?.fecha || today;
@@ -416,6 +433,8 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
         if (!form.cantDias) e["cantDias"] = t.errores.cantDias;
         form.dias.forEach((d, i) => {
           checkFecha(`dia-${i}-fecha`, d.fecha, t.errores.fecha);
+          const antes = diaAntesDelAnterior(i);
+          if (!e[`dia-${i}-fecha`] && antes) e[`dia-${i}-fecha`] = antes;
           if (!d.horaInicio) e[`dia-${i}-horaInicio`] = t.errores.horaInicio;
           if (!d.horaFin) e[`dia-${i}-horaFin`] = t.errores.horaFin;
         });
@@ -448,6 +467,8 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
         if (!form.cantDias) e["cantDias"] = t.errores.cantDias;
         form.dias.forEach((d, i) => {
           checkFecha(`dia-${i}-fecha`, d.fecha, t.errores.fecha);
+          const antes = diaAntesDelAnterior(i);
+          if (!e[`dia-${i}-fecha`] && antes) e[`dia-${i}-fecha`] = antes;
           if (!d.horaInicio) e[`dia-${i}-horaInicio`] = t.errores.horaInicio;
           if (!d.horaFin) e[`dia-${i}-horaFin`] = t.errores.horaFin;
         });
@@ -707,7 +728,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                             <label style={labelStyle} htmlFor={`in-dia-${i}-fecha`}>{t.fecha}</label>
                             <input id={`in-dia-${i}-fecha`} type="date" style={inputErr(`dia-${i}-fecha`)} value={dia.fecha} min={today} max={maxDateStr}
                               onChange={(e) => updateDia(i, "fecha", e.target.value)} />
-                            {validarFecha(dia.fecha) && !errors[`dia-${i}-fecha`] && <div style={alertStyle}>{validarFecha(dia.fecha)}</div>}
+                            {avisoDia(i) && !errors[`dia-${i}-fecha`] && <div style={alertStyle}>{avisoDia(i)}</div>}
                             {errMsg(`dia-${i}-fecha`)}
                           </div>
                           <div id={`field-dia-${i}-horaInicio`}>
@@ -888,7 +909,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                             <label style={labelStyle} htmlFor={`in-dia-${i}-fecha`}>{t.fecha}</label>
                             <input id={`in-dia-${i}-fecha`} type="date" style={inputErr(`dia-${i}-fecha`)} value={dia.fecha} min={today} max={maxDateStr}
                               onChange={(e) => updateDia(i, "fecha", e.target.value)} />
-                            {validarFecha(dia.fecha) && !errors[`dia-${i}-fecha`] && <div style={alertStyle}>{validarFecha(dia.fecha)}</div>}
+                            {avisoDia(i) && !errors[`dia-${i}-fecha`] && <div style={alertStyle}>{avisoDia(i)}</div>}
                             {errMsg(`dia-${i}-fecha`)}
                           </div>
                           <div id={`field-dia-${i}-horaInicio`}>
