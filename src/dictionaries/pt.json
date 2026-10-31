@@ -299,7 +299,7 @@
       "fijoDesde": "Digite a data de início",
       "hastaFecha": "Digite a data de término",
       "finAntesDeInicio": "A data de término não pode ser anterior à de início",
-      "diaAntesDelAnterior": "O Dia {n} não pode ser antes do Dia {anterior}",
+      "diaAntesDelAnterior": "O Dia {n} não pode ser anterior ao Dia {anterior}",
       "cantNinos": "Selecione a quantidade de crianças",
       "tipoEvento": "Selecione o tipo de evento",
       "fechaEvento": "Digite a data do evento",
