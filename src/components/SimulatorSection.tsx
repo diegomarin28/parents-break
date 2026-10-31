@@ -501,9 +501,16 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
     const e = validate();
     if (Object.keys(e).length > 0) {
       setErrors(e);
-      const firstKey = Object.keys(e)[0];
-      const el = document.getElementById(`field-${firstKey}`);
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+      // El foco va al primer campo con error en el orden de la pantalla (no en el de la
+      // validación) y la vista baja hasta él. Se espera un cuadro para que ya esté el
+      // cartel de errores, que corre el formulario hacia abajo.
+      requestAnimationFrame(() => {
+        const campo = Array.from(document.querySelectorAll<HTMLElement>('#simulador [id^="field-"]'))
+          .find((el) => el.id.slice("field-".length) in e);
+        const control = campo?.querySelector<HTMLElement>("input, select, textarea") ?? campo?.querySelector<HTMLElement>("button");
+        control?.focus({ preventScroll: true });
+        campo?.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
       return;
     }
     window.open(waIrLink("simulador", generateMessage()), "_blank");
@@ -585,7 +592,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
         }}>
           {/* Error banner */}
           {Object.keys(errors).length > 0 && (
-            <div style={{
+            <div role="alert" style={{
               background: "#fef2f2", border: "1.5px solid #fecaca", borderRadius: 12,
               padding: "14px 18px", marginBottom: 24,
               display: "flex", alignItems: "flex-start", gap: 10,
@@ -652,10 +659,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
             {form.servicio === "Babysitting" && (
               <>
                 <div className="full-col" id="field-tipoBabysitting">
-                  <div style={labelStyle}>{t.puntualOFijo}</div>
-                  <div style={{ display: "flex", gap: 10 }}>
+                  <div id="titulo-puntualOFijo" style={labelStyle}>{t.puntualOFijo}</div>
+                  <div role="group" aria-labelledby="titulo-puntualOFijo" style={{ display: "flex", gap: 10 }}>
                     {["Puntual", "Fijo"].map((opt) => (
-                      <button key={opt} onClick={() => update("tipoBabysitting", opt)} style={btnToggle(form.tipoBabysitting === opt)}>{op(opt)}</button>
+                      <button key={opt} type="button" aria-pressed={form.tipoBabysitting === opt} onClick={() => update("tipoBabysitting", opt)} style={btnToggle(form.tipoBabysitting === opt)}>{op(opt)}</button>
                     ))}
                   </div>
                   {errMsg("tipoBabysitting")}
@@ -664,10 +671,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                 {form.tipoBabysitting === "Puntual" && (
                   <>
                     <div className="full-col" id="field-cantDias">
-                      <div style={labelStyle}>{t.cuantosDias}</div>
-                      <div style={{ display: "flex", gap: 10 }}>
+                      <div id="titulo-cuantosDias" style={labelStyle}>{t.cuantosDias}</div>
+                      <div role="group" aria-labelledby="titulo-cuantosDias" style={{ display: "flex", gap: 10 }}>
                         {["1", "2", "3", "4"].map((n) => (
-                          <button key={n} onClick={() => handleCantDias(n)} style={btnToggle(form.cantDias === n)}>{n}</button>
+                          <button key={n} type="button" aria-pressed={form.cantDias === n} onClick={() => handleCantDias(n)} style={btnToggle(form.cantDias === n)}>{n}</button>
                         ))}
                       </div>
                       {errMsg("cantDias")}
@@ -732,10 +739,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                 {form.tipoBabysitting === "Fijo" && (
                   <>
                     <div className="full-col" id="field-diasSemana">
-                      <div style={labelStyle}>{t.diasSemana}</div>
-                      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      <div id="titulo-diasSemana" style={labelStyle}>{t.diasSemana}</div>
+                      <div role="group" aria-labelledby="titulo-diasSemana" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                         {DIAS_SEMANA.map((dia) => (
-                          <button key={dia} onClick={() => toggleDiaSemana(dia)}
+                          <button key={dia} type="button" aria-pressed={form.diasSemana.includes(dia)} onClick={() => toggleDiaSemana(dia)}
                             style={{ ...btnToggle(form.diasSemana.includes(dia)), flex: "none", padding: "8px 14px" }}>
                             {op(dia)}
                           </button>
@@ -785,10 +792,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                       {errMsg("fijoDesde")}
                     </div>
                     <div id="field-hastaFecha">
-                      <div style={labelStyle}>{t.hastaCuando}</div>
-                      <div style={{ display: "flex", gap: 10, marginBottom: form.hastaCuando === "Fecha" ? 10 : 0 }}>
+                      <div id="titulo-hastaCuando" style={labelStyle}>{t.hastaCuando}</div>
+                      <div role="group" aria-labelledby="titulo-hastaCuando" style={{ display: "flex", gap: 10, marginBottom: form.hastaCuando === "Fecha" ? 10 : 0 }}>
                         {["Indefinido", "Fecha"].map((opt) => (
-                          <button key={opt} onClick={() => {
+                          <button key={opt} type="button" aria-pressed={form.hastaCuando === opt} onClick={() => {
                             update("hastaCuando", opt);
                             setErrors((prev) => { const n = { ...prev }; delete n["hastaFecha"]; return n; });
                           }} style={btnToggle(form.hastaCuando === opt)}>
@@ -811,10 +818,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
             {form.servicio === "Petsittings" && (
               <>
                 <div className="full-col" id="field-tipoPetsitting">
-                  <div style={labelStyle}>{t.tipoPetsitting}</div>
-                  <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                  <div id="titulo-tipoPetsitting" style={labelStyle}>{t.tipoPetsitting}</div>
+                  <div role="group" aria-labelledby="titulo-tipoPetsitting" style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                     {["Visita a domicilio", "Pernocte", "Hospedaje"].map((opt) => (
-                      <button key={opt} onClick={() => update("tipoPetsitting", opt)} style={{ ...btnToggle(form.tipoPetsitting === opt), flex: "1 1 140px" }}>{op(opt)}</button>
+                      <button key={opt} type="button" aria-pressed={form.tipoPetsitting === opt} onClick={() => update("tipoPetsitting", opt)} style={{ ...btnToggle(form.tipoPetsitting === opt), flex: "1 1 140px" }}>{op(opt)}</button>
                     ))}
                   </div>
                   {errMsg("tipoPetsitting")}
@@ -831,10 +838,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                 </div>
 
                 <div className="full-col" id="field-petNecesita">
-                  <div style={labelStyle}>{t.queNecesita}</div>
-                  <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  <div id="titulo-queNecesita" style={labelStyle}>{t.queNecesita}</div>
+                  <div role="group" aria-labelledby="titulo-queNecesita" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                     {["Darle de comer", "Pasearlo", "Compañía / cuidado general"].map((item) => (
-                      <button key={item} onClick={() => togglePetNecesita(item)}
+                      <button key={item} type="button" aria-pressed={form.petNecesita.includes(item)} onClick={() => togglePetNecesita(item)}
                         style={{ ...btnToggle(form.petNecesita.includes(item)), flex: "none", padding: "8px 14px" }}>
                         {op(item)}
                       </button>
@@ -845,10 +852,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                 {form.tipoPetsitting === "Visita a domicilio" && (
                   <>
                     <div className="full-col" id="field-cantDias">
-                      <div style={labelStyle}>{t.cuantosDias}</div>
-                      <div style={{ display: "flex", gap: 10 }}>
+                      <div id="titulo-cuantosDias" style={labelStyle}>{t.cuantosDias}</div>
+                      <div role="group" aria-labelledby="titulo-cuantosDias" style={{ display: "flex", gap: 10 }}>
                         {["1", "2", "3", "4"].map((n) => (
-                          <button key={n} onClick={() => handleCantDias(n)} style={btnToggle(form.cantDias === n)}>{n}</button>
+                          <button key={n} type="button" aria-pressed={form.cantDias === n} onClick={() => handleCantDias(n)} style={btnToggle(form.cantDias === n)}>{n}</button>
                         ))}
                       </div>
                       {errMsg("cantDias")}
