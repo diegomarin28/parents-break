@@ -53,8 +53,6 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
 
   return (
     <section className="hero-section">
-      <div className="hero-blob hero-blob-1" />
-
       <div className="hero-container">
         <div className="hero-grid">
 
@@ -177,22 +175,6 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
             radial-gradient(ellipse 40% 40% at 50% 100%, #fffae8 0%, transparent 50%);
           overflow: hidden;
           position: relative;
-        }
-        .hero-blob {
-          position: absolute;
-          border-radius: 50%;
-          pointer-events: none;
-          filter: blur(40px);
-        }
-        .hero-blob-1 {
-          top: 80px; right: 8%;
-          width: 320px; height: 320px;
-          background: radial-gradient(circle, #fdeef1 0%, transparent 70%);
-        }
-        .hero-blob-2 {
-          bottom: 40px; left: 5%;
-          width: 240px; height: 240px;
-          background: radial-gradient(circle, #eeedf8 0%, transparent 70%);
         }
         .hero-container {
           max-width: 1140px;
@@ -513,7 +495,6 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
             gap: 10px;
           }
           .hero-proof-divider { display: none; }
-          .hero-blob-1, .hero-blob-2 { display: none; }
           .hero-cities {
             margin-bottom: 20px;
           }
