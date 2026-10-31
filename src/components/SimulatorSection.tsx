@@ -849,7 +849,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                   <div id="titulo-tipoPetsitting" style={labelStyle}>{t.tipoPetsitting}</div>
                   <div role="group" aria-labelledby="titulo-tipoPetsitting" style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                     {["Visita a domicilio", "Pernocte", "Hospedaje"].map((opt) => (
-                      <button key={opt} type="button" aria-pressed={form.tipoPetsitting === opt} onClick={() => update("tipoPetsitting", opt)} style={{ ...btnToggle(form.tipoPetsitting === opt), flex: "1 1 140px" }}>{op(opt)}</button>
+                      <button key={opt} type="button" aria-pressed={form.tipoPetsitting === opt} onClick={() => update("tipoPetsitting", opt)} className="pet-tipo" style={{ ...btnToggle(form.tipoPetsitting === opt), flex: "1 1 140px" }}>{op(opt)}</button>
                     ))}
                   </div>
                   {errMsg("tipoPetsitting")}
@@ -1187,6 +1187,9 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
           .sim-grid { grid-template-columns: 1fr !important; gap: 16px; }
           .dia-grid { grid-template-columns: 1fr !important; gap: 10px; }
           .serv-grid { grid-template-columns: 1fr; }
+          /* Tipo de petsitting: uno debajo del otro, cada uno a todo el ancho (en fila, los textos
+             largos se partían en tres o cuatro renglones) */
+          .pet-tipo { flex: 1 1 100% !important; }
         }
       `}</style>
     </section>
