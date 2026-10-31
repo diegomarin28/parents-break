@@ -43,17 +43,7 @@
     },
     "botonPrincipal": "Arrange a service",
     "botonSecundario": "Fill in the form →",
-    "nota": "No commitment. We'll reply on WhatsApp",
-    "prueba": [
-      {
-        "numero": "+80 active babysitters",
-        "lineas": ["Selected and vetted", "by our team", "of psychologists"]
-      },
-      {
-        "numero": "+3 years of experience",
-        "lineas": ["Supporting families", "in Uruguay"]
-      }
-    ]
+    "nota": "No commitment. We'll reply on WhatsApp"
   },
   "numeros": {
     "nineras": "Active babysitters",

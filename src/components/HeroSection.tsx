@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { preload } from "react-dom";
 import { getImageProps } from "next/image";
 import { waIrLink } from "../lib/contact";
@@ -94,7 +93,7 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
               <FotoHero alt={t.fotoAlt} className="hero-photo-img-mobile" sizes="100vw" media={CELULAR} />
             </div>
 
-            {/* Bloque inferior: botones + social proof */}
+            {/* Bloque inferior: accesos directos y botones */}
             <div className="hero-bottom">
               <div className="hero-pregunta">
                 <p className="hero-pregunta-titulo">{t.pregunta}</p>
@@ -122,35 +121,6 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
               </div>
               <p className="hero-nota">{t.nota}</p>
 
-              <div className="hero-proof">
-                <div className="hero-avatars">
-                  {[
-                    { bg: "var(--pink-light)", stroke: "var(--pink)" },
-                    { bg: "var(--blue-light)", stroke: "var(--blue)" },
-                    { bg: "#fffae8",           stroke: "var(--yellow-dark)" },
-                  ].map((av, i) => (
-                    <div key={i} className={`hero-avatar hero-avatar-${i}`} style={{ background: av.bg }}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={av.stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                        <circle cx="12" cy="7" r="4"/>
-                      </svg>
-                    </div>
-                  ))}
-                </div>
-                {t.prueba.map((p, i) => (
-                  <Fragment key={i}>
-                    {i > 0 && <div className="hero-proof-divider" />}
-                    <div className="hero-proof-stat">
-                      <div className="hero-proof-num">{p.numero}</div>
-                      <div className="hero-proof-label">
-                        {p.lineas.map((linea, j) => (
-                          <Fragment key={j}>{j > 0 && <br />}{linea}</Fragment>
-                        ))}
-                      </div>
-                    </div>
-                  </Fragment>
-                ))}
-              </div>
             </div>
           </div>
 
@@ -277,7 +247,6 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
         .hero-bottom { display: flex; flex-direction: column; }
         .hero-pregunta { order: 0; margin-bottom: 22px; }
         .hero-ctas, .hero-nota { order: 1; }
-        .hero-proof { order: 3; }
         .hero-pregunta-titulo {
           font-weight: 700;
           font-size: 14px;
@@ -317,60 +286,6 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           font-size: 13px;
           color: var(--text-soft);
         }
-        .hero-proof {
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-          gap: 14px;
-          margin-top: 36px;
-          padding: 14px 20px;
-          background: var(--white);
-          border: 1.5px solid var(--gray);
-          border-radius: 16px;
-          box-shadow: var(--shadow);
-          flex-wrap: wrap;
-        }
-        .hero-proof-stat {
-          flex: 1 1 220px;
-          min-width: 180px;
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-          min-height: 56px;
-          min-width: 0;
-        }
-        .hero-avatars { display: flex; }
-        .hero-avatar {
-          width: 34px; height: 34px;
-          border-radius: 50%;
-          border: 2px solid white;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-        }
-        .hero-avatar-0 { margin-left: 0; }
-        .hero-avatar-1 { margin-left: -10px; }
-        .hero-avatar-2 { margin-left: -10px; }
-        .hero-proof-num {
-          font-weight: 700;
-          font-size: 14px;
-          color: var(--text);
-          white-space: nowrap;
-        }
-        .hero-proof-label {
-          font-size: 12px;
-          line-height: 1.5;
-          color: var(--text-soft);
-          min-width: 0;
-        }
-        .hero-proof-divider {
-          width: 1px; height: auto;
-          background: var(--gray);
-          align-self: stretch;
-          flex-shrink: 0;
-        }
-
         /* El <picture> no genera caja: el diseño sigue siendo el del <img> */
         .hero-picture { display: contents; }
 
@@ -416,15 +331,6 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           display: block;
         }
 
-        @media (min-width: 901px) {
-          .hero-proof {
-            flex-wrap: nowrap;
-          }
-          .hero-proof-stat {
-            flex: 1 1 40%;
-          }
-        }
-
         /* ── TABLET ── */
         @media (max-width: 900px) {
           .hero-grid {
@@ -466,12 +372,6 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
             justify-content: center;
             font-size: 15px;
           }
-          .hero-proof {
-            width: 100%;
-            margin-top: 28px;
-            gap: 10px;
-          }
-          .hero-proof-divider { display: none; }
           .hero-cities {
             margin-bottom: 20px;
           }

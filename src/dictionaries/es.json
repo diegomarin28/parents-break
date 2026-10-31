@@ -43,17 +43,7 @@
     },
     "botonPrincipal": "Coordinar servicio",
     "botonSecundario": "Completar formulario →",
-    "nota": "Sin compromiso. Te respondemos por WhatsApp",
-    "prueba": [
-      {
-        "numero": "+80 niñeras activas",
-        "lineas": ["Seleccionadas y validadas", "por nuestro equipo", "de psicólogas"]
-      },
-      {
-        "numero": "+3 años de experiencia",
-        "lineas": ["Acompañando a familias", "en Uruguay"]
-      }
-    ]
+    "nota": "Sin compromiso. Te respondemos por WhatsApp"
   },
   "numeros": {
     "nineras": "Niñeras activas",

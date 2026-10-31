@@ -43,17 +43,7 @@
     },
     "botonPrincipal": "Solicitar serviço",
     "botonSecundario": "Preencher formulário →",
-    "nota": "Sem compromisso. Respondemos pelo WhatsApp",
-    "prueba": [
-      {
-        "numero": "+80 babás ativas",
-        "lineas": ["Selecionadas e avaliadas", "pela nossa equipe", "de psicólogas"]
-      },
-      {
-        "numero": "+3 anos de experiência",
-        "lineas": ["Acompanhando famílias", "no Uruguai"]
-      }
-    ]
+    "nota": "Sem compromisso. Respondemos pelo WhatsApp"
   },
   "numeros": {
     "nineras": "Babás ativas",
