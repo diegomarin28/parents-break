@@ -75,13 +75,11 @@ const TimeSelector = ({ label, inputId, hora, min, onHora, onMin, labelStyle, in
       <input
         id={inputId}
         ref={inputRef}
-        style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError ? "#dc2626" : inputStyle.borderColor }}
-        placeholder="08:30" value={localVal} maxLength={5}
+        style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError || error ? "#dc2626" : inputStyle.borderColor }}
+        placeholder="08:30" value={localVal} maxLength={5} inputMode="numeric"
         onChange={(e) => handleChange(e.target.value)}
-        onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-        onBlur={(e) => { e.currentTarget.style.borderColor = error ? "#dc2626" : "var(--gray)"; }}
       />
-      {error && <div style={{ fontSize: 11, color: "#dc2626", marginTop: 4 }}>{error}</div>}
+      {error && <div style={{ fontSize: "var(--fs-chico)", color: "#dc2626", marginTop: 4 }}>{error}</div>}
     </div>
   );
 };
@@ -150,13 +148,11 @@ const FinSelector = ({ label, inputId, horaVal, minVal, onHora, onMin, labelStyl
       <input
         id={inputId}
         ref={(el) => { inputRef.current = el; registrarRef(refKey, el); }}
-        style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError ? "#dc2626" : inputStyle.borderColor }}
-        placeholder="08:30" value={localVal} maxLength={5}
+        style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError || error ? "#dc2626" : inputStyle.borderColor }}
+        placeholder="08:30" value={localVal} maxLength={5} inputMode="numeric"
         onChange={(e) => handleChange(e.target.value)}
-        onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-        onBlur={(e) => { e.currentTarget.style.borderColor = error ? "#dc2626" : "var(--gray)"; }}
       />
-      {error && <div style={{ fontSize: 11, color: "#dc2626", marginTop: 4 }}>{error}</div>}
+      {error && <div style={{ fontSize: "var(--fs-chico)", color: "#dc2626", marginTop: 4 }}>{error}</div>}
     </div>
   );
 };
@@ -165,6 +161,13 @@ const FinSelector = ({ label, inputId, horaVal, minVal, onHora, onMin, labelStyl
 // después de las 21:00 devolvía la fecha de mañana.
 const fechaLocalISO = (d: Date) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+// "2026-10-31" -> "2026-11-01". Sin fecha, devuelve hoy.
+const diaSiguiente = (iso: string) => {
+  if (!iso) return fechaLocalISO(new Date());
+  const [y, m, d] = iso.split("-").map(Number);
+  return fechaLocalISO(new Date(y, m - 1, d + 1));
+};
 
 // "2026-10-25" -> "25/10/2026" para el mensaje de WhatsApp
 const formatFecha = (iso: string) => {
@@ -325,9 +328,15 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
 
   const handleCantDias = (cant: string) => {
     const n = parseInt(cant);
-    const newDias: Dia[] = Array.from({ length: n }, (_, i) =>
-      form.dias[i] || { fecha: today, horaInicio: "", minInicio: "", horaFin: "", minFin: "" }
-    );
+    // Cada día nuevo arranca un día después del anterior (antes todos arrancaban en hoy
+    // y el Día 2 repetía la fecha del Día 1). Los días ya cargados no se tocan.
+    const newDias: Dia[] = [];
+    for (let i = 0; i < n; i++) {
+      newDias.push(form.dias[i] || {
+        fecha: i === 0 ? today : diaSiguiente(newDias[i - 1].fecha),
+        horaInicio: "", minInicio: "", horaFin: "", minFin: "",
+      });
+    }
     setForm((prev) => ({ ...prev, cantDias: cant, dias: newDias }));
   };
 
@@ -501,21 +510,29 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
     const e = validate();
     if (Object.keys(e).length > 0) {
       setErrors(e);
-      const firstKey = Object.keys(e)[0];
-      const el = document.getElementById(`field-${firstKey}`);
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+      // El foco va al primer campo con error en el orden de la pantalla (no en el de la
+      // validación) y la vista baja hasta él. Se espera un cuadro para que ya esté el
+      // cartel de errores, que corre el formulario hacia abajo.
+      requestAnimationFrame(() => {
+        const campo = Array.from(document.querySelectorAll<HTMLElement>('#simulador [id^="field-"]'))
+          .find((el) => el.id.slice("field-".length) in e);
+        const control = campo?.querySelector<HTMLElement>("input, select, textarea") ?? campo?.querySelector<HTMLElement>("button");
+        control?.focus({ preventScroll: true });
+        campo?.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
       return;
     }
     window.open(waIrLink("simulador", generateMessage()), "_blank");
   };
 
   const inputStyle: React.CSSProperties = {
-    width: "100%", minHeight: 50, padding: "12px 16px", borderRadius: 12, fontSize: 15,
+    // --fs-texto (16 px): con menos, Safari en iPhone hace zoom al tocar el campo
+    width: "100%", minHeight: 50, padding: "12px 16px", borderRadius: 12, fontSize: "var(--fs-texto)",
     // Borde en propiedades separadas: con el atajo "border" + borderColor undefined, React
     // borraba el color al montar los campos que aparecen después (quedaban gris oscuro).
     borderWidth: 1.5, borderStyle: "solid", borderColor: "var(--gray)",
     backgroundColor: "var(--off)", color: "var(--text)",
-    fontFamily: "var(--font-source), sans-serif", outline: "none", transition: "border-color .15s, background-color .15s",
+    fontFamily: "var(--font-source), sans-serif", transition: "border-color .15s, background-color .15s",
   };
 
   const inputErr = (key: string): React.CSSProperties => ({
@@ -524,7 +541,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
   });
 
   const labelStyle: React.CSSProperties = {
-    display: "block", fontSize: 13.5, fontWeight: 700,
+    display: "block", fontSize: "var(--fs-chico)", fontWeight: 700,
     color: "var(--text)", marginBottom: 8, letterSpacing: ".02em",
   };
 
@@ -532,22 +549,23 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
     flex: 1, padding: "11px", borderRadius: 10, border: "1.5px solid",
     borderColor: active ? "var(--blue)" : "var(--gray)",
     background: active ? "var(--blue-light)" : "var(--white)",
-    color: active ? "var(--blue)" : "var(--text-soft)",
-    fontWeight: 700, fontSize: 14, cursor: "pointer",
-    fontFamily: "var(--font-source), sans-serif", transition: "all .15s",
+    color: active ? "#5a60a0" : "var(--text-soft)",
+    fontWeight: 700, fontSize: "var(--fs-texto)", cursor: "pointer",
+    fontFamily: "var(--font-source), sans-serif", transition: "border-color .15s, background-color .15s, color .15s",
   });
 
   const errMsg = (key: string) => errors[key] ? (
-    <div style={{ fontSize: 11, color: "#dc2626", marginTop: 4 }}>{errors[key]}</div>
+    <div style={{ fontSize: "var(--fs-chico)", color: "#dc2626", marginTop: 4 }}>{errors[key]}</div>
   ) : null;
 
   const alertStyle: React.CSSProperties = {
-    fontSize: 12, color: "#dc2626", background: "#fef2f2",
+    // Sobre el fondo rosado, #dc2626 daba 4,4:1: el texto va en un rojo más oscuro (6:1)
+    fontSize: "var(--fs-chico)", color: "#b91c1c", background: "#fef2f2",
     border: "1px solid #fecaca", borderRadius: 8, padding: "8px 12px", marginTop: 8,
   };
 
   const warnStyle: React.CSSProperties = {
-    fontSize: 12, color: "#92400e", background: "#fffbeb",
+    fontSize: "var(--fs-chico)", color: "#92400e", background: "#fffbeb",
     border: "1px solid #fde68a", borderRadius: 8, padding: "8px 12px", marginTop: 8,
   };
 
@@ -567,12 +585,12 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
       <div className="sim-container" style={{ maxWidth: 820, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <span style={{
-            display: "inline-block", background: "rgba(37,211,102,.12)", color: "var(--whatsapp-boton)",
-            fontWeight: 700, fontSize: 12, letterSpacing: ".1em", textTransform: "uppercase",
+            display: "inline-block", background: "rgba(37,211,102,.12)", color: "var(--whatsapp-boton-hover)",
+            fontWeight: 700, fontSize: "var(--fs-chico)", letterSpacing: ".1em", textTransform: "uppercase",
             padding: "6px 16px", borderRadius: 99, marginBottom: 16,
           }}>{t.etiqueta}</span>
-          <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 800, marginBottom: 12 }}>{t.titulo}</h2>
-          <p style={{ fontSize: 16, color: "var(--text-soft)" }}>
+          <h2 style={{ fontSize: "var(--fs-seccion)", fontWeight: 800, marginBottom: 12 }}>{t.titulo}</h2>
+          <p style={{ fontSize: "var(--fs-destacado)", color: "var(--text-soft)" }}>
             {t.subtitulo}
           </p>
         </div>
@@ -583,7 +601,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
         }}>
           {/* Error banner */}
           {Object.keys(errors).length > 0 && (
-            <div style={{
+            <div role="alert" style={{
               background: "#fef2f2", border: "1.5px solid #fecaca", borderRadius: 12,
               padding: "14px 18px", marginBottom: 24,
               display: "flex", alignItems: "flex-start", gap: 10,
@@ -592,12 +610,12 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                 <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
               </svg>
               <div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "#dc2626", marginBottom: 6 }}>
+                <div style={{ fontSize: "var(--fs-chico)", fontWeight: 700, color: "#b91c1c", marginBottom: 6 }}>
                   {t.erroresTitulo}
                 </div>
                 <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 3 }}>
                   {Object.values(errors).map((msg, i) => (
-                    <li key={i} style={{ fontSize: 12, color: "#dc2626" }}>· {msg}</li>
+                    <li key={i} style={{ fontSize: "var(--fs-chico)", color: "#b91c1c" }}>· {msg}</li>
                   ))}
                 </ul>
               </div>
@@ -608,11 +626,9 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
 
             <div id="field-nombre" className="full-col">
               <label style={labelStyle} htmlFor="in-nombre">{t.nombre}</label>
-              <input id="in-nombre"
+              <input id="in-nombre" autoComplete="name"
                 style={inputErr("nombre")} placeholder={t.nombreEjemplo} value={form.nombre}
                 onChange={(e) => update("nombre", e.target.value)}
-                onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-                onBlur={(e) => { e.currentTarget.style.borderColor = errors["nombre"] ? "#dc2626" : "var(--gray)"; }}
               />
               {errMsg("nombre")}
             </div>
@@ -650,10 +666,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
             {form.servicio === "Babysitting" && (
               <>
                 <div className="full-col" id="field-tipoBabysitting">
-                  <div style={labelStyle}>{t.puntualOFijo}</div>
-                  <div style={{ display: "flex", gap: 10 }}>
+                  <div id="titulo-puntualOFijo" style={labelStyle}>{t.puntualOFijo}</div>
+                  <div role="group" aria-labelledby="titulo-puntualOFijo" style={{ display: "flex", gap: 10 }}>
                     {["Puntual", "Fijo"].map((opt) => (
-                      <button key={opt} onClick={() => update("tipoBabysitting", opt)} style={btnToggle(form.tipoBabysitting === opt)}>{op(opt)}</button>
+                      <button key={opt} type="button" aria-pressed={form.tipoBabysitting === opt} onClick={() => update("tipoBabysitting", opt)} style={btnToggle(form.tipoBabysitting === opt)}>{op(opt)}</button>
                     ))}
                   </div>
                   {errMsg("tipoBabysitting")}
@@ -662,10 +678,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                 {form.tipoBabysitting === "Puntual" && (
                   <>
                     <div className="full-col" id="field-cantDias">
-                      <div style={labelStyle}>{t.cuantosDias}</div>
-                      <div style={{ display: "flex", gap: 10 }}>
+                      <div id="titulo-cuantosDias" style={labelStyle}>{t.cuantosDias}</div>
+                      <div role="group" aria-labelledby="titulo-cuantosDias" style={{ display: "flex", gap: 10 }}>
                         {["1", "2", "3", "4"].map((n) => (
-                          <button key={n} onClick={() => handleCantDias(n)} style={btnToggle(form.cantDias === n)}>{n}</button>
+                          <button key={n} type="button" aria-pressed={form.cantDias === n} onClick={() => handleCantDias(n)} style={btnToggle(form.cantDias === n)}>{n}</button>
                         ))}
                       </div>
                       {errMsg("cantDias")}
@@ -676,10 +692,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                         background: "var(--off)", borderRadius: 14, padding: "20px", border: "1.5px solid var(--gray)",
                       }}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-                          <span style={{ fontWeight: 700, fontSize: 15, color: "var(--blue)" }}>{t.dia.replace("{n}", String(i + 1))}</span>
+                          <span style={{ fontWeight: 700, fontSize: "var(--fs-texto)", color: "#5a60a0" }}>{t.dia.replace("{n}", String(i + 1))}</span>
                           {i > 0 && (
                             <button onClick={() => copiarDia1(i)} style={{
-                              fontSize: 12, fontWeight: 700, color: "var(--blue)",
+                              fontSize: "var(--fs-chico)", fontWeight: 700, color: "#5a60a0",
                               background: "var(--blue-light)", border: "1.5px solid var(--blue-mid)",
                               borderRadius: 99, padding: "5px 14px", cursor: "pointer",
                               fontFamily: "var(--font-source), sans-serif",
@@ -730,10 +746,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                 {form.tipoBabysitting === "Fijo" && (
                   <>
                     <div className="full-col" id="field-diasSemana">
-                      <div style={labelStyle}>{t.diasSemana}</div>
-                      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      <div id="titulo-diasSemana" style={labelStyle}>{t.diasSemana}</div>
+                      <div role="group" aria-labelledby="titulo-diasSemana" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                         {DIAS_SEMANA.map((dia) => (
-                          <button key={dia} onClick={() => toggleDiaSemana(dia)}
+                          <button key={dia} type="button" aria-pressed={form.diasSemana.includes(dia)} onClick={() => toggleDiaSemana(dia)}
                             style={{ ...btnToggle(form.diasSemana.includes(dia)), flex: "none", padding: "8px 14px" }}>
                             {op(dia)}
                           </button>
@@ -783,10 +799,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                       {errMsg("fijoDesde")}
                     </div>
                     <div id="field-hastaFecha">
-                      <div style={labelStyle}>{t.hastaCuando}</div>
-                      <div style={{ display: "flex", gap: 10, marginBottom: form.hastaCuando === "Fecha" ? 10 : 0 }}>
+                      <div id="titulo-hastaCuando" style={labelStyle}>{t.hastaCuando}</div>
+                      <div role="group" aria-labelledby="titulo-hastaCuando" style={{ display: "flex", gap: 10, marginBottom: form.hastaCuando === "Fecha" ? 10 : 0 }}>
                         {["Indefinido", "Fecha"].map((opt) => (
-                          <button key={opt} onClick={() => {
+                          <button key={opt} type="button" aria-pressed={form.hastaCuando === opt} onClick={() => {
                             update("hastaCuando", opt);
                             setErrors((prev) => { const n = { ...prev }; delete n["hastaFecha"]; return n; });
                           }} style={btnToggle(form.hastaCuando === opt)}>
@@ -809,10 +825,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
             {form.servicio === "Petsittings" && (
               <>
                 <div className="full-col" id="field-tipoPetsitting">
-                  <div style={labelStyle}>{t.tipoPetsitting}</div>
-                  <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                  <div id="titulo-tipoPetsitting" style={labelStyle}>{t.tipoPetsitting}</div>
+                  <div role="group" aria-labelledby="titulo-tipoPetsitting" style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                     {["Visita a domicilio", "Pernocte", "Hospedaje"].map((opt) => (
-                      <button key={opt} onClick={() => update("tipoPetsitting", opt)} style={{ ...btnToggle(form.tipoPetsitting === opt), flex: "1 1 140px" }}>{op(opt)}</button>
+                      <button key={opt} type="button" aria-pressed={form.tipoPetsitting === opt} onClick={() => update("tipoPetsitting", opt)} style={{ ...btnToggle(form.tipoPetsitting === opt), flex: "1 1 140px" }}>{op(opt)}</button>
                     ))}
                   </div>
                   {errMsg("tipoPetsitting")}
@@ -829,10 +845,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                 </div>
 
                 <div className="full-col" id="field-petNecesita">
-                  <div style={labelStyle}>{t.queNecesita}</div>
-                  <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  <div id="titulo-queNecesita" style={labelStyle}>{t.queNecesita}</div>
+                  <div role="group" aria-labelledby="titulo-queNecesita" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                     {["Darle de comer", "Pasearlo", "Compañía / cuidado general"].map((item) => (
-                      <button key={item} onClick={() => togglePetNecesita(item)}
+                      <button key={item} type="button" aria-pressed={form.petNecesita.includes(item)} onClick={() => togglePetNecesita(item)}
                         style={{ ...btnToggle(form.petNecesita.includes(item)), flex: "none", padding: "8px 14px" }}>
                         {op(item)}
                       </button>
@@ -843,10 +859,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                 {form.tipoPetsitting === "Visita a domicilio" && (
                   <>
                     <div className="full-col" id="field-cantDias">
-                      <div style={labelStyle}>{t.cuantosDias}</div>
-                      <div style={{ display: "flex", gap: 10 }}>
+                      <div id="titulo-cuantosDias" style={labelStyle}>{t.cuantosDias}</div>
+                      <div role="group" aria-labelledby="titulo-cuantosDias" style={{ display: "flex", gap: 10 }}>
                         {["1", "2", "3", "4"].map((n) => (
-                          <button key={n} onClick={() => handleCantDias(n)} style={btnToggle(form.cantDias === n)}>{n}</button>
+                          <button key={n} type="button" aria-pressed={form.cantDias === n} onClick={() => handleCantDias(n)} style={btnToggle(form.cantDias === n)}>{n}</button>
                         ))}
                       </div>
                       {errMsg("cantDias")}
@@ -857,10 +873,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                         background: "var(--off)", borderRadius: 14, padding: "20px", border: "1.5px solid var(--gray)",
                       }}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-                          <span style={{ fontWeight: 700, fontSize: 15, color: "var(--blue)" }}>{t.dia.replace("{n}", String(i + 1))}</span>
+                          <span style={{ fontWeight: 700, fontSize: "var(--fs-texto)", color: "#5a60a0" }}>{t.dia.replace("{n}", String(i + 1))}</span>
                           {i > 0 && (
                             <button onClick={() => copiarDia1(i)} style={{
-                              fontSize: 12, fontWeight: 700, color: "var(--blue)",
+                              fontSize: "var(--fs-chico)", fontWeight: 700, color: "#5a60a0",
                               background: "var(--blue-light)", border: "1.5px solid var(--blue-mid)",
                               borderRadius: 99, padding: "5px 14px", cursor: "pointer",
                               fontFamily: "var(--font-source), sans-serif",
@@ -977,9 +993,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                 <div id="field-cantNinosEvento">
                   <label style={labelStyle} htmlFor="in-cantNinosEvento">{t.cantNinosEvento}</label>
                   <input id="in-cantNinosEvento" style={inputErr("cantNinosEvento")} placeholder={t.cantNinosEventoEjemplo} value={form.cantNinosEvento}
-                    onChange={(e) => update("cantNinosEvento", e.target.value)}
-                    onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-                    onBlur={(e) => { e.currentTarget.style.borderColor = errors["cantNinosEvento"] ? "#dc2626" : "var(--gray)"; }} />
+                    onChange={(e) => update("cantNinosEvento", e.target.value)} />
                   {errMsg("cantNinosEvento")}
                 </div>
               </>
@@ -1025,8 +1039,6 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                   placeholder={t.zonaOtroEjemplo}
                   value={form.zonaOtro}
                   onChange={(e) => update("zonaOtro", e.target.value)}
-                  onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-                  onBlur={(e) => { e.currentTarget.style.borderColor = errors["zonaOtro"] ? "#dc2626" : "var(--gray)"; }}
                 />
                 {errMsg("zonaOtro")}
               </div>
@@ -1049,9 +1061,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
               <div id="field-edades">
                 <label style={labelStyle} htmlFor="in-edades">{t.edades}</label>
                 <input id="in-edades" style={inputErr("edades")} placeholder={t.edadesEjemplo} value={form.edades}
-                  onChange={(e) => update("edades", e.target.value)}
-                  onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-                  onBlur={(e) => { e.currentTarget.style.borderColor = errors["edades"] ? "#dc2626" : "var(--gray)"; }} />
+                  onChange={(e) => update("edades", e.target.value)} />
                 {errMsg("edades")}
               </div>
             )}
@@ -1060,22 +1070,17 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
               <label style={labelStyle} htmlFor="in-comentarios">{t.comentarios}</label>
               <textarea id="in-comentarios" style={{ ...inputStyle, minHeight: 110, resize: "vertical" }}
                 placeholder={t.comentariosEjemplo}
-                value={form.comentarios} onChange={(e) => update("comentarios", e.target.value)}
-                onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-                onBlur={(e) => { e.currentTarget.style.borderColor = "var(--gray)"; }} />
+                value={form.comentarios} onChange={(e) => update("comentarios", e.target.value)} />
             </div>
           </div>
 
-          <button onClick={handleSend} style={{
+          <button type="button" onClick={handleSend} className="sim-enviar" style={{
             marginTop: 28, width: "100%",
             display: "flex", alignItems: "center", justifyContent: "center", gap: 12,
             background: "var(--whatsapp-boton)", color: "white", padding: "17px", borderRadius: 99,
-            fontWeight: 800, fontSize: 17, fontFamily: "var(--font-source), sans-serif",
-            boxShadow: "0 4px 24px rgba(37,211,102,.35)", transition: "transform .18s, box-shadow .18s", border: "none",
-          }}
-            onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 8px 32px rgba(37,211,102,.45)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 4px 24px rgba(37,211,102,.35)"; }}
-          >
+            fontWeight: 800, fontSize: "var(--fs-destacado)", fontFamily: "var(--font-source), sans-serif",
+            border: "none",
+          }}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
             </svg>
@@ -1083,11 +1088,11 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
           </button>
 
           {t.notaIdioma && (
-            <p style={{ textAlign: "center", fontSize: 13, color: "var(--text-soft)", marginTop: 14 }}>
+            <p style={{ textAlign: "center", fontSize: "var(--fs-chico)", color: "var(--text-soft)", marginTop: 14 }}>
               {t.notaIdioma}
             </p>
           )}
-          <p style={{ textAlign: "center", fontSize: 12, color: "var(--text-muted)", marginTop: 14 }}>
+          <p style={{ textAlign: "center", fontSize: "var(--fs-chico)", color: "var(--text-soft)", marginTop: 14 }}>
             {t.privacidad}
           </p>
         </div>
@@ -1102,6 +1107,14 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
         .sim-grid > div { animation: simAparecer .18s ease-out both; }
         @keyframes simAparecer { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
         .full-col { grid-column: 1 / -1; }
+        .sim-enviar {
+          box-shadow: 0 4px 24px rgba(37,211,102,.35);
+          transition: transform .18s, box-shadow .18s;
+        }
+        .sim-enviar:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 32px rgba(37,211,102,.45);
+        }
         .dia-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
         /* Desplegables con flecha propia, a 16px del borde y en el violeta de la marca */
         #simulador select {
@@ -1123,13 +1136,13 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
         }
         /* El radio queda invisible pero sigue en el orden del teclado y para lectores de pantalla */
         .serv-radio { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
-        .serv-card:has(.serv-radio:focus-visible) { outline: 3px solid rgba(117,124,187,.5); outline-offset: 2px; }
+        .serv-card:has(.serv-radio:focus-visible) { outline: 3px solid #5a60a0; outline-offset: 2px; }
         .serv-icon {
           width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
           display: flex; align-items: center; justify-content: center;
         }
-        .serv-titulo { display: block; font-weight: 700; font-size: 15px; color: var(--text); }
-        .serv-sub { display: block; font-size: 12.5px; color: var(--text-soft); }
+        .serv-titulo { display: block; font-weight: 700; font-size: var(--fs-texto); color: var(--text); }
+        .serv-sub { display: block; font-size: var(--fs-chico); color: var(--text-soft); }
         @media (max-width: 768px) { .sim-section { padding: 72px 0; } }
         @media (max-width: 600px) {
           .sim-section { padding: 64px 0; }

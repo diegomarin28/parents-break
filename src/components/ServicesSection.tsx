@@ -7,7 +7,7 @@ const VISIBLES = 3;
 type Servicio = { color: string; bg: string };
 function itemDeServicio(item: string, s: Servicio) {
   return (
-    <li key={item} className="service-item" style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13.5, color: "var(--text-soft)" }}>
+    <li key={item} className="service-item" style={{ display: "flex", alignItems: "center", gap: 10, fontSize: "var(--fs-texto)", color: "var(--text-soft)" }}>
       <span style={{
         width: 18, height: 18, borderRadius: "50%",
         background: s.bg,
@@ -31,10 +31,11 @@ export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) 
       bg: "var(--pink-light)",
       colorLink: "#b5464c", // tonos oscuros de cada color: 4,5:1 o más sobre blanco
       border: "var(--pink-mid)",
-      ctaBg: "var(--pink)",
+      // Fondo oscuro para que el texto blanco llegue a 4,5:1 (con --pink daba 2,7:1)
+      ctaBg: "#b5464c",
       ctaColor: "white",
       featured: true,
-      featuredBadgeBg: "var(--pink)",
+      featuredBadgeBg: "#b5464c",
       featuredBadgeColor: "white",
     },
     {
@@ -60,17 +61,17 @@ export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) 
         <div style={{ textAlign: "center", marginBottom: 64 }}>
           <span style={{
             display: "inline-block",
-            background: "var(--pink-light)", color: "var(--pink)",
-            fontWeight: 700, fontSize: 12, letterSpacing: ".1em",
+            background: "var(--pink-light)", color: "#b5464c",
+            fontWeight: 700, fontSize: "var(--fs-chico)", letterSpacing: ".1em",
             textTransform: "uppercase", padding: "6px 16px", borderRadius: 99,
             marginBottom: 16,
           }}>
             {t.etiqueta}
           </span>
-          <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, marginBottom: 14 }}>
+          <h2 style={{ fontSize: "var(--fs-seccion)", fontWeight: 800, marginBottom: 14 }}>
             {t.titulo}
           </h2>
-          <p style={{ fontSize: 17, color: "var(--text-soft)", maxWidth: 520, margin: "0 auto" }}>
+          <p style={{ fontSize: "var(--fs-destacado)", color: "var(--text-soft)", maxWidth: 560, margin: "0 auto" }}>
             {t.subtitulo}
           </p>
         </div>
@@ -107,7 +108,7 @@ export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) 
                   position: "absolute", top: -12, right: 20,
                   background: s.featuredBadgeBg || "var(--blue)",
                   color: s.featuredBadgeColor || "white",
-                  fontSize: 11, fontWeight: 700, letterSpacing: ".06em",
+                  fontSize: "var(--fs-chico)", fontWeight: 700, letterSpacing: ".06em",
                   textTransform: "uppercase", padding: "4px 12px", borderRadius: 99,
                   transform: "none",
                 }}>
@@ -145,15 +146,15 @@ export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) 
               </div>
 
               <div style={{
-                fontSize: 11, fontWeight: 700, letterSpacing: ".08em",
-                textTransform: "uppercase", color: s.color, marginBottom: 6,
+                fontSize: "var(--fs-chico)", fontWeight: 700, letterSpacing: ".08em",
+                textTransform: "uppercase", color: s.colorLink, marginBottom: 6,
               }}>
                 {s.subtitulo}
               </div>
-              <h3 className="service-title" style={{ fontSize: 26, fontWeight: 800, marginBottom: 12, color: "var(--text)" }}>
+              <h3 className="service-title" style={{ fontSize: "var(--fs-titulo)", fontWeight: 800, marginBottom: 12, color: "var(--text)" }}>
                 {s.titulo}
               </h3>
-              <p className="service-desc" style={{ fontSize: 14, color: "var(--text-soft)", lineHeight: 1.7, marginBottom: 18 }}>
+              <p className="service-desc" style={{ fontSize: "var(--fs-texto)", color: "var(--text-soft)", lineHeight: 1.6, marginBottom: 18 }}>
                 {s.descripcion}
               </p>
 
@@ -173,7 +174,7 @@ export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) 
                     </ul>
                   )}
                   {s.descripcionResto && (
-                    <p className="service-desc" style={{ fontSize: 14, color: "var(--text-soft)", lineHeight: 1.7 }}>
+                    <p className="service-desc" style={{ fontSize: "var(--fs-texto)", color: "var(--text-soft)", lineHeight: 1.6 }}>
                       {s.descripcionResto}
                     </p>
                   )}
@@ -188,9 +189,9 @@ export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) 
                   display: "flex", alignItems: "center", justifyContent: "center",
                   gap: 8, width: "100%",
                   background: s.ctaBg || (s.featured ? s.color : s.bg),
-                  color: s.ctaColor || (s.featured ? "white" : s.color),
+                  color: s.ctaColor || (s.featured ? "white" : s.colorLink),
                   padding: "13px", borderRadius: 99,
-                  fontWeight: 700, fontSize: 14,
+                  fontWeight: 700, fontSize: "var(--fs-texto)",
                   border: `1.5px solid ${s.ctaBg ? s.ctaBg : s.featured ? s.color : s.border}`,
                   textDecoration: "none",
                 }}
@@ -211,7 +212,7 @@ export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) 
         .service-mas summary {
           display: inline-block;
           cursor: pointer;
-          font-size: 13.5px;
+          font-size: var(--fs-texto);
           font-weight: 700;
           text-decoration: underline;
           text-underline-offset: 3px;
@@ -222,15 +223,13 @@ export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) 
         .service-mas[open] .service-mas-abrir { display: none; }
         .service-mas[open] .service-mas-cerrar { display: inline; }
         .service-cta:hover { opacity: .85; }
-        .service-card { transition: transform .2s, box-shadow .2s; }
         .service-card-destacada { box-shadow: var(--shadow-lg); }
-        .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
         .service-cta { transition: opacity .15s; }
         /* Tablet: tres columnas angostas. Menos relleno y título más chico para que el
            contenido no las desborde (antes generaba scroll horizontal entre 601 y 630 px). */
         @media (max-width: 900px) {
           .service-card { padding: 32px 18px !important; }
-          .service-title { font-size: 22px !important; }
+          .service-title { font-size: var(--fs-destacado) !important; }
         }
         @media (max-width: 600px) {
           .services-grid { grid-template-columns: 1fr !important; }
@@ -242,9 +241,7 @@ export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) 
           .services-section { padding: 64px 0; }
           .services-grid { gap: 16px; }
           .service-card { padding: 28px 20px !important; }
-          .service-title { font-size: 22px !important; }
-          .service-desc { font-size: 13.5px !important; }
-          .service-item { font-size: 13px !important; }
+          .service-title { font-size: var(--fs-titulo) !important; }
         }
       `}</style>
     </section>

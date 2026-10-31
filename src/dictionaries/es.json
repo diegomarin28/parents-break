@@ -27,7 +27,7 @@
     "cerrarMenu": "Cerrar menú",
     "idioma": "Idioma",
     "menu": "Menú",
-    "menuWhatsApp": "Escribinos por WhatsApp"
+    "menuWhatsApp": "Escríbenos por WhatsApp"
   },
   "hero": {
     "tituloAntes": "Tus hijos en las",
@@ -35,7 +35,7 @@
     "tituloDespues": "manos",
     "subtitulo": "Conectamos familias con niñeras especializadas para brindar un cuidado seguro, cálido y personalizado.",
     "fotoAlt": "Niñera cuidando niños felices",
-    "pregunta": "¿Qué necesitás?",
+    "pregunta": "¿Qué necesitas?",
     "necesidades": {
       "Babysitting": "Babysitting",
       "Petsittings": "Petsitting",
@@ -43,17 +43,7 @@
     },
     "botonPrincipal": "Coordinar servicio",
     "botonSecundario": "Completar formulario →",
-    "nota": "Sin compromiso. Te respondemos por WhatsApp",
-    "prueba": [
-      {
-        "numero": "+80 niñeras activas",
-        "lineas": ["Seleccionadas y validadas", "por nuestro equipo", "de psicólogas"]
-      },
-      {
-        "numero": "+3 años de experiencia",
-        "lineas": ["Acompañando a familias", "en Uruguay"]
-      }
-    ]
+    "nota": "Sin compromiso. Te respondemos por WhatsApp"
   },
   "numeros": {
     "nineras": "Niñeras activas",
@@ -112,7 +102,7 @@
         "servicio": "Petsittings",
         "titulo": "Petsittings",
         "subtitulo": "Cuidado de mascotas",
-        "descripcion": "Cuidamos a tu mascota y nos ocupamos de que se sienta acompañada y segura cuando vos no podés estar.",
+        "descripcion": "Cuidamos a tu mascota y nos ocupamos de que se sienta acompañada y segura cuando no puedes estar.",
         "descripcionResto": "",
         "items": [
           "Visitas a domicilio para darle de comer y pasearla",
@@ -155,15 +145,15 @@
       },
       {
         "titulo": "Conoce a la niñera por videollamada",
-        "texto": "Despejá dudas y asegurate de que es la persona adecuada para tu familia"
+        "texto": "Despeja dudas y asegúrate de que es la persona adecuada para tu familia"
       },
       {
         "titulo": "Confirmamos el servicio",
         "texto": "Coordinamos los detalles finales y te compartimos toda la información necesaria"
       },
       {
-        "titulo": "Disfrutás tu momento",
-        "texto": "Mientras tus hijos están acompañados y cuidados, vos podés disfrutar con tranquilidad"
+        "titulo": "Disfrutas tu momento",
+        "texto": "Mientras tus hijos están acompañados y cuidados, puedes disfrutar con tranquilidad"
       }
     ]
   },
@@ -191,7 +181,7 @@
         "texto": "Verificamos referencias de trabajos anteriores."
       }
     ],
-    "elegirTitulo": "Podés elegir según",
+    "elegirTitulo": "Puedes elegir según",
     "cualidades": [
       {
         "titulo": "Formación",
@@ -222,8 +212,8 @@
   "simulador": {
     "etiqueta": "Rápido y fácil",
     "titulo": "Coordina tu servicio",
-    "subtitulo": "Completá el formulario y te preparamos automáticamente un mensaje listo para enviar por WhatsApp.",
-    "erroresTitulo": "Completá los siguientes campos antes de enviar:",
+    "subtitulo": "Completa el formulario y te preparamos automáticamente un mensaje listo para enviar por WhatsApp.",
+    "erroresTitulo": "Completa los siguientes campos antes de enviar:",
     "nombre": "Tu nombre *",
     "nombreEjemplo": "Ej: María González",
     "tipoServicio": "Tipo de servicio *",
@@ -239,7 +229,7 @@
     "fecha": "Fecha",
     "horaInicio": "Hora inicio",
     "horaFin": "Hora fin",
-    "alertaHoras": "El horario supera las 13 horas. Verificá que sea correcto.",
+    "alertaHoras": "El horario supera las 13 horas. Verifica que sea correcto.",
     "diasSemana": "Días de la semana",
     "desdeCuando": "Desde cuándo",
     "hastaCuando": "Hasta cuándo",
@@ -247,7 +237,7 @@
     "hastaQueFecha": "Hasta qué fecha",
     "tipoPetsitting": "Tipo de servicio",
     "cantMascotas": "Cantidad de mascotas",
-    "seleccionar": "Seleccioná",
+    "seleccionar": "Selecciona",
     "queNecesita": "¿Qué necesita?",
     "desde": "Desde",
     "hasta": "Hasta",
@@ -258,7 +248,7 @@
     "cantNinosEventoEjemplo": "Ej: 10-15 niños",
     "departamento": "Departamento *",
     "zona": "Zona *",
-    "seleccionarZona": "Seleccioná tu zona",
+    "seleccionarZona": "Selecciona tu zona",
     "zonaOtro": "¿En qué zona? *",
     "zonaOtroEjemplo": "Ej: Colón, Cerro, La Unión...",
     "cantNinos": "Cantidad de niños",
@@ -294,29 +284,29 @@
       "10 o más": "10 o más"
     },
     "errores": {
-      "nombre": "Ingresá tu nombre",
-      "servicio": "Seleccioná un servicio",
-      "departamento": "Seleccioná un departamento",
-      "zona": "Seleccioná una zona",
-      "zonaOtro": "Ingresá tu zona",
-      "edades": "Ingresá las edades",
-      "tipoBabysitting": "Seleccioná puntual o fijo",
-      "cantDias": "Seleccioná la cantidad de días",
-      "fecha": "Ingresá la fecha",
-      "horaInicio": "Ingresá hora de inicio",
-      "horaFin": "Ingresá hora de fin",
-      "diasSemana": "Seleccioná al menos un día",
-      "fijoDesde": "Ingresá desde cuándo",
-      "hastaFecha": "Ingresá hasta qué fecha",
+      "nombre": "Ingresa tu nombre",
+      "servicio": "Selecciona un servicio",
+      "departamento": "Selecciona un departamento",
+      "zona": "Selecciona una zona",
+      "zonaOtro": "Ingresa tu zona",
+      "edades": "Ingresa las edades",
+      "tipoBabysitting": "Selecciona puntual o fijo",
+      "cantDias": "Selecciona la cantidad de días",
+      "fecha": "Ingresa la fecha",
+      "horaInicio": "Ingresa hora de inicio",
+      "horaFin": "Ingresa hora de fin",
+      "diasSemana": "Selecciona al menos un día",
+      "fijoDesde": "Ingresa desde cuándo",
+      "hastaFecha": "Ingresa hasta qué fecha",
       "finAntesDeInicio": "La fecha de fin no puede ser anterior a la de inicio",
-      "cantNinos": "Seleccioná cantidad de niños",
-      "tipoEvento": "Seleccioná el tipo de evento",
-      "fechaEvento": "Ingresá la fecha del evento",
-      "cantNinosEvento": "Ingresá la cantidad aproximada",
-      "tipoPetsitting": "Seleccioná el tipo de servicio",
-      "cantMascotas": "Seleccioná la cantidad de mascotas",
-      "petFechaDesde": "Ingresá la fecha de inicio",
-      "petFechaHasta": "Ingresá la fecha de fin",
+      "cantNinos": "Selecciona cantidad de niños",
+      "tipoEvento": "Selecciona el tipo de evento",
+      "fechaEvento": "Ingresa la fecha del evento",
+      "cantNinosEvento": "Ingresa la cantidad aproximada",
+      "tipoPetsitting": "Selecciona el tipo de servicio",
+      "cantMascotas": "Selecciona la cantidad de mascotas",
+      "petFechaDesde": "Ingresa la fecha de inicio",
+      "petFechaHasta": "Ingresa la fecha de fin",
       "fechaInvalida": "Fecha inválida",
       "fechaPasada": "No puede ser anterior a hoy",
       "fechaLejana": "No puede ser mayor a un año",
@@ -328,7 +318,7 @@
   },
   "ctaFinal": {
     "titulo": "Estamos para ayudarte",
-    "texto": "Escribinos por WhatsApp y contanos qué necesitás. Juntas encontraremos la babysitter que mejor se adapte a tu familia.",
+    "texto": "Escríbenos por WhatsApp y cuéntanos qué necesitas. Juntas encontraremos la babysitter que mejor se adapte a tu familia.",
     "botonWhatsApp": "Escríbenos por WhatsApp ahora",
     "botonFormulario": "Completar formulario →",
     "nota": "Sin compromiso. Te respondemos por WhatsApp",
@@ -345,7 +335,7 @@
     "hecho": "Diseñado y desarrollado en Uruguay",
     "aviso": "Usamos estadísticas anónimas de visitas, sin cookies."
   },
-  "flotante": "Escribinos por WhatsApp",
+  "flotante": "Escríbenos por WhatsApp",
   "noEncontrada": {
     "titulo": "No encontramos esta página",
     "texto": "Puede que el link esté mal escrito o que la página ya no exista.",
@@ -354,7 +344,7 @@
   "redireccion": {
     "titulo": "Abriendo WhatsApp…",
     "siNoAbre": "Si no se abre solo,",
-    "tocaAca": "tocá acá",
+    "tocaAca": "toca aquí",
     "volver": "Volver a la página"
   }
 }

@@ -122,9 +122,9 @@ export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) 
         .about-badge {
           display: inline-block;
           background: var(--blue-light);
-          color: var(--blue);
+          color: #5a60a0;
           font-weight: 700;
-          font-size: 12px;
+          font-size: var(--fs-chico);
           letter-spacing: .1em;
           text-transform: uppercase;
           padding: 6px 16px;
@@ -132,13 +132,13 @@ export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) 
           margin-bottom: 16px;
         }
         .about-title {
-          font-size: clamp(26px, 4vw, 44px);
+          font-size: var(--fs-seccion);
           font-weight: 800;
           margin-bottom: 16px;
           color: var(--text);
         }
         .about-lead {
-          font-size: clamp(15px, 2vw, 17px);
+          font-size: var(--fs-destacado);
           color: var(--text-soft);
           max-width: 600px;
           margin: 0 auto;
@@ -151,7 +151,7 @@ export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) 
           cursor: pointer;
           list-style: none;
           font-weight: 700;
-          font-size: 15px;
+          font-size: var(--fs-texto);
           color: #5a60a0;
           padding: 6px 4px;
         }
@@ -190,46 +190,17 @@ export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) 
           min-width: 0;
         }
         .about-subtitle {
-          font-size: clamp(18px, 2.5vw, 24px);
+          font-size: var(--fs-titulo);
           font-weight: 800;
           margin-bottom: 20px;
           color: var(--text);
         }
         .about-body {
-          font-size: 16px;
+          font-size: var(--fs-texto);
           color: var(--text-soft);
           line-height: 1.8;
           margin-bottom: 16px;
         }
-        .about-stats {
-          display: flex;
-          gap: 0;
-          margin-top: 36px;
-          border-top: 1px solid var(--gray);
-          padding-top: 32px;
-        }
-        .about-stat {
-          flex: 1;
-          text-align: center;
-          border-right: 1px solid var(--gray);
-          padding: 0 16px;
-        }
-        .about-stat:last-child {
-          border-right: none;
-        }
-        .about-stat-num {
-          font-family: var(--font-baloo), cursive;
-          font-size: 36px;
-          font-weight: 800;
-          color: var(--blue);
-          line-height: 1;
-        }
-        .about-stat-label {
-          font-size: 13px;
-          color: var(--text-soft);
-          margin-top: 6px;
-        }
-
         /* Valores */
         .values-grid {
           display: grid;
@@ -239,11 +210,6 @@ export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) 
         .value-card {
           border-radius: 20px;
           padding: 32px 28px;
-          transition: transform .2s, box-shadow .2s;
-        }
-        .value-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 12px 32px rgba(0,0,0,.08);
         }
         .value-icon-wrap {
           width: 44px; height: 44px;
@@ -254,13 +220,13 @@ export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) 
           margin-bottom: 18px;
         }
         .value-title {
-          font-size: 17px;
+          font-size: var(--fs-destacado);
           font-weight: 700;
           margin-bottom: 10px;
           color: var(--text);
         }
         .value-desc {
-          font-size: 14px;
+          font-size: var(--fs-texto);
           color: var(--text-soft);
           line-height: 1.7;
         }
@@ -287,25 +253,6 @@ export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) 
           .about-body-wrap {
             padding: 32px 24px;
             margin-bottom: 40px;
-          }
-          .about-stats {
-            flex-direction: column;
-            gap: 24px;
-            border-top: 1px solid var(--gray);
-            padding-top: 24px;
-          }
-          .about-stat {
-            border-right: none;
-            border-bottom: 1px solid var(--gray);
-            padding: 0 0 24px;
-            text-align: left;
-          }
-          .about-stat:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-          }
-          .about-stat-num {
-            font-size: 30px;
           }
           .value-card {
             padding: 24px 20px;

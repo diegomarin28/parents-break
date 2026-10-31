@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { preload } from "react-dom";
 import { getImageProps } from "next/image";
 import { waIrLink } from "../lib/contact";
@@ -53,8 +52,6 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
 
   return (
     <section className="hero-section">
-      <div className="hero-blob hero-blob-1" />
-
       <div className="hero-container">
         <div className="hero-grid">
 
@@ -96,7 +93,7 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
               <FotoHero alt={t.fotoAlt} className="hero-photo-img-mobile" sizes="100vw" media={CELULAR} />
             </div>
 
-            {/* Bloque inferior: botones + social proof */}
+            {/* Bloque inferior: accesos directos y botones */}
             <div className="hero-bottom">
               <div className="hero-pregunta">
                 <p className="hero-pregunta-titulo">{t.pregunta}</p>
@@ -124,35 +121,6 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
               </div>
               <p className="hero-nota">{t.nota}</p>
 
-              <div className="hero-proof">
-                <div className="hero-avatars">
-                  {[
-                    { bg: "var(--pink-light)", stroke: "var(--pink)" },
-                    { bg: "var(--blue-light)", stroke: "var(--blue)" },
-                    { bg: "#fffae8",           stroke: "var(--yellow-dark)" },
-                  ].map((av, i) => (
-                    <div key={i} className={`hero-avatar hero-avatar-${i}`} style={{ background: av.bg }}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={av.stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                        <circle cx="12" cy="7" r="4"/>
-                      </svg>
-                    </div>
-                  ))}
-                </div>
-                {t.prueba.map((p, i) => (
-                  <Fragment key={i}>
-                    {i > 0 && <div className="hero-proof-divider" />}
-                    <div className="hero-proof-stat">
-                      <div className="hero-proof-num">{p.numero}</div>
-                      <div className="hero-proof-label">
-                        {p.lineas.map((linea, j) => (
-                          <Fragment key={j}>{j > 0 && <br />}{linea}</Fragment>
-                        ))}
-                      </div>
-                    </div>
-                  </Fragment>
-                ))}
-              </div>
             </div>
           </div>
 
@@ -178,22 +146,6 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           overflow: hidden;
           position: relative;
         }
-        .hero-blob {
-          position: absolute;
-          border-radius: 50%;
-          pointer-events: none;
-          filter: blur(40px);
-        }
-        .hero-blob-1 {
-          top: 80px; right: 8%;
-          width: 320px; height: 320px;
-          background: radial-gradient(circle, #fdeef1 0%, transparent 70%);
-        }
-        .hero-blob-2 {
-          bottom: 40px; left: 5%;
-          width: 240px; height: 240px;
-          background: radial-gradient(circle, #eeedf8 0%, transparent 70%);
-        }
         .hero-container {
           max-width: 1140px;
           margin: 0 auto;
@@ -205,29 +157,6 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           gap: 64px;
           align-items: center;
         }
-        .hero-avail-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: var(--white);
-          border: 1.5px solid var(--pink-mid);
-          border-radius: 99px;
-          padding: 6px 14px 6px 8px;
-          margin-bottom: 24px;
-        }
-        .hero-dot {
-          width: 8px; height: 8px;
-          border-radius: 50%;
-          background: var(--whatsapp);
-          display: inline-block;
-          animation: pulseDot 2s infinite;
-          flex-shrink: 0;
-        }
-        .hero-avail-badge span:last-child {
-          font-size: 13px;
-          font-weight: 600;
-          color: var(--text-soft);
-        }
         .hero-title {
           font-size: clamp(34px, 5vw, 62px);
           font-weight: 800;
@@ -236,7 +165,9 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           line-height: 1.15;
         }
         .hero-highlight {
-          color: var(--pink);
+          /* Rosa de marca un poco más oscuro: --pink daba 2,1:1 en el peor punto del fondo y el
+             texto grande pide 3:1. Este da 3,1:1 o más en todos los anchos (4,1:1 sobre blanco). */
+          color: #c45c64;
           position: relative;
           display: inline-block;
         }
@@ -246,7 +177,7 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           width: 100%; height: 8px;
         }
         .hero-subtitle {
-          font-size: clamp(15px, 2vw, 18px);
+          font-size: var(--fs-destacado);
           line-height: 1.7;
           color: var(--text-soft);
           max-width: 480px;
@@ -262,7 +193,7 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
         .hero-city-badge {
           display: inline-flex;
           align-items: center;
-          font-size: 13px;
+          font-size: var(--fs-chico);
           font-weight: 600;
           color: #5a60a0; /* más oscuro que --blue para 5:1 de contraste sobre --blue-light */
           background: var(--blue-light);
@@ -284,7 +215,7 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           padding: 15px 28px;
           border-radius: 99px;
           font-weight: 700;
-          font-size: 16px;
+          font-size: var(--fs-texto);
           box-shadow: 0 4px 20px rgba(255,222,134,.55);
           transition: transform .18s, box-shadow .18s;
           text-decoration: none;
@@ -299,12 +230,12 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           align-items: center;
           gap: 8px;
           background: transparent;
-          color: var(--blue);
+          color: #5a60a0; /* --blue daba 3,9:1 sobre blanco */
           border: 2px solid var(--blue-mid);
           padding: 15px 28px;
           border-radius: 99px;
           font-weight: 700;
-          font-size: 16px;
+          font-size: var(--fs-texto);
           transition: background .18s, border-color .18s;
           text-decoration: none;
           min-height: 52px;
@@ -318,10 +249,9 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
         .hero-bottom { display: flex; flex-direction: column; }
         .hero-pregunta { order: 0; margin-bottom: 22px; }
         .hero-ctas, .hero-nota { order: 1; }
-        .hero-proof { order: 3; }
         .hero-pregunta-titulo {
           font-weight: 700;
-          font-size: 14px;
+          font-size: var(--fs-chico);
           color: var(--text);
           margin-bottom: 10px;
         }
@@ -336,7 +266,7 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           background: var(--white);
           border: 1.5px solid var(--gray);
           font-weight: 700;
-          font-size: 14px;
+          font-size: var(--fs-texto);
           color: var(--text);
           text-decoration: none;
           box-shadow: 0 2px 10px rgba(117,124,187,.08);
@@ -355,63 +285,9 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
         }
         .hero-nota {
           margin-top: 12px;
-          font-size: 13px;
+          font-size: var(--fs-chico);
           color: var(--text-soft);
         }
-        .hero-proof {
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-          gap: 14px;
-          margin-top: 36px;
-          padding: 14px 20px;
-          background: var(--white);
-          border: 1.5px solid var(--gray);
-          border-radius: 16px;
-          box-shadow: var(--shadow);
-          flex-wrap: wrap;
-        }
-        .hero-proof-stat {
-          flex: 1 1 220px;
-          min-width: 180px;
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-          min-height: 56px;
-          min-width: 0;
-        }
-        .hero-avatars { display: flex; }
-        .hero-avatar {
-          width: 34px; height: 34px;
-          border-radius: 50%;
-          border: 2px solid white;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-        }
-        .hero-avatar-0 { margin-left: 0; }
-        .hero-avatar-1 { margin-left: -10px; }
-        .hero-avatar-2 { margin-left: -10px; }
-        .hero-proof-num {
-          font-weight: 700;
-          font-size: 14px;
-          color: var(--text);
-          white-space: nowrap;
-        }
-        .hero-proof-label {
-          font-size: 12px;
-          line-height: 1.5;
-          color: var(--text-soft);
-          min-width: 0;
-        }
-        .hero-proof-divider {
-          width: 1px; height: auto;
-          background: var(--gray);
-          align-self: stretch;
-          flex-shrink: 0;
-        }
-
         /* El <picture> no genera caja: el diseño sigue siendo el del <img> */
         .hero-picture { display: contents; }
 
@@ -457,15 +333,6 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           display: block;
         }
 
-        @media (min-width: 901px) {
-          .hero-proof {
-            flex-wrap: nowrap;
-          }
-          .hero-proof-stat {
-            flex: 1 1 40%;
-          }
-        }
-
         /* ── TABLET ── */
         @media (max-width: 900px) {
           .hero-grid {
@@ -505,15 +372,8 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           .hero-btn-secondary {
             width: 100%;
             justify-content: center;
-            font-size: 15px;
           }
-          .hero-proof {
-            width: 100%;
-            margin-top: 28px;
-            gap: 10px;
-          }
-          .hero-proof-divider { display: none; }
-          .hero-blob-1, .hero-blob-2 { display: none; }
+          .hero-subtitle { font-size: var(--fs-texto); }
           .hero-cities {
             margin-bottom: 20px;
           }

@@ -37,7 +37,7 @@ El flujo esperado: el usuario entra, entiende el servicio, usa el simulador o el
 - Vercel Web Analytics activado: sin cookies, visitante identificado con un hash que se descarta a las 24 horas. Plan Hobby: 50.000 eventos por mes, un mes de historial, sin eventos personalizados. Por eso los toques en WhatsApp se cuentan como páginas vistas de `/ir/whatsapp/<origen>`.
 - Node.js 24, fijado con `engines` en `package.json`. Vercel dejó de aceptar Node 20 (con esa versión el deploy falla antes de instalar): no bajarlo.
 - Fuentes: Baloo 2 y Source Sans 3 están en `src/app/fonts` (subconjunto latino, licencia OFL) y se cargan con `next/font/local` desde `src/app/fuentes.ts`, que usan los dos layouts raíz (variables `--font-baloo` y `--font-source`). No volver a `next/font/google`: descarga las fuentes en cada build y el build fallaba cuando Google no respondía. Tampoco a Google Fonts por `<link>` ni `@import`: bloqueaba el render y hacía saltar el texto.
-- Componentes de servidor: Hero, Quiénes somos, Servicios, Cómo funciona, Niñeras, CTA final y Footer no llevan `"use client"`. Los efectos al pasar el mouse van en CSS (`:hover`), no en `onMouseEnter`; los estilos que cambian con el mouse no pueden ir en `style={{}}` porque le ganan al CSS. Lo que necesita JavaScript va en componentes cliente chicos (`IrAlSimulador`, `FadeIn`). Los desplegables ("Ver todo lo que incluye", "Leer más") son `<details>` nativos: sin JavaScript y accesibles.
+- Componentes de servidor: Hero, Barra de números, Quiénes somos, Servicios, Cómo funciona, Niñeras, CTA final y Footer no llevan `"use client"`. Los efectos al pasar el mouse van en CSS (`:hover`), no en `onMouseEnter`; los estilos que cambian con el mouse no pueden ir en `style={{}}` porque le ganan al CSS. Lo que necesita JavaScript va en componentes cliente chicos (`IrAlSimulador`, `FadeIn`, `Contador`). Los desplegables ("Ver todo lo que incluye", "Leer más") son `<details>` nativos: sin JavaScript y accesibles.
 - No cambiar de stack ni agregar dependencias pesadas sin que Diego lo pida.
 
 ## Estructura de la página (una sola página)
@@ -55,7 +55,7 @@ Orden actual en `src/app/[lang]/page.tsx` (la misma página para los tres idioma
 9. CTA final (WhatsApp)
 10. Footer
 
-Además hay un botón flotante de WhatsApp siempre visible (`WhatsAppFloat.tsx`). En compu es una píldora con texto abajo a la derecha que se achica a círculo mientras el simulador o el Footer están en pantalla. En celular es un círculo abajo a la derecha que, mientras el Hero, el simulador o el Footer están en pantalla, se acomoda en la Navbar al lado del menú, así nunca tapa los botones de esas secciones. Hace un solo pulso a los 4 segundos.
+Además hay un botón flotante de WhatsApp siempre visible (`WhatsAppFloat.tsx`). Desde 1280 px es un círculo abajo a la derecha, en el margen, fuera de los 1140 px del contenido. Entre 601 y 1279 px es un círculo chico (44 px) a 8 px de la esquina inferior derecha: no hay margen libre y puede rozar contenido, pero de las posiciones medidas es la que menos tapa (Diego pidió que se vea siempre). En celular es un círculo abajo a la derecha que, mientras el Hero, el simulador o el Footer están en pantalla, se acomoda en la Navbar al lado del menú, así nunca tapa los botones de esas secciones. Hace un solo pulso a los 4 segundos.
 
 El simulador queda en esa posición por decisión del negocio.
 
@@ -75,6 +75,14 @@ Pendiente a futuro: un reel de Instagram en la página. El reel que va todavía 
 
 Pendiente a futuro: preguntas frecuentes, cuando Diego tenga las respuestas reales.
 
+Pendiente a futuro: rediseño visual. En la revisión del 31/10/2026 se propusieron tres direcciones, todas limpias y sin animaciones nuevas. Ninguna está aprobada: no aplicarlas sin que Diego lo pida.
+
+1. Limpieza sobre la estructura actual (cambio chico a medio): sacar las etiquetas en píldora arriba de los títulos, los degradés y brillos, la foto flotante del Hero y las sombras de las tarjetas; texto oscuro a 16 px, unos 5 tamaños de letra, títulos alineados a la izquierda y los colores de marca como fondos planos.
+2. Un motivo tomado del logo (cambio medio a alto): las formas redondeadas de bloques del logo como recorte de las fotos, forma de los botones y viñetas; foto del Hero a media pantalla; franjas de color plano en lugar de tarjetas con ícono.
+3. Pantalla dividida en compu (cambio alto): una foto fija en una mitad que cambia según la sección y el texto en la otra; celular igual que hoy. Necesita más fotos reales, sin caras de niñeras.
+
+Pendiente a futuro: el proceso de selección de niñeras se explica en tres lugares (el texto de Quiénes somos, la tarjeta "Selección rigurosa" y la sección Niñeras). Definir con Diego en cuál queda y recortar los otros.
+
 ## Idiomas
 
 La página existe en español (`/`), inglés (`/en`) y portugués (`/pt`). Diseño aprobado en `docs/superpowers/specs/2026-10-25-idiomas-design.md`.
@@ -83,6 +91,7 @@ La página existe en español (`/`), inglés (`/en`) y portugués (`/pt`). Dise�
 - `/ir/whatsapp/<origen>` no lleva idioma: tiene su propio layout raíz (`src/app/ir/layout.tsx`) y muestra su texto en los tres idiomas a la vez.
 - Textos: `src/dictionaries/es.json`, `en.json` y `pt.json`, con las mismas claves (el tipo sale de `es.json`: si a otro le falta una clave, el build falla). Se cargan solo en el servidor (`server-only`) y cada componente recibe por props los textos de su sección. Todo texto visible nuevo va a los tres JSON, no escrito en el componente. Las listas de idiomas, rutas y `og:locale` están en `src/lib/idiomas.ts`.
 - Traducciones: Diego revisó las de inglés y portugués el 26/10/2026 (`docs/traducciones-borrador.md`, con el registro de cambios). Todo texto nuevo en inglés o portugués es borrador hasta que Diego lo revise. Nombres propios y zonas no se traducen (confirmado por Diego). No usar "book" / "agendar" / "reservar": dan a entender una reserva automática y todo se coordina por WhatsApp; en inglés "arrange" / "request", en portugués "solicitar". En portugués, "babá" para niñera.
+- Español en "tú", no en "vos" (decisión de Diego, 31/10/2026): "Completa", "Selecciona", "Escríbenos", "puedes", "toca aquí". Vale para toda la página, los mensajes de error, el simulador, el mensaje de WhatsApp y los metadatos.
 - Mensaje de WhatsApp: en `/` y `/en` sale en el idioma de la página; en `/pt` sale en español con la línea final `*Idioma:* Português`, porque el equipo responde en español, y junto al botón de enviar se avisa a la familia. Los textos del mensaje están en `src/dictionaries/mensaje-es.json` y `mensaje-en.json`; `getMensaje(lang)` elige cuál usar, arma esa línea y el saludo de los botones directos (en español no mandan saludo: la página de redirección usa el de por defecto). Las fechas van en dd/mm/aaaa en los tres idiomas.
 - Sin redirección automática por el idioma del navegador.
 - Página 404: `src/app/global-not-found.tsx` (flag `experimental.globalNotFound` en `next.config.ts`; hace falta porque hay dos layouts raíz). Elige el idioma por el comienzo de la dirección con un script mínimo (sin JavaScript queda en español) y lleva a `/`, `/en` o `/pt`.
@@ -111,6 +120,7 @@ Tono: "premium accesible y cálido". Transmitir confianza, tranquilidad, profesi
 Diseño:
 
 - Estilo limpio tipo e-commerce moderno, fondo blanco, mucho espacio en blanco, estética clara y ordenada.
+- Tamaños de letra: solo las variables de `globals.css` (`--fs-chico` 14 px, `--fs-texto` 16 px, `--fs-destacado` 19 px, `--fs-titulo` 24 px, `--fs-seccion` de 28 a 44 px), más el título del Hero. El texto corrido va a 16 px como mínimo y los campos del simulador a 16 px (con menos, el iPhone hace zoom). El gris de texto es `--text-soft` (#4d4d60, 7,6:1).
 - Colores del logo: violeta/azul suave (principal), rosado suave (secundario), amarillo (acento, botones).
 - Evitar: fondo negro, saturación visual, exceso de texto.
 - Iconos para babysitting, petsitting y eventos (el logo tiene bloques, auto y juegos como lenguaje visual).
@@ -127,7 +137,7 @@ Diseño:
 - Sin emojis en el código, en los textos de la interfaz ni en los commits, salvo que Diego pida lo contrario.
 - Diego es estudiante de Ingeniería Telemática y construye esto como proyecto real y como pieza de portfolio. Explicar los cambios con claridad, sin asumir jerga, pero sin tratarlo como alguien no técnico.
 - Mensajes de commit claros y en español.
-- Toda animación o transición respeta `prefers-reduced-motion`: hay una regla global en `globals.css`, y FadeIn y el contador de la barra de números lo chequean en JS. Antes y después de tocar animaciones o la carga de la página, correr Lighthouse en celular simulado (mediana de 3 corridas) y no aceptar más de 2 puntos de caída en rendimiento ni más de 100 ms de LCP.
+- Toda animación o transición respeta `prefers-reduced-motion`: hay una regla global en `globals.css`, y FadeIn y el contador de la barra de números (`Contador.tsx`) lo chequean en JS. Todo el contenido tiene que verse sin JavaScript: FadeIn deja las secciones visibles en el HTML y solo oculta, al cargar, las que están más abajo de la pantalla; la barra de números trae +80 y +3 en el HTML y el contador solo vuelve a 0 y cuenta si la barra está más abajo de la pantalla al cargar, cuando entra. Antes y después de tocar animaciones o la carga de la página, correr Lighthouse en celular simulado (mediana de 3 corridas) y no aceptar más de 2 puntos de caída en rendimiento ni más de 100 ms de LCP.
 - Para llevar la vista a una sección usar `irASeccion()` de `src/lib/scroll.ts`: mide sin la animación de aparición de FadeIn (que desplaza la sección 20 px hasta que se ve) y deja los 72 px de la Navbar.
 - Accesibilidad: cada campo del simulador tiene su `label` asociada (`htmlFor`/`id`); los títulos de grupos de botones son `<div>`. Contraste: los botones de WhatsApp con texto blanco usan `--whatsapp-boton` (#17833f, 4,8:1), no el verde de marca `--whatsapp` (#25d366, 2:1), que queda para sombras y detalles. Las etiquetas de la barra de números van en blanco a 19 px en negrita: sobre el violeta dan 3,9:1, que solo alcanza como texto grande (18,7 px en negrita o más); no bajarles el tamaño ni el peso. Los links de texto chico en color de marca usan un tono oscuro de ese color para llegar a 4,5:1 sobre blanco.
 

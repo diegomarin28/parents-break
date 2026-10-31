@@ -44,12 +44,12 @@ export default function SelectorIdioma({ actual, etiqueta, variante }: Props) {
         /* Navbar de compu: ES · EN · PT */
         .idioma-barra { flex-shrink: 0; margin-right: 4px; }
         .idioma-barra .idioma-link {
-          font-size: 13px;
+          font-size: var(--fs-chico);
           letter-spacing: .04em;
           padding: 10px 5px;
         }
         .idioma-barra .idioma-actual { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
-        .idioma-punto { color: var(--gray-dark); font-size: 13px; }
+        .idioma-punto { color: var(--gray-dark); font-size: var(--fs-chico); }
 
         /* Menú de celular: tres botones */
         .idioma-menu { gap: 8px; margin-top: 16px; }
@@ -60,7 +60,7 @@ export default function SelectorIdioma({ actual, etiqueta, variante }: Props) {
           min-height: 44px;
           border-radius: 12px;
           border: 1.5px solid var(--gray);
-          font-size: 15px;
+          font-size: var(--fs-texto);
         }
         .idioma-menu .idioma-actual {
           background: var(--blue-light);
@@ -68,7 +68,7 @@ export default function SelectorIdioma({ actual, etiqueta, variante }: Props) {
         }
 
         @media (max-width: 768px) {
-          .idioma-barra .idioma-link { padding: 10px 3px; font-size: 12px; }
+          .idioma-barra .idioma-link { padding: 10px 3px; }
           .idioma-punto { display: none; }
         }
         @media (max-width: 600px) {

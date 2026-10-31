@@ -61,6 +61,7 @@ export default function Redirigir({ textos, saludo }: Props) {
       <style>{`
         .ir-wa {
           min-height: 100vh;
+          min-height: 100svh;
           display: flex;
           align-items: center;
           justify-content: center;

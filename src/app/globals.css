@@ -17,8 +17,16 @@
   --off:          #fdfdf9;
 
   --text:         #1e1e2e;
-  --text-soft:    #6b6b7e;
+  --text-soft:    #4d4d60; /* 7,6:1 sobre blanco */
   --text-muted:   #a0a0b0;
+
+  /* Escala de letra: cinco tamaños para toda la página (más el título del Hero) */
+  --fs-chico:     14px;   /* notas, etiquetas, errores, links de la Navbar */
+  --fs-texto:     16px;   /* texto corrido, campos y botones */
+  --fs-destacado: 19px;   /* subtítulos de sección y títulos chicos (19 y no 18: las etiquetas
+                             blancas de la barra de números necesitan 18,7 px en negrita) */
+  --fs-titulo:    24px;   /* títulos de tarjetas */
+  --fs-seccion:   clamp(28px, 4vw, 44px); /* títulos de sección y números de la barra */
 
   --whatsapp:     #25d366;
   /* Fondo de los botones de WhatsApp con texto blanco: el verde de marca da 2:1, este 4,8:1 */
@@ -48,7 +56,7 @@ section[id] {
 
 body {
   font-family: var(--font-source), sans-serif;
-  font-size: 16px;
+  font-size: var(--fs-texto);
   color: var(--text);
   background: var(--white);
   overflow-x: hidden;
@@ -70,13 +78,14 @@ a { text-decoration: none; color: inherit; }
 img { display: block; max-width: 100%; }
 button { cursor: pointer; font-family: inherit; border: none; }
 
-/* ── Focus states ── */
+/* ── Foco de los campos ──
+   Borde y contorno en el violeta oscuro (5,8:1 sobre blanco). */
 select:focus,
 input:focus,
 textarea:focus {
-  outline: none;
-  border-color: var(--blue) !important;
-  box-shadow: 0 0 0 3px rgba(117,124,187,.15);
+  outline: 2px solid #5a60a0;
+  outline-offset: 2px;
+  border-color: #5a60a0 !important;
 }
 
 /* ── Active states ── */
@@ -92,62 +101,20 @@ button:active {
   opacity: 0.85;
 }
 
-/* ── Footer bottom ── */
-.footer-bottom {
-  padding-top: 8px;
-}
-
-/* ── Animaciones ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-10px); }
-}
-@keyframes wiggle {
-  0%, 100% { transform: rotate(-2deg); }
-  50%       { transform: rotate(2deg); }
-}
-@keyframes pulseDot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: .4; transform: scale(1.6); }
-}
-
-.anim-fade-up  { animation: fadeUp .65s cubic-bezier(.22,.68,0,1.2) both; }
-.anim-fade-in  { animation: fadeIn .5s ease both; }
-.anim-float    { animation: float 4s ease-in-out infinite; }
-.anim-wiggle   { animation: wiggle 3s ease-in-out infinite; }
-
-.d-100 { animation-delay: .10s; }
-.d-200 { animation-delay: .20s; }
-.d-300 { animation-delay: .30s; }
-.d-400 { animation-delay: .40s; }
-.d-500 { animation-delay: .50s; }
-.d-600 { animation-delay: .60s; }
-
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-thumb { background: var(--blue-mid); border-radius: 99px; }
 
+/* FadeIn: visible por defecto; el componente agrega .fade-oculto solo a las secciones
+   que están más abajo de la pantalla al cargar, y la saca cuando llegan. */
 .fade-in {
-  opacity: 0;
-  transform: translateY(20px);
   transition: opacity 0.45s ease, transform 0.45s ease;
 }
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
+.fade-in.fade-oculto {
+  opacity: 0;
+  transform: translateY(20px);
 }
 
-@media (max-width: 600px) {
-  body { font-size: 15px; }
-}
 /* ── Movimiento reducido ──
    Si la persona pidió menos movimiento en su sistema, las animaciones y
    transiciones quedan casi instantáneas y las secciones aparecen sin desplazarse. */
@@ -158,5 +125,5 @@ button:active {
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
-  .fade-in { opacity: 1; transform: none; }
+  .fade-in.fade-oculto { opacity: 1; transform: none; }
 }
