@@ -75,6 +75,14 @@ Pendiente a futuro: un reel de Instagram en la página. El reel que va todavía 
 
 Pendiente a futuro: preguntas frecuentes, cuando Diego tenga las respuestas reales.
 
+Pendiente a futuro: rediseño visual. En la revisión del 31/10/2026 se propusieron tres direcciones, todas limpias y sin animaciones nuevas. Ninguna está aprobada: no aplicarlas sin que Diego lo pida.
+
+1. Limpieza sobre la estructura actual (cambio chico a medio): sacar las etiquetas en píldora arriba de los títulos, los degradés y brillos, la foto flotante del Hero y las sombras de las tarjetas; texto oscuro a 16 px, unos 5 tamaños de letra, títulos alineados a la izquierda y los colores de marca como fondos planos.
+2. Un motivo tomado del logo (cambio medio a alto): las formas redondeadas de bloques del logo como recorte de las fotos, forma de los botones y viñetas; foto del Hero a media pantalla; franjas de color plano en lugar de tarjetas con ícono.
+3. Pantalla dividida en compu (cambio alto): una foto fija en una mitad que cambia según la sección y el texto en la otra; celular igual que hoy. Necesita más fotos reales, sin caras de niñeras.
+
+Pendiente a futuro: el proceso de selección de niñeras se explica en tres lugares (el texto de Quiénes somos, la tarjeta "Selección rigurosa" y la sección Niñeras). Definir con Diego en cuál queda y recortar los otros.
+
 ## Idiomas
 
 La página existe en español (`/`), inglés (`/en`) y portugués (`/pt`). Diseño aprobado en `docs/superpowers/specs/2026-10-25-idiomas-design.md`.
