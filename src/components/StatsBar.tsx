@@ -1,3 +1,4 @@
+import Contador from "./Contador";
 import type { Diccionario } from "../dictionaries/tipos";
 
 type Stat = { prefix: string; num: number; suffix: string; clave: keyof Diccionario["numeros"]; icon: React.ReactNode };
@@ -19,7 +20,7 @@ function StatItem({ stat, label, isLast }: { stat: Stat; label: string; isLast: 
       textAlign: "center",
       borderRight: !isLast ? "1px solid rgba(255,255,255,.15)" : "none",
     }}>
-      <div style={{ marginBottom: 8, display: "flex", justifyContent: "center" }}>
+      <div style={{ marginBottom: 8, display: "flex", justifyContent: "center" }} aria-hidden="true">
         {stat.icon}
       </div>
       <div style={{
@@ -29,7 +30,7 @@ function StatItem({ stat, label, isLast }: { stat: Stat; label: string; isLast: 
         lineHeight: 1,
         textShadow: "0 1px 4px rgba(0,0,0,.15)",
       }}>
-        {stat.prefix}{stat.num}{stat.suffix}
+        <Contador valor={stat.num} prefijo={stat.prefix} />{stat.suffix}
       </div>
       {/* Blanco sobre el violeta da 3,9:1: alcanza solo como texto grande (19 px en negrita) */}
       <div style={{ fontSize: 19, fontWeight: 700, color: "#fff", marginTop: 8 }}>
@@ -39,8 +40,8 @@ function StatItem({ stat, label, isLast }: { stat: Stat; label: string; isLast: 
   );
 }
 
-// Componente de servidor: los números van fijos en el HTML (antes un contador arrancaba
-// en +0 y mostraba "+0" sin JavaScript o hasta que llegaba a la pantalla).
+// Componente de servidor: los números van con su valor final en el HTML. El conteo
+// animado lo hace Contador, solo con JavaScript y cuando la barra entra en pantalla.
 export default function StatsBar({ t }: { t: Diccionario["numeros"] }) {
   return (
     <section className="stats-section" style={{ background: "var(--blue)" }}>
