@@ -100,6 +100,8 @@ export default function WhatsAppCTA({ t, saludo }: { t: Diccionario["ctaFinal"];
       <style>{`
         .cta-section { padding: 96px 24px; }
         .cta-boton-wa {
+          /* El de formulario tiene borde de 2 px: el verde lleva uno igual, del mismo color, para medir lo mismo */
+          border: 2px solid var(--whatsapp-boton);
           box-shadow: 0 6px 28px rgba(37,211,102,.4);
           transition: transform .18s, box-shadow .18s;
         }
@@ -130,8 +132,6 @@ export default function WhatsAppCTA({ t, saludo }: { t: Diccionario["ctaFinal"];
             font-size: var(--fs-texto) !important;
             white-space: nowrap;
           }
-          /* El de formulario tiene borde de 2 px: el verde lleva uno igual, del mismo color, para medir lo mismo */
-          .cta-boton-wa { border: 2px solid var(--whatsapp-boton); }
         }
       `}</style>
     </section>
