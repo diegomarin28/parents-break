@@ -121,6 +121,17 @@ export default function WhatsAppCTA({ t, saludo }: { t: Diccionario["ctaFinal"];
         }
         @media (max-width: 600px) {
           .cta-section { padding: 64px 16px; }
+          /* Celular: los dos botones iguales (letra, relleno y ancho) y en una sola línea.
+             A 19 px el de WhatsApp no entraba en una línea en español ni en portugués. */
+          .cta-boton-wa, .cta-boton-form {
+            width: 100%;
+            justify-content: center;
+            padding: 16px 20px !important;
+            font-size: var(--fs-texto) !important;
+            white-space: nowrap;
+          }
+          /* El de formulario tiene borde de 2 px: el verde lleva uno igual, del mismo color, para medir lo mismo */
+          .cta-boton-wa { border: 2px solid var(--whatsapp-boton); }
         }
       `}</style>
     </section>
