@@ -26,7 +26,8 @@ function StatItem({ stat, label, isLast }: { stat: Stat; label: string; isLast: 
       <div style={{
         fontFamily: "var(--font-baloo), cursive",
         fontSize: "var(--fs-seccion)", fontWeight: 800,
-        color: "var(--yellow)",
+        // Un paso más claro que --yellow: sobre el violeta da 3,02:1 (--yellow daba 2,99:1)
+        color: "#ffdf88",
         lineHeight: 1,
         textShadow: "0 1px 4px rgba(0,0,0,.15)",
       }}>
