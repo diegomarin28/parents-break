@@ -165,7 +165,9 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           line-height: 1.15;
         }
         .hero-highlight {
-          color: var(--pink);
+          /* Rosa de marca un poco más oscuro: --pink daba 2,1:1 en el peor punto del fondo y el
+             texto grande pide 3:1. Este da 3,1:1 o más en todos los anchos (4,1:1 sobre blanco). */
+          color: #c45c64;
           position: relative;
           display: inline-block;
         }
