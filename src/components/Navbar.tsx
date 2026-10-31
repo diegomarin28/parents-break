@@ -189,25 +189,6 @@ useEffect(() => {
           text-decoration: none;
           flex-shrink: 0;
         }
-        .nav-logo-icon {
-          width: 36px; height: 36px;
-          border-radius: 10px;
-          background: var(--pink);
-          display: flex; align-items: center; justify-content: center;
-          color: white;
-          font-family: var(--font-baloo), cursive;
-          font-weight: 800;
-          font-size: 16px;
-          flex-shrink: 0;
-        }
-        .nav-logo-text {
-          font-family: var(--font-baloo), cursive;
-          font-weight: 800;
-          font-size: 17px;
-          color: var(--blue);
-          letter-spacing: -.01em;
-          white-space: nowrap;
-        }
         .nav-links {
           display: flex;
           align-items: center;
@@ -349,7 +330,6 @@ useEffect(() => {
           .nav-links { display: none; }
           .nav-toggle { display: inline-flex; }
           .nav-cta { display: none; }
-          .nav-logo-text { font-size: 15px; }
         }
 
       `}</style>

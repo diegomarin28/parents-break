@@ -93,45 +93,6 @@ button:active {
   opacity: 0.85;
 }
 
-/* ── Footer bottom ── */
-.footer-bottom {
-  padding-top: 8px;
-}
-
-/* ── Animaciones ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-10px); }
-}
-@keyframes wiggle {
-  0%, 100% { transform: rotate(-2deg); }
-  50%       { transform: rotate(2deg); }
-}
-@keyframes pulseDot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: .4; transform: scale(1.6); }
-}
-
-.anim-fade-up  { animation: fadeUp .65s cubic-bezier(.22,.68,0,1.2) both; }
-.anim-fade-in  { animation: fadeIn .5s ease both; }
-.anim-float    { animation: float 4s ease-in-out infinite; }
-.anim-wiggle   { animation: wiggle 3s ease-in-out infinite; }
-
-.d-100 { animation-delay: .10s; }
-.d-200 { animation-delay: .20s; }
-.d-300 { animation-delay: .30s; }
-.d-400 { animation-delay: .40s; }
-.d-500 { animation-delay: .50s; }
-.d-600 { animation-delay: .60s; }
-
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-thumb { background: var(--blue-mid); border-radius: 99px; }

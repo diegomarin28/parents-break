@@ -201,35 +201,6 @@ export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) 
           line-height: 1.8;
           margin-bottom: 16px;
         }
-        .about-stats {
-          display: flex;
-          gap: 0;
-          margin-top: 36px;
-          border-top: 1px solid var(--gray);
-          padding-top: 32px;
-        }
-        .about-stat {
-          flex: 1;
-          text-align: center;
-          border-right: 1px solid var(--gray);
-          padding: 0 16px;
-        }
-        .about-stat:last-child {
-          border-right: none;
-        }
-        .about-stat-num {
-          font-family: var(--font-baloo), cursive;
-          font-size: 36px;
-          font-weight: 800;
-          color: var(--blue);
-          line-height: 1;
-        }
-        .about-stat-label {
-          font-size: 13px;
-          color: var(--text-soft);
-          margin-top: 6px;
-        }
-
         /* Valores */
         .values-grid {
           display: grid;
@@ -282,25 +253,6 @@ export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) 
           .about-body-wrap {
             padding: 32px 24px;
             margin-bottom: 40px;
-          }
-          .about-stats {
-            flex-direction: column;
-            gap: 24px;
-            border-top: 1px solid var(--gray);
-            padding-top: 24px;
-          }
-          .about-stat {
-            border-right: none;
-            border-bottom: 1px solid var(--gray);
-            padding: 0 0 24px;
-            text-align: left;
-          }
-          .about-stat:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-          }
-          .about-stat-num {
-            font-size: 30px;
           }
           .value-card {
             padding: 24px 20px;

@@ -15,9 +15,7 @@ export default function Footer({ t, saludo }: { t: Diccionario["footer"]; saludo
           {/* Brand */}
           <div className="footer-brand">
             <div className="footer-logo">
-              <div className="footer-logo">
-  <Image src="/logoSolo.png" alt="Parents' Break" width={50} height={44} style={{ objectFit: "contain" }} />
-</div>
+              <Image src="/logoSolo.png" alt="" width={50} height={44} style={{ objectFit: "contain" }} />
               <span className="footer-logo-text">Parents&apos; Break</span>
             </div>
             <p className="footer-desc">
@@ -93,23 +91,9 @@ export default function Footer({ t, saludo }: { t: Diccionario["footer"]; saludo
           border-bottom: 1px solid rgba(255,255,255,.1);
         }
         .footer-logo {
-  display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-}
-        .footer-logo-icon {
-          width: 38px;
-          height: 38px;
-          border-radius: 10px;
-          background: var(--pink);
           display: flex;
           align-items: center;
-          justify-content: center;
-          color: white;
-          font-family: var(--font-baloo), cursive;
-          font-weight: 800;
-          font-size: 18px;
-          flex-shrink: 0;
+          margin-bottom: 16px;
         }
         .footer-logo-text {
           font-family: var(--font-baloo), cursive;

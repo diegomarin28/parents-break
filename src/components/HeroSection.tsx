@@ -187,29 +187,6 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           gap: 64px;
           align-items: center;
         }
-        .hero-avail-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: var(--white);
-          border: 1.5px solid var(--pink-mid);
-          border-radius: 99px;
-          padding: 6px 14px 6px 8px;
-          margin-bottom: 24px;
-        }
-        .hero-dot {
-          width: 8px; height: 8px;
-          border-radius: 50%;
-          background: var(--whatsapp);
-          display: inline-block;
-          animation: pulseDot 2s infinite;
-          flex-shrink: 0;
-        }
-        .hero-avail-badge span:last-child {
-          font-size: 13px;
-          font-weight: 600;
-          color: var(--text-soft);
-        }
         .hero-title {
           font-size: clamp(34px, 5vw, 62px);
           font-weight: 800;
