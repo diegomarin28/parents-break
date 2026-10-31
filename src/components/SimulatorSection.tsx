@@ -1137,6 +1137,21 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
           box-shadow: 0 8px 32px rgba(37,211,102,.45);
         }
         .dia-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+        /* Campos de fecha: en Safari de iPhone el control nativo tiene un ancho mínimo propio
+           (se salía de la tarjeta por la derecha) y centra el texto. Se igualan a los demás
+           campos: sin apariencia nativa, a todo el ancho y alineados a la izquierda. Las
+           celdas de la grilla llevan min-width: 0 para poder achicarse por debajo de ese mínimo. */
+        .sim-grid > div, .dia-grid > div { min-width: 0; }
+        #simulador input[type="date"] {
+          -webkit-appearance: none;
+          appearance: none;
+          display: block;
+          min-width: 0;
+          width: 100%;
+          height: 50px; /* la misma altura que los demás campos (sin esto, 53 px) */
+          text-align: left;
+        }
+        #simulador input[type="date"]::-webkit-date-and-time-value { text-align: left; margin: 0; }
         /* Desplegables con flecha propia, a 16px del borde y en el violeta de la marca */
         #simulador select {
           -webkit-appearance: none;
