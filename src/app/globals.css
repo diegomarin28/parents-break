@@ -135,14 +135,14 @@ button:active {
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-thumb { background: var(--blue-mid); border-radius: 99px; }
 
+/* FadeIn: visible por defecto; el componente agrega .fade-oculto solo a las secciones
+   que están más abajo de la pantalla al cargar, y la saca cuando llegan. */
 .fade-in {
-  opacity: 0;
-  transform: translateY(20px);
   transition: opacity 0.45s ease, transform 0.45s ease;
 }
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
+.fade-in.fade-oculto {
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 @media (max-width: 600px) {
@@ -158,5 +158,5 @@ button:active {
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
-  .fade-in { opacity: 1; transform: none; }
+  .fade-in.fade-oculto { opacity: 1; transform: none; }
 }

@@ -1,5 +1,3 @@
-"use client";
-import { useEffect, useRef, useState } from "react";
 import type { Diccionario } from "../dictionaries/tipos";
 
 type Stat = { prefix: string; num: number; suffix: string; clave: keyof Diccionario["numeros"]; icon: React.ReactNode };
@@ -15,30 +13,7 @@ const stats: Stat[] = [
   },
 ];
 
-function useCountUp(target: number, duration = 1800, started: boolean) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!started) return;
-    // Con movimiento reducido, el número aparece directamente en su valor final.
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { requestAnimationFrame(() => setCount(target)); return; }
-    let startTime: number | null = null;
-    const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(ease * target));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [started, target, duration]);
-
-  return count;
-}
-
-function StatItem({ stat, label, started, isLast }: { stat: Stat; label: string; started: boolean; isLast: boolean }) {
-  const count = useCountUp(stat.num, 1800, started);
-
+function StatItem({ stat, label, isLast }: { stat: Stat; label: string; isLast: boolean }) {
   return (
     <div className="stats-item" style={{
       textAlign: "center",
@@ -54,7 +29,7 @@ function StatItem({ stat, label, started, isLast }: { stat: Stat; label: string;
         lineHeight: 1,
         textShadow: "0 1px 4px rgba(0,0,0,.15)",
       }}>
-        {stat.prefix}{count}{stat.suffix}
+        {stat.prefix}{stat.num}{stat.suffix}
       </div>
       {/* Blanco sobre el violeta da 3,9:1: alcanza solo como texto grande (19 px en negrita) */}
       <div style={{ fontSize: 19, fontWeight: 700, color: "#fff", marginTop: 8 }}>
@@ -64,21 +39,11 @@ function StatItem({ stat, label, started, isLast }: { stat: Stat; label: string;
   );
 }
 
+// Componente de servidor: los números van fijos en el HTML (antes un contador arrancaba
+// en +0 y mostraba "+0" sin JavaScript o hasta que llegaba a la pantalla).
 export default function StatsBar({ t }: { t: Diccionario["numeros"] }) {
-  const ref = useRef<HTMLElement>(null);
-  const [started, setStarted] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setStarted(true); },
-      { threshold: 0.4 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section ref={ref} className="stats-section" style={{ background: "var(--blue)" }}>
+    <section className="stats-section" style={{ background: "var(--blue)" }}>
       <div className="stats-container" style={{ maxWidth: 700, margin: "0 auto" }}>
         <div className="stats-grid" style={{
           display: "grid",
@@ -86,7 +51,7 @@ export default function StatsBar({ t }: { t: Diccionario["numeros"] }) {
           gap: 0,
         }}>
           {stats.map((s, i) => (
-            <StatItem key={i} stat={s} label={t[s.clave]} started={started} isLast={i === stats.length - 1} />
+            <StatItem key={i} stat={s} label={t[s.clave]} isLast={i === stats.length - 1} />
           ))}
         </div>
       </div>
