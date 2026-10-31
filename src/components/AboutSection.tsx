@@ -122,7 +122,7 @@ export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) 
         .about-badge {
           display: inline-block;
           background: var(--blue-light);
-          color: var(--blue);
+          color: #5a60a0;
           font-weight: 700;
           font-size: 12px;
           letter-spacing: .1em;

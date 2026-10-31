@@ -162,7 +162,7 @@ export default function MenuCelular({ abierto, onCerrar, links, activo, onNavega
           border-bottom: 1px solid #f0f0ea;
           color: var(--text); text-decoration: none;
         }
-        .menu-cel-link-activo .menu-cel-label { color: var(--blue); }
+        .menu-cel-link-activo .menu-cel-label { color: #5a60a0; }
         .menu-cel-icono {
           width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
           display: flex; align-items: center; justify-content: center;

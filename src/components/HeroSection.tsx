@@ -299,7 +299,7 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           align-items: center;
           gap: 8px;
           background: transparent;
-          color: var(--blue);
+          color: #5a60a0; /* --blue daba 3,9:1 sobre blanco */
           border: 2px solid var(--blue-mid);
           padding: 15px 28px;
           border-radius: 99px;

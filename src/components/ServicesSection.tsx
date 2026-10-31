@@ -31,10 +31,11 @@ export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) 
       bg: "var(--pink-light)",
       colorLink: "#b5464c", // tonos oscuros de cada color: 4,5:1 o más sobre blanco
       border: "var(--pink-mid)",
-      ctaBg: "var(--pink)",
+      // Fondo oscuro para que el texto blanco llegue a 4,5:1 (con --pink daba 2,7:1)
+      ctaBg: "#b5464c",
       ctaColor: "white",
       featured: true,
-      featuredBadgeBg: "var(--pink)",
+      featuredBadgeBg: "#b5464c",
       featuredBadgeColor: "white",
     },
     {
@@ -60,7 +61,7 @@ export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) 
         <div style={{ textAlign: "center", marginBottom: 64 }}>
           <span style={{
             display: "inline-block",
-            background: "var(--pink-light)", color: "var(--pink)",
+            background: "var(--pink-light)", color: "#b5464c",
             fontWeight: 700, fontSize: 12, letterSpacing: ".1em",
             textTransform: "uppercase", padding: "6px 16px", borderRadius: 99,
             marginBottom: 16,
@@ -146,7 +147,7 @@ export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) 
 
               <div style={{
                 fontSize: 11, fontWeight: 700, letterSpacing: ".08em",
-                textTransform: "uppercase", color: s.color, marginBottom: 6,
+                textTransform: "uppercase", color: s.colorLink, marginBottom: 6,
               }}>
                 {s.subtitulo}
               </div>
@@ -188,7 +189,7 @@ export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) 
                   display: "flex", alignItems: "center", justifyContent: "center",
                   gap: 8, width: "100%",
                   background: s.ctaBg || (s.featured ? s.color : s.bg),
-                  color: s.ctaColor || (s.featured ? "white" : s.color),
+                  color: s.ctaColor || (s.featured ? "white" : s.colorLink),
                   padding: "13px", borderRadius: 99,
                   fontWeight: 700, fontSize: 14,
                   border: `1.5px solid ${s.ctaBg ? s.ctaBg : s.featured ? s.color : s.border}`,

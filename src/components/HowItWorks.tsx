@@ -2,11 +2,13 @@ import type { Diccionario } from "../dictionaries/tipos";
 
 export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
   // Número, color e ícono de cada paso; los textos salen de t.pasos, en el mismo orden.
+  // "oscuro" es el fondo del número: con blanco encima llega a 4,5:1 (los colores de marca no).
   const steps = [
     {
       num: "1",
       color: "var(--pink)",
       bg: "var(--pink-light)",
+      oscuro: "#b5464c",
       icon: (
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
@@ -17,6 +19,7 @@ export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
       num: "2",
       color: "var(--blue)",
       bg: "var(--blue-light)",
+      oscuro: "#5a60a0",
       icon: (
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
@@ -28,6 +31,7 @@ export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
       num: "3",
       color: "var(--yellow-dark)",
       bg: "#fffae8",
+      oscuro: "#8a6d0f",
       icon: (
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <rect x="3" y="6" width="14" height="12" rx="2" />
@@ -40,6 +44,7 @@ export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
       num: "4",
       color: "var(--blue)",
       bg: "var(--blue-light)",
+      oscuro: "#5a60a0",
       icon: (
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="20 6 9 17 4 12"/>
@@ -50,6 +55,7 @@ export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
       num: "5",
       color: "var(--pink)",
       bg: "var(--pink-light)",
+      oscuro: "#b5464c",
       icon: (
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
@@ -79,7 +85,7 @@ export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
               key={i}
               className="step-card"
             >
-              <div className="step-num" style={{ background: s.color }}>
+              <div className="step-num" style={{ background: s.oscuro }}>
                 {s.num}
               </div>
               <div className="step-icon" style={{ background: s.bg, color: s.color }}>
@@ -110,7 +116,7 @@ export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
         .hiw-badge {
           display: inline-block;
           background: var(--blue-light);
-          color: var(--blue);
+          color: #5a60a0;
           font-weight: 700;
           font-size: 12px;
           letter-spacing: .1em;

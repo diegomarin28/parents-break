@@ -59,7 +59,7 @@ export default function WhatsAppCTA({ t, saludo }: { t: Diccionario["ctaFinal"];
             className="cta-boton-form"
             style={{
               display: "inline-flex", alignItems: "center", gap: 10,
-              color: "var(--blue)",
+              color: "#5a60a0",
               padding: "18px 32px", borderRadius: 99,
               fontWeight: 700, fontSize: 17,
               textDecoration: "none",

@@ -532,7 +532,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
     flex: 1, padding: "11px", borderRadius: 10, border: "1.5px solid",
     borderColor: active ? "var(--blue)" : "var(--gray)",
     background: active ? "var(--blue-light)" : "var(--white)",
-    color: active ? "var(--blue)" : "var(--text-soft)",
+    color: active ? "#5a60a0" : "var(--text-soft)",
     fontWeight: 700, fontSize: 14, cursor: "pointer",
     fontFamily: "var(--font-source), sans-serif", transition: "all .15s",
   });
@@ -542,7 +542,8 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
   ) : null;
 
   const alertStyle: React.CSSProperties = {
-    fontSize: 12, color: "#dc2626", background: "#fef2f2",
+    // Sobre el fondo rosado, #dc2626 daba 4,4:1: el texto va en un rojo más oscuro (6:1)
+    fontSize: 12, color: "#b91c1c", background: "#fef2f2",
     border: "1px solid #fecaca", borderRadius: 8, padding: "8px 12px", marginTop: 8,
   };
 
@@ -567,7 +568,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
       <div className="sim-container" style={{ maxWidth: 820, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <span style={{
-            display: "inline-block", background: "rgba(37,211,102,.12)", color: "var(--whatsapp-boton)",
+            display: "inline-block", background: "rgba(37,211,102,.12)", color: "var(--whatsapp-boton-hover)",
             fontWeight: 700, fontSize: 12, letterSpacing: ".1em", textTransform: "uppercase",
             padding: "6px 16px", borderRadius: 99, marginBottom: 16,
           }}>{t.etiqueta}</span>
@@ -592,12 +593,12 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                 <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
               </svg>
               <div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "#dc2626", marginBottom: 6 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: "#b91c1c", marginBottom: 6 }}>
                   {t.erroresTitulo}
                 </div>
                 <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 3 }}>
                   {Object.values(errors).map((msg, i) => (
-                    <li key={i} style={{ fontSize: 12, color: "#dc2626" }}>· {msg}</li>
+                    <li key={i} style={{ fontSize: 12, color: "#b91c1c" }}>· {msg}</li>
                   ))}
                 </ul>
               </div>
@@ -676,10 +677,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                         background: "var(--off)", borderRadius: 14, padding: "20px", border: "1.5px solid var(--gray)",
                       }}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-                          <span style={{ fontWeight: 700, fontSize: 15, color: "var(--blue)" }}>{t.dia.replace("{n}", String(i + 1))}</span>
+                          <span style={{ fontWeight: 700, fontSize: 15, color: "#5a60a0" }}>{t.dia.replace("{n}", String(i + 1))}</span>
                           {i > 0 && (
                             <button onClick={() => copiarDia1(i)} style={{
-                              fontSize: 12, fontWeight: 700, color: "var(--blue)",
+                              fontSize: 12, fontWeight: 700, color: "#5a60a0",
                               background: "var(--blue-light)", border: "1.5px solid var(--blue-mid)",
                               borderRadius: 99, padding: "5px 14px", cursor: "pointer",
                               fontFamily: "var(--font-source), sans-serif",
@@ -857,10 +858,10 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                         background: "var(--off)", borderRadius: 14, padding: "20px", border: "1.5px solid var(--gray)",
                       }}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-                          <span style={{ fontWeight: 700, fontSize: 15, color: "var(--blue)" }}>{t.dia.replace("{n}", String(i + 1))}</span>
+                          <span style={{ fontWeight: 700, fontSize: 15, color: "#5a60a0" }}>{t.dia.replace("{n}", String(i + 1))}</span>
                           {i > 0 && (
                             <button onClick={() => copiarDia1(i)} style={{
-                              fontSize: 12, fontWeight: 700, color: "var(--blue)",
+                              fontSize: 12, fontWeight: 700, color: "#5a60a0",
                               background: "var(--blue-light)", border: "1.5px solid var(--blue-mid)",
                               borderRadius: 99, padding: "5px 14px", cursor: "pointer",
                               fontFamily: "var(--font-source), sans-serif",
@@ -1087,7 +1088,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
               {t.notaIdioma}
             </p>
           )}
-          <p style={{ textAlign: "center", fontSize: 12, color: "var(--text-muted)", marginTop: 14 }}>
+          <p style={{ textAlign: "center", fontSize: 12, color: "var(--text-soft)", marginTop: 14 }}>
             {t.privacidad}
           </p>
         </div>

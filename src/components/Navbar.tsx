@@ -243,11 +243,11 @@ useEffect(() => {
           white-space: nowrap;
         }
         .nav-link:hover {
-          color: var(--blue);
+          color: #5a60a0;
           background: var(--blue-light);
         }
         .nav-link-active {
-          color: var(--blue) !important;
+          color: #5a60a0 !important; /* --blue daba 3,4:1 sobre --blue-light */
           background: var(--blue-light) !important;
           font-weight: 700 !important;
         }
