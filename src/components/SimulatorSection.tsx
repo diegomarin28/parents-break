@@ -76,7 +76,7 @@ const TimeSelector = ({ label, inputId, hora, min, onHora, onMin, labelStyle, in
         id={inputId}
         ref={inputRef}
         style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError ? "#dc2626" : inputStyle.borderColor }}
-        placeholder="08:30" value={localVal} maxLength={5}
+        placeholder="08:30" value={localVal} maxLength={5} inputMode="numeric"
         onChange={(e) => handleChange(e.target.value)}
         onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
         onBlur={(e) => { e.currentTarget.style.borderColor = error ? "#dc2626" : "var(--gray)"; }}
@@ -151,7 +151,7 @@ const FinSelector = ({ label, inputId, horaVal, minVal, onHora, onMin, labelStyl
         id={inputId}
         ref={(el) => { inputRef.current = el; registrarRef(refKey, el); }}
         style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError ? "#dc2626" : inputStyle.borderColor }}
-        placeholder="08:30" value={localVal} maxLength={5}
+        placeholder="08:30" value={localVal} maxLength={5} inputMode="numeric"
         onChange={(e) => handleChange(e.target.value)}
         onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
         onBlur={(e) => { e.currentTarget.style.borderColor = error ? "#dc2626" : "var(--gray)"; }}
@@ -510,7 +510,8 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
   };
 
   const inputStyle: React.CSSProperties = {
-    width: "100%", minHeight: 50, padding: "12px 16px", borderRadius: 12, fontSize: 15,
+    // 16 px: con menos, Safari en iPhone hace zoom al tocar el campo
+    width: "100%", minHeight: 50, padding: "12px 16px", borderRadius: 12, fontSize: 16,
     // Borde en propiedades separadas: con el atajo "border" + borderColor undefined, React
     // borraba el color al montar los campos que aparecen después (quedaban gris oscuro).
     borderWidth: 1.5, borderStyle: "solid", borderColor: "var(--gray)",
@@ -609,7 +610,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
 
             <div id="field-nombre" className="full-col">
               <label style={labelStyle} htmlFor="in-nombre">{t.nombre}</label>
-              <input id="in-nombre"
+              <input id="in-nombre" autoComplete="name"
                 style={inputErr("nombre")} placeholder={t.nombreEjemplo} value={form.nombre}
                 onChange={(e) => update("nombre", e.target.value)}
                 onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
