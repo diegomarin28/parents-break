@@ -2,13 +2,14 @@
 import { useEffect, useState } from "react";
 import { waIrLink } from "../lib/contact";
 
-// Botón de WhatsApp siempre visible.
-// - Compu: píldora con texto abajo a la derecha. Mientras el simulador o el Footer
-//   están en pantalla se achica a círculo, para no pisar el botón "Enviar" ni el
-//   copyright.
+// Botón flotante de WhatsApp. Nunca tapa contenido:
 // - Celular: círculo abajo a la derecha. Mientras el Hero, el simulador o el Footer
 //   están en pantalla (todos tienen botones propios a todo el ancho) vive en la
-//   Navbar, al lado del menú, así nunca tapa nada.
+//   Navbar, al lado del menú.
+// - Desde 1280 px: círculo abajo a la derecha, en el margen, fuera de los 1140 px
+//   del contenido.
+// - Entre 601 y 1279 px no se muestra: no hay margen donde ponerlo sin tapar algo, y
+//   la Navbar (fija) ya tiene su propio botón de WhatsApp siempre visible.
 export default function WhatsAppFloat({ texto, saludo }: { texto: string; saludo?: string }) {
   // La página abre en el Hero, así que arranca "en el Hero" también en el HTML del servidor.
   const [enHero, setEnHero] = useState(true);
@@ -82,24 +83,26 @@ export default function WhatsAppFloat({ texto, saludo }: { texto: string; saludo
           to   { box-shadow: 0 0 0 18px rgba(37,211,102,0); }
         }
 
-        /* ── Compu ── */
-        @media (min-width: 601px) {
+        /* ── Tablet y compu chica: oculto (ver arriba) ── */
+        @media (min-width: 601px) and (max-width: 1279px) {
+          .wa-float { display: none; }
+        }
+
+        /* ── Compu: círculo en el margen derecho ──
+           Con 1280 px el contenido termina en 1186 px y el círculo empieza en 1200. */
+        @media (min-width: 1280px) {
           .wa-float {
-            right: 28px;
-            bottom: 28px;
+            right: 24px;
+            bottom: 24px;
+            width: 56px;
             height: 56px;
-            padding: 0 22px 0 16px;
-            border-radius: 99px;
+            border-radius: 50%;
           }
+          .wa-float-texto { display: none; }
           .wa-float:hover {
             transform: translateY(-2px);
             box-shadow: 0 12px 32px rgba(37,211,102,.5);
           }
-          .wa-float-tapa {
-            width: 56px;
-            padding: 0;
-          }
-          .wa-float-tapa .wa-float-texto { display: none; }
         }
 
         /* ── Celular ── */

@@ -223,9 +223,7 @@ export default function ServicesSection({ t }: { t: Diccionario["servicios"] }) 
         .service-mas[open] .service-mas-abrir { display: none; }
         .service-mas[open] .service-mas-cerrar { display: inline; }
         .service-cta:hover { opacity: .85; }
-        .service-card { transition: transform .2s, box-shadow .2s; }
         .service-card-destacada { box-shadow: var(--shadow-lg); }
-        .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
         .service-cta { transition: opacity .15s; }
         /* Tablet: tres columnas angostas. Menos relleno y título más chico para que el
            contenido no las desborde (antes generaba scroll horizontal entre 601 y 630 px). */

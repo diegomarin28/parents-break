@@ -75,11 +75,9 @@ const TimeSelector = ({ label, inputId, hora, min, onHora, onMin, labelStyle, in
       <input
         id={inputId}
         ref={inputRef}
-        style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError ? "#dc2626" : inputStyle.borderColor }}
+        style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError || error ? "#dc2626" : inputStyle.borderColor }}
         placeholder="08:30" value={localVal} maxLength={5} inputMode="numeric"
         onChange={(e) => handleChange(e.target.value)}
-        onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-        onBlur={(e) => { e.currentTarget.style.borderColor = error ? "#dc2626" : "var(--gray)"; }}
       />
       {error && <div style={{ fontSize: 11, color: "#dc2626", marginTop: 4 }}>{error}</div>}
     </div>
@@ -150,11 +148,9 @@ const FinSelector = ({ label, inputId, horaVal, minVal, onHora, onMin, labelStyl
       <input
         id={inputId}
         ref={(el) => { inputRef.current = el; registrarRef(refKey, el); }}
-        style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError ? "#dc2626" : inputStyle.borderColor }}
+        style={{ ...inputStyle, letterSpacing: "0.08em", fontVariantNumeric: "tabular-nums", borderColor: hasError || error ? "#dc2626" : inputStyle.borderColor }}
         placeholder="08:30" value={localVal} maxLength={5} inputMode="numeric"
         onChange={(e) => handleChange(e.target.value)}
-        onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-        onBlur={(e) => { e.currentTarget.style.borderColor = error ? "#dc2626" : "var(--gray)"; }}
       />
       {error && <div style={{ fontSize: 11, color: "#dc2626", marginTop: 4 }}>{error}</div>}
     </div>
@@ -536,7 +532,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
     // borraba el color al montar los campos que aparecen después (quedaban gris oscuro).
     borderWidth: 1.5, borderStyle: "solid", borderColor: "var(--gray)",
     backgroundColor: "var(--off)", color: "var(--text)",
-    fontFamily: "var(--font-source), sans-serif", outline: "none", transition: "border-color .15s, background-color .15s",
+    fontFamily: "var(--font-source), sans-serif", transition: "border-color .15s, background-color .15s",
   };
 
   const inputErr = (key: string): React.CSSProperties => ({
@@ -555,7 +551,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
     background: active ? "var(--blue-light)" : "var(--white)",
     color: active ? "#5a60a0" : "var(--text-soft)",
     fontWeight: 700, fontSize: 14, cursor: "pointer",
-    fontFamily: "var(--font-source), sans-serif", transition: "all .15s",
+    fontFamily: "var(--font-source), sans-serif", transition: "border-color .15s, background-color .15s, color .15s",
   });
 
   const errMsg = (key: string) => errors[key] ? (
@@ -633,8 +629,6 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
               <input id="in-nombre" autoComplete="name"
                 style={inputErr("nombre")} placeholder={t.nombreEjemplo} value={form.nombre}
                 onChange={(e) => update("nombre", e.target.value)}
-                onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-                onBlur={(e) => { e.currentTarget.style.borderColor = errors["nombre"] ? "#dc2626" : "var(--gray)"; }}
               />
               {errMsg("nombre")}
             </div>
@@ -999,9 +993,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                 <div id="field-cantNinosEvento">
                   <label style={labelStyle} htmlFor="in-cantNinosEvento">{t.cantNinosEvento}</label>
                   <input id="in-cantNinosEvento" style={inputErr("cantNinosEvento")} placeholder={t.cantNinosEventoEjemplo} value={form.cantNinosEvento}
-                    onChange={(e) => update("cantNinosEvento", e.target.value)}
-                    onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-                    onBlur={(e) => { e.currentTarget.style.borderColor = errors["cantNinosEvento"] ? "#dc2626" : "var(--gray)"; }} />
+                    onChange={(e) => update("cantNinosEvento", e.target.value)} />
                   {errMsg("cantNinosEvento")}
                 </div>
               </>
@@ -1047,8 +1039,6 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
                   placeholder={t.zonaOtroEjemplo}
                   value={form.zonaOtro}
                   onChange={(e) => update("zonaOtro", e.target.value)}
-                  onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-                  onBlur={(e) => { e.currentTarget.style.borderColor = errors["zonaOtro"] ? "#dc2626" : "var(--gray)"; }}
                 />
                 {errMsg("zonaOtro")}
               </div>
@@ -1071,9 +1061,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
               <div id="field-edades">
                 <label style={labelStyle} htmlFor="in-edades">{t.edades}</label>
                 <input id="in-edades" style={inputErr("edades")} placeholder={t.edadesEjemplo} value={form.edades}
-                  onChange={(e) => update("edades", e.target.value)}
-                  onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-                  onBlur={(e) => { e.currentTarget.style.borderColor = errors["edades"] ? "#dc2626" : "var(--gray)"; }} />
+                  onChange={(e) => update("edades", e.target.value)} />
                 {errMsg("edades")}
               </div>
             )}
@@ -1082,22 +1070,17 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
               <label style={labelStyle} htmlFor="in-comentarios">{t.comentarios}</label>
               <textarea id="in-comentarios" style={{ ...inputStyle, minHeight: 110, resize: "vertical" }}
                 placeholder={t.comentariosEjemplo}
-                value={form.comentarios} onChange={(e) => update("comentarios", e.target.value)}
-                onFocus={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; }}
-                onBlur={(e) => { e.currentTarget.style.borderColor = "var(--gray)"; }} />
+                value={form.comentarios} onChange={(e) => update("comentarios", e.target.value)} />
             </div>
           </div>
 
-          <button onClick={handleSend} style={{
+          <button type="button" onClick={handleSend} className="sim-enviar" style={{
             marginTop: 28, width: "100%",
             display: "flex", alignItems: "center", justifyContent: "center", gap: 12,
             background: "var(--whatsapp-boton)", color: "white", padding: "17px", borderRadius: 99,
             fontWeight: 800, fontSize: 17, fontFamily: "var(--font-source), sans-serif",
-            boxShadow: "0 4px 24px rgba(37,211,102,.35)", transition: "transform .18s, box-shadow .18s", border: "none",
-          }}
-            onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 8px 32px rgba(37,211,102,.45)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 4px 24px rgba(37,211,102,.35)"; }}
-          >
+            border: "none",
+          }}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
             </svg>
@@ -1124,6 +1107,14 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
         .sim-grid > div { animation: simAparecer .18s ease-out both; }
         @keyframes simAparecer { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
         .full-col { grid-column: 1 / -1; }
+        .sim-enviar {
+          box-shadow: 0 4px 24px rgba(37,211,102,.35);
+          transition: transform .18s, box-shadow .18s;
+        }
+        .sim-enviar:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 32px rgba(37,211,102,.45);
+        }
         .dia-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
         /* Desplegables con flecha propia, a 16px del borde y en el violeta de la marca */
         #simulador select {
@@ -1145,7 +1136,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
         }
         /* El radio queda invisible pero sigue en el orden del teclado y para lectores de pantalla */
         .serv-radio { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
-        .serv-card:has(.serv-radio:focus-visible) { outline: 3px solid rgba(117,124,187,.5); outline-offset: 2px; }
+        .serv-card:has(.serv-radio:focus-visible) { outline: 3px solid #5a60a0; outline-offset: 2px; }
         .serv-icon {
           width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
           display: flex; align-items: center; justify-content: center;

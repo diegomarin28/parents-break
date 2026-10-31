@@ -55,7 +55,7 @@ Orden actual en `src/app/[lang]/page.tsx` (la misma página para los tres idioma
 9. CTA final (WhatsApp)
 10. Footer
 
-Además hay un botón flotante de WhatsApp siempre visible (`WhatsAppFloat.tsx`). En compu es una píldora con texto abajo a la derecha que se achica a círculo mientras el simulador o el Footer están en pantalla. En celular es un círculo abajo a la derecha que, mientras el Hero, el simulador o el Footer están en pantalla, se acomoda en la Navbar al lado del menú, así nunca tapa los botones de esas secciones. Hace un solo pulso a los 4 segundos.
+Además hay un botón flotante de WhatsApp (`WhatsAppFloat.tsx`) que nunca tapa contenido. Desde 1280 px es un círculo abajo a la derecha, en el margen, fuera de los 1140 px del contenido. Entre 601 y 1279 px no se muestra: no hay margen donde ponerlo y la Navbar, fija, ya tiene su botón de WhatsApp. En celular es un círculo abajo a la derecha que, mientras el Hero, el simulador o el Footer están en pantalla, se acomoda en la Navbar al lado del menú, así nunca tapa los botones de esas secciones. Hace un solo pulso a los 4 segundos.
 
 El simulador queda en esa posición por decisión del negocio.
 

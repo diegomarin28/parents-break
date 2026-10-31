@@ -239,11 +239,6 @@ export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) 
         .value-card {
           border-radius: 20px;
           padding: 32px 28px;
-          transition: transform .2s, box-shadow .2s;
-        }
-        .value-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 12px 32px rgba(0,0,0,.08);
         }
         .value-icon-wrap {
           width: 44px; height: 44px;

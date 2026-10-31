@@ -59,7 +59,6 @@ export default function SittersSection({ t }: { t: Diccionario["nineras"] }) {
                   background: "var(--white)",
                   borderRadius: 16, padding: "18px",
                   border: "1.5px solid var(--gray)",
-                  transition: "box-shadow .2s",
                 }}
                 >
                   <div style={{
@@ -178,7 +177,6 @@ export default function SittersSection({ t }: { t: Diccionario["nineras"] }) {
       </div>
 
       <style>{`
-        .sitters-paso:hover { box-shadow: var(--shadow); }
         .sitters-section { padding: 96px 0; }
         .sitters-container { padding: 0 24px; }
         /* Foto más chica que la lista y en su proporción real (3:2), sin estirarla */

@@ -78,24 +78,21 @@ export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
         </div>
 
         {/* Steps */}
-        <div className="steps-grid">
-          <div className="connector-line" />
+        {/* Lista ordenada: el lector de pantalla dice "1 de 5"; el número dibujado queda oculto para no repetirlo */}
+        <ol className="steps-grid">
           {steps.map((s, i) => (
-            <div
-              key={i}
-              className="step-card"
-            >
-              <div className="step-num" style={{ background: s.oscuro }}>
+            <li key={i} className="step-card">
+              <div className="step-num" style={{ background: s.oscuro }} aria-hidden="true">
                 {s.num}
               </div>
-              <div className="step-icon" style={{ background: s.bg, color: s.color }}>
+              <div className="step-icon" style={{ background: s.bg, color: s.color }} aria-hidden="true">
                 {s.icon}
               </div>
               <h3 className="step-title">{t.pasos[i].titulo}</h3>
               <p className="step-desc">{t.pasos[i].texto}</p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
 
       </div>
 
@@ -143,8 +140,11 @@ export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
           grid-template-columns: repeat(5, minmax(0, 1fr));
           gap: 22px;
           position: relative;
+          list-style: none;
         }
-        .connector-line {
+        /* Línea que une los pasos (en un <ol> solo puede haber <li>, por eso va como ::before) */
+        .steps-grid::before {
+          content: "";
           position: absolute;
           top: 26px; /* mitad del step-num de 52px */
           left: calc(8%);
@@ -164,13 +164,6 @@ export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
           border: 1.5px solid var(--gray);
           position: relative;
           z-index: 1;
-          transition: transform .2s, box-shadow .2s, border-color .2s;
-          cursor: default;
-        }
-        .step-card:hover {
-          transform: translateY(-6px);
-          box-shadow: var(--shadow-lg);
-          border-color: transparent;
         }
         .step-num {
           width: 50px;
@@ -213,7 +206,7 @@ export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
           .hiw-section { padding: 72px 0; }
           .hiw-header { margin-bottom: 48px; }
           .steps-grid { grid-template-columns: 1fr 1fr; }
-          .connector-line { display: none; }
+          .steps-grid::before { display: none; }
         }
 
         /* ── MOBILE ── */
