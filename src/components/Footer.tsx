@@ -98,11 +98,11 @@ export default function Footer({ t, saludo }: { t: Diccionario["footer"]; saludo
         .footer-logo-text {
           font-family: var(--font-baloo), cursive;
           font-weight: 800;
-          font-size: 18px;
+          font-size: var(--fs-destacado);
           color: white;
         }
         .footer-desc {
-          font-size: 14px;
+          font-size: var(--fs-texto);
           line-height: 1.7;
           max-width: 260px;
           margin-bottom: 20px;
@@ -116,7 +116,7 @@ export default function Footer({ t, saludo }: { t: Diccionario["footer"]; saludo
           color: white;
           padding: 11px 20px;
           border-radius: 99px;
-          font-size: 14px;
+          font-size: var(--fs-texto);
           font-weight: 700;
           text-decoration: none;
           min-height: 44px;
@@ -127,7 +127,7 @@ export default function Footer({ t, saludo }: { t: Diccionario["footer"]; saludo
           font-family: var(--font-source), sans-serif;
           line-height: 1.3;
           color: white;
-          font-size: 13px;
+          font-size: var(--fs-chico);
           letter-spacing: .08em;
           text-transform: uppercase;
           margin-bottom: 18px;
@@ -140,14 +140,14 @@ export default function Footer({ t, saludo }: { t: Diccionario["footer"]; saludo
           gap: 10px;
         }
         .footer-link {
-          font-size: 14px;
+          font-size: var(--fs-texto);
           color: rgba(255,255,255,.7);
           text-decoration: none;
           transition: color .15s;
         }
         .footer-link:hover { color: white; }
         .footer-text {
-          font-size: 14px;
+          font-size: var(--fs-texto);
           color: rgba(255,255,255,.7);
         }
         .footer-bottom {
@@ -157,13 +157,13 @@ export default function Footer({ t, saludo }: { t: Diccionario["footer"]; saludo
           justify-content: space-between;
           flex-wrap: wrap;
           gap: 8px;
-          font-size: 13px;
+          font-size: var(--fs-chico);
           color: rgba(255,255,255,.55); /* contraste 4,7:1 sobre el violeta del footer */
         }
 
         .footer-aviso {
           margin-top: 10px;
-          font-size: 12px;
+          font-size: var(--fs-chico);
           color: rgba(255,255,255,.55);
         }
 

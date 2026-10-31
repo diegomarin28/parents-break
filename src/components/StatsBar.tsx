@@ -25,7 +25,7 @@ function StatItem({ stat, label, isLast }: { stat: Stat; label: string; isLast: 
       </div>
       <div style={{
         fontFamily: "var(--font-baloo), cursive",
-        fontSize: 48, fontWeight: 800,
+        fontSize: "var(--fs-seccion)", fontWeight: 800,
         color: "var(--yellow)",
         lineHeight: 1,
         textShadow: "0 1px 4px rgba(0,0,0,.15)",
@@ -33,7 +33,7 @@ function StatItem({ stat, label, isLast }: { stat: Stat; label: string; isLast: 
         <Contador valor={stat.num} prefijo={stat.prefix} />{stat.suffix}
       </div>
       {/* Blanco sobre el violeta da 3,9:1: alcanza solo como texto grande (19 px en negrita) */}
-      <div style={{ fontSize: 19, fontWeight: 700, color: "#fff", marginTop: 8 }}>
+      <div style={{ fontSize: "var(--fs-destacado)", fontWeight: 700, color: "#fff", marginTop: 8 }}>
         {label}
       </div>
     </div>

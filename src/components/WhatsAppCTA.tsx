@@ -15,7 +15,7 @@ export default function WhatsAppCTA({ t, saludo }: { t: Diccionario["ctaFinal"];
       <div style={{ maxWidth: 640, margin: "0 auto" }}>
 
         <h2 style={{
-          fontSize: "clamp(30px, 4vw, 48px)",
+          fontSize: "var(--fs-seccion)",
           fontWeight: 800,
           marginBottom: 16,
           color: "var(--text)",
@@ -24,7 +24,7 @@ export default function WhatsAppCTA({ t, saludo }: { t: Diccionario["ctaFinal"];
         </h2>
 
         <p style={{
-          fontSize: 18,
+          fontSize: "var(--fs-destacado)",
           color: "var(--text-soft)",
           lineHeight: 1.7,
           maxWidth: 480,
@@ -44,7 +44,7 @@ export default function WhatsAppCTA({ t, saludo }: { t: Diccionario["ctaFinal"];
               display: "inline-flex", alignItems: "center", gap: 12,
               background: "var(--whatsapp-boton)", color: "white",
               padding: "18px 36px", borderRadius: 99,
-              fontWeight: 800, fontSize: 18,
+              fontWeight: 800, fontSize: "var(--fs-destacado)",
               textDecoration: "none",
             }}
           >
@@ -61,7 +61,7 @@ export default function WhatsAppCTA({ t, saludo }: { t: Diccionario["ctaFinal"];
               display: "inline-flex", alignItems: "center", gap: 10,
               color: "#5a60a0",
               padding: "18px 32px", borderRadius: 99,
-              fontWeight: 700, fontSize: 17,
+              fontWeight: 700, fontSize: "var(--fs-destacado)",
               textDecoration: "none",
             }}
           >
@@ -71,7 +71,7 @@ export default function WhatsAppCTA({ t, saludo }: { t: Diccionario["ctaFinal"];
             {t.botonFormulario}
           </a>
         </div>
-        <p style={{ marginTop: 14, fontSize: 13, color: "var(--text-soft)" }}>{t.nota}</p>
+        <p style={{ marginTop: 14, fontSize: "var(--fs-chico)", color: "var(--text-soft)" }}>{t.nota}</p>
 
         <div style={{
           marginTop: 40, display: "flex", justifyContent: "center",
@@ -88,7 +88,7 @@ export default function WhatsAppCTA({ t, saludo }: { t: Diccionario["ctaFinal"];
               icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="4" y1="4" x2="20" y2="20"/></svg>,
             },
           ].map((item, i) => (
-            <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14, color: "var(--text-soft)" }}>
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "var(--fs-texto)", color: "var(--text-soft)" }}>
               <span style={{ display: "flex", alignItems: "center" }}>{item.icon}</span>
               <span style={{ fontWeight: 600 }}>{t.beneficios[i]}</span>
             </div>

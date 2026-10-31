@@ -120,6 +120,7 @@ Tono: "premium accesible y cálido". Transmitir confianza, tranquilidad, profesi
 Diseño:
 
 - Estilo limpio tipo e-commerce moderno, fondo blanco, mucho espacio en blanco, estética clara y ordenada.
+- Tamaños de letra: solo las variables de `globals.css` (`--fs-chico` 14 px, `--fs-texto` 16 px, `--fs-destacado` 19 px, `--fs-titulo` 24 px, `--fs-seccion` de 28 a 44 px), más el título del Hero. El texto corrido va a 16 px como mínimo y los campos del simulador a 16 px (con menos, el iPhone hace zoom). El gris de texto es `--text-soft` (#4d4d60, 7,6:1).
 - Colores del logo: violeta/azul suave (principal), rosado suave (secundario), amarillo (acento, botones).
 - Evitar: fondo negro, saturación visual, exceso de texto.
 - Iconos para babysitting, petsitting y eventos (el logo tiene bloques, auto y juegos como lenguaje visual).

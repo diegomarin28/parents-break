@@ -207,7 +207,7 @@ useEffect(() => {
           flex-shrink: 0;
           padding: 6px 13px;
           border-radius: 99px;
-          font-size: 14px;
+          font-size: var(--fs-chico);
           font-weight: 600;
           color: var(--text-soft);
           background: transparent;
@@ -238,7 +238,7 @@ useEffect(() => {
           color: var(--text);
           padding: 10px 20px;
           border-radius: 99px;
-          font-size: 14px;
+          font-size: var(--fs-chico);
           font-weight: 700;
           box-shadow: 0 2px 12px rgba(255,222,134,.5);
           transition: transform .15s, box-shadow .15s;
@@ -303,26 +303,36 @@ useEffect(() => {
           .nav-cta { padding: 10px 14px; }
         }
 
-        /* ── TABLET: links más chicos ── */
+        /* ── TABLET: menos aire entre links (la letra queda en --fs-chico) ── */
         @media (max-width: 800px) {
-          .nav-link { font-size: 13px; padding: 6px 7px; }
+          .nav-link { padding: 6px 5px; }
         }
         @media (max-width: 768px) {
           .nav-container { padding: 0 16px; }
           .nav-logo img { width: 100px; height: auto; }
         }
-        @media (max-width: 700px) {
-          .nav-link { font-size: 12.5px; padding: 6px 4px; }
+        @media (max-width: 760px) {
+          .nav-link { padding: 6px 4px; }
+        }
+        @media (max-width: 720px) {
+          .nav-logo img { width: 84px; }
+          .nav-inner { gap: 4px; }
+          .nav-actions { gap: 4px; }
+          .nav-link { padding: 6px 3px; }
         }
         @media (max-width: 660px) {
-          .nav-inner { gap: 4px; }
           .nav-links { gap: 0; }
-          .nav-actions { gap: 4px; }
-          .nav-logo img { width: 84px; }
-          .nav-link { padding: 6px 3px; }
+          .nav-link { padding: 6px 2px; }
           .nav-cta { padding: 10px 12px; }
           .nav-actions .idioma-barra { margin-right: 0; }
           .nav-actions .idioma-barra .idioma-link { padding: 10px 2px; }
+        }
+        @media (max-width: 680px) {
+          .nav-link { padding: 6px 1px; }
+        }
+        @media (max-width: 640px) {
+          .nav-logo img { width: 70px; }
+          .nav-cta { padding: 10px 8px; }
         }
 
         /* ── MOBILE: solo logo + menú. El botón de WhatsApp es el flotante, que acá vive en la Navbar ── */

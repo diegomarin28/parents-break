@@ -149,7 +149,7 @@ export default function MenuCelular({ abierto, onCerrar, links, activo, onNavega
         }
         .menu-cel-titulo {
           font-family: var(--font-baloo), cursive;
-          font-weight: 800; font-size: 20px; color: var(--text);
+          font-weight: 800; font-size: var(--fs-destacado); color: var(--text);
         }
         .menu-cel-cerrar {
           width: 36px; height: 36px; border-radius: 12px;
@@ -167,13 +167,13 @@ export default function MenuCelular({ abierto, onCerrar, links, activo, onNavega
           width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
           display: flex; align-items: center; justify-content: center;
         }
-        .menu-cel-label { flex: 1; font-weight: 700; font-size: 16px; }
+        .menu-cel-label { flex: 1; font-weight: 700; font-size: var(--fs-texto); }
         .menu-cel-flecha { color: var(--gray-dark); font-size: 18px; }
         .menu-cel-wa {
           display: flex; align-items: center; justify-content: center; gap: 10px;
           margin-top: 16px; padding: 15px; border-radius: 99px;
           background: var(--whatsapp-boton); color: white;
-          font-weight: 800; font-size: 16px; text-decoration: none;
+          font-weight: 800; font-size: var(--fs-texto); text-decoration: none;
           box-shadow: 0 6px 24px rgba(37,211,102,.35);
         }
         /* Si por algún motivo se abre en una pantalla grande, que no ocupe todo el ancho */

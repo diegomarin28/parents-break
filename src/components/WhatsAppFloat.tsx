@@ -62,7 +62,7 @@ export default function WhatsAppFloat({ texto, saludo }: { texto: string; saludo
           background: var(--whatsapp-boton);
           color: white;
           font-weight: 700;
-          font-size: 15px;
+          font-size: var(--fs-texto);
           white-space: nowrap;
           text-decoration: none;
           box-shadow: 0 8px 28px rgba(37,211,102,.45);

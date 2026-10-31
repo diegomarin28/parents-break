@@ -124,7 +124,7 @@ export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) 
           background: var(--blue-light);
           color: #5a60a0;
           font-weight: 700;
-          font-size: 12px;
+          font-size: var(--fs-chico);
           letter-spacing: .1em;
           text-transform: uppercase;
           padding: 6px 16px;
@@ -132,13 +132,13 @@ export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) 
           margin-bottom: 16px;
         }
         .about-title {
-          font-size: clamp(26px, 4vw, 44px);
+          font-size: var(--fs-seccion);
           font-weight: 800;
           margin-bottom: 16px;
           color: var(--text);
         }
         .about-lead {
-          font-size: clamp(15px, 2vw, 17px);
+          font-size: var(--fs-destacado);
           color: var(--text-soft);
           max-width: 600px;
           margin: 0 auto;
@@ -151,7 +151,7 @@ export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) 
           cursor: pointer;
           list-style: none;
           font-weight: 700;
-          font-size: 15px;
+          font-size: var(--fs-texto);
           color: #5a60a0;
           padding: 6px 4px;
         }
@@ -190,13 +190,13 @@ export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) 
           min-width: 0;
         }
         .about-subtitle {
-          font-size: clamp(18px, 2.5vw, 24px);
+          font-size: var(--fs-titulo);
           font-weight: 800;
           margin-bottom: 20px;
           color: var(--text);
         }
         .about-body {
-          font-size: 16px;
+          font-size: var(--fs-texto);
           color: var(--text-soft);
           line-height: 1.8;
           margin-bottom: 16px;
@@ -220,13 +220,13 @@ export default function AboutSection({ t }: { t: Diccionario["quienesSomos"] }) 
           margin-bottom: 18px;
         }
         .value-title {
-          font-size: 17px;
+          font-size: var(--fs-destacado);
           font-weight: 700;
           margin-bottom: 10px;
           color: var(--text);
         }
         .value-desc {
-          font-size: 14px;
+          font-size: var(--fs-texto);
           color: var(--text-soft);
           line-height: 1.7;
         }

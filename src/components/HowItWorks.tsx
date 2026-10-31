@@ -115,7 +115,7 @@ export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
           background: var(--blue-light);
           color: #5a60a0;
           font-weight: 700;
-          font-size: 12px;
+          font-size: var(--fs-chico);
           letter-spacing: .1em;
           text-transform: uppercase;
           padding: 6px 16px;
@@ -123,12 +123,12 @@ export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
           margin-bottom: 16px;
         }
         .hiw-title {
-          font-size: clamp(26px, 4vw, 44px);
+          font-size: var(--fs-seccion);
           font-weight: 800;
           margin-bottom: 14px;
         }
         .hiw-subtitle {
-          font-size: clamp(15px, 2vw, 17px);
+          font-size: var(--fs-destacado);
           color: var(--text-soft);
           max-width: 500px;
           margin: 0 auto;
@@ -171,7 +171,7 @@ export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
           border-radius: 50%;
           color: white;
           font-family: var(--font-baloo), cursive;
-          font-size: 22px;
+          font-size: var(--fs-destacado);
           font-weight: 800;
           display: flex;
           align-items: center;
@@ -190,13 +190,13 @@ export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
         .step-title {
           font-family: var(--font-source), sans-serif;
           line-height: 1.3;
-          font-size: 16px;
+          font-size: var(--fs-destacado);
           font-weight: 700;
           margin-bottom: 8px;
           color: var(--text);
         }
         .step-desc {
-          font-size: 13.5px;
+          font-size: var(--fs-texto);
           color: var(--text-soft);
           line-height: 1.6;
         }
@@ -229,7 +229,6 @@ export default function HowItWorks({ t }: { t: Diccionario["comoFunciona"] }) {
           .step-num {
             width: 40px;
             height: 40px;
-            font-size: 18px;
             margin: 0;
             grid-row: 1;
             grid-column: 1;

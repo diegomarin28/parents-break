@@ -177,7 +177,7 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           width: 100%; height: 8px;
         }
         .hero-subtitle {
-          font-size: clamp(15px, 2vw, 18px);
+          font-size: var(--fs-destacado);
           line-height: 1.7;
           color: var(--text-soft);
           max-width: 480px;
@@ -193,7 +193,7 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
         .hero-city-badge {
           display: inline-flex;
           align-items: center;
-          font-size: 13px;
+          font-size: var(--fs-chico);
           font-weight: 600;
           color: #5a60a0; /* más oscuro que --blue para 5:1 de contraste sobre --blue-light */
           background: var(--blue-light);
@@ -215,7 +215,7 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           padding: 15px 28px;
           border-radius: 99px;
           font-weight: 700;
-          font-size: 16px;
+          font-size: var(--fs-texto);
           box-shadow: 0 4px 20px rgba(255,222,134,.55);
           transition: transform .18s, box-shadow .18s;
           text-decoration: none;
@@ -235,7 +235,7 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           padding: 15px 28px;
           border-radius: 99px;
           font-weight: 700;
-          font-size: 16px;
+          font-size: var(--fs-texto);
           transition: background .18s, border-color .18s;
           text-decoration: none;
           min-height: 52px;
@@ -251,7 +251,7 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
         .hero-ctas, .hero-nota { order: 1; }
         .hero-pregunta-titulo {
           font-weight: 700;
-          font-size: 14px;
+          font-size: var(--fs-chico);
           color: var(--text);
           margin-bottom: 10px;
         }
@@ -266,7 +266,7 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           background: var(--white);
           border: 1.5px solid var(--gray);
           font-weight: 700;
-          font-size: 14px;
+          font-size: var(--fs-texto);
           color: var(--text);
           text-decoration: none;
           box-shadow: 0 2px 10px rgba(117,124,187,.08);
@@ -285,7 +285,7 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
         }
         .hero-nota {
           margin-top: 12px;
-          font-size: 13px;
+          font-size: var(--fs-chico);
           color: var(--text-soft);
         }
         /* El <picture> no genera caja: el diseño sigue siendo el del <img> */
@@ -372,8 +372,8 @@ export default function HeroSection({ t, saludo }: { t: Diccionario["hero"]; sal
           .hero-btn-secondary {
             width: 100%;
             justify-content: center;
-            font-size: 15px;
           }
+          .hero-subtitle { font-size: var(--fs-texto); }
           .hero-cities {
             margin-bottom: 20px;
           }

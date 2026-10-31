@@ -11,16 +11,16 @@ export default function SittersSection({ t }: { t: Diccionario["nineras"] }) {
           <span style={{
             display: "inline-block",
             background: "var(--yellow)", color: "var(--text)",
-            fontWeight: 700, fontSize: 12, letterSpacing: ".1em",
+            fontWeight: 700, fontSize: "var(--fs-chico)", letterSpacing: ".1em",
             textTransform: "uppercase", padding: "6px 16px", borderRadius: 99,
             marginBottom: 16,
           }}>
             {t.etiqueta}
           </span>
-          <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, marginBottom: 14 }}>
+          <h2 style={{ fontSize: "var(--fs-seccion)", fontWeight: 800, marginBottom: 14 }}>
             {t.titulo}
           </h2>
-          <p style={{ fontSize: 17, color: "var(--text-soft)", maxWidth: 520, margin: "0 auto" }}>
+          <p style={{ fontSize: "var(--fs-destacado)", color: "var(--text-soft)", maxWidth: 560, margin: "0 auto" }}>
             {t.subtitulo}
           </p>
         </div>
@@ -49,7 +49,7 @@ export default function SittersSection({ t }: { t: Diccionario["nineras"] }) {
 
           {/* Proceso */}
           <div>
-            <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 28, color: "var(--text)" }}>
+            <h3 style={{ fontSize: "var(--fs-titulo)", fontWeight: 800, marginBottom: 28, color: "var(--text)" }}>
               {t.procesoTitulo}
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -96,8 +96,8 @@ export default function SittersSection({ t }: { t: Diccionario["nineras"] }) {
                     )}
                   </div>
                   <div>
-                    <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 4 }}>{p.titulo}</div>
-                    <div style={{ fontSize: 13, color: "var(--text-soft)", lineHeight: 1.6 }}>{p.texto}</div>
+                    <div style={{ fontWeight: 700, fontSize: "var(--fs-texto)", marginBottom: 4 }}>{p.titulo}</div>
+                    <div style={{ fontSize: "var(--fs-texto)", color: "var(--text-soft)", lineHeight: 1.6 }}>{p.texto}</div>
                   </div>
                 </div>
               ))}
@@ -112,7 +112,7 @@ export default function SittersSection({ t }: { t: Diccionario["nineras"] }) {
           border: "1.5px solid var(--gray)",
           padding: "36px",
         }}>
-          <h4 style={{ textAlign: "center", fontSize: 18, fontWeight: 700, marginBottom: 28 }}>
+          <h4 style={{ textAlign: "center", fontSize: "var(--fs-destacado)", fontWeight: 700, marginBottom: 28 }}>
             {t.elegirTitulo}
           </h4>
           <div className="qualities-grid" style={{
@@ -168,8 +168,8 @@ export default function SittersSection({ t }: { t: Diccionario["nineras"] }) {
                     </svg>
                   )}
                 </div>
-                <div style={{ fontWeight: 700, fontSize: 13 }}>{q.titulo}</div>
-                <div style={{ fontSize: 11, color: "var(--text-soft)", marginTop: 3 }}>{q.texto}</div>
+                <div style={{ fontWeight: 700, fontSize: "var(--fs-texto)" }}>{q.titulo}</div>
+                <div style={{ fontSize: "var(--fs-chico)", color: "var(--text-soft)", marginTop: 4, lineHeight: 1.5 }}>{q.texto}</div>
               </div>
             ))}
           </div>

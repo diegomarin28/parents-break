@@ -17,8 +17,16 @@
   --off:          #fdfdf9;
 
   --text:         #1e1e2e;
-  --text-soft:    #6b6b7e;
+  --text-soft:    #4d4d60; /* 7,6:1 sobre blanco */
   --text-muted:   #a0a0b0;
+
+  /* Escala de letra: cinco tamaños para toda la página (más el título del Hero) */
+  --fs-chico:     14px;   /* notas, etiquetas, errores, links de la Navbar */
+  --fs-texto:     16px;   /* texto corrido, campos y botones */
+  --fs-destacado: 19px;   /* subtítulos de sección y títulos chicos (19 y no 18: las etiquetas
+                             blancas de la barra de números necesitan 18,7 px en negrita) */
+  --fs-titulo:    24px;   /* títulos de tarjetas */
+  --fs-seccion:   clamp(28px, 4vw, 44px); /* títulos de sección y números de la barra */
 
   --whatsapp:     #25d366;
   /* Fondo de los botones de WhatsApp con texto blanco: el verde de marca da 2:1, este 4,8:1 */
@@ -48,7 +56,7 @@ section[id] {
 
 body {
   font-family: var(--font-source), sans-serif;
-  font-size: 16px;
+  font-size: var(--fs-texto);
   color: var(--text);
   background: var(--white);
   overflow-x: hidden;
@@ -107,9 +115,6 @@ button:active {
   transform: translateY(20px);
 }
 
-@media (max-width: 600px) {
-  body { font-size: 15px; }
-}
 /* ── Movimiento reducido ──
    Si la persona pidió menos movimiento en su sistema, las animaciones y
    transiciones quedan casi instantáneas y las secciones aparecen sin desplazarse. */
