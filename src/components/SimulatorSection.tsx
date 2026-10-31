@@ -232,7 +232,7 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
       "Pocitos / Punta Carretas",
       "Parque Rodó / Parque Batlle",
       "Buceo / Malvín / Punta Gorda",
-      "Carrasco / Carrasco Norte",
+      "Carrasco",
       "San Nicolás / Los Olivos",
       "Prado / Aires Puros",
       "Otro",
