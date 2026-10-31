@@ -166,6 +166,13 @@ const FinSelector = ({ label, inputId, horaVal, minVal, onHora, onMin, labelStyl
 const fechaLocalISO = (d: Date) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
+// "2026-10-31" -> "2026-11-01". Sin fecha, devuelve hoy.
+const diaSiguiente = (iso: string) => {
+  if (!iso) return fechaLocalISO(new Date());
+  const [y, m, d] = iso.split("-").map(Number);
+  return fechaLocalISO(new Date(y, m - 1, d + 1));
+};
+
 // "2026-10-25" -> "25/10/2026" para el mensaje de WhatsApp
 const formatFecha = (iso: string) => {
   const [y, m, d] = iso.split("-");
@@ -325,9 +332,15 @@ export default function SimulatorSection({ t, mensaje, lineaIdioma }: Props) {
 
   const handleCantDias = (cant: string) => {
     const n = parseInt(cant);
-    const newDias: Dia[] = Array.from({ length: n }, (_, i) =>
-      form.dias[i] || { fecha: today, horaInicio: "", minInicio: "", horaFin: "", minFin: "" }
-    );
+    // Cada día nuevo arranca un día después del anterior (antes todos arrancaban en hoy
+    // y el Día 2 repetía la fecha del Día 1). Los días ya cargados no se tocan.
+    const newDias: Dia[] = [];
+    for (let i = 0; i < n; i++) {
+      newDias.push(form.dias[i] || {
+        fecha: i === 0 ? today : diaSiguiente(newDias[i - 1].fecha),
+        horaInicio: "", minInicio: "", horaFin: "", minFin: "",
+      });
+    }
     setForm((prev) => ({ ...prev, cantDias: cant, dias: newDias }));
   };
 
